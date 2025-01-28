@@ -29,7 +29,7 @@ function InsuranceReportForm6InsuredResidenceInfo() {
           <Typography fontWeight='bold'> شياخة/قرية </Typography>
 
           <Typography fontWeight='bold'>
-            .............................
+            ...................
           </Typography>
 
           <BoxInput count={2} />
@@ -39,7 +39,7 @@ function InsuranceReportForm6InsuredResidenceInfo() {
           <Typography fontWeight='bold'> قسم/مركز </Typography>
 
           <Typography fontWeight='bold'>
-            .............................
+            ...................
           </Typography>
 
           <BoxInput count={2} />
@@ -49,7 +49,7 @@ function InsuranceReportForm6InsuredResidenceInfo() {
           <Typography fontWeight='bold'> محافظة </Typography>
 
           <Typography fontWeight='bold'>
-            .............................
+            ...................
           </Typography>
 
           <BoxInput count={2} />

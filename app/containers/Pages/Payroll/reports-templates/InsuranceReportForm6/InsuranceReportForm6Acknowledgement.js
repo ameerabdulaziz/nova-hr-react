@@ -4,7 +4,7 @@ import React from 'react';
 import BoxInput from './components/InsuranceReportForm6BoxInput';
 
 function InsuranceReportForm6Acknowledgement(props) {
-  const { employee, globalReportInfo } = props;
+  const { employee } = props;
 
   return (
     <>
@@ -23,7 +23,7 @@ function InsuranceReportForm6Acknowledgement(props) {
       <Grid mt={3} container>
         <Grid item xs={6}>
           <Typography fontWeight='bold'>
-            اسم المنشأة : {globalReportInfo.insuranceOrganization?.name}
+            اسم المنشأة : {employee.insuranceOrgnization}
           </Typography>
         </Grid>
 
@@ -31,14 +31,13 @@ function InsuranceReportForm6Acknowledgement(props) {
           <Stack direction='row' alignItems='center' gap={1}>
             <Typography fontWeight='bold'>رقمها التأميني : </Typography>
 
-            <BoxInput count={8} value={globalReportInfo.insuranceOrganization?.id} />
+            <BoxInput count={8} value={employee.orgnizationInsuranceNumber} />
           </Stack>
         </Grid>
 
         <Grid item xs={12} mb={1} mt={0.5}>
           <Typography fontWeight='bold'>
-            العنوان :
-            ........................................................................
+            العنوان : {employee.insuranceOrgnizationAddress}
           </Typography>
         </Grid>
 
@@ -131,7 +130,6 @@ function InsuranceReportForm6Acknowledgement(props) {
 
 InsuranceReportForm6Acknowledgement.propTypes = {
   employee: PropTypes.object.isRequired,
-  globalReportInfo: PropTypes.object.isRequired,
 };
 
 export default InsuranceReportForm6Acknowledgement;

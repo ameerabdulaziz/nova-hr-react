@@ -16,6 +16,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -30,6 +31,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
+import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 import PayRollLoader from '../../Component/PayRollLoader';
 import PayrollTable from '../../Component/PayrollTable';
 import useStyles from '../../Style';
@@ -45,7 +47,9 @@ function Form6Insurance(props) {
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
 
-  const [selectedRows, setSelectedRows] = useState([]);
+  const isScreenSmall = useMediaQuery('(max-width:900px)');
+
+  const [selectedRowsIndex, setSelectedRowsIndex] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [organizationList, setOrganizationList] = useState([]);
   const [dateError, setDateError] = useState({});
@@ -68,8 +72,7 @@ function Form6Insurance(props) {
 
   const printDivRef = useRef(null);
 
-  const DOCUMENT_TITLE =		'Insurance Report Form 6 - '
-    + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
+  const DOCUMENT_TITLE = 'Insurance Report Form 6 - ' + formateDate(new Date(), 'yyyy-MM-dd hh_mm_ss');
 
   const fetchTableData = async () => {
     try {
@@ -195,28 +198,38 @@ function Form6Insurance(props) {
     },
   });
 
-  const onPrintClick = async () => {
+  const onPrintBtnClick = async () => {
     printJS();
   };
 
-  const onToolBarIconClick = (selectedRows) => {
-    const rows = selectedRows.map((item) => tableData[item.dataIndex]);
+  const onPreviewBtnClick = async () => {
+    if (!formInfo.InsuranceOrg || formInfo.InsuranceOrg.length === 0) {
+      toast.error(intl.formatMessage(messages.orgnizationErrMess));
+      return;
+    }
 
-    setSelectedRows(rows);
+    sessionStorage.setItem(
+      'Review',
+      JSON.stringify({
+        formInfo,
+        SelectedRows: selectedRowsIndex,
+      })
+    );
 
-    setTimeout(() => {
-      printJS();
-    }, 100);
+    const url = `/${DOMAIN_NAME}${SITEMAP.socialInsurance.Form6InsuranceReview.route}`;
+
+    window.open(url, '_blank')?.focus();
   };
 
   const options = {
     print: false,
     selectableRows: 'multiple',
-    customToolbarSelect: (selectedRows) => (
-      <IconButton
-        sx={{ mx: 2 }}
-        onClick={() => onToolBarIconClick(selectedRows.data)}
-      >
+    onRowSelectionChange: (rowsSelectedIndexes) => {
+      setSelectedRowsIndex(rowsSelectedIndexes);
+    },
+    rowsSelected: selectedRowsIndex,
+    customToolbarSelect: () => (
+      <IconButton sx={{ mx: 2 }} onClick={onPrintBtnClick}>
         <PrintIcon sx={{ fontSize: '25px' }} />
       </IconButton>
     ),
@@ -225,7 +238,7 @@ function Form6Insurance(props) {
         placement='top'
         title={intl.formatMessage(payrollMessages.Print)}
       >
-        <IconButton onClick={onPrintClick}>
+        <IconButton onClick={onPrintBtnClick}>
           {isLoading ? (
             <CircularProgress size={15} />
           ) : (
@@ -259,26 +272,14 @@ function Form6Insurance(props) {
     }));
   };
 
-  const globalReportInfo = useMemo(() => {
-    const organization = organizationList.find(
-      (item) => item.id === formInfo.InsuranceOrg
-    );
-
-    const office = officeList.find((item) => item.id === formInfo.InsOffice);
-
-    return {
-      insuranceOrganization: organization ?? null,
-      insuranceOffice: office ?? null,
-    };
-  }, [formInfo.InsOffice, formInfo.InsuranceOrg, officeList, organizationList]);
-
   const printData = useMemo(() => {
-    if (selectedRows.length > 0) {
-      return selectedRows;
+    if (selectedRowsIndex.length > 0) {
+      const rows = selectedRowsIndex.map((row) => tableData[row]);
+      return rows;
     }
 
     return tableData;
-  }, [selectedRows, tableData]);
+  }, [selectedRowsIndex, tableData]);
 
   return (
     <PayRollLoader isLoading={isLoading}>
@@ -299,11 +300,7 @@ function Form6Insurance(props) {
         }}
       >
         {printData.map((employee) => (
-          <InsuranceReportForm6
-            key={employee.id}
-            globalReportInfo={globalReportInfo}
-            employee={employee}
-          />
+          <InsuranceReportForm6 key={employee.id} employee={employee} />
         ))}
       </Box>
 
@@ -336,8 +333,7 @@ function Form6Insurance(props) {
               <Autocomplete
                 options={officeList}
                 value={
-                  officeList.find((item) => item.id === formInfo.InsOffice)
-                  ?? null
+                  officeList.find((item) => item.id === formInfo.InsOffice) ?? null
                 }
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 getOptionLabel={(option) => (option ? option.name : '')}
@@ -442,9 +438,36 @@ function Form6Insurance(props) {
             </Grid>
 
             <Grid item xs={12} md={12}>
-              <Button variant='contained' color='primary' type='submit'>
-                <FormattedMessage {...payrollMessages.search} />
-              </Button>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Button variant='contained' color='primary' type='submit'>
+                    <FormattedMessage {...payrollMessages.search} />
+                  </Button>
+                </Grid>
+
+                <Grid item>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={onPrintBtnClick}
+                  >
+                    <FormattedMessage {...payrollMessages.Print} />
+                  </Button>
+                </Grid>
+
+                {/* used to check if the screen size less than 900 (mobile) hide the button */}
+                {!isScreenSmall && (
+                  <Grid item>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      onClick={onPreviewBtnClick}
+                    >
+                      <FormattedMessage {...payrollMessages.review} />
+                    </Button>
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
           </Grid>
 

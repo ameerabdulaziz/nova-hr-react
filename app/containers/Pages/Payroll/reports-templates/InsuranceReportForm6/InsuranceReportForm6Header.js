@@ -4,7 +4,7 @@ import React from 'react';
 import BoxInput from './components/InsuranceReportForm6BoxInput';
 
 function InsuranceReportForm2Header(props) {
-  const { globalReportInfo } = props;
+  const { employee } = props;
 
   return (
     <>
@@ -56,14 +56,14 @@ function InsuranceReportForm2Header(props) {
 
             <BoxInput
               count={8}
-              value={globalReportInfo.insuranceOrganization?.id}
+              value={employee.orgnizationInsuranceNumber}
             />
           </Stack>
         </Grid>
 
         <Grid item>
           <Typography fontWeight='bold'>
-            مسمـــى : {globalReportInfo.insuranceOrganization?.name}
+            مسمـــى : {employee.insuranceOrgnization}
           </Typography>
         </Grid>
       </Grid>
@@ -72,7 +72,7 @@ function InsuranceReportForm2Header(props) {
 }
 
 InsuranceReportForm2Header.propTypes = {
-  globalReportInfo: PropTypes.object.isRequired,
+  employee: PropTypes.object.isRequired,
 };
 
 export default InsuranceReportForm2Header;

@@ -2052,18 +2052,23 @@ function Application(props) {
         />
 
         <Route
+          path={SITEMAP.socialInsurance.Form6InsuranceReview.route}
+          component={PAGES.socialInsurance.Form6InsuranceReview}
+        />
+
+        <Route
           path={SITEMAP.socialInsurance.Form6Insurance.route}
           component={PAGES.socialInsurance.Form6Insurance}
         />
 
         <Route
-          path={SITEMAP.socialInsurance.Form1Insurance.route}
-          component={PAGES.socialInsurance.Form1Insurance}
+          path={SITEMAP.socialInsurance.Form1InsuranceReview.route}
+          component={PAGES.socialInsurance.Form1InsuranceReview}
         />
 
         <Route
-          path={SITEMAP.socialInsurance.Form1InsuranceReview.route}
-          component={PAGES.socialInsurance.Form1InsuranceReview}
+          path={SITEMAP.socialInsurance.Form1Insurance.route}
+          component={PAGES.socialInsurance.Form1Insurance}
         />
 
         {/* Medical Insurance */}

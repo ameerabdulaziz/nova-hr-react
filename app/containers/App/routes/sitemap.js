@@ -679,6 +679,9 @@ const SITEMAP = {
     },
     Form2Insurance: { route: '/insurance/Form2Insurance' },
     Form6Insurance: { route: '/insurance/Form6Insurance' },
+    Form6InsuranceReview: {
+      route: '/insurance/Form6Insurance/Review',
+    },
   },
   medicalInsurance: {
     MedicalInsuranceData: {

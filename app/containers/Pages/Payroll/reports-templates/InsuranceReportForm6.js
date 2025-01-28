@@ -10,11 +10,11 @@ import InsuredResidenceInfo from './InsuranceReportForm6/InsuranceReportForm6Ins
 import ManagerApproval from './InsuranceReportForm6/InsuranceReportForm6ManagerApproval';
 
 function InsuranceReportForm6(props) {
-  const { employee, globalReportInfo } = props;
+  const { employee } = props;
 
   return (
     <Box sx={{ p: 4, pageBreakBefore: 'always' }}>
-      <Header globalReportInfo={globalReportInfo} />
+      <Header employee={employee} />
 
       <InsuredInfo employee={employee} />
 
@@ -28,17 +28,13 @@ function InsuranceReportForm6(props) {
 
       <Instructions />
 
-      <Acknowledgement
-        employee={employee}
-        globalReportInfo={globalReportInfo}
-      />
+      <Acknowledgement employee={employee} />
     </Box>
   );
 }
 
 InsuranceReportForm6.propTypes = {
   employee: PropTypes.object.isRequired,
-  globalReportInfo: PropTypes.object.isRequired,
 };
 
 export default InsuranceReportForm6;
