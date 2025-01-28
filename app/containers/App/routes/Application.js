@@ -368,6 +368,11 @@ function Application(props) {
           component={PAGES.mainData.EditGuarantor}
         />
 
+        <Route
+          path={SITEMAP.mainData.Languages.route}
+          component={GeneralCodePages.Languages}
+        />
+
         {/* Setting */}
         <Route
           path={SITEMAP.setting.ChangePassword.route}

@@ -199,6 +199,9 @@ const SITEMAP = {
     GuarantorEdit: {
       route: '/MainData/GuarantorEdit',
     },
+    Languages: {
+      route: '/MainData/Languages',
+    },
   },
   setting: {
     ChangePassword: {

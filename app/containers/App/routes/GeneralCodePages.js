@@ -41,6 +41,14 @@ const Qualifications = (props) => (
   />
 );
 
+const Languages = (props) => (
+  <MainDataGeneralCode
+    text='Language'
+    table='MdLanguage'
+    {...props}
+  />
+);
+
 const Religions = (props) => (
   <MainDataGeneralCode text='Religions' table='MdReligions' {...props} />
 );
@@ -158,6 +166,7 @@ const GeneralCodePages = {
   Month,
   Nationalities,
   Qualifications,
+  Languages,
   RecHiringSource,
   RecJobGrade,
   Religions,
