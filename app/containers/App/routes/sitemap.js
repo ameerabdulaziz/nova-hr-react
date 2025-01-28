@@ -922,7 +922,7 @@ const SITEMAP = {
     Survey: { route: '/Survey/Survey' },
     EmployeeSurvey: { route: '/Survey/EmployeeSurvey' },
     SurveySummaryReview: {
-      route: '/Survey/SurveysummaryReview',
+      route: '/Survey/Surveysummary/Review',
     },
     SurveySummary: { route: '/Survey/Surveysummary' },
     SurveyHistoryReport: {
