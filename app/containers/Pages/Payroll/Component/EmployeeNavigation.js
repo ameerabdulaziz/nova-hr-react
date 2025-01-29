@@ -96,7 +96,7 @@ function EmployeeNavigation(props) {
     }
     else if(ResetDeviceKeyFun)
     {      
-      ResetDeviceKeyFun(rowData.id,rowData.organizationId) 
+      ResetDeviceKeyFun(rowData.id) 
     }
   };
 

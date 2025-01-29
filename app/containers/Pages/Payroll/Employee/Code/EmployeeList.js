@@ -301,12 +301,12 @@ function EmployeeList(props) {
   };
 
 
- const ResetDeviceKeyFun = async (employeeId,organizationId) => {
+ const ResetDeviceKeyFun = async (employeeId) => {
 
   try
   {
     setIsLoading(true);
-    await ApiData().ResetDeviceKey(employeeId,organizationId);
+    await ApiData().ResetDeviceKey(employeeId);
 
     toast.success(notif.saved);
   }

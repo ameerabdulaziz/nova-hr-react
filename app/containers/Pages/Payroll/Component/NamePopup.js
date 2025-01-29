@@ -25,17 +25,48 @@ function NamePopup(props) {
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
+  const [SelectedRowsData, setSelectedRowsData] = useState([]);
+  const [SelectedRows, setSelectedRows] = useState([]);
   const locale = useSelector((state) => state.language.locale);
-  const { handleClose, open, Key, ElementType, ElementId } = props;
-  var SelectedRows = [];
+  const { handleClose, open, Key, ElementType, ElementId, savePopup, dataList } = props;
+
   const CloseClick = async () => {
-    //handleClose(EmployeeList.filter((row) => row.isSelected==true));
-    handleClose(SelectedRows || []);
+
+    handleClose()
   };
+
+
+// used to make api data selected in table popup as default
+  useEffect(()=>{
+    if(dataList.length !== 0 && EmployeeList.length !== 0)
+    {
+      
+      let empIndexArr = []
+
+      dataList.map((item,index)=>{
+        EmployeeList.map((empItem,index2)=>{
+          if(item.id === empItem.id)
+          {
+            empIndexArr.push(index2)
+          }
+        })
+      })
+
+      setSelectedRows(empIndexArr)
+      handleSelect(empIndexArr)
+    }
+    else
+    {
+      setSelectedRows([])
+      handleSelect([])
+    }
+
+  },[dataList,EmployeeList])
+
 
   async function handleSelect(allRowsSelected) {
     try {
-      SelectedRows = [];
+     let SelectedRows = [];
       for (let i = 0; i < allRowsSelected.length; i++) {
         SelectedRows.push({
           id: EmployeeList[allRowsSelected[i]].id,
@@ -52,6 +83,9 @@ function NamePopup(props) {
           isSelected: true,
         });
       }
+
+      setSelectedRowsData(SelectedRows)
+       
     } catch (err) {
       toast.error(err.message);
     }
@@ -61,13 +95,13 @@ function NamePopup(props) {
     try {
       setIsLoading(true);
       var data = [];
-      if (Key == "Employee") {
+      if (Key == "Employee" || Key === "payrollEmployee") {
         data = await GeneralListApis(locale).GetEmployeeListComponent(
           IsInsured || false,
           withoutSalaryStructure || false,
           branchId || false
         );
-        debugger;
+
         setEmployeeList(
           data.map((obj) => {
             return {
@@ -244,7 +278,9 @@ function NamePopup(props) {
     onRowSelectionChange: (curRowSelected, allRowsSelected) => {
       // onRowsSelect: (curRowSelected, allRowsSelected) => {
       handleSelect(curRowSelected);
+      setSelectedRows(curRowSelected)
     },
+    rowsSelected: SelectedRows,
   };
 
   return (
@@ -281,8 +317,8 @@ function NamePopup(props) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button className={style.deleteAlertBtnSty} onClick={CloseClick}>
-            <FormattedMessage {...Payrollmessages.close} />
+          <Button className={style.deleteAlertBtnSty} onClick={()=>{savePopup(SelectedRowsData || [])}}>
+            <FormattedMessage {...Payrollmessages.save} />
           </Button>
           <Button
             className={style.deleteAlertBtnSty}

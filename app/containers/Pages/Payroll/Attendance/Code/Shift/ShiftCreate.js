@@ -53,6 +53,7 @@ function ShiftCreate(props) {
     firstMfactor: "",
     restTimeFactor: "",
     webHide: false,
+    isDateFromEndTime: false,
     shiftType: "",
   });
 
@@ -246,6 +247,7 @@ function ShiftCreate(props) {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  required
                   autoComplete="off"
                 />
               </Grid>
@@ -261,6 +263,7 @@ function ShiftCreate(props) {
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  required
                   autoComplete="off"
                 />
               </Grid>
@@ -510,6 +513,24 @@ function ShiftCreate(props) {
                             />
                           }
                           label={intl.formatMessage(messages.webHide)}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={data.isDateFromEndTime}
+                              onChange={(e) =>
+                                setdata((prevFilters) => ({
+                                  ...prevFilters,
+                                  isDateFromEndTime: e.target.checked,
+                                }))
+                              }
+                              value={data.isDateFromEndTime}
+                              color="primary"
+                            />
+                          }
+                          label={intl.formatMessage(messages.shiftDateCalculatedFromEndDate)}
                         />
                       </Grid>
                     </Grid>

@@ -28,42 +28,49 @@ function NameList(props) {
   const { classes, cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);
 
-  const handleClose = useCallback(
-    (data) => {
-      data.map((row) => {
-        if (dataList.filter((x) => x.id == row.id).length == 0) {
-          setdataList((prev) => [...prev, row]);
-        }
-      });
+
+
+  const handleClose = (data) => {
+
       setOpenPopup(false);
-    },
-    [dataList]
-  );
+    };
+
+
+  const savePopup = (data) => {
+
+    let array = []
+
+    data.map((row) => {
+       
+         array.push(row)
+        
+      });
+
+      setdataList(array);
+      setOpenPopup(false);
+  }
+
+
 
   const handleClickOpen = () => {
     setOpenPopup(true);
   };
 
   const handlepermcheckboxAll = (event) => {
-    setdataList(
-      dataList.map((x) => {
-        x.isSelected = event.target.checked;
-        return x;
-      })
-    );
+
+    setdataList([])
   };
 
   const handleEnableOne = (event, row) => {
-    setdataList(
-      dataList.map((x) => {
-        if (x.id == row.id) {
-          if (event.target.name == "isselected") {
-            x.isSelected = event.target.checked;
-          }
-        }
-        return x;
-      })
-    );
+
+    // used to delete unselected rows from table
+    if(event.target.checked === false)
+    {
+      let selectedData = dataList.filter((item)=> item.id !== row.id)
+
+      setdataList(selectedData)
+      
+    }
   };
 
   const buttonLabel = useMemo(() => {
@@ -90,6 +97,8 @@ function NameList(props) {
         open={OpenPopup}
         Key={Key}
         withoutSalaryStructure={withoutSalaryStructure}
+        savePopup={savePopup}
+        dataList={dataList}
       />
       <div>
         <Grid container spacing={3}>

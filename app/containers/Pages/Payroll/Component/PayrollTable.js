@@ -109,7 +109,10 @@ function PayrollTable(props) {
     setFilterData(data);
 
     // Reset selected rows when data prop changes
-    setSelectedRows([]);
+    if(!options?.rowsSelected){
+      
+      setSelectedRows([]);
+    }
   }, [data]);
 
   const wrapValueInPre = (value, preOptions) => {

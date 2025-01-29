@@ -1391,6 +1391,7 @@
   "boilerplate.containers.Payroll.Attendance.changeShift": "Change Shift",
   "boilerplate.containers.Payroll.Attendance.visitStartTime": "Visit Start Time",
   "boilerplate.containers.Payroll.Attendance.visitEndTime": "Visit End Time",
+  "boilerplate.containers.Payroll.Attendance.shiftDateCalculatedFromEndDate": "Shift date calculated from end date",
   "boilerplate.containers.Payroll.august": "August",
   "boilerplate.containers.Payroll.balance": "Balance",
   "boilerplate.containers.Payroll.bank": "Bank",

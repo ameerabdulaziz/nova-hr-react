@@ -188,6 +188,8 @@ function HrPermission(props) {
   const fetchTableData = async () => {
     if (!employee) {
       setDataList([]);
+      setNotAllowedPayrollEmployeesList([])
+      setNotAllowedEmployeesList([])
       return;
     }
 
@@ -197,8 +199,26 @@ function HrPermission(props) {
       const NotAllowedEmps = await api(locale).GetNotAllowedEmpsList(employee);
 
       setNotAllowedEmployeesData(NotAllowedEmps)
-      setNotAllowedEmployeesList(NotAllowedEmps.notAllowedEmployeeList)
-      setNotAllowedPayrollEmployeesList(NotAllowedEmps.notAllowedPayrollEmployeeList)
+
+    // add isSelected into api data
+      setNotAllowedEmployeesList(
+        NotAllowedEmps.notAllowedEmployeeList.map((obj) => {
+          return {
+            ...obj,
+            isSelected: true,
+          };
+        })
+      );
+
+      // add isSelected into api data
+      setNotAllowedPayrollEmployeesList(
+        NotAllowedEmps.notAllowedPayrollEmployeeList.map((obj) => {
+          return {
+            ...obj,
+            isSelected: true,
+          };
+        })
+      );
 
 
       const data = await api(locale).getList(employee);
@@ -293,11 +313,15 @@ function HrPermission(props) {
     try {
       setIsLoading(true);
 
+      // used to delete unselected rows from table
+      let notAllowedPayroll = notAllowedPayrollEmployeesList.filter((item)=>item.isSelected === true)
+      let notAllowedEmployees = notAllowedEmployeesList.filter((item)=>item.isSelected === true)
+
       const bodyData = {
         id: NotAllowedEmps.id,
         employeeId: employee,
-        NotAllowedEmployeeList: notAllowedEmployeesList,
-        NotAllowedPayrollEmployeeList: notAllowedPayrollEmployeesList
+        NotAllowedPayrollEmployeeList: notAllowedPayroll,
+        NotAllowedEmployeeList: notAllowedEmployees,
       }
 
       await api(locale).saveNotAllowedEmps(bodyData)

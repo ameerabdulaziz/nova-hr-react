@@ -2246,5 +2246,10 @@ devicePass: {
     id: `${scope}.visitEndTime`,
     defaultMessage: 'Visit End Time',
   },
+  // shift 
+  shiftDateCalculatedFromEndDate: {
+    id: `${scope}.shiftDateCalculatedFromEndDate`,
+    defaultMessage: 'shift Date Calculated From End Date',
+  },
 });
 

@@ -1392,6 +1392,7 @@
    "boilerplate.containers.Payroll.Attendance.changeShift": "تغيير الوردية",
    "boilerplate.containers.Payroll.Attendance.visitStartTime": "وقت بدء الزيارة",
    "boilerplate.containers.Payroll.Attendance.visitEndTime": "وقت انتهاء الزيارة",
+   "boilerplate.containers.Payroll.Attendance.shiftDateCalculatedFromEndDate": "تاريخ الورديه يحسب من تاريخ الخروج",
   "boilerplate.containers.Payroll.august": "أغسطس",
   "boilerplate.containers.Payroll.balance": "الرصيد",
   "boilerplate.containers.Payroll.bank": "بيانات البنك",
