@@ -188,7 +188,7 @@ function DetailedAttendanceReport(props) {
           }));
 
 
-          window.open(`/${DOMAIN_NAME}${SITEMAP.attendance.TimeTableDetailsReportReview.route}`, "_blank")?.focus();
+          window.open(`${DOMAIN_NAME}${SITEMAP.attendance.TimeTableDetailsReportReview.route}`, "_blank")?.focus();
   
         }
         else

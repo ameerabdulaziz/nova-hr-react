@@ -71,7 +71,7 @@ function EmployeeNavigation(props) {
 
   const getPageURL = (url) => {
     if (!employeeId || !employeeName) {
-      return `/${DOMAIN_NAME}${encodeURI(url)}`;
+      return `${DOMAIN_NAME}${encodeURI(url)}`;
     }
 
     const payload = JSON.stringify({
@@ -79,7 +79,7 @@ function EmployeeNavigation(props) {
       name: employeeName,
     });
 
-    var url= encodeURI(`/${DOMAIN_NAME}${url}/${btoa(encodeURIComponent(payload))}`);
+    var url= encodeURI(`${DOMAIN_NAME}${url}/${btoa(encodeURIComponent(payload))}`);
 
     return url;
   };

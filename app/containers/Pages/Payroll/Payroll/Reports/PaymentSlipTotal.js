@@ -268,7 +268,7 @@ function PaymentSlipTotal(props) {
       }));
 
 
-      window.open(`/${DOMAIN_NAME}${SITEMAP.payroll.PaymentSlipTotalReview.route}`, "_blank")?.focus();
+      window.open(`${DOMAIN_NAME}${SITEMAP.payroll.PaymentSlipTotalReview.route}`, "_blank")?.focus();
 
     }
   },[paymentSlipTotalReport])

@@ -25,7 +25,7 @@ const EmployeeBankData = (lang) => {
           employeeId,
           key: 0,
           name: '',
-          avatar: `/${DOMAIN_NAME}${avatarApi[11]}`,
+          avatar: `${DOMAIN_NAME}${avatarApi[11]}`,
           bankId: null,
           bnkAcc: '',
           bankBranchNo: '',

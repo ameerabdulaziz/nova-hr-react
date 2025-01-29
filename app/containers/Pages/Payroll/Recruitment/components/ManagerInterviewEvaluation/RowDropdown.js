@@ -32,7 +32,7 @@ function RowDropdown(props) {
 
     window
       .open(
-        `/${DOMAIN_NAME}${encodeURI(
+        `${DOMAIN_NAME}${encodeURI(
           `${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(
             encodeURIComponent(
               JSON.stringify({

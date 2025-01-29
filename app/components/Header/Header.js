@@ -379,7 +379,7 @@ function Header(props) {
           placement="bottom"
         >
           <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
-            <img src={`/${DOMAIN_NAME}/images/chat.png`} alt='chat' height={40} />
+            <img src={`${DOMAIN_NAME}/images/chat.png`} alt='chat' height={40} />
           </Box>
         </Tooltip>
         )

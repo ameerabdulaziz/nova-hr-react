@@ -43,7 +43,7 @@ const MyNode = ({ nodeData }) => {
             <div className="image">
             <img
                 /* src={`https://randomuser.me/api/portraits/men/${nodeData.employeeid}.jpg`} */
-                src={nodeData.photo?nodeData.photo:`/${DOMAIN_NAME}`+(nodeData.genderId == 1?'/images/avatars/pp_boy4.jpg':'/images/pp_girl.svg')}
+                src={nodeData.photo?nodeData.photo:DOMAIN_NAME+(nodeData.genderId == 1?'/images/avatars/pp_boy4.jpg':'/images/pp_girl.svg')}
                 alt="Profile"
                 style={{ borderColor: colors[nodeData.levelNo]  }}
             />

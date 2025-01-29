@@ -283,7 +283,7 @@ useEffect(()=>{
       }));
 
 
-      window.open(`/${DOMAIN_NAME}${SITEMAP.payroll.PaymentSlipReview.route}`, "_blank")?.focus();
+      window.open(`${DOMAIN_NAME}${SITEMAP.payroll.PaymentSlipReview.route}`, "_blank")?.focus();
 
     }
   },[paymentSlipReport])

@@ -63,7 +63,7 @@ function DropMenuLayout(props) {
               <BreadCrumb separator=" / " theme="light" location={history.location} />
             </div>
           )}
-          { !pageLoaded && (<img src={`/${DOMAIN_NAME}/images/spinner.gif`} alt="spinner" className={classes.circularProgress} />) }
+          { !pageLoaded && (<img src={`${DOMAIN_NAME}/images/spinner.gif`} alt="spinner" className={classes.circularProgress} />) }
           <Fade
             in={pageLoaded}
             {...(pageLoaded ? { timeout: 700 } : {})}

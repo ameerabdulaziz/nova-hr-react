@@ -216,7 +216,7 @@ function Form6Insurance(props) {
       })
     );
 
-    const url = `/${DOMAIN_NAME}${SITEMAP.socialInsurance.Form6InsuranceReview.route}`;
+    const url = `${DOMAIN_NAME}${SITEMAP.socialInsurance.Form6InsuranceReview.route}`;
 
     window.open(url, '_blank')?.focus();
   };

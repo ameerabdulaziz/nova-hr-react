@@ -1,4 +1,4 @@
-const DOMAIN_NAME = 'Novahr';
+const DOMAIN_NAME = process.env.NODE_ENV === 'production' ? process.env.DOMAIN_NAME : '';
 
 const SITEMAP = {
   payroll: {

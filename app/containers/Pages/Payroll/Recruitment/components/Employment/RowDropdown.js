@@ -32,7 +32,7 @@ function RowDropdown(props) {
   const onPreviewCVBtnClick = (rowIndex) => {
     onDropdownClose(rowIndex);
 
-    window.open(`/${DOMAIN_NAME}${encodeURI(`${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(encodeURIComponent(JSON.stringify(
+    window.open(`${DOMAIN_NAME}${encodeURI(`${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(encodeURIComponent(JSON.stringify(
       {
           id: row.id 
       }

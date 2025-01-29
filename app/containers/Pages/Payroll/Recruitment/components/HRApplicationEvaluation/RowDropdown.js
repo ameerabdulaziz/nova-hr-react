@@ -33,7 +33,7 @@ function RowDropdown(props) {
 
     window
       .open(
-        `/${DOMAIN_NAME}${encodeURI(
+        `${DOMAIN_NAME}${encodeURI(
           `${SITEMAP.recruitment.JobApplicationPreview.route}/${btoa(
             encodeURIComponent(
               JSON.stringify({
@@ -123,7 +123,7 @@ function RowDropdown(props) {
         </MenuItem>
         <MenuItem onClick={() => onAiEvaluationBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
-            <img src={`/${DOMAIN_NAME}/images/robot.png`} alt='robot' height={20} />
+            <img src={`${DOMAIN_NAME}/images/robot.png`} alt='robot' height={20} />
           </ListItemIcon>
 
           <ListItemText>

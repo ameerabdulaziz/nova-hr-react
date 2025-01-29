@@ -306,7 +306,7 @@ import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
         }));
 
 
-        window.open(`/${DOMAIN_NAME}${SITEMAP.socialInsurance.Form1InsuranceReview.route}`, "_blank")?.focus();
+        window.open(`${DOMAIN_NAME}${SITEMAP.socialInsurance.Form1InsuranceReview.route}`, "_blank")?.focus();
       }
 
   

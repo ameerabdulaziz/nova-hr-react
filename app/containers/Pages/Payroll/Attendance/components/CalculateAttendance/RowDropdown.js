@@ -47,7 +47,7 @@ function RowDropdown(props) {
 
       window
         .open(
-          `/${DOMAIN_NAME}${encodeURI(
+          `${DOMAIN_NAME}${encodeURI(
             `${url}/${btoa(
               encodeURIComponent(
                 JSON.stringify({
