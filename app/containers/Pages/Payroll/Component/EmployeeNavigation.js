@@ -10,7 +10,7 @@ import SITEMAP, { DOMAIN_NAME } from '../../../App/routes/sitemap';
 
 function EmployeeNavigation(props) {
   const {
-    intl, employeeId, employeeName, anchor, openInNewTap, ResetDeviceKeyFun,rowData
+    intl, employeeId, employeeName, anchor, openInNewTap, ResetDeviceKeyFun
   } = props;
 
   const OPTIONS = [
@@ -96,7 +96,7 @@ function EmployeeNavigation(props) {
     }
     else if(ResetDeviceKeyFun)
     {      
-      ResetDeviceKeyFun(rowData.id) 
+      ResetDeviceKeyFun(employeeId) 
     }
   };
 

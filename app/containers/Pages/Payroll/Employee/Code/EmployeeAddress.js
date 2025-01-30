@@ -29,6 +29,7 @@ import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
 import EmployeeData from '../../Component/EmployeeData';
+import ApiData from '../api/PersonalData';
 
 function EmployeeAddress(props) {
   const [tableData, setTableData] = useState([]);
@@ -229,6 +230,25 @@ function EmployeeAddress(props) {
     }
   };
 
+  const ResetDeviceKeyFun = async (employeeId) => {
+
+    try
+    {
+      setIsLoading(true);
+      await ApiData().ResetDeviceKey(employeeId);
+  
+      toast.success(notif.saved);
+    }
+    catch(err)
+    {
+      
+    }
+    finally {
+      setIsLoading(false);
+    }
+    
+   }
+
 
   return (
     <>
@@ -257,9 +277,10 @@ function EmployeeAddress(props) {
             <EmployeeNavigation
               employeeId={employee.id}
               employeeName={employee.name}
+              ResetDeviceKeyFun={ResetDeviceKeyFun}
               openInNewTap
               anchor={
-                <Button variant='contained' endIcon={<CallMadeIcon />}>
+                <Button disabled={employee.id ? false:true} variant='contained' endIcon={<CallMadeIcon />}>
                   {intl.formatMessage(payrollMessages.goTo)}
                 </Button>
               }

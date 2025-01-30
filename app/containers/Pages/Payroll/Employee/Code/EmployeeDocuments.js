@@ -28,6 +28,7 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
 import { Button } from '@mui/material';
 import SITEMAP from "../../../../App/routes/sitemap";
+import ApiData from '../api/PersonalData';
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
@@ -194,6 +195,26 @@ function EmployeeDocuments({ intl }) {
   };
 
 
+  const ResetDeviceKeyFun = async (employeeId) => {
+
+    try
+    {
+      setIsLoading(true);
+      await ApiData().ResetDeviceKey(employeeId);
+  
+      toast.success(notif.saved);
+    }
+    catch(err)
+    {
+      
+    }
+    finally {
+      setIsLoading(false);
+    }
+    
+   }
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -202,9 +223,10 @@ function EmployeeDocuments({ intl }) {
               <EmployeeNavigation
                 employeeId={employee.id}
                 employeeName={employee.name}
+                ResetDeviceKeyFun={ResetDeviceKeyFun}
                 openInNewTap
                 anchor={
-                  <Button variant='contained' endIcon={<CallMadeIcon />}>
+                  <Button disabled={employee.id ? false:true} variant='contained' endIcon={<CallMadeIcon />}>
                     {intl.formatMessage(payrollMessages.goTo)}
                   </Button>
                 }

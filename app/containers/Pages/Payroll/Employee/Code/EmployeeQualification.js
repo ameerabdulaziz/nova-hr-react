@@ -35,6 +35,8 @@ import EmployeeData from '../../Component/EmployeeData';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
+import ApiData from '../api/PersonalData';
+import notif from 'enl-api/ui/notifMessage';
 
 const useStyles = makeStyles()(() => ({
   root: {
@@ -167,6 +169,23 @@ const empid  = DecryptUrl()
     }
   };
 
+
+  const ResetDeviceKeyFun = async (employeeId) => {
+
+    try
+    {
+      await ApiData().ResetDeviceKey(employeeId);
+  
+      toast.success(notif.saved);
+    }
+    catch(err)
+    {
+      
+    }
+    finally {}
+    
+   }
+
   return (
     <div>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
@@ -182,9 +201,10 @@ const empid  = DecryptUrl()
               <EmployeeNavigation
                 employeeId={employee.id}
                 employeeName={employee.name}
+                ResetDeviceKeyFun={ResetDeviceKeyFun}
                 openInNewTap
                 anchor={
-                  <Button variant='contained' endIcon={<CallMadeIcon />}>
+                  <Button disabled={employee.id ? false:true} variant='contained' endIcon={<CallMadeIcon />}>
                     {intl.formatMessage(payrollMessages.goTo)}
                   </Button>
                 }
