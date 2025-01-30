@@ -28,7 +28,7 @@ function Application(props) {
         />
 
         <Route
-          path={SITEMAP.auth.Profile.route}
+          path={SITEMAP.global.Profile.route}
           component={PAGES.global.Profile}
         />
 

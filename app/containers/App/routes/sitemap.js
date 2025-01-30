@@ -119,7 +119,7 @@ const SITEMAP = {
       route: '/MainData/Job-Natures',
     },
     Job: {
-      route: '/MainData/job',
+      route: '/MainData/Job',
     },
     JobTypes: {
       route: '/MainData/Job-Types',
@@ -1017,9 +1017,6 @@ const SITEMAP = {
     Register: {
       route: '/register',
     },
-    Profile: {
-      route: '/user-profile',
-    },
     ResetPassword: {
       route: '/reset-password',
     },
@@ -1040,6 +1037,9 @@ const SITEMAP = {
     },
   },
   global: {
+    Profile: {
+      route: '/user-profile',
+    },
     NotFound: {
       route: '/not-found',
     },

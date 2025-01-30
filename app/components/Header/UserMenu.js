@@ -299,7 +299,7 @@ function UserMenu(props) {
         open={openMenu === "user-setting"}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} component={Link} to={link.profile}>
+        <MenuItem onClick={handleClose} component={Link} to={SITEMAP.global.Profile.route}>
           <FormattedMessage {...messages.profile} />
         </MenuItem>
         <MenuItem onClick={openUnderContractionPopup} >
