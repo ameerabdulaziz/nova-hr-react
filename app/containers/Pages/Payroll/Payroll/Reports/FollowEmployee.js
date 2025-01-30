@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
@@ -172,11 +172,11 @@ function FollowEmployee(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={8} lg={6}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -187,8 +187,7 @@ function FollowEmployee(props) {
             ></Search>
           </Grid>
 
-
-           <Grid item xs={12} md={3}>
+           <Grid item xs={12} md={3} lg={2}>
            
            <Autocomplete
                id="ddlMenu"   
@@ -226,7 +225,7 @@ function FollowEmployee(props) {
                /> 
            </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -236,6 +235,7 @@ function FollowEmployee(props) {
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
           </Grid>
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -246,7 +246,7 @@ function FollowEmployee(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

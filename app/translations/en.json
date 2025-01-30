@@ -2281,7 +2281,7 @@
   "boilerplate.containers.Payroll.Payroll.LoanTrxCreateTitle": "Add Loan",
   "boilerplate.containers.Payroll.Payroll.LoanTrxUpdateTitle": "Update Loan",
   "boilerplate.containers.Payroll.Payroll.max": "Maximum",
-  "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan Value",
+  "boilerplate.containers.Payroll.Payroll.maxLoan": "Maximum Loan",
   "boilerplate.containers.Payroll.Payroll.maxRepeat": "max Repeat/month",
   "boilerplate.containers.Payroll.Payroll.MedInsElement": "Medical Ins Element",
   "boilerplate.containers.Payroll.Payroll.eleOfCalcValOfVac": "Elements of calculating vacation value",

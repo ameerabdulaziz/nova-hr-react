@@ -144,7 +144,7 @@ function Search(props) {
       {notShowCompany ? (
         ""
         ) : (
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Autocomplete
             options={companyList}
             value={searchData.BranchId ? companyList.find(item => item.id === searchData.BranchId) ?? null : null}
@@ -173,7 +173,7 @@ function Search(props) {
       {notShowOrganization ? (
         ""
         ) : (
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Autocomplete
             id="organizationId"
             options={OrganizationList}
@@ -211,7 +211,7 @@ function Search(props) {
         {notShowEmployeeName ? ( 
           "" 
         ) : (
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6}>
           <Autocomplete
             id="employeeId"
             options={EmployeeList}
@@ -245,7 +245,7 @@ function Search(props) {
         {notShowStatus ? (
           ""
         ) : (
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6}>
             <Autocomplete
               id="EmpStatusId"
               options={statusList}
@@ -283,7 +283,7 @@ function Search(props) {
         {notShowDate ? (
           ""
         ) : (
-          <Grid item xs={12} md={2}> 
+          <Grid item xs={6} md={3}> 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                        label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -316,7 +316,7 @@ function Search(props) {
         {notShowDate ? (
           ""
         ) : (
-          <Grid item xs={12} md={2}> 
+          <Grid item xs={6} md={3}> 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                        label={intl.formatMessage(Payrollmessages.todate)}

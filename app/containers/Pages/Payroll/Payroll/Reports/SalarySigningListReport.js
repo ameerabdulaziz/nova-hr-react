@@ -16,7 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
@@ -146,55 +146,51 @@ function SalarySigningListReport(props) {
 
   const handleSearch = async (e) => {
 
-    if(Template && Year && Month)
-    {
+    if (Template && Year && Month) {
 
-    let JobData = ""
+      let JobData = ""
 
-    if(Job !== null)
-    {
-    // used to reformat elements data ( combobox ) before send it to api
-    Job.map((ele, index)=>{
-        JobData+= `${ele.id}`
-        if(index + 1 !== Job.length)
-        {
-            JobData+= ","
-        }
-      })
-    }
+      if (Job !== null) {
+        // used to reformat elements data ( combobox ) before send it to api
+        Job.map((ele, index) => {
+          JobData += `${ele.id}`
+          if (index + 1 !== Job.length) {
+            JobData += ","
+          }
+        })
+      }
 
 
-    try {
-      setIsLoading(true);
-      let formData = {
-        EmployeeId: searchData.EmployeeId,
-        OrganizationId: searchData.OrganizationId,
-        EmployeeStatusId: searchData.EmpStatusId,
-        CurrencyId: Currency && Currency.id ? Currency.id : null,
-        JobId: JobData,
-        bankonly: searchData.BankOnly,
-        cash: searchData.Cash,
-        insured: searchData.Insured,
-        notinsured: searchData.NotInsured,
-        BranchId: searchData.BranchId
-          };
-      Object.keys(formData).forEach((key) => {
-        formData[key] = formData[key] === null ? "" : formData[key];
-      });
+      try {
+        setIsLoading(true);
+        let formData = {
+          EmployeeId: searchData.EmployeeId,
+          OrganizationId: searchData.OrganizationId,
+          EmployeeStatusId: searchData.EmpStatusId,
+          CurrencyId: Currency && Currency.id ? Currency.id : null,
+          JobId: JobData,
+          bankonly: searchData.BankOnly,
+          cash: searchData.Cash,
+          insured: searchData.Insured,
+          notinsured: searchData.NotInsured,
+          BranchId: searchData.BranchId
+        };
+        Object.keys(formData).forEach((key) => {
+          formData[key] = formData[key] === null ? "" : formData[key];
+        });
 
 
-      const dataApi = await ApiData(locale).SalarySigningListReportApi(Year,Month,Template,formData);
-      setdata(dataApi);
+        const dataApi = await ApiData(locale).SalarySigningListReportApi(Year, Month, Template, formData);
+        setdata(dataApi);
 
         getFilterHighlights();
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
+      } catch (err) {
+      } finally {
+        setIsLoading(false);
+      }
     }
-    }
-    else
-    {
-        toast.error(intl.formatMessage(messages.YouMustToChooseYear_MonthAndTemplet));
+    else {
+      toast.error(intl.formatMessage(messages.YouMustToChooseYear_MonthAndTemplet));
     }
   };
 
@@ -202,47 +198,47 @@ function SalarySigningListReport(props) {
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(payrollMessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
       },
     },
-      {
-        name: "employeeCode",
-        label: intl.formatMessage(messages.EmpCode),
-        options: {
-          filter: true,
-        },
+    {
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
+      options: {
+        filter: true,
       },
-      {
-        name: "employeeName",
-        label: intl.formatMessage(messages.employeeName),
-        options: {
-          filter: true,
-        },
+    },
+    {
+      name: "employeeName",
+      label: intl.formatMessage(messages.employeeName),
+      options: {
+        filter: true,
       },
-      {
-        name: "jobName",
-        label: intl.formatMessage(messages.job),
-        options: {
-          filter: true,
-        },
+    },
+    {
+      name: "jobName",
+      label: intl.formatMessage(messages.job),
+      options: {
+        filter: true,
       },
-      {
-        name: "organizationName",
-        label: intl.formatMessage(messages.orgName),
-        options: {
-          filter: true,
-        },
+    },
+    {
+      name: "organizationName",
+      label: intl.formatMessage(messages.orgName),
+      options: {
+        filter: true,
       },
-      // show and hide PrintSalary column depend on condition
-      searchData.PrintSalary ? {
-        name: "netSal",
-        label: intl.formatMessage(messages.NetSalary),
-        options: {
-           filter: true,
-           },
-      }: ""     
+    },
+    // show and hide PrintSalary column depend on condition
+    searchData.PrintSalary ? {
+      name: "netSal",
+      label: intl.formatMessage(messages.NetSalary),
+      options: {
+        filter: true,
+      },
+    } : ""
   ];
 
 
@@ -290,384 +286,377 @@ function SalarySigningListReport(props) {
   }, []);
 
 
+  const openMonthDateWithCompanyChangeFun = async (BranchId, EmployeeId) => {
 
-
-  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
-
-    let OpenMonthData 
+    let OpenMonthData
     let selectedYear
     let selectedMonth
 
-    try
-    {
-      if(YearList.length !== 0 && MonthList.length !== 0)
-      {
-        if(!EmployeeId)
-        {
-          OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+    try {
+      if (YearList.length !== 0 && MonthList.length !== 0) {
+        if (!EmployeeId) {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth(BranchId, 0);
         }
-        else
-        {
-          OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+        else {
+          OpenMonthData = await GeneralListApis(locale).getOpenMonth(0, EmployeeId);
         }
 
 
 
         selectedYear = YearList.find(item => item.id == OpenMonthData.yearId)
         selectedMonth = MonthList.find(item => item.id == OpenMonthData.monthId)
-        
-          setYear(selectedYear ? selectedYear : null)
-          setMonth(selectedMonth ? selectedMonth : null)
+
+        setYear(selectedYear ? selectedYear : null)
+        setMonth(selectedMonth ? selectedMonth : null)
       }
     }
-    catch(err)
-    {}
+    catch (err) { }
 
   }
 
-
-  useEffect(()=>{
-    if((searchData.BranchId || searchData.BranchId !== "") && (!searchData.EmployeeId ||searchData.EmployeeId === ""))
-    {      
+  useEffect(() => {
+    if ((searchData.BranchId || searchData.BranchId !== "") && (!searchData.EmployeeId || searchData.EmployeeId === "")) {
       openMonthDateWithCompanyChangeFun(searchData.BranchId)
     }
 
-    if((!searchData.BranchId || searchData.BranchId === "") && (searchData.EmployeeId  || searchData.EmployeeId !== ""))
-    {
+    if ((!searchData.BranchId || searchData.BranchId === "") && (searchData.EmployeeId || searchData.EmployeeId !== "")) {
       openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
     }
 
-    if((!searchData.BranchId || searchData.BranchId === "") && (!searchData.EmployeeId || searchData.EmployeeId === ""))
-    {
+    if ((!searchData.BranchId || searchData.BranchId === "") && (!searchData.EmployeeId || searchData.EmployeeId === "")) {
       setYear(null)
       setMonth(null)
     }
 
-  },[searchData.BranchId, searchData.EmployeeId,YearList,MonthList])
-
-
+  }, [searchData.BranchId, searchData.EmployeeId, YearList, MonthList])
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={5} xl={5}>
             <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-               setIsLoading={setIsLoading}
-               notShowDate={true}
-               company={searchData.BranchId}
+              setsearchData={setsearchData}
+              searchData={searchData}
+              setIsLoading={setIsLoading}
+              notShowDate={true}
+              company={searchData.BranchId}
             ></Search>
           </Grid>
 
-                  <Grid item xs={12} md={2}>
-           
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={TemplatesList.length != 0 ? TemplatesList: []}
-                        value={Template}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setTemplate(value);
-                            } else {
-                                setTemplate(null);
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="Template"
-                                label={intl.formatMessage(messages.Template)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
+          <Grid item xs={12} md={2}>
 
-                        )}
-                        /> 
-                </Grid>
+            <Autocomplete
+              id="ddlMenu"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={TemplatesList.length != 0 ? TemplatesList : []}
+              value={Template}
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setTemplate(value);
+                } else {
+                  setTemplate(null);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="Template"
+                  label={intl.formatMessage(messages.Template)}
+                  margin="normal"
+                  className={style.fieldsSty}
 
-                <Grid item xs={12} md={2}>
-                
-                    <Autocomplete
-                        id="ddlMenu"   
-                        isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                        options={CurrencyList.length != 0 ? CurrencyList: []}
-                        getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        renderOption={(props, option) => {
-                            return (
-                            <li {...props} key={option.id}>
-                                {option.name}
-                            </li>
-                            );
-                        }}
-                        onChange={(event, value) => {
-                            if (value !== null) {
-                                setCurrency(value);
-                            } else {
-                                setCurrency(null);
-                            }
-                        }}
-                        renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            name="Currency"
-                                  label={intl.formatMessage(messages.currency)}
-                            margin="normal" 
-                            className={style.fieldsSty}
-                            
-                            />
+                />
 
-                        )}
-                        /> 
-                </Grid>
+              )}
+            />
+          </Grid>
 
-                <Grid item xs={12} md={2}>
-                    
-                            <Autocomplete
-                                id="ddlMenu"   
-                                isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                                options={MonthList.length != 0 ? MonthList: []}
-                                value={Month}
-                                getOptionLabel={(option) =>(
-                                    option  ? option.name : ""
-                                )
-                                }
-                                renderOption={(props, option) => {
-                                    return (
-                                    <li {...props} key={option.id}>
-                                        {option.name}
-                                    </li>
-                                    );
-                                }}
-                                onChange={(event, value) => {
-                                    if (value !== null) {
-                                    setMonth(value);
-                                    } else {
-                                    setMonth(null);
-                                    }
-                                }}
-                                renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    name="Month"
-                                    label={intl.formatMessage(messages.Month)}
-                                    margin="normal" 
-                                    className={style.fieldsSty}
-                                    
-                                    />
-                                )}
-                            />
-                        </Grid>
+          <Grid item xs={12} md={2}>
 
-                        <Grid item xs={12} md={2}>
-                    
-                                <Autocomplete
-                                    id="ddlMenu"   
-                                    isOptionEqualToValue={(option, value) => option.id === value.id}                      
-                                    options={YearList.length != 0 ? YearList: []}
-                                    value={Year}
-                                    getOptionLabel={(option) =>(
-                                        option  ? option.name : ""
-                                    )
-                                    }
-                                    renderOption={(props, option) => {
-                                        return (
-                                        <li {...props} key={option.id}>
-                                            {option.name}
-                                        </li>
-                                        );
-                                    }}
-                                    onChange={(event, value) => {
-                                        if (value !== null) {
-                                            setYear(value);
-                                        } else {
-                                            setYear(null);
-                                        }
-                                    }}
-                                    renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        name="year"
-                                        label={intl.formatMessage(messages.year)}
-                                        margin="normal" 
-                                        className={style.fieldsSty}
-                                        
-                                        />
-                                    )}
-                                />
-                        </Grid>
+            <Autocomplete
+              id="ddlMenu"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={CurrencyList.length != 0 ? CurrencyList : []}
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setCurrency(value);
+                } else {
+                  setCurrency(null);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="Currency"
+                  label={intl.formatMessage(messages.currency)}
+                  margin="normal"
+                  className={style.fieldsSty}
 
-                <Grid item xs={12}  md={3}> 
-                    <Autocomplete
-                          multiple  
-                          className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
-                          id="checkboxes-tags-demo"
-                          isOptionEqualToValue={(option, value) => option.id === value.id}
-                          options={JobsList.length != 0 ? JobsList: []}
-                          disableCloseOnSelect
-                          getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        onChange={(event, value) => {
-                          if (value !== null) {
-                            setJob(value);
-                          } else {
-                            setJob(null);
-                          }
+                />
+
+              )}
+            />
+          </Grid>
+
+          <Grid item xs={6} md={1.5}>
+
+            <Autocomplete
+              id="ddlMenu"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={MonthList.length != 0 ? MonthList : []}
+              value={Month}
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setMonth(value);
+                } else {
+                  setMonth(null);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="Month"
+                  label={intl.formatMessage(messages.Month)}
+                  margin="normal"
+                  className={style.fieldsSty}
+
+                />
+              )}
+            />
+          </Grid>
+
+          <Grid item xs={6} md={1.5}>
+
+            <Autocomplete
+              id="ddlMenu"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={YearList.length != 0 ? YearList : []}
+              value={Year}
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.id}>
+                    {option.name}
+                  </li>
+                );
+              }}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setYear(value);
+                } else {
+                  setYear(null);
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  name="year"
+                  label={intl.formatMessage(messages.year)}
+                  margin="normal"
+                  className={style.fieldsSty}
+
+                />
+              )}
+            />
+          </Grid>
+
+          <Grid item xs={12} md={3}>
+            <Autocomplete
+              multiple
+              className={`${style.AutocompleteMulSty} ${locale === "ar" ? style.AutocompleteMulStyAR : null}`}
+              id="checkboxes-tags-demo"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={JobsList.length != 0 ? JobsList : []}
+              disableCloseOnSelect
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setJob(value);
+                } else {
+                  setJob(null);
+                }
+              }}
+              renderOption={(props, option, { selected }) => (
+                <li {...props} key={option.id}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.name}
+                </li>
+              )}
+              style={{ width: 500 }}
+              renderInput={(params) => (
+                <TextField {...params}
+                  label={intl.formatMessage(messages.job)}
+                />
+              )}
+            />
+
+          </Grid>
+
+          <Grid item xs={12}></Grid>
+
+          <Grid item md={2} lg={1.5} >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.BankOnly}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      BankOnly: evt.target.checked,
+                      Cash: false
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.bankOnly)}
+            />
+          </Grid>
+
+          <Grid item md={2} lg={1.5} >
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.Cash}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      Cash: evt.target.checked,
+                      BankOnly: false
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.cash)}
+            />
+          </Grid>
+
+          <Grid item md={2} lg={1.5}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.Insured}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      Insured: evt.target.checked,
+                      NotInsured: false
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.insured)}
+            />
+          </Grid>
+
+          <Grid item md={2} lg={1.5}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={searchData.NotInsured}
+                  onChange={(evt) => {
+                    setsearchData((prev) => ({
+                      ...prev,
+                      NotInsured: evt.target.checked,
+                      Insured: false
+                    }));
+                  }}
+                />
+              }
+              label={intl.formatMessage(messages.unInsured)}
+            />
+          </Grid>
+
+          <Grid item md={4} lg={3} >
+            <FormControl>
+              <RadioGroup
+                row
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="Print Salary"
+                name="radio-buttons-group"
+              >
+                <Grid item lg={6}>
+                <FormControlLabel
+                  value="Print Salary"
+                  control={
+                    <Radio
+                      onChange={(evt) => {
+                        setsearchData((prev) => ({
+                          ...prev,
+                          PrintSalary: !prev.PrintSalary,
+                        }));
                       }}
-                          renderOption={(props, option, { selected }) => (
-                            <li {...props} key={option.id}>
-                              <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                              />
-                              {option.name}
-                            </li>
-                          )}
-                          style={{ width: 500 }}
-                          renderInput={(params) => (
-                            <TextField {...params} 
-                            label={intl.formatMessage(messages.job)}
-                            />
-                          )}
-                        />
-              
-                  </Grid>
-
-                <Grid item md={2} >
-                    <FormControlLabel
-                        control={
-                        <Checkbox
-                            checked={searchData.BankOnly}
-                            onChange={(evt) => {
-                            setsearchData((prev) => ({
-                                ...prev,
-                                BankOnly: evt.target.checked,
-                                Cash: false
-                            }));
-                            }}
-                        />
-                        }
-                        label={intl.formatMessage(messages.bankOnly)}
-                    />
-                </Grid>
-
-                <Grid item md={2} >
-                    <FormControlLabel
-                        control={
-                        <Checkbox
-                            checked={searchData.Cash}
-                            onChange={(evt) => {
-                            setsearchData((prev) => ({
-                                ...prev,
-                                Cash: evt.target.checked,
-                                BankOnly: false
-                            }));
-                            }}
-                        />
-                        }
-                        label={intl.formatMessage(messages.cash)}
-                    />
-                </Grid>
-
-                <Grid item md={4} lg={2}>
-                    <FormControlLabel
-                        control={
-                        <Checkbox
-                            checked={searchData.Insured}
-                            onChange={(evt) => {
-                            setsearchData((prev) => ({
-                                ...prev,
-                                Insured: evt.target.checked,
-                                NotInsured: false
-                            }));
-                            }}
-                        />
-                        }
-                        label={intl.formatMessage(messages.insured)}
-                    />
-                </Grid>
-
-                <Grid item md={4} lg={2}>
-                    <FormControlLabel
-                        control={
-                        <Checkbox
-                            checked={searchData.NotInsured}
-                            onChange={(evt) => {
-                            setsearchData((prev) => ({
-                                ...prev,
-                                NotInsured: evt.target.checked,
-                                Insured: false
-                            }));
-                            }}
-                        />
-                        }
-                        label={intl.formatMessage(messages.unInsured)}
-                    />
-                </Grid>
-
-            <Grid item md={4} >
-                <FormControl>
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="Print Salary"
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel 
-                            value="Print Salary" 
-                            control={
-                            <Radio 
-                            onChange={(evt) => {
-                                setsearchData((prev) => ({
-                                  ...prev,
-                                  PrintSalary: !prev.PrintSalary,
-                                }));
-                              }}
-                            />} 
-                            checked={searchData.PrintSalary}
-                            label={intl.formatMessage(messages.PrintSalary)}
-                        />
-
-                        <FormControlLabel 
-                            value="Print Names Only" 
-                            control={
-                            <Radio 
-                            onChange={(evt) => {
-                                setsearchData((prev) => ({
-                                  ...prev,
-                                  PrintSalary: !prev.PrintSalary,
-                                }));
-                              }}
-                            />} 
-                            label={intl.formatMessage(messages.PrintNamesOnly)}
-                        />
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
-
+                    />}
+                  checked={searchData.PrintSalary}
+                  label={intl.formatMessage(messages.PrintSalary)}
+                />
+                                </Grid>
+                                <Grid item lg={6}>
+                <FormControlLabel
+                
+                  value="Print Names Only"
+                  control={
+                    <Radio
+                      onChange={(evt) => {
+                        setsearchData((prev) => ({
+                          ...prev,
+                          PrintSalary: !prev.PrintSalary,
+                        }));
+                      }}
+                    />}
+                  label={intl.formatMessage(messages.PrintNamesOnly)}
+                /></Grid>
+              </RadioGroup>
+            </FormControl>
+          </Grid>
+          
+          <Grid item xs={12} md={12}></Grid>
 
           <Grid item xs={12} md={2}>
             <Button
@@ -690,7 +679,7 @@ function SalarySigningListReport(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

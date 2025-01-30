@@ -280,8 +280,9 @@ function PaymentSlipTotal(props) {
           <CardContent sx={{ p: '16px!important' }}>
             <Typography variant='h6'>{title}</Typography>
 
-            <Grid container mt={0} spacing={3}>
-              <Grid item xs={12} md={3}>
+            <Grid container mt={3} >
+              <Grid container spacing={2} xl={8}>
+              <Grid item xs={12} md={3} >
                 <Autocomplete
                   options={companyList}
                   value={getAutoCompleteValue(companyList, formInfo.branchId)}
@@ -331,52 +332,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={yearList}
-                  value={getAutoCompleteValue(yearList, formInfo.yearId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      label={intl.formatMessage(messages.year)}
-                    />
-                  )}
-                />
-              </Grid>
 
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={monthList}
-                  value={getAutoCompleteValue(monthList, formInfo.monthId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      required
-                      {...params}
-                      label={intl.formatMessage(messages.month)}
-                    />
-                  )}
-                />
-              </Grid>
 
               <Grid item xs={12} md={3}>
                 <Autocomplete
@@ -478,8 +434,63 @@ function PaymentSlipTotal(props) {
                   )}
                 />
               </Grid>
+              <Grid item xs={12} md={3}>
+                <Grid item xs={8}>
+                <Autocomplete
+                  options={yearList}
+                  value={getAutoCompleteValue(yearList, formInfo.yearId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      label={intl.formatMessage(messages.year)}
+                    />
+                  )}
+                />
+                </Grid>
+              </Grid>
 
               <Grid item xs={12} md={3}>
+              <Grid item xs={6}>
+                <Autocomplete
+                  options={monthList}
+                  value={getAutoCompleteValue(monthList, formInfo.monthId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option ? option.name : '')}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      required
+                      {...params}
+                      label={intl.formatMessage(messages.month)}
+                    />
+                  )}
+                />
+                </Grid>
+              </Grid>
+              
+              </Grid>
+
+              <Grid item xl={0.5}></Grid>
+
+              <Grid container spacing={2} xl={3.5}>
+              <Grid item xs={12} md={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -492,7 +503,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -505,7 +516,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -518,7 +529,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -529,9 +540,10 @@ function PaymentSlipTotal(props) {
                   }
                   label={intl.formatMessage(messages.displayOriginalValues)}
                 />
+              </Grid>                
               </Grid>
 
-              <Grid item xs={12}>
+              <Grid item xs={12} mt={2}>
                 <TextField
                   name='notes'
                   value={formInfo.notes}
@@ -545,12 +557,13 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={2} lg={1}>
+              <Grid item mt={2}>
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.Print} />
                 </Button>
               </Grid>
-              <Grid item xs={12} md={2} lg={1}>
+
+              <Grid item  mt={2} ml={1}>
                 <Button variant='contained' color='primary' 
                   onClick={()=>{
                     reviewDetailsFun()

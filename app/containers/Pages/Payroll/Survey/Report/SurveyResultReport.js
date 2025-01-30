@@ -15,7 +15,7 @@ import Gmassage from '../../messages'
 import toast from 'react-hot-toast';
 import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 
-
+  
 function SurveyResultReport(props) {
     const { intl } = props;
     const printDivRef = useRef(null);

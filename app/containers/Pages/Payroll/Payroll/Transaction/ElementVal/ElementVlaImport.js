@@ -270,9 +270,9 @@ function ElementVlaImport({ intl }) {
                       direction="row"
                       spacing={2}
                       xs={12}
-                      md={4}
+                      md={5}
                     >
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={8}>
                         <Autocomplete
                           id="branchId"
                           options={BranchList}
@@ -306,7 +306,8 @@ function ElementVlaImport({ intl }) {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={4}></Grid>
+                      <Grid item xs={4}>
                         <TextField
                           id="YearId"
                           name="YearId"
@@ -317,7 +318,7 @@ function ElementVlaImport({ intl }) {
                           autoComplete='off'
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={4} >
                         <TextField
                           id="MonthId"
                           name="MonthId"
@@ -346,7 +347,7 @@ function ElementVlaImport({ intl }) {
                           label={intl.formatMessage(messages.isNotUpdate)}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={5} md={4} >
                           <TextField
                             id="elementValColNum"
                             name="elementValColNum"
@@ -373,7 +374,7 @@ function ElementVlaImport({ intl }) {
                       direction="row"
                       spacing={2}
                       xs={12}
-                      md={8}
+                      md={7}
                     >
                       <Card className={classes.card}>
                         <CardContent>
@@ -383,7 +384,7 @@ function ElementVlaImport({ intl }) {
                             alignItems="flex-start"
                             direction="row"
                           >
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={6} md={4}>
                               <Autocomplete
                                 id="PayTemplateId"
                                 options={PayTemplateList}
@@ -423,7 +424,7 @@ function ElementVlaImport({ intl }) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={6} md={4}>
                               <Autocomplete
                                 id="elementId"
                                 options={elementList}
@@ -458,7 +459,7 @@ function ElementVlaImport({ intl }) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={6} md={4}>
                               <TextField
                                 id="ElementMode"
                                 name="ElementMode"
@@ -476,7 +477,7 @@ function ElementVlaImport({ intl }) {
                                 autoComplete='off'
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={6} md={4}>
                               <TextField
                                 id="ElementMaxVal"
                                 name="ElementMaxVal"
@@ -487,7 +488,7 @@ function ElementVlaImport({ intl }) {
                                 autoComplete='off'
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={6} md={4}>
                               <TextField
                                 id="ElementMinVal"
                                 name="ElementMinVal"
@@ -498,7 +499,7 @@ function ElementVlaImport({ intl }) {
                                 autoComplete='off'
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={6} md={4}>
                               <TextField
                                 id="DefaultVal"
                                 name="DefaultVal"
@@ -521,18 +522,7 @@ function ElementVlaImport({ intl }) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                type="submit"
-                size="medium"
-                color="secondary"
-                disabled={fileData.length !== 0 ? false : true}
-              >
-                <FormattedMessage {...Payrollmessages.save} />
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button variant="contained" color="secondary" component="label">
                 <AddIcon
                   className={cx(smUp && classes.leftIcon, classes.iconSmall)}
@@ -551,8 +541,7 @@ function ElementVlaImport({ intl }) {
                 />
               </Button>
             </Grid>
-
-            <Grid item xs={12} md={2} >
+            <Grid item  >
                   <div className={classes.actions}>
                       <a
                         href={`${ServerURL}Doc/ExcelForm/ElementsValue.xlsx`}
@@ -568,15 +557,25 @@ function ElementVlaImport({ intl }) {
                         </Button>
                       </a>
                   </div>
-                </Grid>
-
-            <Grid item xs={12} md={2}>
+            </Grid>       
+            <Grid item >
               <Button
                 variant="contained"
                 color="secondary"
                 onClick={resetDataFun}
               >
                 <FormattedMessage {...Payrollmessages.cancel} />
+              </Button>
+            </Grid>                  
+            <Grid item >
+              <Button
+                variant="contained"
+                type="submit"
+                size="medium"
+                color="secondary"
+                disabled={fileData.length !== 0 ? false : true}
+              >
+                <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
             <Grid item xs={12} md={1}></Grid>

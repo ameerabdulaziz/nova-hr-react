@@ -23,11 +23,12 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import NamePopup from "../../../Component/NamePopup";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import ElementTable from "../PayTemplate/ElementTable";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import SITEMAP from "../../../../../App/routes/sitemap";
+import { auto } from "@popperjs/core";
 
 function ElementsCreate(props) {
   const { intl } = props;
@@ -236,7 +237,7 @@ console.log("data =", data);
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -266,11 +267,11 @@ console.log("data =", data);
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item md={6} xs={12}>
+              <Grid item md={8} xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={1}>
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={12} sm={6} >
                         <TextField
                           id="arName"
                           name="arName"
@@ -287,7 +288,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={12} sm={6} >
                         <TextField
                           id="enName"
                           name="enName"
@@ -304,7 +305,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           id="elementTaxLimit"
                           name="elementTaxLimit"
@@ -323,7 +324,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} sm={6}>
                         <TextField
                           id="minWorkH"
                           name="minWorkH"
@@ -372,7 +373,7 @@ console.log("data =", data);
                           </RadioGroup>
                         </FormControl>
                       </Grid>
-                      <Grid item xs={12} md={8}>
+                      <Grid item xs={12} md={8} xl={9.5}>
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -391,7 +392,7 @@ console.log("data =", data);
                           label={intl.formatMessage(messages.elementRepeat)}
                         />
                       </Grid>
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={12} md={4} xl={2.5}>
                         <TextField
                           id="elementOccurMax"
                           name="elementOccurMax"
@@ -414,8 +415,8 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item md={3} xs={12}>
-                <Card className={classes.card}>
+              <Grid item md={4} xs={12}>
+                <Card  sx={{height:210 , overflow:"auto"}} className={classes.card}>
                   <CardContent>
                     <Grid item xs={12} md={12}>
                       <FormControlLabel
@@ -546,8 +547,111 @@ console.log("data =", data);
                   </CardContent>
                 </Card>
               </Grid>
+              
+              <Grid item md={8} xs={12}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Grid container spacing={1}>
+                      <Grid item xs={12} md={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={data.applyMinMaxVal || null}
+                              onChange={(e) =>
+                                setdata((prevFilters) => ({
+                                  ...prevFilters,
+                                  applyMinMaxVal: e.target.checked,
+                                  elementMinVal: "",
+                                  elementMaxVal: "",
+                                  minOnValue: "",
+                                  maxOnValue: "",
+                                }))
+                              }
+                              value={data.applyMinMaxVal || null}
+                              color="primary"
+                            />
+                          }
+                          label={intl.formatMessage(messages.elemMaxMin)}
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3}>
+                        <TextField
+                          id="elementMinVal"
+                          name="elementMinVal"
+                          value={data.elementMinVal}
+                          disabled={!data.applyMinMaxVal}
+                          onChange={(e) =>
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              elementMinVal: e.target.value,
+                            }))
+                          }
+                          label={intl.formatMessage(messages.min)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3}>
+                        <TextField
+                          id="elementMaxVal"
+                          name="elementMaxVal"
+                          value={data.elementMaxVal}
+                          disabled={!data.applyMinMaxVal}
+                          onChange={(e) =>
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              elementMaxVal: e.target.value,
+                            }))
+                          }
+                          label={intl.formatMessage(messages.max)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3}>
+                        <TextField
+                          id="minOnValue"
+                          name="minOnValue"
+                          value={data.minOnValue}
+                          disabled={!data.applyMinMaxVal}
+                          onChange={(e) =>
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              minOnValue: e.target.value,
+                            }))
+                          }
+                          label={intl.formatMessage(messages.calcValMin)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3}>
+                        <TextField
+                          id="maxOnValue"
+                          name="maxOnValue"
+                          disabled={!data.applyMinMaxVal}
+                          value={data.maxOnValue}
+                          onChange={(e) =>
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              maxOnValue: e.target.value,
+                            }))
+                          }
+                          label={intl.formatMessage(messages.calcValMax)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
 
-              <Grid item md={3} xs={12}>
+              <Grid item md={4} xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={2}>
@@ -650,116 +754,15 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item md={12} xs={12}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Grid container spacing={1}>
-                      <Grid item xs={12} md={12}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={data.applyMinMaxVal || null}
-                              onChange={(e) =>
-                                setdata((prevFilters) => ({
-                                  ...prevFilters,
-                                  applyMinMaxVal: e.target.checked,
-                                  elementMinVal: "",
-                                  elementMaxVal: "",
-                                  minOnValue: "",
-                                  maxOnValue: "",
-                                }))
-                              }
-                              value={data.applyMinMaxVal || null}
-                              color="primary"
-                            />
-                          }
-                          label={intl.formatMessage(messages.elemMaxMin)}
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <TextField
-                          id="elementMinVal"
-                          name="elementMinVal"
-                          value={data.elementMinVal}
-                          disabled={!data.applyMinMaxVal}
-                          onChange={(e) =>
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              elementMinVal: e.target.value,
-                            }))
-                          }
-                          label={intl.formatMessage(messages.min)}
-                          className={classes.field}
-                          variant="outlined"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <TextField
-                          id="elementMaxVal"
-                          name="elementMaxVal"
-                          value={data.elementMaxVal}
-                          disabled={!data.applyMinMaxVal}
-                          onChange={(e) =>
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              elementMaxVal: e.target.value,
-                            }))
-                          }
-                          label={intl.formatMessage(messages.max)}
-                          className={classes.field}
-                          variant="outlined"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <TextField
-                          id="minOnValue"
-                          name="minOnValue"
-                          value={data.minOnValue}
-                          disabled={!data.applyMinMaxVal}
-                          onChange={(e) =>
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              minOnValue: e.target.value,
-                            }))
-                          }
-                          label={intl.formatMessage(messages.calcValMin)}
-                          className={classes.field}
-                          variant="outlined"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <TextField
-                          id="maxOnValue"
-                          name="maxOnValue"
-                          disabled={!data.applyMinMaxVal}
-                          value={data.maxOnValue}
-                          onChange={(e) =>
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              maxOnValue: e.target.value,
-                            }))
-                          }
-                          label={intl.formatMessage(messages.calcValMax)}
-                          className={classes.field}
-                          variant="outlined"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
+
 
               {/* /////////////////////////////////////////////////////////////////// */}
-              <Grid item xs={12} md={6}>
-                <Grid item xs={12} md={12}>
+              <Grid item xs={12}  xl={6}>
+                <Grid item xs={12} md={12} >
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={12} md={4}>
+                        <Grid item >
                           <Button
                             variant="contained"
                             size="medium"
@@ -772,7 +775,7 @@ console.log("data =", data);
                             <FormattedMessage {...messages.refElement} />
                           </Button>
                         </Grid>
-                        <Grid item xs={12} md={1}>
+                        <Grid item >
                           <Button
                             variant="contained"
                             size="medium"
@@ -797,12 +800,12 @@ console.log("data =", data);
                   </Card>
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} xl={6}>
                 <Grid item xs={12} md={12}>
                   <Card className={classes.card}>
                     <CardContent>
                       <Grid container spacing={3}>
-                        <Grid item xs={12} md={3}>
+                        <Grid item >
                           <Button
                             variant="contained"
                             size="medium"
@@ -812,7 +815,7 @@ console.log("data =", data);
                             <FormattedMessage {...messages.basicElement} />
                           </Button>
                         </Grid>
-                        <Grid item xs={12} md={2}>
+                        <Grid item >
                           <Button
                             variant="contained"
                             size="medium"
@@ -835,7 +838,7 @@ console.log("data =", data);
                 </Grid>
               </Grid>
 
-              <Grid item xs={6} md={1}>
+              <Grid item mt={2} >
                 <Button
                   variant="contained"
                   type="submit"
@@ -845,7 +848,7 @@ console.log("data =", data);
                   <FormattedMessage {...Payrollmessages.save} />
                 </Button>
               </Grid>
-              <Grid item xs={6} md={1}>
+              <Grid item mt={2} >
                 <Button
                   variant="contained"
                   size="medium"
@@ -859,7 +862,7 @@ console.log("data =", data);
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 ElementsCreate.propTypes = {

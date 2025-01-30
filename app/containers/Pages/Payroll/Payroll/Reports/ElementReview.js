@@ -19,7 +19,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import PayrollTable from "../../Component/PayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
@@ -368,11 +368,11 @@ function ElementReview(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={8} xl={6}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -382,8 +382,10 @@ function ElementReview(props) {
             ></Search>
           </Grid>
 
+          <Grid item xs={12} md={8} xl={6} >
+          <Grid container spacing={2}>
 
-           <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6}>
              <Autocomplete
                  id="ddlMenu"   
                  isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -418,9 +420,10 @@ function ElementReview(props) {
                      />
                  )}
                  /> 
-             </Grid>
+            </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={8} xl={6}>
+            <Grid item xs={6}>
               <Autocomplete
                   id="ddlMenu"   
                   value={Year && Year.length !== 0 ? Year : null}
@@ -454,47 +457,10 @@ function ElementReview(props) {
                       />
                   )}
               />
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} md={5}> 
-              <Autocomplete
-                    multiple  
-                    className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
-                    id="checkboxes-tags-demo"
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    options={MonthList.length != 0 ? MonthList: []}
-                    disableCloseOnSelect
-                    getOptionLabel={(option) =>(
-                      option  ? option.name : ""
-                  )
-                  }
-                  onChange={(event, value) => {
-                    if (value !== null) {
-                      setMonth(value);
-                    } else {
-                      setMonth(null);
-                    }
-                }}
-                  renderOption={(props, option, { selected }) => (
-                    <li {...props}>
-                      <Checkbox
-                        icon={icon}
-                        checkedIcon={checkedIcon}
-                        style={{ marginRight: 8 }}
-                        checked={selected}
-                      />
-                      {option.name}
-                    </li>
-                  )}
-                  renderInput={(params) => (
-                    <TextField {...params} 
-                    label={intl.formatMessage(messages.Month)}
-                    />
-                  )}
-                />
-            </Grid>
-
-            <Grid item xs={12} md={6}> 
+            <Grid item xs={12} md={8} xl={6}> 
               <Autocomplete
                     multiple  
                     className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
@@ -530,9 +496,54 @@ function ElementReview(props) {
                     />
                   )}
                 />
+            </Grid>
+
+            <Grid item xs={12} md={6}> 
+               <Grid item xs={6}>
+              <Autocomplete
+                    multiple  
+                    className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
+                    id="checkboxes-tags-demo"
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    options={MonthList.length != 0 ? MonthList: []}
+                    disableCloseOnSelect
+                    getOptionLabel={(option) =>(
+                      option  ? option.name : ""
+                  )
+                  }
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                      setMonth(value);
+                    } else {
+                      setMonth(null);
+                    }
+                }}
+                  renderOption={(props, option, { selected }) => (
+                    <li {...props}>
+                      <Checkbox
+                        icon={icon}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option.name}
+                    </li>
+                  )}
+                  renderInput={(params) => (
+                    <TextField {...params} 
+                    label={intl.formatMessage(messages.Month)}
+                    />
+                  )}
+                />
+                </Grid>
+            </Grid>
+
+          </Grid>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={12}></Grid>
+
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -542,8 +553,10 @@ function ElementReview(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
+
       </PapperBlock>
 
       <PayrollTable
@@ -553,7 +566,7 @@ function ElementReview(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

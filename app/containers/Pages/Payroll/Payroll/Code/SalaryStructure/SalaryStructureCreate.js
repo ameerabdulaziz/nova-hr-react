@@ -21,7 +21,7 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import glApis from "../../../api/GeneralListApis";
 import NamePopup from "../../../Component/NamePopup";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import ElementTable from "../PayTemplate/ElementTable";
 import NameList from "../../../Component/NameList";
 import SITEMAP from "../../../../../App/routes/sitemap";
@@ -165,7 +165,7 @@ function SalaryStructureCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -184,7 +184,7 @@ function SalaryStructureCreate(props) {
         />
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 id="arName"
                 name="arName"
@@ -201,7 +201,7 @@ function SalaryStructureCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 id="enName"
                 name="enName"
@@ -218,7 +218,7 @@ function SalaryStructureCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={3}>
               <Autocomplete
                 id="ElemList"
                 options={ElemList}
@@ -247,8 +247,7 @@ function SalaryStructureCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} lg={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -275,7 +274,7 @@ function SalaryStructureCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} lg={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -289,7 +288,7 @@ function SalaryStructureCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item>
               <Button
                 variant="contained"
                 type="submit"
@@ -299,7 +298,7 @@ function SalaryStructureCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item>
               <Button
                 variant="contained"
                 size="medium"
@@ -312,7 +311,7 @@ function SalaryStructureCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 SalaryStructureCreate.propTypes = {

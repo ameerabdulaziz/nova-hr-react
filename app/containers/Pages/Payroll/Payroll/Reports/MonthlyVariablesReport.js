@@ -375,8 +375,11 @@ function MonthlyVariablesReport(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
-          <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={3}>
+          <Grid container mt={0} spacing={3} >
+
+            <Grid spacing={2} item container xs={12} xl={7}>
+
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -398,7 +401,7 @@ function MonthlyVariablesReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
               <Autocomplete
                 options={payTemplateList}
                 value={getAutoCompleteValue(
@@ -423,8 +426,31 @@ function MonthlyVariablesReport(props) {
                 )}
               />
             </Grid>
-
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4}>
+              <Autocomplete
+                options={salaryTypesList}
+                value={getAutoCompleteValue(
+                  salaryTypesList,
+                  formInfo.isBankTransfere
+                )}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, 'isBankTransfere')
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(messages.salaryType)}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={6} md={3}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -445,8 +471,9 @@ function MonthlyVariablesReport(props) {
                 )}
               />
             </Grid>
+            <Grid item xs={0} md={1}></Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={5} md={2}>
               <Autocomplete
                 options={monthList}
                 value={getAutoCompleteValue(monthList, formInfo.MonthId)}
@@ -466,9 +493,35 @@ function MonthlyVariablesReport(props) {
                   />
                 )}
               />
+            </Grid>    
+
+            <Grid item xs={12} md={2}></Grid> 
+
+            <Grid item xs={4}>
+              <FormControl>
+                <RadioGroup
+                  row
+                  value={formInfo.isVal}
+                  onChange={onRadioInputChange}
+                  name='isVal'
+                >
+                  <FormControlLabel
+                    value='1'
+                    control={<Radio />}
+                    label={intl.formatMessage(messages.enteredValues)}
+                  />
+                  <FormControlLabel
+                    value='2'
+                    control={<Radio />}
+                    label={intl.formatMessage(messages.CalculatedValue)}
+                  />
+                </RadioGroup>
+              </FormControl>
+            </Grid>   
+
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7} xl={5}>
               <Autocomplete
                 options={elementsList}
                 multiple
@@ -500,55 +553,8 @@ function MonthlyVariablesReport(props) {
                 )}
               />
             </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={salaryTypesList}
-                value={getAutoCompleteValue(
-                  salaryTypesList,
-                  formInfo.isBankTransfere
-                )}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'isBankTransfere')
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.salaryType)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item md={3} xs={12}>
-              <FormControl>
-                <RadioGroup
-                  row
-                  value={formInfo.isVal}
-                  onChange={onRadioInputChange}
-                  name='isVal'
-                >
-                  <FormControlLabel
-                    value='1'
-                    control={<Radio />}
-                    label={intl.formatMessage(messages.enteredValues)}
-                  />
-                  <FormControlLabel
-                    value='2'
-                    control={<Radio />}
-                    label={intl.formatMessage(messages.CalculatedValue)}
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} md={12}>
+            
+            <Grid item xs={12} md={7} xl={7}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}

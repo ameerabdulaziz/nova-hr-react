@@ -148,7 +148,7 @@ function EmployeeData(props) {
       <Card className={classes.card}>
         <CardContent>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} >
               <Autocomplete
                 id={isSuper ? "superEmployeeId" : "employeeId"}
                 options={EmployeeList}
@@ -183,7 +183,8 @@ function EmployeeData(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6}></Grid>
+            <Grid item xs={3} >
               <TextField
                 id={isSuper ? "superJob" : "job"}
                 name={isSuper ? "superJob" : "job"}
@@ -203,7 +204,7 @@ function EmployeeData(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={3} >
               <TextField
                 id={isSuper ? "superOrganization" : "organization"}
                 name={isSuper ? "superOrganization" : "organization"}
@@ -225,7 +226,7 @@ function EmployeeData(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={3} >
               <TextField
                 id={isSuper ? "superHiringDate" : "hiringDate"}
                 name={isSuper ? "superHiringDate" : "hiringDate"}

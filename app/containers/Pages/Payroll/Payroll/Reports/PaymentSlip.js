@@ -180,12 +180,11 @@ function PaymentSlip(props) {
   }
 
 
-useEffect(()=>{
-  if(paymentSlipReport.length !== 0 && btnType === "print")
-  {
-    printJS();
-  }
-},[paymentSlipReport])
+  useEffect(() => {
+    if (paymentSlipReport.length !== 0 && btnType === "print") {
+      printJS();
+    }
+  }, [paymentSlipReport])
 
 
 
@@ -193,7 +192,7 @@ useEffect(()=>{
     fetchNeededData();
   }, []);
 
-  const onFormSubmit = (evt,btnType) => {
+  const onFormSubmit = (evt, btnType) => {
     evt.preventDefault();
 
     fetchReportInfo(btnType);
@@ -269,15 +268,14 @@ useEffect(()=>{
 
 
 
-  const reviewDetailsFun =  () => {
+  const reviewDetailsFun = () => {
     fetchReportInfo("review");
   }
 
 
-  useEffect(()=>{
-    if(paymentSlipReport.length !== 0 && btnType === "review")
-    {
-      sessionStorage.setItem('Review',JSON.stringify( {
+  useEffect(() => {
+    if (paymentSlipReport.length !== 0 && btnType === "review") {
+      sessionStorage.setItem('Review', JSON.stringify({
         paymentSlipReport: paymentSlipReport,
         itemFormInfo: itemFormInfo,
       }));
@@ -286,268 +284,281 @@ useEffect(()=>{
       window.open(`/${DOMAIN_NAME}${SITEMAP.payroll.PaymentSlipReview.route}`, "_blank")?.focus();
 
     }
-  },[paymentSlipReport])
+  }, [paymentSlipReport])
 
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <form onSubmit={(e)=>onFormSubmit(e,"print")}>
+      <form onSubmit={(e) => onFormSubmit(e, "print")}>
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
             <Typography variant='h6'>{title}</Typography>
 
-            <Grid container mt={0} spacing={3}>
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={companyList}
-                  value={getAutoCompleteValue(companyList, formInfo.branchId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onCompanyAutocompleteChange(value)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      //required
-                      label={intl.formatMessage(messages.company)}
+            <Grid container mt={2} >
+
+              <Grid container spacing={2} md={12} xl={8}>
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={companyList}
+                    value={getAutoCompleteValue(companyList, formInfo.branchId)}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onCompanyAutocompleteChange(value)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        //required
+                        label={intl.formatMessage(messages.company)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={payTemplateList}
+                    value={getAutoCompleteValue(
+                      payTemplateList,
+                      formInfo.templateId
+                    )}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'templateId')
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        required
+                        label={intl.formatMessage(messages.template)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={insuranceList}
+                    value={getAutoCompleteValue(
+                      insuranceList,
+                      formInfo.isInsured
+                    )}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'isInsured')
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.insurance)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={salaryTypesList}
+                    value={getAutoCompleteValue(
+                      salaryTypesList,
+                      formInfo.isBankTransfere
+                    )}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'isBankTransfere')
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.salaryType)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={salaryValuesList}
+                    value={getAutoCompleteValue(
+                      salaryValuesList,
+                      formInfo.isPostiveVal
+                    )}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'isPostiveVal')
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.salaryValue)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Autocomplete
+                    options={currencyList}
+                    value={getAutoCompleteValue(currencyList, formInfo.currenyId)}
+                    isOptionEqualToValue={(option, value) => option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'currenyId')
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.currency)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Grid item sm={8}>
+                    <Autocomplete
+                      options={yearList}
+                      value={getAutoCompleteValue(yearList, formInfo.yearId)}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
+                      )}
+                      onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          required
+                          label={intl.formatMessage(messages.year)}
+                        />
+                      )}
                     />
-                  )}
-                />
+                  </Grid>
+                </Grid>
+
+                <Grid item xs={12} md={3} xl={3}>
+                  <Grid item sm={6}>
+                    <Autocomplete
+                      options={monthList}
+                      value={getAutoCompleteValue(monthList, formInfo.monthId)}
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
+                      )}
+                      onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          required
+                          {...params}
+                          label={intl.formatMessage(messages.month)}
+                        />
+                      )}
+                    />
+                  </Grid>
+                </Grid>
+
+              </Grid>
+              <Grid item sm={0} xl={0.5}></Grid>
+
+              <Grid container spacing={2} md={8} xl={3.5}>
+
+                <Grid item xs={12} md={6} >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={formInfo.isShowCompInsurance}
+                        name='isShowCompInsurance'
+                        onChange={onCheckboxChange}
+                      />
+                    }
+                    label={intl.formatMessage(messages.showSICompanyShare)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6} >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={formInfo.isShowStopedEmp}
+                        name='isShowStopedEmp'
+                        onChange={onCheckboxChange}
+                      />
+                    }
+                    label={intl.formatMessage(messages.showStopped)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6} >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={formInfo.isShowRefElements}
+                        name='isShowRefElements'
+                        onChange={onCheckboxChange}
+                      />
+                    }
+                    label={intl.formatMessage(messages.displayReferenceElements)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6} >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={formInfo.isShowEffectElements}
+                        name='isShowEffectElements'
+                        onChange={onCheckboxChange}
+                      />
+                    }
+                    label={intl.formatMessage(messages.displayOriginalValues)}
+                  />
+                </Grid>
+
               </Grid>
 
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={payTemplateList}
-                  value={getAutoCompleteValue(
-                    payTemplateList,
-                    formInfo.templateId
-                  )}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'templateId')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      label={intl.formatMessage(messages.template)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={yearList}
-                  value={getAutoCompleteValue(yearList, formInfo.yearId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      label={intl.formatMessage(messages.year)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={monthList}
-                  value={getAutoCompleteValue(monthList, formInfo.monthId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'monthId')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      required
-                      {...params}
-                      label={intl.formatMessage(messages.month)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={insuranceList}
-                  value={getAutoCompleteValue(
-                    insuranceList,
-                    formInfo.isInsured
-                  )}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'isInsured')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={intl.formatMessage(messages.insurance)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={salaryTypesList}
-                  value={getAutoCompleteValue(
-                    salaryTypesList,
-                    formInfo.isBankTransfere
-                  )}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'isBankTransfere')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={intl.formatMessage(messages.salaryType)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={salaryValuesList}
-                  value={getAutoCompleteValue(
-                    salaryValuesList,
-                    formInfo.isPostiveVal
-                  )}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'isPostiveVal')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={intl.formatMessage(messages.salaryValue)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={currencyList}
-                  value={getAutoCompleteValue(currencyList, formInfo.currenyId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'currenyId')
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label={intl.formatMessage(messages.currency)}
-                    />
-                  )}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={formInfo.isShowCompInsurance}
-                      name='isShowCompInsurance'
-                      onChange={onCheckboxChange}
-                    />
-                  }
-                  label={intl.formatMessage(messages.showSICompanyShare)}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={formInfo.isShowStopedEmp}
-                      name='isShowStopedEmp'
-                      onChange={onCheckboxChange}
-                    />
-                  }
-                  label={intl.formatMessage(messages.showStopped)}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={formInfo.isShowRefElements}
-                      name='isShowRefElements'
-                      onChange={onCheckboxChange}
-                    />
-                  }
-                  label={intl.formatMessage(messages.displayReferenceElements)}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={3}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={formInfo.isShowEffectElements}
-                      name='isShowEffectElements'
-                      onChange={onCheckboxChange}
-                    />
-                  }
-                  label={intl.formatMessage(messages.displayOriginalValues)}
-                />
-              </Grid>
-
-              <Grid item xs={12} md={12}>
+              <Grid item xs={12} md={12} xl={5.5} mt={1} >
                 <EmployeeData
                   handleEmpChange={handleEmpChange}
                   id={formInfo.employeeId}
@@ -556,8 +567,8 @@ useEffect(()=>{
                   IsSecuredData={true}
                 />
               </Grid>
-
-              <Grid item xs={12}>
+              <Grid item sm={0} xl={0.5}></Grid>
+              <Grid item xs={12} xl={6} mt={2}  >
                 <TextField
                   name='notes'
                   value={formInfo.notes}
@@ -571,14 +582,15 @@ useEffect(()=>{
                 />
               </Grid>
 
-              <Grid item xs={12} md={2} lg={1}>
+              <Grid item mt={2}    >
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.Print} />
                 </Button>
               </Grid>
-              <Grid item xs={12} md={2} lg={1}>
-                <Button variant='contained' color='primary' 
-                  onClick={()=>{
+
+              <Grid item ml={1} mt={2}>
+                <Button variant='contained' color='primary'
+                  onClick={() => {
                     reviewDetailsFun()
                   }}
                 >
@@ -593,13 +605,13 @@ useEffect(()=>{
       <Box
         ref={printDivRef}
         sx={{
-          height:"0px",
-          visibility:"hidden",
+          height: "0px",
+          visibility: "hidden",
           px: 4,
           pt: 4,
           '@media print': {
-            height:"100%",
-            visibility:"visible",
+            height: "100%",
+            visibility: "visible",
             direction: 'ltr',
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
@@ -625,6 +637,7 @@ useEffect(()=>{
           </Box>
         ))}
       </Box>
+
     </PayRollLoader>
   );
 }

@@ -492,9 +492,9 @@ function SalaryCalculation(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2} mt={0} alignItems="flex-start" direction="row">
-          <Grid item xs={12}>
+          <Grid item xs={12} md={7} xl={8}>
             <Grid container spacing={2}>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={6} xl={6} >
                 <Autocomplete
                   id="PayTemplateId"
                   options={PayTemplateList}
@@ -522,11 +522,9 @@ function SalaryCalculation(props) {
                   )}
                 />
               </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12} md={5}>
-            <Card className={classes.card} sx={{ mt: '0!important' }} >
+              <Grid item sx={6} md={6} xl={6}></Grid>
+              <Grid item md={12} xl={6}>
+              <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
                   container
@@ -574,22 +572,22 @@ function SalaryCalculation(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={5} md={2}>
                       {OpenMonth.yearName ? OpenMonth.yearName : intl.formatMessage(messages.year)}
                     </Grid>
-                    <Grid item xs={0.5}>
+                    <Grid item xs={2} md={1}>
                       /
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={5} md={2}>
                       {OpenMonth.monthName ? OpenMonth.monthName : intl.formatMessage(messages.month)}
                     </Grid>
                   </Grid>
+
                 </Grid>
               </CardContent>
             </Card>
-          </Grid>
-
-          <Grid item xs={12} md={7}>
+              </Grid>
+              <Grid item xs={12} md={12} xl={6}>
             <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
@@ -697,9 +695,10 @@ function SalaryCalculation(props) {
                 </Grid>
               </CardContent>
             </Card>
+              </Grid>
+            </Grid>
           </Grid>
-
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={7} xl={4}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
@@ -707,6 +706,7 @@ function SalaryCalculation(props) {
             ></EmployeeData>
           </Grid>
 
+          <Grid item md={12}></Grid>
           <Grid item>
             <Button
               variant="contained"
