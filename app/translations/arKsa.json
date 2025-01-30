@@ -2648,7 +2648,7 @@
   "boilerplate.containers.Payroll.Setting.employee": "الموظف",
   "boilerplate.containers.Payroll.Setting.employeeName": "اسم الموظف",
   "boilerplate.containers.Payroll.Setting.favorites": "المفضلة",
-  "boilerplate.containers.Payroll.Setting.filterMess": "يجب عليك تحديد اسم الموظف أو اسم المستخدم",
+  "boilerplate.containers.Payroll.Setting.filterMess": "يجب عليك تحديد اسم المستخدم",
   "boilerplate.containers.Payroll.Setting.notAllowedEmployees": "الموظفين الغير المسموح لهم",
   "boilerplate.containers.Payroll.Setting.menutemplateEN": "قالب القائمة بالانجليزية",
   "boilerplate.containers.Payroll.Setting.menutemplateAR": "قالب القائمة بالعربية",

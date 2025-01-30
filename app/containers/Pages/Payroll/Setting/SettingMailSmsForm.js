@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../Component/PayrollTable';
+import SimplifiedPayrollTable from '../Component/SimplifiedPayrollTable';
 import api from './api/SettingMailSmsFormData';
 import messages from './messages';
 import SITEMAP from '../../../App/routes/sitemap';
@@ -36,8 +36,6 @@ function SettingMailSmsForm(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -76,12 +74,12 @@ function SettingMailSmsForm(props) {
       url: SITEMAP.setting.SettingMailSmsFormEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

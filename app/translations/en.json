@@ -2647,7 +2647,7 @@
   "boilerplate.containers.Payroll.Setting.employee": "Employee",
   "boilerplate.containers.Payroll.Setting.employeeName": "Employee Name",
   "boilerplate.containers.Payroll.Setting.favorites": "Favorites",
-  "boilerplate.containers.Payroll.Setting.filterMess": "You must to select employee name or user name",
+  "boilerplate.containers.Payroll.Setting.filterMess": "You must to select user name",
   "boilerplate.containers.Payroll.Setting.notAllowedEmployees": "Not Allowed Employees",
   "boilerplate.containers.Payroll.Setting.menutemplateEN": "Menu Template EN",
   "boilerplate.containers.Payroll.Setting.menutemplateAR": "Menu Template AR",

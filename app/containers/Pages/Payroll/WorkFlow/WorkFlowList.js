@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../Component/PayrollTable';
+import SimplifiedPayrollTable from '../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../messages';
 import ApiData from './api/WorkFlowData';
 import messages from './messages';
@@ -49,8 +49,6 @@ function WorkFlowList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -95,7 +93,7 @@ function WorkFlowList(props) {
       url: SITEMAP.workFlow.WorkFlowEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <>
@@ -114,7 +112,7 @@ function WorkFlowList(props) {
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

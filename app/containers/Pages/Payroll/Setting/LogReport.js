@@ -16,7 +16,7 @@ import Search from "../Component/Search";
 import ApiData from "./api/LogReportData";
 import PayRollLoader from "../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../Component/PayrollTable";
+import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../helpers";
 
 function LogReport(props) {
@@ -85,7 +85,7 @@ function LogReport(props) {
       return;
     }
     
-    if(searchData.EmployeeId !== "" || searchData.UserId !== "")
+    if(searchData.UserId !== "")
     {
 
         try {
@@ -161,13 +161,13 @@ function LogReport(props) {
         label: intl.formatMessage(messages.employeeName),
     },
     {
+      name: "trxDate",
+      label: intl.formatMessage(payrollMessages.date),
+    },
+    {
         name: "action",
         label: intl.formatMessage(messages.Action),
     },
-    {
-      name: "trxDate",
-      label: intl.formatMessage(payrollMessages.date),
-  },    
   ];
 
   return (
@@ -175,19 +175,6 @@ function LogReport(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
-            <Search
-              setsearchData={setsearchData}
-              searchData={searchData}
-              setIsLoading={setIsLoading}
-              DateError={DateError}
-              setDateError={setDateError}
-              notShowCompany={true}
-              notShowOrganization={true}
-              notShowStatus={true}
-            ></Search>
-          </Grid>
-
           <Grid item xs={12}  md={3}> 
             <Autocomplete
               id="usersList"
@@ -207,14 +194,27 @@ function LogReport(props) {
                   variant="outlined"
                   {...params}
                   name="users"
+                  required
                   label={intl.formatMessage(messages.username)}
                 />
               )}
             />
           </Grid>
 
+          <Grid item xs={12} md={9}>
+            <Search
+              setsearchData={setsearchData}
+              searchData={searchData}
+              setIsLoading={setIsLoading}
+              DateError={DateError}
+              setDateError={setDateError}
+              notShowCompany={true}
+              notShowOrganization={true}
+              notShowStatus={true}
+            ></Search>
+          </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -224,11 +224,10 @@ function LogReport(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}
