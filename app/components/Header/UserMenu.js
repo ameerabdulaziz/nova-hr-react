@@ -307,7 +307,7 @@ function UserMenu(props) {
         </MenuItem>
         <MenuItem onClick={openUnderContractionPopup} >
           <FormattedMessage {...messages.email} />
-          <ListItemIcon>
+          {/* <ListItemIcon>
             <Badge
               className={cx(classes.badge, classes.badgeMenu)}
               badgeContent={2}
@@ -315,7 +315,7 @@ function UserMenu(props) {
             >
               &nbsp;
             </Badge>
-          </ListItemIcon>
+          </ListItemIcon> */}
         </MenuItem>
         <MenuItem
           onClick={handleClose}
