@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/CoursesData';
 import messages from '../messages';
@@ -89,8 +89,6 @@ function Courses(props) {
       toast.success(notif.saved);
       fetchNeededData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -103,12 +101,12 @@ function Courses(props) {
       url: SITEMAP.humanResources.CourseListEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}

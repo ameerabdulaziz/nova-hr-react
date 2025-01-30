@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import {
   formateDate,
   formatNumber,
@@ -32,6 +32,7 @@ import ChangeEmployeeStatus from '../components/EmployeeTrainingReport/ChangeEmp
 import SurveyTemplatePrint from '../components/EmployeeTrainingReport/SurveyTemplatePrint';
 import TestTemplatePrint from '../components/EmployeeTrainingReport/TestTemplatePrint';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeTrainingReport(props) {
   const { intl } = props;
@@ -198,10 +199,24 @@ function EmployeeTrainingReport(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'surveyDone',
@@ -603,7 +618,7 @@ function EmployeeTrainingReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}

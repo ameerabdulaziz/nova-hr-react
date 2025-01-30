@@ -14,12 +14,13 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/QualificationCheckData';
 import TrainingEmp from '../components/TrainingEmp';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function QualificationCheck(props) {
   const { intl } = props;
@@ -155,8 +156,6 @@ function QualificationCheck(props) {
       fetchTableData();
     } catch (error) {
       //
-    } finally {
-      //
     }
   };
 
@@ -209,6 +208,13 @@ function QualificationCheck(props) {
     {
       name: 'expirationDate',
       label: intl.formatMessage(messages.expirationDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.expirationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'isAssigned',
@@ -390,7 +396,7 @@ function QualificationCheck(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={pageTitle}
         data={tableData}

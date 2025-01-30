@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import PapperBlock from '../../../../../components/PapperBlock/PapperBlock';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -269,7 +269,7 @@ function FunctionsRequest(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={pageTitle}
         data={tableData}

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrainingRequestListData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function TrainingRequestList(props) {
   const { intl } = props;
@@ -41,8 +42,6 @@ function TrainingRequestList(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -69,11 +68,25 @@ function TrainingRequestList(props) {
     {
       name: 'trainingDate',
       label: intl.formatMessage(messages.trainingDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.trainingDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'requestDate',
       label: intl.formatMessage(messages.requestDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.requestDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -112,12 +125,12 @@ function TrainingRequestList(props) {
       url: SITEMAP.training.TrainingRequestListEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}

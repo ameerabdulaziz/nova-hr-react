@@ -15,13 +15,14 @@ import { useHistory } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import { ServerURL } from '../../api/ServerConfig';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formatNumber, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/TrTrainingTrxListData';
 import PreviewCertificatePopup from '../components/EvaluateEmployee/PreviewCertificatePopup';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EvaluateEmployee(props) {
   const { intl } = props;
@@ -154,10 +155,24 @@ function EvaluateEmployee(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'surveyDone',
@@ -406,7 +421,7 @@ function EvaluateEmployee(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={pageTitle}
         data={data}

@@ -8,7 +8,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/TrainingAttendanceData';
@@ -217,7 +217,7 @@ function TrainingAttendance(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}

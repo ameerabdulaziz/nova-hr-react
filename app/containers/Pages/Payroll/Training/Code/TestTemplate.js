@@ -5,12 +5,13 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/TestTemplateData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function TestTemplate(props) {
   const { intl } = props;
@@ -43,8 +44,6 @@ function TestTemplate(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -76,11 +75,25 @@ function TestTemplate(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -104,7 +117,7 @@ function TestTemplate(props) {
       url: SITEMAP.training.TestTemplateEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <Button
@@ -118,7 +131,7 @@ function TestTemplate(props) {
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}

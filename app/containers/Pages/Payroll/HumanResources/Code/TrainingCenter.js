@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import attendanceMessages from '../../Attendance/messages';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/TrainingCenterData';
 import messages from '../messages';
@@ -83,8 +83,6 @@ function TrainingCenter(props) {
       toast.success(notif.saved);
       fetchNeededData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -97,12 +95,12 @@ function TrainingCenter(props) {
       url: SITEMAP.humanResources.TrainingCenterListEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}

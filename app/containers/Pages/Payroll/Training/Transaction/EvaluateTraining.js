@@ -13,10 +13,11 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate, formatNumber, getCheckboxIcon } from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/TrTrainingTrxListData";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import messages from "../messages";
 import { useHistory } from "react-router";
 import SITEMAP from "../../../../App/routes/sitemap";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EvaluateTraining(props) {
   const { intl } = props;
@@ -91,18 +92,27 @@ function EvaluateTraining(props) {
       label: intl.formatMessage(messages.trainerName),
     },
     {
-      name: "fromDate",
+      name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
+
     {
-      name: "toDate",
+      name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "surveyDone",
@@ -165,7 +175,7 @@ function EvaluateTraining(props) {
 
   return (
     <PayRollLoader isLoading={isLoading}>
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={pageTitle}
         data={data}
