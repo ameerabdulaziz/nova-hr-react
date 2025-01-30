@@ -128,11 +128,16 @@ function EmployeeList(props) {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
       options: {
-        customBodyRender: (value, tableMeta) => {
+        customBodyRender: (value, tableMeta) => {     
+          
+            console.log("test =", tableMeta?.rowData[0]);
+            
+
           return <EmployeeNavigation
                     employeeId={tableMeta?.rowData[0]}
                     employeeName={locale === "en" ? tableMeta?.rowData[2] : tableMeta?.rowData[3]}
                     openInNewTap
+                    ResetDeviceKeyFun={ResetDeviceKeyFun}
                     // used to pass custom button to open menu
                     anchor={
                       <Button>{value}</Button>
@@ -294,7 +299,6 @@ function EmployeeList(props) {
         employeeId={row.id}
         employeeName={row.enName}
         ResetDeviceKeyFun={ResetDeviceKeyFun}
-        rowData={row}
         openInNewTap
       />
     ),

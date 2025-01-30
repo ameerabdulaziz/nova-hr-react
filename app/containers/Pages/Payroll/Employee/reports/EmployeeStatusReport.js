@@ -61,7 +61,10 @@ function EmployeeStatusReport(props) {
   });
 
   const onFormSubmit = async (evt) => {
-    evt.preventDefault();
+    if(evt)
+    {
+      evt.preventDefault();
+    }
 
     setIsLoading(true);
 
@@ -418,6 +421,27 @@ function EmployeeStatusReport(props) {
     }
 
   },[formInfo.BranchId, formInfo.EmployeeId])
+
+
+  useEffect(()=>{
+    if(formInfo.EmployeeId !== "")
+    {
+      onFormSubmit()
+    }
+    else
+    {
+      setEmployeeInfo({
+        penalty: [],
+        rewords: [],
+        vacation: [],
+        jobs: [],
+        profile: {},
+        employeeDocuments: [],
+      });
+    }
+
+  },[formInfo.EmployeeId])
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
