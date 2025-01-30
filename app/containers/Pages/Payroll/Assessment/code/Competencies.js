@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import api from '../api/CompetenciesData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
@@ -40,8 +40,6 @@ function Competencies(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -90,12 +88,12 @@ function Competencies(props) {
       url: SITEMAP.assessment.CompetenciesEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

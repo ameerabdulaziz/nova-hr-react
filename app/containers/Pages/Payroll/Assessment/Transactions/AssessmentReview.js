@@ -24,8 +24,9 @@ import {
   import { Link } from "react-router-dom";
   import { format } from 'date-fns';
 import { formateDate, getDefaultYearAndMonth } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import SITEMAP from "../../../../App/routes/sitemap";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function AssessmentReview({ intl }) {
   const { classes, cx } = useStyles();
@@ -117,10 +118,13 @@ function AssessmentReview({ intl }) {
     {
       name: "assessmentDate",
       label: intl.formatMessage(payrollMessages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
         name: "mgrcomment",
@@ -319,7 +323,7 @@ function AssessmentReview({ intl }) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         filterHighlights={filterHighlights}
         title=""
         data={dataTable}

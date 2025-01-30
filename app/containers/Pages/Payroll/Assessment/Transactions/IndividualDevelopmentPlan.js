@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import api from '../api/IndividualDevelopmentPlanData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function IndividualDevelopmentPlan(props) {
   const { intl } = props;
@@ -41,8 +42,6 @@ function IndividualDevelopmentPlan(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -69,9 +68,13 @@ function IndividualDevelopmentPlan(props) {
     {
       name: 'insDate',
       label: intl.formatMessage(messages.insertDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insertDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -90,12 +93,12 @@ function IndividualDevelopmentPlan(props) {
     },
     delete: {
       disabled: (row) => row.action !== 0,
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

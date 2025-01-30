@@ -22,7 +22,7 @@ import { toast } from 'react-hot-toast';
 import  ExamQuestionsPrint  from '../../Component/ExamQuestionsPrint';
 import { useReactToPrint } from 'react-to-print';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import { getAutoCompleteValue } from "../../helpers";
@@ -84,7 +84,7 @@ function AssessmentReport(props) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.year),
         value: year.name,
-      });Z
+      });
     }
 
     if (Employee && Employee.length > 0) {
@@ -555,7 +555,7 @@ const printJS = useReactToPrint({
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import useStyles from '../../Style';
 import { getCheckboxIcon } from '../../helpers';
 import api from '../api/AsTemplateData';
@@ -47,8 +47,6 @@ function AsTemplate(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -110,13 +108,13 @@ function AsTemplate(props) {
       url: SITEMAP.assessment.AsTemplateEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
     <>
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

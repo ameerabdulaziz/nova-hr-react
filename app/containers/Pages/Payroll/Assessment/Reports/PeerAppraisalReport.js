@@ -16,7 +16,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import PayRollLoader from "../../Component/PayRollLoader";
 import style from "../../../../../styles/styles.scss";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
 function AssessmentReport(props) {
@@ -331,7 +331,7 @@ function AssessmentReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}
