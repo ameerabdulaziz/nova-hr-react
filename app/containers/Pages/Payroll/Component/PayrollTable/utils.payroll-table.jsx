@@ -180,6 +180,18 @@ function getDateColumnOptions(item, intl, payrollMessages) {
   };
 }
 
+function wrapInPre(value, options) {
+  if (options?.noWrap) {
+    return value;
+  }
+
+  return <pre>{value}</pre>;
+}
+
 export {
-  exportExcel, getDateColumnOptions, getDefaultOptions, getTranslation
+  exportExcel,
+  getDateColumnOptions,
+  getDefaultOptions,
+  getTranslation,
+  wrapInPre
 };
