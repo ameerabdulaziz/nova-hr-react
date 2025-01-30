@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import OrganizationData from '../api/OrganizationData';
 import messages from '../messages';
 import { getCheckboxIcon } from '../../helpers';
@@ -16,7 +16,7 @@ function Organization({ intl }) {
   const [isLoading, setIsLoading] = useState(true);
   const locale = useSelector((state) => state.language.locale);
 
-  const getdata = async () => {
+  const fetchOrganizations = async () => {
     setIsLoading(true);
 
     try {
@@ -31,7 +31,7 @@ function Organization({ intl }) {
   };
 
   useEffect(() => {
-    getdata();
+    fetchOrganizations();
   }, []);
 
   const columns = [
@@ -74,10 +74,8 @@ function Organization({ intl }) {
       await OrganizationData().Delete(id);
 
       toast.success(notif.saved);
-      getdata();
+      fetchOrganizations();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -90,12 +88,12 @@ function Organization({ intl }) {
       url: SITEMAP.mainData.OrganizationEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

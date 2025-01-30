@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
 import api from '../api/CompanyDocumentData';
 import messages from '../messages';
@@ -41,8 +41,6 @@ function CompanyDocument(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -74,6 +72,9 @@ function CompanyDocument(props) {
     {
       name: 'docDesc',
       label: intl.formatMessage(messages.documentDescription),
+      options: {
+        noWrap: true,
+      },
     },
 
     {
@@ -110,12 +111,12 @@ function CompanyDocument(props) {
       url: SITEMAP.mainData.CompanyDocumentEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

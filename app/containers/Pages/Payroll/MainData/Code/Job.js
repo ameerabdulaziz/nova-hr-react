@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import JobData from '../api/JobData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
@@ -16,7 +16,7 @@ function Job({ intl }) {
   const [dataTable, setDataTable] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const getdata = async () => {
+  const fetchJobs = async () => {
     try {
       setIsLoading(true);
       const data = await JobData(locale).GetList();
@@ -30,7 +30,7 @@ function Job({ intl }) {
   };
 
   useEffect(() => {
-    getdata();
+    fetchJobs();
   }, []);
 
   const columns = [
@@ -46,7 +46,6 @@ function Job({ intl }) {
       name: 'enName',
       label: intl.formatMessage(messages.enName),
     },
-
     {
       name: 'jobTypeName',
       label: intl.formatMessage(messages.jobTypeName),
@@ -67,10 +66,8 @@ function Job({ intl }) {
       await JobData().Delete(id);
 
       toast.success(notif.saved);
-      getdata();
+      fetchJobs();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -83,12 +80,12 @@ function Job({ intl }) {
       url: SITEMAP.mainData.JobEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

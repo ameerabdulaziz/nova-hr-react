@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/GuaranterData';
 import messages from '../messages';
@@ -75,8 +75,6 @@ function Guarantor(props) {
       toast.success(notif.saved);
       fetchNeededData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -89,12 +87,12 @@ function Guarantor(props) {
       url: SITEMAP.mainData.GuarantorEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}
