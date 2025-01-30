@@ -49,7 +49,7 @@ function PayrollTableActions(props) {
   };
 
   return (
-    <Stack direction='row' justifyContent='flex-end' spacing={1}>
+    <Stack direction='row' spacing={1}>
       {actions?.extraActions && actions?.extraActions(row)}
 
       {actions?.edit && (

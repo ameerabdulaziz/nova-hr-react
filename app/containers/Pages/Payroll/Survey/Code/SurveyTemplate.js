@@ -9,12 +9,13 @@ import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/SurveyTemplateData';
 import SurveyTemplatePrint from '../components/SurveyTemplate/SurveyTemplatePrint';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function SurveyTemplate(props) {
   const { intl } = props;
@@ -52,8 +53,6 @@ function SurveyTemplate(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -85,11 +84,25 @@ function SurveyTemplate(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -208,7 +221,7 @@ function SurveyTemplate(props) {
         <SurveyTemplatePrint groupedQuestion={groupedQuestion} />
       </Box>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={pageTitle}
