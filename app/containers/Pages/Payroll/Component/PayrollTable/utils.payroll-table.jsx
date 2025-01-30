@@ -97,7 +97,7 @@ function getTranslation(intl, payrollMessages, isLoading = false) {
 
 // Customize table dropdown filter for only date
 // instead of single date input it will be 'from date' input and 'to date' input
-function getDateColumnOptions(item, intl, payrollMessages) {
+function getPayrollTableDateColumnOptions(item, intl, payrollMessages) {
   const isNameIncludeDate = item?.name?.toLowerCase()?.endsWith('date');
 
   if (!isNameIncludeDate) {
@@ -188,10 +188,89 @@ function wrapInPre(value, options) {
   return <pre>{value}</pre>;
 }
 
+// Customize table dropdown filter for only date
+// instead of single date input it will be 'from date' input and 'to date' input
+function getDateColumnOptions(label, options) {
+  const { minDateLabel = 'From date', maxDateLabel = 'To date' } = options;
+
+  return {
+    customBodyRender: (value) => wrapInPre(formateDate(value)),
+    filterType: 'custom',
+    customFilterListOptions: {
+      // Get filter label depend on value (min & max or min or max)
+      render: (filterValue) => {
+        // min & max filter label
+        if (filterValue[0] && filterValue[1]) {
+          return `${label} - ${minDateLabel}: ${filterValue[0]}, ${maxDateLabel}: ${filterValue[1]}`;
+        }
+
+        // min filter label
+        if (filterValue[0]) {
+          return `${label} - ${minDateLabel}: ${filterValue[0]}`;
+        }
+
+        // max filter label
+        if (filterValue[1]) {
+          return `${label} - ${maxDateLabel}: ${filterValue[1]}`;
+        }
+
+        return [];
+      },
+    },
+    filterOptions: {
+      names: [],
+      // logic for date calculation
+      logic(date, filters) {
+        // column date
+        const date1 = new Date(date);
+
+        // has min & max date
+        if (filters[0]) {
+          const minDate = new Date(filters[0]);
+          const maxDate = new Date(filters[1]);
+
+          if (date1 >= minDate && date1 <= maxDate) {
+            return false;
+          }
+          return true;
+        }
+
+        // has min date only
+        if (filters[0]) {
+          const minDate = new Date(filters[0]);
+          if (date1 >= minDate) {
+            return false;
+          }
+          return true;
+        }
+
+        // has max date only
+        if (filters[1]) {
+          const maxDate = new Date(filters[1]);
+          if (date1 <= maxDate) {
+            return false;
+          }
+          return true;
+        }
+        return false;
+      },
+      display: (filterList, onChange, index, column) => (
+        <DateFilter
+          filterList={filterList}
+          onChange={onChange}
+          index={index}
+          column={column}
+        />
+      ),
+    },
+  };
+}
+
 export {
   exportExcel,
   getDateColumnOptions,
   getDefaultOptions,
   getTranslation,
-  wrapInPre
+  wrapInPre,
+  getPayrollTableDateColumnOptions,
 };

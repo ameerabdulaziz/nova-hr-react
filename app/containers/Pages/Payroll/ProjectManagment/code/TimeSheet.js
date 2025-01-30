@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import TimeSheetData from '../api/TimeSheetData';
 import messages from '../messages';
 import payrollMessages from '../../messages';
@@ -40,8 +40,8 @@ function TimeSheet({ intl }) {
       label: intl.formatMessage(payrollMessages.employeeCode),
     },
     {
-        name: 'employeeName',
-        label: intl.formatMessage(payrollMessages.employeeName),
+      name: 'employeeName',
+      label: intl.formatMessage(payrollMessages.employeeName),
     },
     {
       name: 'projectName',
@@ -65,8 +65,6 @@ function TimeSheet({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -79,12 +77,12 @@ function TimeSheet({ intl }) {
       url: SITEMAP.projectManagement.TimeSheetEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

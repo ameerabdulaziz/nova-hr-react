@@ -21,7 +21,6 @@ import PayrollTableLoader from './PayrollTable/PayrollTableLoader';
 import PdfContainer from './PayrollTable/pdf/PDFContainer';
 import {
   exportExcel,
-  getDateColumnOptions,
   getDefaultOptions,
   getTranslation,
   wrapInPre,

@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import CustomerData from '../api/CustomerData';
 import messages from '../messages';
-import { getCheckboxIcon } from '../../helpers';
 import SITEMAP from '../../../../App/routes/sitemap';
 
 function Customer({ intl }) {
@@ -40,16 +39,19 @@ function Customer({ intl }) {
       label: intl.formatMessage(messages.customerCode),
     },
     {
-    ...(locale === "en" && {
-        name: 'enName',
-        label: intl.formatMessage(messages.customerName),
-    }),
-
-    ...(locale === "ar" && {
-        name: 'arName',
-        label: intl.formatMessage(messages.customerName),
-    })
-  },
+      name: 'enName',
+      label: intl.formatMessage(messages.customerName),
+      options: {
+        display: locale === 'en',
+      },
+    },
+    {
+      name: 'arName',
+      label: intl.formatMessage(messages.customerName),
+      options: {
+        display: locale === 'ar',
+      },
+    },
     {
       name: 'accMgrName',
       label: intl.formatMessage(messages.accountManagerName),
@@ -68,8 +70,6 @@ function Customer({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -82,12 +82,12 @@ function Customer({ intl }) {
       url: SITEMAP.projectManagement.CustomerEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import ContractData from '../api/ContractData';
 import messages from '../messages';
-import { formateDate } from '../../helpers';
+import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function Contract({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -40,24 +41,30 @@ function Contract({ intl }) {
       label: intl.formatMessage(messages.customerName),
     },
     {
-        name: 'contractCode',
-        label: intl.formatMessage(messages.contractCode),
+      name: 'contractCode',
+      label: intl.formatMessage(messages.contractCode),
     },
     {
       name: 'fromDate',
       label: intl.formatMessage(messages.startDate),
-      options: {
-          filter: true,
-          customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
-        },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.startDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
       label: intl.formatMessage(messages.endDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (<pre>{formateDate(value)}</pre>),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.endDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -69,8 +76,6 @@ function Contract({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -83,12 +88,12 @@ function Contract({ intl }) {
       url: SITEMAP.projectManagement.ContractEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

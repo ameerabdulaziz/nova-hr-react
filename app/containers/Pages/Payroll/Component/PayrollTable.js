@@ -21,7 +21,7 @@ import PayrollTableLoader from './PayrollTable/PayrollTableLoader';
 import PdfContainer from './PayrollTable/pdf/PDFContainer';
 import {
   exportExcel,
-  getDateColumnOptions,
+  getPayrollTableDateColumnOptions,
   getDefaultOptions,
   getTranslation,
 } from './PayrollTable/utils.payroll-table';
@@ -139,7 +139,7 @@ function PayrollTable(props) {
         },
 
         // Change date filter fields
-        ...getDateColumnOptions(item, intl, payrollMessages),
+        ...getPayrollTableDateColumnOptions(item, intl, payrollMessages),
 
         // Reset default options
         ...item?.options,

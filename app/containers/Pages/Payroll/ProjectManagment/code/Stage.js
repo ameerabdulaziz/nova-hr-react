@@ -4,10 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import StageData from '../api/StageData';
 import messages from '../messages';
-import { getCheckboxIcon } from '../../helpers';
 import SITEMAP from '../../../../App/routes/sitemap';
 
 function Stage({ intl }) {
@@ -40,8 +39,8 @@ function Stage({ intl }) {
       label: intl.formatMessage(messages.stageCode),
     },
     {
-        name: 'enName',
-        label: intl.formatMessage(messages.stageNameEN),
+      name: 'enName',
+      label: intl.formatMessage(messages.stageNameEN),
     },
     {
       name: 'arName',
@@ -57,8 +56,6 @@ function Stage({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -71,12 +68,12 @@ function Stage({ intl }) {
       url: SITEMAP.projectManagement.StageEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

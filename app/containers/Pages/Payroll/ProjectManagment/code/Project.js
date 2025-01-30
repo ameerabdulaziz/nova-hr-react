@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import ProjectData from '../api/ProjectData';
 import messages from '../messages';
-import Payrollmessages from "../../messages";
-import { getCheckboxIcon } from '../../helpers';
+import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function Project({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -40,37 +40,49 @@ function Project({ intl }) {
       name: 'projectCode',
       label: intl.formatMessage(messages.ProjectCode),
     },
-    // used to appear en employee name when ar employee name in en version , in ar version appear ar employee name when en employee name
-    ...(locale === "en" ? [
-      {
-        name: 'enName',
-        label: intl.formatMessage(messages.ProjectName),
-      }
-    ] : [
-      {
-        name: 'arName',
-        label: intl.formatMessage(messages.ProjectName),
-      }
-    ]),
+    {
+      name: 'enName',
+      label: intl.formatMessage(messages.ProjectName),
+      options: {
+        display: locale === 'en',
+      },
+    },
+    {
+      name: 'arName',
+      label: intl.formatMessage(messages.ProjectName),
+      options: {
+        display: locale === 'ar',
+      },
+    },
     {
       name: 'customerName',
-      label: "Customer Name",
       label: intl.formatMessage(messages.customerName),
     },
     {
-        name: 'expectedWorkHours',
-        label: "Exp Working Hours",
-        label: intl.formatMessage(messages.expectedWorkHours),
+      name: 'expectedWorkHours',
+      label: intl.formatMessage(messages.expectedWorkHours),
     },
     {
       name: 'expectedStartDate',
-      label: "Exp Start Date",
       label: intl.formatMessage(messages.expectedStartDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.expectedStartDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'expectedEndDate',
-      label: "Exp End Date",
       label: intl.formatMessage(messages.expectedEndDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.expectedEndDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -82,8 +94,6 @@ function Project({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (er) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -96,12 +106,12 @@ function Project({ intl }) {
       url: SITEMAP.projectManagement.ProjectEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}
