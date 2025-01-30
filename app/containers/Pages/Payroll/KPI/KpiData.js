@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../Component/PayRollLoader';
-import PayrollTable from '../Component/PayrollTable';
+import SimplifiedPayrollTable from '../Component/SimplifiedPayrollTable';
 import Search from '../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../helpers';
 import API from './api/KPI_API_Data';
@@ -14,6 +14,7 @@ import classes2 from "../../../../styles/styles.scss";
 import { toast } from "react-hot-toast";
 import payrollMessages from "../messages";
 import GeneralListApis from '../api/GeneralListApis';
+import { getDateColumnOptions } from '../Component/PayrollTable/utils.payroll-table';
 
 function KpiData(props) {
   const { intl } = props;
@@ -56,6 +57,13 @@ function KpiData(props) {
     {
       name: 'transactionDate',
       label: 'Transaction Date',
+      options: getDateColumnOptions(
+        'Transaction Date',
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ]
 
@@ -99,6 +107,13 @@ function KpiData(props) {
     {
       name: 'transactionDate',
       label: 'Transaction Date',
+      options: getDateColumnOptions(
+        'Transaction Date',
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'csat',
@@ -122,6 +137,13 @@ function KpiData(props) {
     {
       name: 'transactionDate',
       label: 'Transaction Date',
+      options: getDateColumnOptions(
+        'Transaction Date',
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'combinedPass',
@@ -496,7 +518,7 @@ function KpiData(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}
