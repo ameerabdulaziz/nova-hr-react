@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { getAutoCompleteValue } from '../../helpers';
@@ -17,6 +17,7 @@ import payrollMessages from '../../messages';
 import api from '../api/EmployeeObjectiveData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeObjective(props) {
   const { intl } = props;
@@ -188,6 +189,13 @@ function EmployeeObjective(props) {
     {
       name: 'dueDate',
       label: intl.formatMessage(messages.dueDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.dueDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -243,7 +251,7 @@ function EmployeeObjective(props) {
       url: SITEMAP.smartObjective.EmployeeObjectiveEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
@@ -383,7 +391,7 @@ function EmployeeObjective(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         filterHighlights={filterHighlights}

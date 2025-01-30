@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -300,7 +300,7 @@ function ObjectiveReport(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}
