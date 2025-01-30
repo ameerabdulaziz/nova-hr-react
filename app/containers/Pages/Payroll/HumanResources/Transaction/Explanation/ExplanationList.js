@@ -13,13 +13,14 @@ import { PapperBlock } from "enl-components";
 import EditButton from "../../../Component/EditButton";
 import style from "../../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import PayrollTable from "../../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../../helpers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { toast } from "react-hot-toast";
 import SITEMAP from "../../../../../App/routes/sitemap";
+import { getDateColumnOptions } from "../../../Component/PayrollTable/utils.payroll-table";
 
 function ExplanationList(props) {
   const { intl } = props;
@@ -158,10 +159,13 @@ function ExplanationList(props) {
     {
       name: "questionDate",
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: "expTypeName",
@@ -181,7 +185,7 @@ function ExplanationList(props) {
       name: "questionDetails",
       label: intl.formatMessage(Payrollmessages.details),
       options: {
-        filter: true,
+        noWrap: true,
       },
     },
     {
@@ -331,7 +335,7 @@ function ExplanationList(props) {
         </div>
       </PapperBlock>
 
-          <PayrollTable
+          <SimplifiedPayrollTable
             title=""
             data={data}
             columns={columns}
