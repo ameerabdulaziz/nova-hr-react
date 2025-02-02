@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import api from '../api/MonthOpenCloseAssData';
 import EmployeePopup from '../components/MonthOpenCloseAss/EmployeePopup';
@@ -240,7 +240,7 @@ function MonthOpenCloseAss(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <EmployeePopup
         employeeList={employeeList}
         isOpen={isPopupOpen}
@@ -255,7 +255,7 @@ function MonthOpenCloseAss(props) {
               <Typography variant='h6'>{title}</Typography>
 
               <Grid container spacing={3} mt={0} direction='row'>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={5} lg={4}>
                   <Autocomplete
                     options={organizationList}
                     value={getAutoCompleteValue(
@@ -282,7 +282,7 @@ function MonthOpenCloseAss(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={2.5} lg={2}>
                   <Autocomplete
                     options={monthList}
                     value={getAutoCompleteValue(monthList, formInfo.monthId)}
@@ -308,7 +308,7 @@ function MonthOpenCloseAss(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={2.5} lg={2}>
                   <Autocomplete
                     options={yearList}
                     value={getAutoCompleteValue(yearList, formInfo.yearId)}
@@ -442,7 +442,7 @@ function MonthOpenCloseAss(props) {
           </Card>
         </Grid> */}
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

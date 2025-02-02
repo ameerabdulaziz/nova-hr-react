@@ -196,7 +196,7 @@ function AssessmentReview({ intl }) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} lg={3}>
             
                 <Autocomplete
                 id="ddlMenu"   
@@ -233,7 +233,7 @@ function AssessmentReview({ intl }) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2} xl={1.5}>
            
             <Autocomplete
                 id="ddlMenu"   
@@ -271,7 +271,8 @@ function AssessmentReview({ intl }) {
                 )}
                 /> 
           </Grid>
-          <Grid item xs={12} md={2}>
+
+          <Grid item xs={6} md={3} lg={2} xl={1.5}>
             
                  <Autocomplete
                 id="ddlMenu"   
@@ -309,7 +310,7 @@ function AssessmentReview({ intl }) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={2} >
             <Button
               variant="contained"
               size="medium"
@@ -319,7 +320,8 @@ function AssessmentReview({ intl }) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
+
+          <Grid item xs={12} ></Grid>
         </Grid>
       </PapperBlock>
 

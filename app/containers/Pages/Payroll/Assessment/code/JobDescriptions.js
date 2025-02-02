@@ -94,7 +94,7 @@ function JobDescriptions(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <Grid container mt={3}>
-          <Grid item xs={6}   lg={3}>
+          <Grid item xs={6} lg={3}>
             <Autocomplete
               options={jobList}
               value={jobList.find((item) => item.id === job?.id) ?? null}

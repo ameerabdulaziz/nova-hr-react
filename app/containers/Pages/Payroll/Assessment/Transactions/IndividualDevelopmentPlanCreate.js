@@ -284,7 +284,7 @@ function IndividualDevelopmentPlanCreate(props) {
                 <Typography variant='h6'>{title}</Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3} lg={2} >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.date)}
@@ -313,7 +313,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3}>
                     <Autocomplete
                       options={employeeList}
                       value={
@@ -345,7 +345,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     <Divider />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.currentJob}
                       label={intl.formatMessage(messages.currentJobName)}
@@ -356,7 +356,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.department}
                       label={intl.formatMessage(messages.department)}
@@ -367,7 +367,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.reportingto}
                       label={intl.formatMessage(messages.reportingTo)}
@@ -378,7 +378,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.currentSalary}
                       label={intl.formatMessage(messages.currentSalary)}
@@ -389,7 +389,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name='hiringData'
                       value={formateDate(jobInfo.hiringDate) ?? ''}
@@ -400,7 +400,7 @@ function IndividualDevelopmentPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name='jobDuties'
                       value={jobInfo.duties}
