@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -315,11 +315,12 @@ function EmployeeObjective(props) {
   },[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
           <Grid container spacing={2} mt={0}>
-            <Grid item xs={12}>
+
+            <Grid item xs={12} md={9} lg={8} xl={6}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -331,7 +332,7 @@ function EmployeeObjective(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} xl={2}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.yearId)}
@@ -399,7 +400,7 @@ function EmployeeObjective(props) {
         columns={columns}
         actions={actions}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

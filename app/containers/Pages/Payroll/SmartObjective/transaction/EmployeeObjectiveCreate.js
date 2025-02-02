@@ -1,6 +1,8 @@
 import {
   Autocomplete,
   Button,
+  Card,
+  CardContent,
   Grid,
   InputAdornment,
   TextField,
@@ -30,7 +32,6 @@ import SITEMAP from '../../../../App/routes/sitemap';
 function EmployeeObjectiveCreate(props) {
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
-
   const history = useHistory();
   const location = useLocation();
 
@@ -173,7 +174,7 @@ function EmployeeObjectiveCreate(props) {
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} mt={0}>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.employeeId}
@@ -181,39 +182,12 @@ function EmployeeObjectiveCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <TextField
-                name='objectiveDescription'
-                multiline
-                rows={1}
-                value={formInfo.objectiveDescription}
-                onChange={onInputChange}
-                label={intl.formatMessage(messages.objective)}
-                fullWidth
-                required
-                variant='outlined'
-                autoComplete='off'
-                disabled={isNormalEmployee}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <TextField
-                name='measurementTool'
-                multiline
-                rows={1}
-                value={formInfo.measurementTool}
-                required
-                onChange={onInputChange}
-                label={intl.formatMessage(messages.measurementTool)}
-                fullWidth
-                variant='outlined'
-                disabled={isNormalEmployee}
-                autoComplete='off'
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12}  lg={6}>
+            <Card className={classes.card}>
+              <CardContent>
+              <Grid container spacing={2}>
+                
+                <Grid item xs={6} md={4}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.dueDate)}
@@ -246,102 +220,143 @@ function EmployeeObjectiveCreate(props) {
                   }}
                 />
               </LocalizationProvider>
-            </Grid>
+                </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Autocomplete
-                options={yearList}
-                disabled={isNormalEmployee}
-                value={getAutoCompleteValue(yearList, formInfo.yearId)}
-                onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id + option.name}>
-                    {option.name}
-                  </li>
-                )}
-                renderInput={(params) => (
+                <Grid item xs={6} md={4}>
+                  <Autocomplete
+                    options={yearList}
+                    disabled={isNormalEmployee}
+                    value={getAutoCompleteValue(yearList, formInfo.yearId)}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'yearId')}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id + option.name}>
+                        {option.name}
+                      </li>
+                    )}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        required
+                        disabled={isNormalEmployee}
+                        label={intl.formatMessage(payrollMessages.year)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={6} md={4}>
+                  <Autocomplete
+                    options={monthsList}
+                    disabled={isNormalEmployee}
+                    value={getAutoCompleteValue(monthsList, formInfo.monthId)}
+                    onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id + option.name}>
+                        {option.name}
+                      </li>
+                    )}
+                    getOptionLabel={(option) => (option ? option.name : '')}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        required
+                        disabled={isNormalEmployee}
+                        label={intl.formatMessage(payrollMessages.month)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={6} md={4}>
                   <TextField
-                    {...params}
+                    name='execution'
+                    value={formInfo.execution}
+                    onChange={onNumericInputChange}
+                    label={intl.formatMessage(messages.achieved)}
+                    fullWidth
                     required
                     disabled={isNormalEmployee}
-                    label={intl.formatMessage(payrollMessages.year)}
+                    variant='outlined'
+                    autoComplete='off'
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position='end'>%</InputAdornment>
+                      ),
+                    }}
                   />
-                )}
-              />
-            </Grid>
+                </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Autocomplete
-                options={monthsList}
-                disabled={isNormalEmployee}
-                value={getAutoCompleteValue(monthsList, formInfo.monthId)}
-                onChange={(_, value) => onAutoCompleteChange(value, 'monthId')}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id + option.name}>
-                    {option.name}
-                  </li>
-                )}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderInput={(params) => (
+                <Grid item xs={6} md={4}>
                   <TextField
-                    {...params}
-                    required
+                    name='weight'
+                    value={formInfo.weight}
+                    onChange={onNumericInputChange}
+                    label={intl.formatMessage(messages.weight)}
+                    fullWidth
                     disabled={isNormalEmployee}
-                    label={intl.formatMessage(payrollMessages.month)}
+                    required
+                    variant='outlined'
+                    autoComplete='off'
                   />
-                )}
-              />
+                </Grid>
+
+                <Grid item xs={6} md={4}>
+                  <TextField
+                    name='weightedScore'
+                    value={formInfo.weightedScore}
+                    disabled
+                    label={intl.formatMessage(messages.weightedScore)}
+                    fullWidth
+                    variant='outlined'
+                    autoComplete='off'
+                  />
+                </Grid>
+
+              </Grid>
+              </CardContent>              
+            </Card>
+
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} >
               <TextField
-                name='execution'
-                value={formInfo.execution}
-                onChange={onNumericInputChange}
-                label={intl.formatMessage(messages.achieved)}
+                name='objectiveDescription'
+                multiline
+                rows={1}
+                value={formInfo.objectiveDescription}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.objective)}
                 fullWidth
                 required
-                disabled={isNormalEmployee}
                 variant='outlined'
                 autoComplete='off'
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>%</InputAdornment>
-                  ),
-                }}
+                disabled={isNormalEmployee}
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
               <TextField
-                name='weight'
-                value={formInfo.weight}
-                onChange={onNumericInputChange}
-                label={intl.formatMessage(messages.weight)}
-                fullWidth
-                disabled={isNormalEmployee}
+                name='measurementTool'
+                multiline
+                rows={1}
+                value={formInfo.measurementTool}
                 required
-                variant='outlined'
-                autoComplete='off'
-              />
-            </Grid>
-
-            <Grid item xs={12} md={4}>
-              <TextField
-                name='weightedScore'
-                value={formInfo.weightedScore}
-                disabled
-                label={intl.formatMessage(messages.weightedScore)}
+                onChange={onInputChange}
+                label={intl.formatMessage(messages.measurementTool)}
                 fullWidth
                 variant='outlined'
+                disabled={isNormalEmployee}
                 autoComplete='off'
               />
             </Grid>
 
-            <Grid item xs={12}>
+
+
+
+            <Grid item xs={12} md={6}>
               <TextField
                 name='evalNotes'
                 multiline
@@ -356,7 +371,7 @@ function EmployeeObjectiveCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={6}>
               <TextField
                 name='staffComment'
                 multiline
