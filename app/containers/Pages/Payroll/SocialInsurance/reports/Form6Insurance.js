@@ -233,7 +233,7 @@ function Form6Insurance(props) {
   const options = {
     print: false,
     selectableRows: 'multiple',
-    onRowSelectionChange: (rowsSelectedIndexes) => {
+    onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
       setSelectedRowsIndex(rowsSelectedIndexes);
     },
     rowsSelected: selectedRowsIndex,
