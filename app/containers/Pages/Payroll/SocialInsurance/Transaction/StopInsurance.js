@@ -4,12 +4,13 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/StopInsuranceData';
 import messages from '../messages';
 import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function StopInsurance(props) {
   const { intl } = props;
@@ -85,10 +86,13 @@ function StopInsurance(props) {
     {
       name: 'insEndDate',
       label: intl.formatMessage(messages.endDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.endDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -112,12 +116,12 @@ function StopInsurance(props) {
       url: SITEMAP.socialInsurance.StopInsuranceEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

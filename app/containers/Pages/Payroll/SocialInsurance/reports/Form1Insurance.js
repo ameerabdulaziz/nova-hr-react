@@ -25,7 +25,7 @@ import {
   import { FormattedMessage, injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
   import PayRollLoader from '../../Component/PayRollLoader';
-  import PayrollTable from '../../Component/PayrollTable';
+  import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
   import useStyles from '../../Style';
   import { formateDate, formatNumber } from '../../helpers';
   import payrollMessages from '../../messages';
@@ -34,6 +34,7 @@ import {
   import messages from '../messages';
   import { useMediaQuery } from '@mui/material';
 import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
   
   function Form1Insurance(props) {
     const { intl } = props;
@@ -160,17 +161,25 @@ import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
       {
         name: 'birthDate',
         label: intl.formatMessage(messages.birthDate),
-        options: {
-          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-        },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.birthDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
   
       {
         name: 'insuranceDate',
         label: intl.formatMessage(messages.insuranceDate),
-        options: {
-          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-        },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.insuranceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
   
       {
@@ -217,7 +226,7 @@ import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
       ),
       selectableRows: 'multiple',
       customToolbarSelect: () => null,
-      onRowSelectionChange: (rowsSelectedIndexes) => {
+      onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
         setSelectedRows(rowsSelectedIndexes);
       },
       rowsSelected: SelectedRows
@@ -518,7 +527,7 @@ import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
           </form>
         </PapperBlock>
   
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=''
           data={tableData}
           columns={columns}

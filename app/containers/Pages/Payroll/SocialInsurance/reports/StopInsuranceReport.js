@@ -9,12 +9,13 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import ApiData from '../api/InsuranceReportApisData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function StopInsuranceReport(props) {
   const { intl } = props;
@@ -199,6 +200,13 @@ function StopInsuranceReport(props) {
     {
       name: 'insEndDate',
       label: intl.formatMessage(messages.InsuranceEndDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.InsuranceEndDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'insReason',
@@ -308,7 +316,7 @@ function StopInsuranceReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={data}
         filterHighlights={filterHighlights}
