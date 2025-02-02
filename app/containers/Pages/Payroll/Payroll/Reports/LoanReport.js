@@ -17,10 +17,11 @@ import Search from "../../Component/Search";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { format } from "date-fns";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
 import { toast } from "react-hot-toast";
 import GeneralListApis from "../../api/GeneralListApis";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function LoanReport(props) {
   const { intl } = props;
@@ -213,10 +214,13 @@ function LoanReport(props) {
       {
         name: "transDate",
         label: intl.formatMessage(messages.date),
-        options: {
-          filter: true,
-          customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-        },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.date),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: "nativeTotalValue",
@@ -371,7 +375,7 @@ function LoanReport(props) {
         
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

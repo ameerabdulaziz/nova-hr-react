@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/LoanReqData';
@@ -101,13 +101,13 @@ function LoanReqList(props) {
       disabled: (row) => row.isSubmitted || (row.stepId != null),
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
       disabled: (row) => row.isSubmitted || (row.stepId != null),
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

@@ -17,13 +17,14 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SalaryReportData';
 import messages from '../messages';
 import useStyles from "../../Style";
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function SalaryReport(props) {
   const { intl } = props;
@@ -162,6 +163,13 @@ function SalaryReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -460,7 +468,7 @@ function SalaryReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <SimplifiedPayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

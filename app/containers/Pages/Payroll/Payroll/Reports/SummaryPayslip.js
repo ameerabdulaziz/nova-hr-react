@@ -18,7 +18,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, getAutoCompleteValue } from '../../helpers';
@@ -478,7 +478,7 @@ function SummaryPayslip(props) {
         </Card>
       </form>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

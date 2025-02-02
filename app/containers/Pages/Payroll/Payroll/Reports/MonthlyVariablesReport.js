@@ -19,12 +19,13 @@ import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MonthlyVariablesReportData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function MonthlyVariablesReport(props) {
   const { intl } = props;
@@ -142,6 +143,13 @@ function MonthlyVariablesReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -571,7 +579,7 @@ function MonthlyVariablesReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

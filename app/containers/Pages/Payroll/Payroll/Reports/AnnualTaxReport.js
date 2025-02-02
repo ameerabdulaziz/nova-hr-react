@@ -8,7 +8,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import {
   formatNumber,
@@ -19,6 +19,7 @@ import payrollMessages from '../../messages';
 import api from '../api/AnnualTaxReportData';
 import messages from '../messages';
 import useStyles from "../../Style";
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function AnnualTaxReport(props) {
   const { classes } = useStyles();
@@ -124,6 +125,13 @@ function AnnualTaxReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -403,7 +411,7 @@ function AnnualTaxReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

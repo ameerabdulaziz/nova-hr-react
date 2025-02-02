@@ -15,7 +15,7 @@ import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import EmployeeData from "../../Component/EmployeeData";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formatNumber, formateDate, getAutoCompleteValue } from "../../helpers";
 import payrollMessages from "../../messages";
@@ -25,6 +25,7 @@ import style from "../../../../../styles/styles.scss";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function DetailedPayrollReport(props) {
   const { intl } = props;
@@ -236,6 +237,13 @@ function DetailedPayrollReport(props) {
     {
       name: "hiringDate",
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -671,7 +679,7 @@ function DetailedPayrollReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={tableData}
         columns={columns}

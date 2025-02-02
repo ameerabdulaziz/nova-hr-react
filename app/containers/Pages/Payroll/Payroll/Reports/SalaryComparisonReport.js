@@ -22,7 +22,7 @@ import ApiData from "../api/PayrollReportsData";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import { format } from 'date-fns';
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
 function SalaryComparisonReport(props) {
@@ -626,7 +626,7 @@ function SalaryComparisonReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

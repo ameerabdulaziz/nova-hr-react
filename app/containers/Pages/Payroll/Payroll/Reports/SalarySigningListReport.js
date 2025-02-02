@@ -25,7 +25,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
 function SalarySigningListReport(props) {
@@ -672,7 +672,7 @@ function SalarySigningListReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

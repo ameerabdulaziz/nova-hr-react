@@ -18,8 +18,9 @@ import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function FollowEmployee(props) {
   const { intl } = props;
@@ -149,18 +150,24 @@ function FollowEmployee(props) {
     {
       name: "mindate",
       label: intl.formatMessage(messages.FromMonth),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.FromMonth),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
         name: "maxdate",
         label: intl.formatMessage(messages.ToMonth),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{value}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.ToMonth),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
         name: "elemVal",
@@ -240,7 +247,7 @@ function FollowEmployee(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

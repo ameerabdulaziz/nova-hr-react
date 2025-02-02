@@ -21,7 +21,7 @@ import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
 function ElementReview(props) {
@@ -559,7 +559,7 @@ function ElementReview(props) {
 
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

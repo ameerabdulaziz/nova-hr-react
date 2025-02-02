@@ -20,7 +20,8 @@ import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function SalaryYearReport(props) {
   const { intl } = props;
@@ -204,10 +205,13 @@ function SalaryYearReport(props) {
     {
         name: "insuranceDate",
         label: intl.formatMessage(messages.InsuranceDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.InsuranceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
     },
     {
         name: "netSal",
@@ -345,7 +349,7 @@ function SalaryYearReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

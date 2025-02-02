@@ -28,7 +28,7 @@ import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 
 import GeneralListApis from "../../../api/GeneralListApis";
-import PayrollTable from "../../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../../Component/SimplifiedPayrollTable";
 import { ServerURL } from "../../../api/ServerConfig";
 
 function ElementVlaImport({ intl }) {
@@ -581,7 +581,7 @@ function ElementVlaImport({ intl }) {
             <Grid item xs={12} md={1}></Grid>
             {fileData.length !== 0 && (
               <Grid item xs={12} md={12}>
-                <PayrollTable
+                <SimplifiedPayrollTable
                   title={fileTitle}
                   data={fileData}
                   columns={cols}

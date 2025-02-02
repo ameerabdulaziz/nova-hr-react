@@ -334,7 +334,7 @@ function ExamplePage(props) {
     }
   };
 
-  // Define columns for the PayrollTable
+  // Define columns for the SimplifiedPayrollTable
   const columns = [
     {
       name: "id",
@@ -363,7 +363,7 @@ function ExamplePage(props) {
     },
   ];
 
-  // Define actions for the PayrollTable
+  // Define actions for the SimplifiedPayrollTable
   const actions = {
     add: {
       url: "/Recruitment/ExamplePageCreate",
@@ -376,9 +376,9 @@ function ExamplePage(props) {
     },
   };
 
-  // Render the PayrollTable component with provided props
+  // Render the SimplifiedPayrollTable component with provided props
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}
@@ -528,8 +528,8 @@ const options = {
 
 // ....
 
-// Pass the custom options to the PayrollTable component
-<PayrollTable
+// Pass the custom options to the SimplifiedPayrollTable component
+<SimplifiedPayrollTable
   isLoading={isLoading}
   data={tableData}
   columns={columns}
@@ -540,7 +540,7 @@ const options = {
 
 ### Add Custom Column
 
-If you want to add a custom `column` to your `PayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
+If you want to add a custom `column` to your `SimplifiedPayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
 
 **Example**
 
@@ -593,7 +593,7 @@ if (employee) {
 setFilterHighlights(result);
 
 // Pass the highlights to the PayrollTable component
-<PayrollTable
+<SimplifiedPayrollTable
   isLoading={isLoading}
   title=''
   data={tableData}

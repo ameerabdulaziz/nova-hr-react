@@ -16,7 +16,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import XLSX from 'xlsx-js-style';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -1381,7 +1381,7 @@ function BankList(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <SimplifiedPayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoaderInForms>
   );
 }
