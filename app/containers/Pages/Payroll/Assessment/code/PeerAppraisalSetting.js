@@ -172,7 +172,7 @@ function PeerAppraisalSetting(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid item container spacing={2}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4} lg={3}>
                 <Autocomplete
                 id="ddlMenu"   
                 isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -207,7 +207,7 @@ function PeerAppraisalSetting(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2}>
             <Autocomplete
                 id="ddlMenu"   
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -243,7 +243,7 @@ function PeerAppraisalSetting(props) {
                 /> 
           </Grid>
           
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2}>
               <Autocomplete
                 id="ddlMenu"   
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -280,7 +280,7 @@ function PeerAppraisalSetting(props) {
           </Grid>
 
           <Grid item container spacing={3}>
-            <Grid item xs={12} md={2} lg={1.5}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -291,7 +291,7 @@ function PeerAppraisalSetting(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2} lg={1.5}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -302,7 +302,7 @@ function PeerAppraisalSetting(props) {
                 <FormattedMessage {...Payrollmessages.delete} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2} lg={1.5}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -314,7 +314,7 @@ function PeerAppraisalSetting(props) {
             </Grid>
           </Grid>
             
-          <Grid item xs={6} md={12}>
+          <Grid item xs={12} >
             <NameList
               dataList={dataList}
               setdataList={setdataList}

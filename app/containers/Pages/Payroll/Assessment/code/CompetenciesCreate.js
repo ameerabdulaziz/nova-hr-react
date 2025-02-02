@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import payrollMessages from '../../messages';
 import api from '../api/CompetenciesData';
 import messages from '../messages';
@@ -106,7 +106,7 @@ function CompetenciesCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
@@ -208,7 +208,7 @@ function CompetenciesCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
