@@ -23,7 +23,7 @@ import ApiData from "../../api/ElementValData";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 
@@ -250,7 +250,7 @@ function ElementVlaImport({ intl }) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
@@ -270,9 +270,9 @@ function ElementVlaImport({ intl }) {
                       direction="row"
                       spacing={2}
                       xs={12}
-                      md={5}
+                      xl={4}
                     >
-                      <Grid item xs={8}>
+                      <Grid item xs={12}>
                         <Autocomplete
                           id="branchId"
                           options={BranchList}
@@ -306,8 +306,8 @@ function ElementVlaImport({ intl }) {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={4}></Grid>
-                      <Grid item xs={4}>
+
+                      <Grid item xs={4} xl={6}>
                         <TextField
                           id="YearId"
                           name="YearId"
@@ -318,7 +318,7 @@ function ElementVlaImport({ intl }) {
                           autoComplete='off'
                         />
                       </Grid>
-                      <Grid item xs={4} >
+                      <Grid item xs={4} xl={6} >
                         <TextField
                           id="MonthId"
                           name="MonthId"
@@ -347,7 +347,7 @@ function ElementVlaImport({ intl }) {
                           label={intl.formatMessage(messages.isNotUpdate)}
                         />
                       </Grid>
-                      <Grid item xs={5} md={4} >
+                      <Grid item xs={4} xl={6} >
                           <TextField
                             id="elementValColNum"
                             name="elementValColNum"
@@ -374,7 +374,7 @@ function ElementVlaImport({ intl }) {
                       direction="row"
                       spacing={2}
                       xs={12}
-                      md={7}
+                      xl={8}
                     >
                       <Card className={classes.card}>
                         <CardContent>
@@ -591,7 +591,7 @@ function ElementVlaImport({ intl }) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

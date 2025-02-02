@@ -319,7 +319,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={4} md={3} lg={2} xl={1.5}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="SmalloanLimit"
                 name="SmalloanLimit"

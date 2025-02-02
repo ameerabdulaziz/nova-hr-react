@@ -314,7 +314,7 @@ function LoanTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} lg={5}>
+            <Grid item xs={12} xl={5.2}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -322,7 +322,7 @@ function LoanTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} lg={7}>
+            <Grid item xs={12} xl={6.8}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -437,7 +437,7 @@ function LoanTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} lg={5}>
+            <Grid item xs={12} xl={5.2}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -697,7 +697,7 @@ function LoanTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} lg={7}>
+            <Grid item xs={12} xl={6.8}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>

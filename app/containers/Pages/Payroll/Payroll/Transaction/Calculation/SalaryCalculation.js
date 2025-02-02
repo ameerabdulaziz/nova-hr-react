@@ -492,9 +492,9 @@ function SalaryCalculation(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2} mt={0} alignItems="flex-start" direction="row">
-          <Grid item xs={12} md={7} xl={8}>
+          <Grid item xs={12}>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={6} xl={6} >
+              <Grid item xs={6} md={6} xl={3} >
                 <Autocomplete
                   id="PayTemplateId"
                   options={PayTemplateList}
@@ -522,8 +522,13 @@ function SalaryCalculation(props) {
                   )}
                 />
               </Grid>
-              <Grid item sx={6} md={6} xl={6}></Grid>
-              <Grid item md={12} xl={6}>
+
+              <Grid item sx={6} md={12} xl={6}></Grid> 
+
+              <Grid item xs={12} lg={6} >
+                <Grid container spacing={1}>
+
+              <Grid item md={12} >
               <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
@@ -587,7 +592,7 @@ function SalaryCalculation(props) {
               </CardContent>
             </Card>
               </Grid>
-              <Grid item xs={12} md={12} xl={6}>
+              <Grid item xs={12} >
             <Card className={classes.card} sx={{ mt: '0!important' }} >
               <CardContent>
                 <Grid
@@ -695,16 +700,20 @@ function SalaryCalculation(props) {
                 </Grid>
               </CardContent>
             </Card>
+              </Grid>              
+                </Grid>
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={7} xl={4}>
+
+              <Grid item xs={12} lg={6}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
               branchId={BranchId}
             ></EmployeeData>
+             </Grid>
+            </Grid>
           </Grid>
+
 
           <Grid item md={12}></Grid>
           <Grid item>

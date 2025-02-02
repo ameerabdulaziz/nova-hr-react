@@ -473,7 +473,7 @@ function MonthlyVariablesReport(props) {
             </Grid>
             <Grid item xs={0} md={1}></Grid>
 
-            <Grid item xs={5} md={2}>
+            <Grid item xs={5} md={3}>
               <Autocomplete
                 options={monthList}
                 value={getAutoCompleteValue(monthList, formInfo.MonthId)}
@@ -495,9 +495,8 @@ function MonthlyVariablesReport(props) {
               />
             </Grid>    
 
-            <Grid item xs={12} md={2}></Grid> 
 
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <FormControl>
                 <RadioGroup
                   row

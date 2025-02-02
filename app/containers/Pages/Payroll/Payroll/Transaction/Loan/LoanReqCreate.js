@@ -258,14 +258,14 @@ function LoanReqCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}  xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} lg={6}  xl={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -369,7 +369,7 @@ function LoanReqCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} lg={6} xl={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>

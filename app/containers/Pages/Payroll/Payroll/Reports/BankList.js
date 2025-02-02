@@ -1181,7 +1181,7 @@ function BankList(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <Grid item xs={6}>
+              <Grid item xs={7}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -1204,7 +1204,7 @@ function BankList(props) {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <Grid item xs={5}>
+              <Grid item xs={7}>
               <Autocomplete
                 options={monthList}
                 value={getAutoCompleteValue(monthList, formInfo.MonthId)}

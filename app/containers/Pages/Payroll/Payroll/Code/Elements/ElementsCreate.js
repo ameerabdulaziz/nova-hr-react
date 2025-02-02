@@ -549,7 +549,7 @@ console.log("data =", data);
               </Grid>
               
               <Grid item md={8} xs={12}>
-                <Card className={classes.card}>
+                <Card sx={{height:"100%"}} className={classes.card}>
                   <CardContent>
                     <Grid container spacing={1}>
                       <Grid item xs={12} md={12}>
@@ -655,13 +655,13 @@ console.log("data =", data);
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={2}>
-                      <Grid item md={12} xs={12}>
-                        <Card className={classes.card}>
-                          <CardContent>
+                      <Grid item  xs={6} >
+
                             <FormControl
                               variant="standard"
                               component="fieldset"
                               required
+                              sx={{borderRight: 1}}
                             >
                               <RadioGroup
                                 row
@@ -687,12 +687,10 @@ console.log("data =", data);
                                 />
                               </RadioGroup>
                             </FormControl>
-                          </CardContent>
-                        </Card>
+
                       </Grid>
-                      <Grid item md={12} xs={12}>
-                        <Card className={classes.card}>
-                          <CardContent>
+                      <Grid item  xs={6}>
+
                             <FormControl
                               variant="standard"
                               component="fieldset"
@@ -729,8 +727,7 @@ console.log("data =", data);
                                 />
                               </RadioGroup>
                             </FormControl>
-                          </CardContent>
-                        </Card>
+
                       </Grid>
                       <Grid item md={6} xs={12}>
                         <TextField

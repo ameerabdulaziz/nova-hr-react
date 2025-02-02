@@ -360,8 +360,8 @@ function PurchaseTrxCreate(props) {
           Key={"Items"}
         />
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={2} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={7} xl={5} >
+          <Grid container spacing={2} alignItems="flex-start" direction="row" >
+            <Grid item xs={12} lg={6.1} xl={5} >
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -369,7 +369,8 @@ function PurchaseTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={5}  xl={3.5}>
+
+            <Grid item xs={12} md={6} lg={6}  xl={3.5}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -460,7 +461,7 @@ function PurchaseTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={7}  xl={3.5}>
+            <Grid item xs={12} md={6} lg={6}  xl={3.5}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -748,8 +749,6 @@ function PurchaseTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-
-
 
             <Grid item xs={12} >
               <Grid item xs={12} md={12}>

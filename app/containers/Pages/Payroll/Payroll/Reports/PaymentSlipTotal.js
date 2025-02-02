@@ -281,6 +281,7 @@ function PaymentSlipTotal(props) {
             <Typography variant='h6'>{title}</Typography>
 
             <Grid container mt={3} >
+
               <Grid container spacing={2} xl={8}>
               <Grid item xs={12} md={3} >
                 <Autocomplete
@@ -305,7 +306,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4}>
                 <Autocomplete
                   options={payTemplateList}
                   value={getAutoCompleteValue(
@@ -332,9 +333,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-
-
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={2.5}>
                 <Autocomplete
                   options={insuranceList}
                   value={getAutoCompleteValue(
@@ -360,7 +359,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={2.5}>
                 <Autocomplete
                   options={salaryTypesList}
                   value={getAutoCompleteValue(
@@ -412,7 +411,7 @@ function PaymentSlipTotal(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4}>
                 <Autocomplete
                   options={currencyList}
                   value={getAutoCompleteValue(currencyList, formInfo.currenyId)}
@@ -434,8 +433,9 @@ function PaymentSlipTotal(props) {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
-                <Grid item xs={8}>
+
+              <Grid item xs={12} md={2.5}>
+                <Grid item xs={10}>
                 <Autocomplete
                   options={yearList}
                   value={getAutoCompleteValue(yearList, formInfo.yearId)}
@@ -459,8 +459,8 @@ function PaymentSlipTotal(props) {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} md={3}>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={2.5}>
+              <Grid item xs={10}>
                 <Autocomplete
                   options={monthList}
                   value={getAutoCompleteValue(monthList, formInfo.monthId)}

@@ -183,8 +183,8 @@ function EmployeeData(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6}></Grid>
-            <Grid item xs={3} >
+
+            <Grid item xs={6} >
               <TextField
                 id={isSuper ? "superJob" : "job"}
                 name={isSuper ? "superJob" : "job"}
@@ -204,7 +204,7 @@ function EmployeeData(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={3} >
+            <Grid item xs={6} >
               <TextField
                 id={isSuper ? "superOrganization" : "organization"}
                 name={isSuper ? "superOrganization" : "organization"}
@@ -226,7 +226,7 @@ function EmployeeData(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={3} >
+            <Grid item xs={6} >
               <TextField
                 id={isSuper ? "superHiringDate" : "hiringDate"}
                 name={isSuper ? "superHiringDate" : "hiringDate"}
@@ -272,7 +272,7 @@ function EmployeeData(props) {
               />
             </Grid>
             {GetSalary ? (
-              <Grid item xs={12} md={2}>
+              <Grid item xs={6}>
                 <TextField
                   id="oldElemVal"
                   name="oldElemVal"
@@ -298,7 +298,7 @@ function EmployeeData(props) {
                 />
               </Grid>
             ) : GetworkingYears ? (
-              <Grid item xs={12} md={2}>
+              <Grid item xs={6} >
                 <TextField
                   id="workingYears"
                   name="workingYears"
@@ -324,7 +324,7 @@ function EmployeeData(props) {
             )}
 
             {GetEmployeePenalties ? (
-              <Grid item xs={6} md={2}>
+              <Grid item xs={6} md={3} >
                 <TextField
                   id="month"
                   name="month"
@@ -347,7 +347,7 @@ function EmployeeData(props) {
               ""
             )}
             {GetEmployeePenalties ? (
-              <Grid item xs={6} md={2}>
+              <Grid item xs={6} md={3} >
                 <TextField
                   id="sixMonth"
                   name="sixMonth"
@@ -370,7 +370,7 @@ function EmployeeData(props) {
               ""
             )}
             {GetEmployeePenalties ? (
-              <Grid item xs={6} md={2}>
+              <Grid item xs={6} md={3}>
                 <TextField
                   id="year"
                   name="year"
@@ -393,7 +393,7 @@ function EmployeeData(props) {
               ""
             )}
             {GetEmployeePenalties ? (
-              <Grid item xs={6} md={2}>
+              <Grid item xs={6} md={3}>
                 <TextField
                   id="hiringDateNo"
                   name="hiringDateNo"
@@ -416,7 +416,7 @@ function EmployeeData(props) {
               ""
             )}
             {GetEmployeePenalties ? (
-              <Grid item xs={6} md={2}>
+              <Grid item xs={6} md={3}>
                 <TextField
                   id="lastDate"
                   name="lastDate"

@@ -299,7 +299,7 @@ function LoanPostpone(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2} alignItems="flex-start" direction="row">
 
-            <Grid item xs={6} lg={3}>
+            <Grid item xs={8}  xl={3}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -374,7 +374,7 @@ function LoanPostpone(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={6} lg={2}>
+            <Grid item xs={4} xl={2}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -469,7 +469,7 @@ function LoanPostpone(props) {
                 </CardContent>
               </Card>
             </Grid>            
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={12} xl={7}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
