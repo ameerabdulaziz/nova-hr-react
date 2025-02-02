@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate } from '../../helpers';
@@ -152,10 +152,10 @@ function KPI_SupervisorReport(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={10} md={12} lg={8} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -169,7 +169,7 @@ function KPI_SupervisorReport(props) {
             />
           </Grid>
 
-          <Grid item md={3}>
+          <Grid item xs={12}>
             <Button
               variant='contained'
               size='medium'
@@ -189,7 +189,7 @@ function KPI_SupervisorReport(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

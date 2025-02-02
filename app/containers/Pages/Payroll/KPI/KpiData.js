@@ -4,12 +4,11 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../Component/SimplifiedPayrollTable';
 import Search from '../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../helpers';
 import API from './api/KPI_API_Data';
-import messages from './messages';
 import classes2 from "../../../../styles/styles.scss";
 import { toast } from "react-hot-toast";
 import payrollMessages from "../messages";
@@ -457,10 +456,10 @@ function KpiData(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={7.5} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -470,7 +469,7 @@ function KpiData(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4} lg={4.5} xl={3}>
                   <Autocomplete
                     id="ddlMenu"
                     className={classes2.kpiComboBoxSty2}
@@ -503,9 +502,9 @@ function KpiData(props) {
                       />
                     )}
                   />
-                </Grid>
+          </Grid>
 
-          <Grid item md={3}>
+          <Grid item xs={12}>
             <Button
               variant='contained'
               size='medium'
@@ -525,7 +524,7 @@ function KpiData(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
