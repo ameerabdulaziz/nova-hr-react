@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
 
@@ -328,7 +328,7 @@ function WorkinLeavesReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           filterHighlights={filterHighlights}
           data={data}

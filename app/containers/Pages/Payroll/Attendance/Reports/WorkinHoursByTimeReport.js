@@ -17,7 +17,8 @@ import PayRollLoader from "../../Component/PayRollLoader";
 import { format } from "date-fns";
 import style from '../../../../../styles/styles.scss'
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 
 function WorkinHoursByTimeReport(props) {
@@ -110,6 +111,13 @@ function WorkinHoursByTimeReport(props) {
           {
             name: "date",
             label: intl.formatMessage(messages.date),
+            options: getDateColumnOptions(
+              intl.formatMessage(messages.date),
+              {
+                minDateLabel: intl.formatMessage(payrollMessages.minDate),
+                maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+              }
+            ),
           },
           {
             name: "timeIn",
@@ -194,7 +202,7 @@ function WorkinHoursByTimeReport(props) {
         </Grid>
       </PapperBlock>
       { data.length !== 0 && (
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

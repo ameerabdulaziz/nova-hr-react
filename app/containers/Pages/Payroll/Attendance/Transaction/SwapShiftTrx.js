@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import api from '../api/SwapShiftTrxData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function SwapShiftTrx(props) {
   const { intl } = props;
@@ -62,6 +64,13 @@ function SwapShiftTrx(props) {
     {
       name: 'attendanceDate',
       label: intl.formatMessage(messages.attendanceDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.attendanceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -120,7 +129,7 @@ function SwapShiftTrx(props) {
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

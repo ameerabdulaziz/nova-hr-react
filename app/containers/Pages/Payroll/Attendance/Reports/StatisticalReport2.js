@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 
@@ -502,7 +502,7 @@ function StatisticalReport2(props) {
         </Grid>
       </PapperBlock>
       { data.length !== 0 && (
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

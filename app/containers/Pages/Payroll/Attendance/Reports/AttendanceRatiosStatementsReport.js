@@ -18,7 +18,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
 
@@ -432,7 +432,7 @@ function AttendanceRatiosStatementsReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

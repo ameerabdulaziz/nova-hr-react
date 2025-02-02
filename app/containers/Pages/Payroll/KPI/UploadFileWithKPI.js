@@ -14,7 +14,7 @@ import { read, utils, writeFile } from "xlsx";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
-import PayrollTable from "../Component/PayrollTable";
+import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 import GeneralListApis from '../api/GeneralListApis';
 import Payrollmessages from "../messages";
 import { ServerURL } from "../api/ServerConfig";
@@ -315,7 +315,7 @@ function ImportFileWithKPI({ intl }) {
 
           {fileData.length !== 0 && (
             <div className={classes.CustomMUIDataTable} style={{marginTop: "40px"}}>
-              <PayrollTable
+              <SimplifiedPayrollTable
               title={fileTitle}
               data={fileData}
               columns={cols}

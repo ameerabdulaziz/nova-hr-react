@@ -23,7 +23,7 @@ import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import {
@@ -1300,7 +1300,7 @@ function CalculateAttendance(props) {
         </PapperBlock>
       </form>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={tableData}
         columns={columns}

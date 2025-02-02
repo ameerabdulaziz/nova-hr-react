@@ -16,9 +16,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function ContinuousAbsenceReport(props) {
   const { intl } = props;
@@ -202,10 +203,24 @@ function ContinuousAbsenceReport(props) {
     {
       name: "fdate",
       label: intl.formatMessage(messages.fromDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.attendanceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "todate",
       label: intl.formatMessage(messages.toDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.toDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -327,7 +342,7 @@ function ContinuousAbsenceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

@@ -16,9 +16,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { useLocation } from 'react-router-dom';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function MissionTrxReport(props) {
   const { intl } = props;
@@ -222,12 +223,26 @@ function MissionTrxReport(props) {
       },
     },
     {
-      name: "fromDate",
+      name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
-      name: "toDate",
+      name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -450,7 +465,7 @@ function MissionTrxReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

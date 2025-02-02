@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/DeviceData';
 import messages from '../../messages';
@@ -34,8 +34,6 @@ function DeviceList(props) {
       await ApiData(locale).Delete(id);
       await fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -92,12 +90,12 @@ function DeviceList(props) {
       url: SITEMAP.attendance.DeviceEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

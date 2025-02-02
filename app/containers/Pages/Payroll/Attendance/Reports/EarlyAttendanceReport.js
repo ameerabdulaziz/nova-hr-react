@@ -20,7 +20,7 @@ import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/AttendanceReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 
 function EarlyAttendanceReport(props) {
@@ -335,7 +335,7 @@ function EarlyAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

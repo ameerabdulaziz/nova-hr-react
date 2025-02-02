@@ -27,7 +27,7 @@ import DetailedAttendanceReportTemplate from "../../reports-templates/DetailedAt
 import { format } from "date-fns";
 import { toast } from "react-hot-toast";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import SITEMAP, { DOMAIN_NAME } from "../../../../App/routes/sitemap";
 
 function DetailedAttendanceReport(props) {
@@ -778,7 +778,7 @@ function DetailedAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

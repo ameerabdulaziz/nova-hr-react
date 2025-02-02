@@ -32,7 +32,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import { formateDate, getCheckboxIcon } from "../../../helpers";
-import PayrollTable from "../../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../../Component/SimplifiedPayrollTable";
+import { getDateColumnOptions } from "../../../Component/PayrollTable/utils.payroll-table";
 
 function ShiftOrgnization(props) {
   const { intl } = props;
@@ -277,12 +278,26 @@ function ShiftOrgnization(props) {
       label: intl.formatMessage(messages.endTime),
     },
     {
-      name: "fromDate",
+      name: 'fromDate',
       label: intl.formatMessage(Payrollmessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
-      name: "toDate",
+      name: 'toDate',
       label: intl.formatMessage(Payrollmessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.todate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: "workHours",
@@ -739,7 +754,7 @@ function ShiftOrgnization(props) {
         </div>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={dataList}

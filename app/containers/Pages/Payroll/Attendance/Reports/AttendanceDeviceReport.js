@@ -24,8 +24,9 @@ import { toast } from "react-hot-toast";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 
 function AttendanceDeviceReport(props) {
@@ -163,12 +164,24 @@ function AttendanceDeviceReport(props) {
       {
         name: "minDate",
         label: intl.formatMessage(messages.MinDate),
-
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.MinDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
     {
       name: "maxDate",
       label: intl.formatMessage(messages.MaxDate),
-
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.MaxDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
   ];
@@ -374,7 +387,7 @@ function AttendanceDeviceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

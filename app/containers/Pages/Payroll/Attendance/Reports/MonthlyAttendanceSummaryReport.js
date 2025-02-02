@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { useEffect } from "react";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -305,7 +305,7 @@ function MonthlyAttendanceSummaryReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           filterHighlights={filterHighlights}

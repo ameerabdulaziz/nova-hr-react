@@ -17,7 +17,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -469,7 +469,7 @@ function DeviceLogReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable title='' data={data} columns={columns} filterHighlights={filterHighlights} />
+      <SimplifiedPayrollTable title='' data={data} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

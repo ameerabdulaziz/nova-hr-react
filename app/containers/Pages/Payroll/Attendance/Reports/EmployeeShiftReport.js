@@ -12,9 +12,10 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
 import { getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EmployeeShiftReport(props) {
   const { intl } = props;
@@ -160,14 +161,28 @@ function EmployeeShiftReport(props) {
         name: "endTime",
         label: intl.formatMessage(messages.endTime),
       },
-      {
-        name: "fromDate",
-        label: intl.formatMessage(payrollMessages.fromdate),
-      },
-      {
-        name: "toDate",
-        label: intl.formatMessage(payrollMessages.todate),
-      },
+    {
+      name: 'fromDate',
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
+    },
+    {
+      name: 'toDate',
+      label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
+    },
       {
         name: "vdaysNames",
         label: intl.formatMessage(messages.weekend),
@@ -255,7 +270,7 @@ function EmployeeShiftReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           filterHighlights={filterHighlights}
           data={data}

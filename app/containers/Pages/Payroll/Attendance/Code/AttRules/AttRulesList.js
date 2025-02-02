@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/AttRulesData';
 import SITEMAP from '../../../../../App/routes/sitemap';
@@ -40,8 +40,6 @@ function AttRulesList(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -77,12 +75,12 @@ function AttRulesList(props) {
       url: SITEMAP.attendance.RulesEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

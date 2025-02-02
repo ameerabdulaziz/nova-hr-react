@@ -18,7 +18,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import style from "../../../../styles/styles.scss";
-import PayrollTable from "../Component/PayrollTable";
+import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 
 
 function WFExecutionList(props) {
@@ -134,7 +134,7 @@ function WFExecutionList(props) {
               <CircularProgress />
             </Stack>
           ) : (
-            <PayrollTable
+            <SimplifiedPayrollTable
               title=""
               data={data}
               columns={columns}
