@@ -7,12 +7,13 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/LeaveReportData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function LeaveReport(props) {
   const { intl } = props;
@@ -73,6 +74,13 @@ function LeaveReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'annCurrentBa',
@@ -321,7 +329,7 @@ function LeaveReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}

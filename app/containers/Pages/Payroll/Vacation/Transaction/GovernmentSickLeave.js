@@ -4,12 +4,13 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/GovernmentSickLeaveData';
 import payrollMessages from '../../messages';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function GovernmentSickLeave(props) {
   const { intl } = props;
@@ -92,24 +93,37 @@ function GovernmentSickLeave(props) {
     },
     {
       name: 'fromDate',
-      label: intl.formatMessage(messages.fromDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
+
     {
       name: 'toDate',
-      label: intl.formatMessage(messages.toDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.transactionDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -126,7 +140,7 @@ function GovernmentSickLeave(props) {
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

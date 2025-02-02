@@ -4,15 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import VacationsTypesData from '../api/VacationsTypesData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
 
 function VacationsTypes({ intl }) {
-  const stringMenu = localStorage.getItem('Menu');
-  const menu = stringMenu ? JSON.parse(stringMenu) : null;
   const menuName = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
@@ -94,8 +92,6 @@ function VacationsTypes({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -108,13 +104,13 @@ function VacationsTypes({ intl }) {
       url: SITEMAP.vacation.VacationsTypesEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
     <>
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={menuName}

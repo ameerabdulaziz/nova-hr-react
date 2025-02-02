@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import { ServerURL } from '../../api/ServerConfig';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import WFExecutionList from '../../WorkFlow/WFExecutionList';
@@ -21,6 +21,7 @@ import messages from '../messages';
 
 import 'react-quill/dist/quill.snow.css';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function LeaveTrxList(props) {
   const { intl } = props;
@@ -149,6 +150,13 @@ function LeaveTrxList(props) {
     {
       name: 'insDate',
       label: intl.formatMessage(payrollMessages.transactionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'daysCount',
@@ -156,16 +164,38 @@ function LeaveTrxList(props) {
     },
     {
       name: 'fromDate',
-      label: intl.formatMessage(messages.fromDate),
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
+
     {
       name: 'toDate',
-      label: intl.formatMessage(messages.toDate),
+      label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.transactionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -288,7 +318,7 @@ function LeaveTrxList(props) {
         </div>
       </Box>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}
