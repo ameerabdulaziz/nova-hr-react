@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeMedicalBenefitsData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeMedicalBenefits(props) {
   const { intl } = props;
@@ -38,8 +39,6 @@ function EmployeeMedicalBenefits(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -60,9 +59,13 @@ function EmployeeMedicalBenefits(props) {
     {
       name: 'trxDate',
       label: intl.formatMessage(payrollMessages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -114,12 +117,12 @@ function EmployeeMedicalBenefits(props) {
       url: SITEMAP.medicalInsurance.EmployeeMedicalBenefitsEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

@@ -19,7 +19,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
 function medicalInsuranceListReport(props) {
@@ -356,7 +356,7 @@ function medicalInsuranceListReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/StopMedicalInsuranceData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function StopMedicalInsurance(props) {
   const { intl } = props;
@@ -81,9 +82,13 @@ function StopMedicalInsurance(props) {
     {
       name: 'mediEndDate',
       label: intl.formatMessage(messages.endDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.endDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -107,9 +112,13 @@ function StopMedicalInsurance(props) {
     {
       name: 'insDate',
       label: intl.formatMessage(messages.insertDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insertDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -120,9 +129,13 @@ function StopMedicalInsurance(props) {
     {
       name: 'updDate',
       label: intl.formatMessage(messages.lastUpdate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.lastUpdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -134,12 +147,12 @@ function StopMedicalInsurance(props) {
       url: SITEMAP.medicalInsurance.StopMedicalInsuranceEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

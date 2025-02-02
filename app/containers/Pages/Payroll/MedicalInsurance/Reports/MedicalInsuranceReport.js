@@ -19,11 +19,12 @@ import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
 import notif from 'enl-api/ui/notifMessage';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import GeneralListApis from "../../api/GeneralListApis";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function MedicalInsuranceReport(props) {
   const { intl } = props;
@@ -190,26 +191,35 @@ function MedicalInsuranceReport(props) {
     {
       name: "hiringDate",
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
         name: "insuranceDate",
         label: intl.formatMessage(messages.insuranceDate),
-        options: {
-          filter: true,
-          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-        },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.insuranceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: "birthDate",
         label: intl.formatMessage(messages.birthDate),
-        options: {
-          filter: true,
-          customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-        },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.birthDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
     {
         name: "job",
@@ -372,7 +382,7 @@ function MedicalInsuranceReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}
