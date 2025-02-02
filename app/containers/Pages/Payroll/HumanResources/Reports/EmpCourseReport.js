@@ -17,9 +17,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
 import { toast } from 'react-hot-toast';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EmpCourseReport(props) {
   const { intl } = props;
@@ -196,18 +197,24 @@ function EmpCourseReport(props) {
     {
       name: "startDate",
       label: intl.formatMessage(payrollMessages.fromdate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "finishDate",
       label: intl.formatMessage(payrollMessages.todate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "courseCost",
@@ -328,7 +335,7 @@ function EmpCourseReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

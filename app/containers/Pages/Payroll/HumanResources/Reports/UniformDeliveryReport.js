@@ -15,9 +15,10 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { toast } from 'react-hot-toast';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function UniformDeliveryReport(props) {
   const { intl } = props;
@@ -180,6 +181,13 @@ function UniformDeliveryReport(props) {
     {
       name: "date",
       label: intl.formatMessage(payrollMessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "employeeCode",
@@ -314,7 +322,7 @@ function UniformDeliveryReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

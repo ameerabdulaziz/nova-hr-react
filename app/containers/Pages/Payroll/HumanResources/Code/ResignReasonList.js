@@ -4,15 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import ResignReasonData from '../api/ResignReasonData';
-import messages from '../messages';
 import Payrollmessages from "../../messages";
 import SITEMAP from '../../../../App/routes/sitemap';
 
 function ResignReasonList({ intl }) {
-  const stringMenu = localStorage.getItem('Menu');
-  const menu = stringMenu ? JSON.parse(stringMenu) : null;
   const menuName = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
@@ -41,7 +38,7 @@ function ResignReasonList({ intl }) {
   const columns = [
     {
       name: 'id',
-    label: intl.formatMessage(Payrollmessages.code),
+      label: intl.formatMessage(Payrollmessages.code),
     },
     {
       name: 'enName',
@@ -62,8 +59,6 @@ function ResignReasonList({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -76,21 +71,19 @@ function ResignReasonList({ intl }) {
       url: SITEMAP.humanResources.ResignReasonEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <>
-      <PayrollTable
-        isLoading={isLoading}
-        showLoader
-        title={menuName}
-        data={dataTable}
-        columns={columns}
-        actions={actions}
-      />
-    </>
+    <SimplifiedPayrollTable
+      isLoading={isLoading}
+      showLoader
+      title={menuName}
+      data={dataTable}
+      columns={columns}
+      actions={actions}
+    />
   );
 }
 

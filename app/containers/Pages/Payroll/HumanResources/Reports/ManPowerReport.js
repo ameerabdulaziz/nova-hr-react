@@ -15,7 +15,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { toast } from 'react-hot-toast';
 import GeneralListApis from "../../api/GeneralListApis";
 import { getAutoCompleteValue } from "../../helpers";
@@ -359,7 +359,7 @@ const columns = [
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={newDataArr}
         columns={columns}

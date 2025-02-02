@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import ApiData from '../../api/PromotionsData';
 import messages from '../../messages';
+import payrollMessages from '../../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function PromotionsList(props) {
   const { intl } = props;
@@ -38,8 +40,6 @@ function PromotionsList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -72,18 +72,24 @@ function PromotionsList(props) {
     {
       name: 'promotionDate',
       label: intl.formatMessage(messages.actualPromotionDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.actualPromotionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'decisionDate',
       label: intl.formatMessage(messages.decisionDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.decisionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'job',
@@ -118,12 +124,12 @@ function PromotionsList(props) {
       url: SITEMAP.humanResources.PromotionsEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

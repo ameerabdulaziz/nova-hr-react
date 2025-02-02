@@ -18,9 +18,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function RewardTransReport(props) {
   const { intl } = props;
@@ -227,10 +228,13 @@ function RewardTransReport(props) {
     {
       name: "date",
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "yearName",
@@ -480,7 +484,7 @@ function RewardTransReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

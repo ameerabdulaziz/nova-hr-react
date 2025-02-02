@@ -19,10 +19,11 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../../../../../app/styles/styles.scss";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 
 import { toast } from 'react-hot-toast';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function ResignTrxReport(props) {
   const { intl } = props;
@@ -185,10 +186,13 @@ function ResignTrxReport(props) {
     {
       name: "date",
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -354,7 +358,7 @@ function ResignTrxReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

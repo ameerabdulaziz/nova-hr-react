@@ -7,8 +7,9 @@ import { useSelector } from 'react-redux';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/UniformTrxData';
 import messages from '../../messages';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function UniformReceiveList(props) {
   const { intl } = props;
@@ -37,8 +38,6 @@ function UniformReceiveList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -60,6 +59,13 @@ function UniformReceiveList(props) {
     {
       name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -95,12 +101,12 @@ function UniformReceiveList(props) {
       url: SITEMAP.humanResources.UniformReceiveEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

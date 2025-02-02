@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/RewardTransData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function RewardTransList(props) {
   const { intl } = props;
@@ -37,8 +37,6 @@ function RewardTransList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -59,9 +57,13 @@ function RewardTransList(props) {
     {
       name: 'date',
       label: intl.formatMessage(messages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -110,12 +112,12 @@ function RewardTransList(props) {
       url: SITEMAP.humanResources.RewardTransEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

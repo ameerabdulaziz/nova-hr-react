@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/CustodyTrxData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function CustodyReceiveList(props) {
   const { intl } = props;
@@ -37,8 +38,6 @@ function CustodyReceiveList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -60,6 +59,13 @@ function CustodyReceiveList(props) {
     {
       name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -99,12 +105,12 @@ function CustodyReceiveList(props) {
       url: SITEMAP.humanResources.CustodyReceiveEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

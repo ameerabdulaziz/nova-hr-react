@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import ApiData from '../../api/TransferRequestData';
 import messages from '../../messages';
 import Payrollmessages from "../../../messages";
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function AttentionList(props) {
   const { intl } = props;
@@ -71,9 +71,13 @@ function AttentionList(props) {
     {
       name: 'transfereDate',
       label: intl.formatMessage(messages.TransactionDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.TransactionDate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'organization',
@@ -86,9 +90,13 @@ function AttentionList(props) {
     {
       name: 'issueDate',
       label: intl.formatMessage(messages.decisionDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.decisionDate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'flowStatus',
@@ -104,12 +112,12 @@ function AttentionList(props) {
       url: SITEMAP.humanResources.TransferRequestEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

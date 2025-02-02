@@ -15,7 +15,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -23,6 +23,7 @@ import payrollMessages from '../../messages';
 import api from '../api/ResignationReportData';
 import PrintableRow from '../components/ResignationReport/PrintableRow';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function ResignationReport(props) {
   const { intl } = props;
@@ -250,6 +251,13 @@ function ResignationReport(props) {
     {
       name: 'date',
       label: intl.formatMessage(messages.resignationDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.resignationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -442,7 +450,7 @@ function ResignationReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}
