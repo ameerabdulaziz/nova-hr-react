@@ -20,7 +20,7 @@ import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import EmployeeData from "../../../Component/EmployeeData";
 import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
@@ -180,7 +180,7 @@ function LoanReqCreate(props) {
         stMonthName: result.monthName,
         stYearName: result.yearName,
       }));
-      debugger;
+
       setYearList(
         OrignalYearList.filter(
           (row) => parseInt(row.name) >= parseInt(result.yearName)
@@ -227,7 +227,6 @@ function LoanReqCreate(props) {
 
   async function fetchData() {
     try {
-      debugger;
       const years = await GeneralListApis(locale).GetYears();
       setOrignalYearList(years);
       const months = await GeneralListApis(locale).GetMonths();
@@ -246,7 +245,7 @@ function LoanReqCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -259,19 +258,19 @@ function LoanReqCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12}  xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6}  xl={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={6} md={4}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(Payrollmessages.date)}
@@ -302,7 +301,7 @@ function LoanReqCreate(props) {
                         </LocalizationProvider>
                       </Grid>
 
-                      <Grid item xs={12} md={1}>
+                      <Grid item xs={6} md={4}>
                         <TextField
                           id="YearId"
                           name="YearId"
@@ -314,7 +313,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={1}>
+                      <Grid item xs={6} md={4}>
                         <TextField
                           id="MonthId"
                           name="MonthId"
@@ -326,7 +325,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2.5}>
+                      <Grid item xs={6} md={4}>
                         <TextField
                           id="payTempName"
                           name="payTempName"
@@ -338,7 +337,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2.5}>
+                      <Grid item xs={6} md={4}>
                         <TextField
                           id="payElementName"
                           name="payElementName"
@@ -352,7 +351,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={3}>
+                      <Grid item xs={6} md={4}>
                         <TextField
                           id="elementName"
                           name="elementName"
@@ -370,12 +369,12 @@ function LoanReqCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6} xl={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={3}>
                         <Autocomplete
                           id="stYearName"
                           options={yearList}
@@ -408,7 +407,7 @@ function LoanReqCreate(props) {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={3}>
                         <Autocomplete
                           id="stMonthName"
                           options={monthList}
@@ -441,8 +440,7 @@ function LoanReqCreate(props) {
                           )}
                         />
                       </Grid>
-
-                      <Grid item xs={12} md={2} style={{ display: "none" }}>
+                      <Grid item xs={4} md={3} style={{ display: "none" }}>
                         <TextField
                           id="nativeTotalValue"
                           name="nativeTotalValue"
@@ -460,7 +458,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={3}>
                         <TextField
                           id="totalValue"
                           name="totalValue"
@@ -483,7 +481,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={3}>
                         <TextField
                           id="paysNo"
                           name="paysNo"
@@ -503,7 +501,7 @@ function LoanReqCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={3}>
                         <TextField
                           id="payvalue"
                           name="payvalue"
@@ -521,8 +519,8 @@ function LoanReqCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-
-            <Grid item xs={12} md={1}>
+           <Grid item xs={12} ></Grid>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -532,7 +530,7 @@ function LoanReqCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -545,7 +543,7 @@ function LoanReqCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 LoanReqCreate.propTypes = {

@@ -30,7 +30,7 @@ function LoanDetailTable(props) {
   const locale = useSelector((state) => state.language.locale);
 
   const handleClickOpen = (Id, row) => {
-    
+
     setOpenParentPopup(true);
     setProcessId(Id);
     setselectedrow(row);
@@ -42,11 +42,11 @@ function LoanDetailTable(props) {
 
   async function doProcess() {
     if (ProcessId == 1) handlePost(selectedrow);
-    else if(ProcessId == 2) handleRecalculate(selectedrow);
+    else if (ProcessId == 2) handleRecalculate(selectedrow);
     else handleCashPaid(selectedrow)
   }
   const handleEnableOne = (event, row) => {
-    
+
     var newList = dataList.map((x) => {
       if (x.lineNo == row.lineNo) {
         if (event.target.name == "payVal") {
@@ -61,7 +61,7 @@ function LoanDetailTable(props) {
     }));
   };
   const handlePost = async (row) => {
-    
+
     var dataApi;
     if (row.loanTraxId)
       dataApi = await ApiData(locale).PostponeOneLoan(
@@ -103,13 +103,13 @@ function LoanDetailTable(props) {
       }));
   };
   const handleCashPaid = async (row) => {
-    
+
     if (row.loanTraxId)
       var dataApi = await ApiData(locale).CashPaid(
         row.id,
         row.loanTraxId
       );
-   
+
     if (dataApi.message) toast.error(dataApi.message);
     else
       setdataList((prevFilters) => ({

@@ -18,7 +18,7 @@ import {
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import ApiData from "../../api/ElementValData";
 import GeneralListApis from "../../../api/GeneralListApis";
 import elementApi from "../../api/ElementsData";
@@ -28,7 +28,6 @@ import DecryptUrl from "../../../Component/DecryptUrl";
 import SITEMAP from "../../../../../App/routes/sitemap";
 
 function ElementValCreate(props) {
-  debugger;
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
@@ -179,7 +178,6 @@ function ElementValCreate(props) {
   }
   async function GetLookup() {
     try {
-      debugger;
       const BrList = await GeneralListApis(locale).GetBranchList();
       setBranchList(BrList);
       const PayList = await GeneralListApis(locale).GetPayTemplateList();
@@ -202,7 +200,7 @@ function ElementValCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -233,7 +231,7 @@ function ElementValCreate(props) {
                       xs={12}
                       md={4}
                     >
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={12} >
                         <Autocomplete
                           id="branchId"
                           options={BranchList}
@@ -269,7 +267,7 @@ function ElementValCreate(props) {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} >
                         <TextField
                           id="YearId"
                           name="YearId"
@@ -280,7 +278,7 @@ function ElementValCreate(props) {
                           autoComplete='off'
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} >
                         <TextField
                           id="MonthId"
                           name="MonthId"
@@ -444,13 +442,15 @@ function ElementValCreate(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={8}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
                 branchId={data.branchId}
               ></EmployeeData>
             </Grid>
+
+            <Grid item md={4}></Grid>
 
             <Grid item xs={12} md={2}>
               <TextField
@@ -487,7 +487,7 @@ function ElementValCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -497,7 +497,7 @@ function ElementValCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -510,7 +510,7 @@ function ElementValCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 ElementValCreate.propTypes = {

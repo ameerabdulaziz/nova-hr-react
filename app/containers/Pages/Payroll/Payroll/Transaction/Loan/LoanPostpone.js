@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { PapperBlock } from "enl-components";
-
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
@@ -26,7 +25,7 @@ import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../api/LoanTrxData";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import EmployeeData from "../../../Component/EmployeeData";
 
 function LoanPostpone(props) {
@@ -153,7 +152,7 @@ function LoanPostpone(props) {
           EmployeeId
         );
         setdataList(result1 || []);
-        
+
         setYearList(
           origionalYearList.filter(
             (row) => parseInt(row.name) >= parseInt(result.yearName)
@@ -171,7 +170,7 @@ function LoanPostpone(props) {
     async (id, name) => {
       if (name == "employeeId") {
         setEmployeeId(id);
-        if (OpenMonth.yearId && OpenMonth.monthId && EmployeeId !== "" ) {
+        if (OpenMonth.yearId && OpenMonth.monthId && EmployeeId !== "") {
           const result1 = await ApiData(locale).GetDetailList(
             OpenMonth.yearId,
             OpenMonth.monthId,
@@ -296,182 +295,181 @@ function LoanPostpone(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2} alignItems="flex-start" direction="row">
-          <Grid item xs={12} md={6}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid
-                  container
-                  spacing={4}
-                  alignItems="flex-start"
-                  direction="row"
-                  item
-                >
+
+            <Grid item xs={8}  xl={3}>
+              <Card className={classes.card}>
+                <CardContent>
                   <Grid
-                    item
                     container
+                    spacing={4}
+                    alignItems="flex-start"
                     direction="row"
-                    spacing={2}
-                    xs={12}
-                    md={12}
+                    item
                   >
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        id="branchId"
-                        options={BranchList}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        value={ BranchList.find((item) => item.id === BranchId)
+                    <Grid
+                      item
+                      container
+                      direction="row"
+                      spacing={2}
+                      xs={12}
+                      md={12}
+                    >
+                      <Grid item xs={12}>
+                        <Autocomplete
+                          id="branchId"
+                          options={BranchList}
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          value={BranchList.find((item) => item.id === BranchId)
                             ?? null
-                        }
-                        onChange={(event, value) => {
-                          setBranchId(value !== null ? value.id : 0);
-                          setEmployeeId("")
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="branchId"
-                            required
-                            label={intl.formatMessage(Payrollmessages.branch)}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="YearId"
-                        name="YearId"
-                        value={OpenMonth.yearName ? OpenMonth.yearName : ""}
-                        label={intl.formatMessage(Payrollmessages.year)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="MonthId"
-                        name="MonthId"
-                        value={OpenMonth.monthName ? OpenMonth.monthName : ""}
-                        label={intl.formatMessage(Payrollmessages.month)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
+                          }
+                          onChange={(event, value) => {
+                            setBranchId(value !== null ? value.id : 0);
+                            setEmployeeId("")
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="branchId"
+                              required
+                              label={intl.formatMessage(Payrollmessages.branch)}
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          id="YearId"
+                          name="YearId"
+                          value={OpenMonth.yearName ? OpenMonth.yearName : ""}
+                          label={intl.formatMessage(Payrollmessages.year)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete='off'
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          id="MonthId"
+                          name="MonthId"
+                          value={OpenMonth.monthName ? OpenMonth.monthName : ""}
+                          label={intl.formatMessage(Payrollmessages.month)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete='off'
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Grid
-                  container
-                  spacing={4}
-                  alignItems="flex-start"
-                  direction="row"
-                  item
-                >
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={4} xl={2}>
+              <Card className={classes.card}>
+                <CardContent>
                   <Grid
-                    item
                     container
+                    spacing={4}
+                    alignItems="flex-start"
                     direction="row"
-                    spacing={2}
-                    xs={12}
-                    md={12}
+                    item
                   >
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        id="stYearName"
-                        options={yearList}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        getOptionDisabled={(option) => !OpenMonth.yearId}
-                        value={
-                          OpenMonth.stYearId
-                            ? yearList.find(
+                    <Grid
+                      item
+                      container
+                      direction="row"
+                      spacing={2}
+                      xs={12}
+                      md={12}
+                    >
+                      <Grid item xs={12} >
+                        <Autocomplete
+                          id="stYearName"
+                          options={yearList}
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          getOptionDisabled={(option) => !OpenMonth.yearId}
+                          value={
+                            OpenMonth.stYearId
+                              ? yearList.find(
                                 (item) => item.id === OpenMonth.stYearId
                               )
-                            : null
-                        }
-                        onChange={(event, value) => {
-                          changeYear(value);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="stYearName"
-                            required
-                            disabled={ !OpenMonth.yearId}
-                            label={intl.formatMessage(Payrollmessages.Postyear)}
-                          />
-                        )}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <Autocomplete
-                        id="stMonthName"
-                        options={monthList}
-                        isOptionEqualToValue={(option, value) =>
-                          value.id === 0 ||
-                          value.id === "" ||
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) =>
-                          option.name ? option.name : ""
-                        }
-                        getOptionDisabled={(option) => !OpenMonth.yearId}
-                        value={
-                          OpenMonth.stMonthId
-                            ? monthList.find(
+                              : null
+                          }
+                          onChange={(event, value) => {
+                            changeYear(value);
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="stYearName"
+                              required
+                              disabled={!OpenMonth.yearId}
+                              label={intl.formatMessage(Payrollmessages.Postyear)}
+                            />
+                          )}
+                        />
+                      </Grid>
+                      <Grid item xs={12} >
+                        <Autocomplete
+                          id="stMonthName"
+                          options={monthList}
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 ||
+                            value.id === "" ||
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option.name ? option.name : ""
+                          }
+                          getOptionDisabled={(option) => !OpenMonth.yearId}
+                          value={
+                            OpenMonth.stMonthId
+                              ? monthList.find(
                                 (item) => item.id === OpenMonth.stMonthId
                               )
-                            : null
-                        }
-                        onChange={(event, value) => {
-                          changeMonth(value);
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            variant="outlined"
-                            {...params}
-                            name="stMonthName"
-                            required
-                            disabled={ !OpenMonth.yearId}
-                            label={intl.formatMessage(
-                              Payrollmessages.Postmonth
-                            )}
-                          />
-                        )}
-                      />
+                              : null
+                          }
+                          onChange={(event, value) => {
+                            changeMonth(value);
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="stMonthName"
+                              required
+                              disabled={!OpenMonth.yearId}
+                              label={intl.formatMessage(
+                                Payrollmessages.Postmonth
+                              )}
+                            />
+                          )}
+                        />
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={12}>
+                </CardContent>
+              </Card>
+            </Grid>            
+          <Grid item xs={12} xl={7}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
@@ -493,7 +491,7 @@ function LoanPostpone(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 LoanPostpone.propTypes = {

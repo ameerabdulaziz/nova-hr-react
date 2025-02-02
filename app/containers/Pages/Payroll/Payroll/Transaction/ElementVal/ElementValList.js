@@ -863,9 +863,9 @@ function ElementValList(props) {
                     direction="row"
                     spacing={2}
                     xs={12}
-                    md={6}
+                    lg={6}
                   >
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={4} lg={6}>
                       <Autocomplete
                         id="branchId"
                         options={BranchList}
@@ -897,30 +897,7 @@ function ElementValList(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="YearId"
-                        name="YearId"
-                        value={OpenMonth.yearName ? OpenMonth.yearName : ""}
-                        label={intl.formatMessage(Payrollmessages.year)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        id="MonthId"
-                        name="MonthId"
-                        value={OpenMonth.monthName ? OpenMonth.monthName : ""}
-                        label={intl.formatMessage(Payrollmessages.month)}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete='off'
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={4} lg={6}>
                       <Autocomplete
                         id="employeeId"
                         options={EmployeeList}
@@ -956,7 +933,30 @@ function ElementValList(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={4} md={1.2} lg={3}>
+                      <TextField
+                        id="YearId"
+                        name="YearId"
+                        value={OpenMonth.yearName ? OpenMonth.yearName : ""}
+                        label={intl.formatMessage(Payrollmessages.year)}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete='off'
+                      />
+                    </Grid>
+                    <Grid item xs={4} md={1.2}  lg={3}>
+                      <TextField
+                        id="MonthId"
+                        name="MonthId"
+                        value={OpenMonth.monthName ? OpenMonth.monthName : ""}
+                        label={intl.formatMessage(Payrollmessages.month)}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={4} md={1.6}  lg={2}>
                       <Button
                         variant="contained"
                         size="medium"
@@ -973,7 +973,7 @@ function ElementValList(props) {
                     direction="row"
                     spacing={2}
                     xs={12}
-                    md={6}
+                    lg={6}
                   >
                     <Card className={classes.card}>
                       <CardContent>
@@ -1062,7 +1062,7 @@ function ElementValList(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={6} md={3}>
                             <TextField
                               id="ElementMode"
                               name="ElementMode"
@@ -1080,7 +1080,7 @@ function ElementValList(props) {
                               autoComplete='off'
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={6} md={3}>
                             <TextField
                               id="elementCalcMethod"
                               name="elementCalcMethod"
@@ -1098,7 +1098,7 @@ function ElementValList(props) {
                               autoComplete='off'
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="ElementMaxVal"
                               name="ElementMaxVal"
@@ -1109,7 +1109,7 @@ function ElementValList(props) {
                               autoComplete='off'
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="ElementMinVal"
                               name="ElementMinVal"
@@ -1120,7 +1120,7 @@ function ElementValList(props) {
                               autoComplete='off'
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="DefaultVal"
                               name="DefaultVal"

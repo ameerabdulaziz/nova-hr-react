@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -277,11 +277,11 @@ function SalaryYearReport(props) {
   },[searchData.BranchId, searchData.EmployeeId,YearList])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -291,7 +291,7 @@ function SalaryYearReport(props) {
             ></Search>
           </Grid>
 
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={6} md={4} lg={2}>
             
                         <Autocomplete
                             id="ddlMenu"   
@@ -331,7 +331,7 @@ function SalaryYearReport(props) {
 
                   
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -352,7 +352,7 @@ function SalaryYearReport(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import PayrollTable from '../../Component/PayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -273,7 +273,6 @@ function SummaryPayslip(props) {
   };
 
 
-
   const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
 
     let OpenMonthData 
@@ -327,14 +326,16 @@ function SummaryPayslip(props) {
   },[formInfo.BranchId, formInfo.EmployeeId,yearList,monthsList])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
             <Typography variant='h6'>{pageTitle}</Typography>
 
             <Grid container mt={0} spacing={3}>
-              <Grid item xs={12} md={3}>
+              <Grid item container spacing={2} xl={6} >
+
+              <Grid item xs={12} md={3} xl={8}>
                 <Autocomplete
                   options={templateList}
                   value={getAutoCompleteValue(
@@ -360,7 +361,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={3} xl={4}>
                 <Autocomplete
                   options={yearList}
                   value={getAutoCompleteValue(yearList, reportCriteria.year)}
@@ -384,7 +385,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={3} xl={2.2}>
                 <Autocomplete
                   options={monthsList}
                   value={getAutoCompleteValue(monthsList, reportCriteria.month)}
@@ -408,7 +409,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={3} xl={4.4}>
                 <Stack direction='row' spacing={2}>
                   <FormControlLabel
                     control={
@@ -433,17 +434,7 @@ function SummaryPayslip(props) {
                 </Stack>
               </Grid>
 
-              <Grid item xs={12} md={12}>
-                <Search
-                  notShowDate
-                  setsearchData={setFormInfo}
-                  searchData={formInfo}
-                  setIsLoading={setIsLoading}
-                  company={formInfo.BranchId}
-                />
-              </Grid>
-
-              <Grid item xs={12} sx={{ display: 'none' }}>
+              <Grid item xs={12} sx={{ display: 'none' }} xl={4.4}>
                 <FormControl>
                   <RadioGroup
                     row
@@ -465,6 +456,18 @@ function SummaryPayslip(props) {
                 </FormControl>
               </Grid>
 
+              </Grid>
+
+              <Grid item xs={12} md={12} xl={6}>
+                <Search
+                  notShowDate
+                  setsearchData={setFormInfo}
+                  searchData={formInfo}
+                  setIsLoading={setIsLoading}
+                  company={formInfo.BranchId}
+                />
+              </Grid>              
+
               <Grid item xs={12}>
                 <Button variant='contained' color='primary' type='submit'>
                   {intl.formatMessage(payrollMessages.search)}
@@ -481,7 +484,7 @@ function SummaryPayslip(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

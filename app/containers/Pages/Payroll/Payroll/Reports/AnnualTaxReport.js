@@ -1,5 +1,5 @@
 import {
-  Autocomplete, Button, Grid, TextField
+  Autocomplete, Button, Card, CardContent, Grid, TextField
 } from '@mui/material';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import {
@@ -18,8 +18,10 @@ import {
 import payrollMessages from '../../messages';
 import api from '../api/AnnualTaxReportData';
 import messages from '../messages';
+import useStyles from "../../Style";
 
 function AnnualTaxReport(props) {
+  const { classes } = useStyles();
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
@@ -302,11 +304,16 @@ function AnnualTaxReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={8} lg={6}>
+            <Card className={classes.card}>
+        <CardContent>
+          <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+            <Grid item xs={12} md={6}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -328,29 +335,7 @@ function AnnualTaxReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={yearList}
-                value={getAutoCompleteValue(yearList, formInfo.YearId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.year)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6}>
               <Autocomplete
                 options={isStoppedList}
                 value={getAutoCompleteValue(isStoppedList, formInfo.IsStopped)}
@@ -372,7 +357,35 @@ function AnnualTaxReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={6} md={4}>
+              <Autocomplete
+                options={yearList}
+                value={getAutoCompleteValue(yearList, formInfo.YearId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.year)}
+                  />
+                )}
+              />
+            </Grid>
+
+          </Grid>
+        </CardContent>
+            </Card>
+
+            </Grid>
+
+            <Grid item xs={12} md={8} lg={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}
@@ -396,7 +409,7 @@ function AnnualTaxReport(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

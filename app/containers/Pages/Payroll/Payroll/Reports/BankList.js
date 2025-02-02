@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import XLSX from 'xlsx-js-style';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import PayrollTable from '../../Component/PayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
@@ -901,7 +901,6 @@ function BankList(props) {
   };
 
 
-
   const getNBETemplate = () => {
 
     let totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
@@ -979,9 +978,6 @@ function BankList(props) {
   };
 
 
-
-  
-
   const onExportBtnClick = () => {
     
     switch (exportInfo.template) {
@@ -1033,7 +1029,6 @@ function BankList(props) {
   };
 
 
-
   async function onCompanyAutocompleteChange(value) {
     setIsLoading(true);
 
@@ -1066,7 +1061,7 @@ function BankList(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
@@ -1086,50 +1081,6 @@ function BankList(props) {
                   <TextField
                     {...params}
                     label={intl.formatMessage(messages.bank)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={yearList}
-                value={getAutoCompleteValue(yearList, formInfo.YearId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.year)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={monthList}
-                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : '')}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.month)}
                   />
                 )}
               />
@@ -1227,6 +1178,52 @@ function BankList(props) {
                   />
                 )}
               />
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Grid item xs={7}>
+              <Autocomplete
+                options={yearList}
+                value={getAutoCompleteValue(yearList, formInfo.YearId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.year)}
+                  />
+                )}
+              /></Grid>
+            </Grid>
+
+            <Grid item xs={12} md={3}>
+              <Grid item xs={7}>
+              <Autocomplete
+                options={monthList}
+                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : '')}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.month)}
+                  />
+                )}
+              /></Grid>
             </Grid>
 
             <Grid item xs={12}>
@@ -1385,7 +1382,7 @@ function BankList(props) {
       </PapperBlock>
 
       <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -19,7 +19,7 @@ import {
 import useStyles from "../../Style";
 import PropTypes from "prop-types";
 import glApis from "../../api/GeneralListApis";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 function LoanSetting(props) {
   const { intl } = props;
@@ -136,7 +136,7 @@ function LoanSetting(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -145,7 +145,7 @@ function LoanSetting(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="brCode"
                 options={BranchList}
@@ -174,7 +174,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="payTemplateId"
                 options={PayTemplateList}
@@ -205,7 +205,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="payTemplateElementId"
                 options={PayElementList}
@@ -236,7 +236,7 @@ function LoanSetting(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="DebtElem"
                 options={DebtElemList}
@@ -265,7 +265,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="PurchElem"
                 options={PurchElemList}
@@ -294,7 +294,7 @@ function LoanSetting(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4} lg={3}>
               <Autocomplete
                 id="safe"
                 options={SafeList}
@@ -319,7 +319,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="SmalloanLimit"
                 name="SmalloanLimit"
@@ -336,7 +336,7 @@ function LoanSetting(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -354,7 +354,7 @@ function LoanSetting(props) {
                 label={intl.formatMessage(messages.safeLoan)}
               />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12} md={2} lg={1}>
               <Button
                 variant="contained"
                 type="submit"
@@ -365,7 +365,7 @@ function LoanSetting(props) {
               </Button>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={3} lg={1}>
               <Button
                 variant="contained"
                 size="medium"
@@ -378,7 +378,7 @@ function LoanSetting(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 LoanSetting.propTypes = {

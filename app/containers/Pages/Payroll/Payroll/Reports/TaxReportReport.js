@@ -164,6 +164,7 @@ function TaxReportReport(props) {
       setIsLoading(false);
     }
   }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -284,7 +285,7 @@ function TaxReportReport(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -294,7 +295,7 @@ function TaxReportReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2}>
             
                         <Autocomplete
                             id="ddlMenu"   
@@ -332,7 +333,7 @@ function TaxReportReport(props) {
                         />
                     </Grid>
 
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={6} md={3} lg={2}>
             
                         <Autocomplete
                             id="ddlMenu"   
@@ -370,7 +371,7 @@ function TaxReportReport(props) {
                         />
                 </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"

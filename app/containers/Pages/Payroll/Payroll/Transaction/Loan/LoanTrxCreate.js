@@ -314,7 +314,7 @@ function LoanTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} xl={5.2}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -322,12 +322,12 @@ function LoanTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} xl={6.8}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={2}>
+                      <Grid item xs={4} md={2.4}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(Payrollmessages.date)}
@@ -357,8 +357,7 @@ function LoanTrxCreate(props) {
                           />
                         </LocalizationProvider>
                       </Grid>
-
-                      <Grid item xs={12} md={1}>
+                      <Grid item xs={4} md={2.4}>
                         <TextField
                           id="YearId"
                           name="YearId"
@@ -370,7 +369,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={1}>
+                      <Grid item xs={4} md={2.4}>
                         <TextField
                           id="MonthId"
                           name="MonthId"
@@ -382,7 +381,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2.5}>
+                      <Grid item xs={4} md={2.4}>
                         <TextField
                           id="payTempName"
                           name="payTempName"
@@ -394,7 +393,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={2.5}>
+                      <Grid item xs={4} md={2.4}>
                         <TextField
                           id="payElementName"
                           name="payElementName"
@@ -408,7 +407,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={3}>
+                      <Grid item xs={4} md={2.4}>
                         <TextField
                           id="elementName"
                           name="elementName"
@@ -420,7 +419,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={12} md={9.6}>
                         <TextField
                           id="notes"
                           name="notes"
@@ -438,12 +437,12 @@ function LoanTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} xl={5.2}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={3}>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <Autocomplete
                           id="stYearName"
                           options={yearList}
@@ -478,7 +477,7 @@ function LoanTrxCreate(props) {
                           )}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <Autocomplete
                           id="stMonthName"
                           options={monthList}
@@ -514,7 +513,7 @@ function LoanTrxCreate(props) {
                         />
                       </Grid>
 
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <TextField
                           id="nativeTotalValue"
                           name="nativeTotalValue"
@@ -533,7 +532,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <TextField
                           id="totalValue"
                           name="totalValue"
@@ -562,7 +561,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <TextField
                           id="paysNo"
                           name="paysNo"
@@ -590,7 +589,7 @@ function LoanTrxCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={4} xl={3} >
                         <TextField
                           id="payvalue"
                           name="payvalue"
@@ -698,7 +697,7 @@ function LoanTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} xl={6.8}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -715,7 +714,7 @@ function LoanTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -725,7 +724,7 @@ function LoanTrxCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"

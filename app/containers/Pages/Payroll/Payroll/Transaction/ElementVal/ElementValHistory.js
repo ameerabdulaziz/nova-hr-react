@@ -4,11 +4,8 @@ import elementApi from "../../api/ElementsData";
 import messages from "../../messages";
 import Payrollmessages from "../../../messages";
 import { useSelector } from "react-redux";
-import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
-import AddButton from "../../../Component/AddButton";
-import { useLocation } from "react-router-dom";
-import { injectIntl, intlShape, FormattedMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import {
   Button,
   Grid,
@@ -17,9 +14,6 @@ import {
   Card,
   CardContent,
   Box,
-  FormControl,
-  Radio,
-  RadioGroup,
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
@@ -30,12 +24,8 @@ import dayjs from "dayjs";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
-import { format } from "date-fns";
 import MUIDataTable from "mui-datatables";
 import ApiData from "../../api/ElementValData";
-import style from "../../../../../../../app/styles/styles.scss";
-import DeleteButton from "../../../Component/DeleteButton";
-import EditButton from "../../../Component/EditButton";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import PayRollLoader from "../../../Component/PayRollLoader";
 
@@ -331,7 +321,7 @@ function ElementValHistory(props) {
                     direction="row"
                     spacing={2}
                     xs={12}
-                    md={6}
+                    lg={6}
                   >
                     <Grid item xs={12} md={6}>
                       <Autocomplete
@@ -365,58 +355,7 @@ function ElementValHistory(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={fromdate}
-                          className={classes.field}
-                          onChange={(date) => {
-                            handleChange("fromDate", date);
-                          }}
-                          onError={(error, value) => {
-                            if (error !== null) {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                [`FromDate`]: true,
-                              }));
-                            } else {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                [`FromDate`]: false,
-                              }));
-                            }
-                          }}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={intl.formatMessage(Payrollmessages.todate)}
-                          value={todate}
-                          className={classes.field}
-                          onChange={(date) => {
-                            handleChange("toDate", date);
-                          }}
-                          onError={(error, value) => {
-                            if (error !== null) {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                [`toDate`]: true,
-                              }));
-                            } else {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                [`toDate`]: false,
-                              }));
-                            }
-                          }}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={9}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         id="employeeId"
                         options={EmployeeList}
@@ -450,8 +389,60 @@ function ElementValHistory(props) {
                           />
                         )}
                       />
+                    </Grid>                    
+                    <Grid item xs={6} md={3}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={fromdate}
+                          className={classes.field}
+                          onChange={(date) => {
+                            handleChange("fromDate", date);
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`FromDate`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`FromDate`]: false,
+                              }));
+                            }
+                          }}
+                        />
+                      </LocalizationProvider>
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={6} md={3}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.todate)}
+                          value={todate}
+                          className={classes.field}
+                          onChange={(date) => {
+                            handleChange("toDate", date);
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`toDate`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`toDate`]: false,
+                              }));
+                            }
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+
+                    <Grid item xs={4} md={2}>
                       <Button
                         variant="contained"
                         size="medium"
@@ -468,7 +459,7 @@ function ElementValHistory(props) {
                     direction="row"
                     spacing={2}
                     xs={12}
-                    md={6}
+                    lg={6}
                   >
                     <Card className={classes.card}>
                       <CardContent>
@@ -556,7 +547,7 @@ function ElementValHistory(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={6} md={3}>
                             <TextField
                               id="ElementMode"
                               name="ElementMode"
@@ -574,7 +565,7 @@ function ElementValHistory(props) {
                               autoComplete="off"
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={6} md={3}>
                             <TextField
                               id="elementCalcMethod"
                               name="elementCalcMethod"
@@ -592,7 +583,7 @@ function ElementValHistory(props) {
                               autoComplete="off"
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="ElementMaxVal"
                               name="ElementMaxVal"
@@ -603,7 +594,7 @@ function ElementValHistory(props) {
                               autoComplete="off"
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="ElementMinVal"
                               name="ElementMinVal"
@@ -614,7 +605,7 @@ function ElementValHistory(props) {
                               autoComplete="off"
                             />
                           </Grid>
-                          <Grid item xs={12} md={2}>
+                          <Grid item xs={4} md={2}>
                             <TextField
                               id="DefaultVal"
                               name="DefaultVal"

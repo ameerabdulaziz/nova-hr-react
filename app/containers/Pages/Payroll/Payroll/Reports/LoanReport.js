@@ -14,7 +14,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { format } from "date-fns";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import PayrollTable from "../../Component/PayrollTable";
@@ -324,11 +324,11 @@ function LoanReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} xl={8}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -339,7 +339,7 @@ function LoanReport(props) {
             ></Search>
           </Grid>
 
-                <Grid item md={2} >
+          <Grid item md={12} >
                     <FormControlLabel
                         control={
                         <Checkbox
@@ -354,9 +354,9 @@ function LoanReport(props) {
                         }
                         label={intl.formatMessage(messages.EndedLoans)}
                     />
-                </Grid>
+          </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -368,6 +368,7 @@ function LoanReport(props) {
           </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
+        
       </PapperBlock>
 
       <PayrollTable
@@ -377,7 +378,7 @@ function LoanReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
