@@ -25,48 +25,18 @@ function NamePopup(props) {
   const [isLoading, setIsLoading] = useState(false);
   const { classes, cx } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
-  const [SelectedRowsData, setSelectedRowsData] = useState([]);
-  const [SelectedRows, setSelectedRows] = useState([]);
   const locale = useSelector((state) => state.language.locale);
-  const { handleClose, open, Key, ElementType, ElementId, savePopup, dataList } = props;
+  const { handleClose, open, Key, ElementType, ElementId } = props;
+  var SelectedRows = [];
 
   const CloseClick = async () => {
-
-    handleClose()
+    handleClose(SelectedRows || []);
   };
-
-
-// used to make api data selected in table popup as default
-  useEffect(()=>{
-    if(dataList.length !== 0 && EmployeeList.length !== 0)
-    {
-      
-      let empIndexArr = []
-
-      dataList.map((item,index)=>{
-        EmployeeList.map((empItem,index2)=>{
-          if(item.id === empItem.id)
-          {
-            empIndexArr.push(index2)
-          }
-        })
-      })
-
-      setSelectedRows(empIndexArr)
-      handleSelect(empIndexArr)
-    }
-    else
-    {
-      setSelectedRows([])
-      handleSelect([])
-    }
-
-  },[dataList,EmployeeList])
 
 
   async function handleSelect(allRowsSelected) {
     try {
-     let SelectedRows = [];
+      SelectedRows = [];
       for (let i = 0; i < allRowsSelected.length; i++) {
         SelectedRows.push({
           id: EmployeeList[allRowsSelected[i]].id,
@@ -84,7 +54,6 @@ function NamePopup(props) {
         });
       }
 
-      setSelectedRowsData(SelectedRows)
        
     } catch (err) {
       toast.error(err.message);
@@ -278,7 +247,6 @@ function NamePopup(props) {
     onRowSelectionChange: (curRowSelected, allRowsSelected) => {
       // onRowsSelect: (curRowSelected, allRowsSelected) => {
       handleSelect(curRowSelected);
-      setSelectedRows(curRowSelected)
     },
     rowsSelected: SelectedRows,
   };
@@ -317,7 +285,7 @@ function NamePopup(props) {
           )}
         </DialogContent>
         <DialogActions>
-          <Button className={style.deleteAlertBtnSty} onClick={()=>{savePopup(SelectedRowsData || [])}}>
+        <Button className={style.deleteAlertBtnSty} onClick={CloseClick}>
             <FormattedMessage {...Payrollmessages.save} />
           </Button>
           <Button

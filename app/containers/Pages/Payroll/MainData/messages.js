@@ -301,4 +301,9 @@ OrganizationsList: {
     id: `${scope}.codes.iban`,
     defaultMessage: 'IBAN',
   },
+  // job
+  DocumentTypes: {
+    id: `${scope}.codes.DocumentTypes`,
+    defaultMessage: 'Document Types',
+  },
 });

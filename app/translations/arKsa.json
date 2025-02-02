@@ -2083,6 +2083,7 @@
   "boilerplate.containers.Payroll.MainData.codes.useGPS": "استخدام نظام تحديد المواقع (GPS)",
   "boilerplate.containers.Payroll.MainData.codes.worknature": "طبيعة العمل",
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "بدل طبيعة العمل",
+  "boilerplate.containers.Payroll.MainData.codes.DocumentTypes": "انواع الوثائق",
   "boilerplate.containers.Payroll.march": "مارس",
   "boilerplate.containers.Payroll.maxDate": "اعلي تاريخ",
   "boilerplate.containers.Payroll.may": "مايو",

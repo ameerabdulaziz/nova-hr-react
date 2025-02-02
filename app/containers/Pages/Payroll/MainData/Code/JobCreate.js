@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import JobData from '../api/JobData';
 import { useSelector } from 'react-redux';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -23,6 +19,16 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
 import SITEMAP from '../../../../App/routes/sitemap';
+import GeneralListApis from "../../api/GeneralListApis";
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import {
+  Button,
+  Grid,
+  TextField,
+  Autocomplete,
+  Checkbox,
+} from "@mui/material";
 
 
 
@@ -42,11 +48,16 @@ function CreateAndEditJob(props) {
   const [openJobNature, setOpenJobNature] = useState(false);
   const [openJobType, setOpenJobType] = useState(false);
   const [jobsData, setJobsData] = useState([]);
+    const [DocumentTypesList, setDocumentTypesList] = useState([]);
+    const [DocumentType, setDocumentType] = useState([]);
   const { state } = useLocation()
   const  ID  = state?.id
   const history=useHistory(); 
   const { intl } = props;
   const { classes } = useStyles();
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
 
@@ -65,6 +76,7 @@ function CreateAndEditJob(props) {
       jobCode: jobCode?.length !== 0 ? jobCode : "",
       medicalInsuranceStartDay: medicalInsuranceStartDay?.length !== 0 ? medicalInsuranceStartDay : "",
       isLeadershipPosition,
+      jobDocument: DocumentType && DocumentType.length !== 0 ? `,${DocumentType.map((item) => item.id).join(',')},` : "",
       
     };
 
@@ -87,7 +99,9 @@ const getdata =  async () => {
 
   try {
       const data =  await JobData(locale).GetAllDataList();
+      const Documents = await GeneralListApis(locale).GetDocumentTypeList();
 
+      setDocumentTypesList(Documents)
       setJobsData(data)
   } catch (error) {
     //
@@ -98,6 +112,10 @@ const getdata =  async () => {
 
 const getEditdata = async () => {
   setIsLoading(true);
+
+let  documentTypesArr = []
+  
+  
 
   try {
     const data = await JobData().GetDataById(ID, locale);
@@ -129,6 +147,23 @@ const getEditdata = async () => {
           ? { id: data[0].parentId, name: data[0].parentName }
           : null
       );
+    
+      // used to convert ",1,2," this api response example into array and search for ids in compobox api options to get values array of objects
+        if(data[0].jobDocument && data[0].jobDocument.length !== 0)
+        {
+            data[0].jobDocument.split(',').map((item) => {
+
+                let filterData = DocumentTypesList.find((item2) => item2.id == item)
+              
+                if(filterData)
+                {
+                  documentTypesArr.push(filterData)
+                }
+          })
+        }
+       
+      setDocumentType(documentTypesArr)
+
     }
   } catch (error) {
     //
@@ -143,11 +178,11 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if(ID)
+  if(ID && DocumentTypesList.length !== 0)
   {
     getEditdata()
   }
-  }, [ID]);
+  }, [ID,DocumentTypesList]);
 
 
 
@@ -494,6 +529,53 @@ function oncancel(){
                         />
                     </Grid>
 
+                </Grid>
+
+                <Grid item xs={12}
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"
+                    style={{marginTop:"0"}}
+                    > 
+                       <Grid item xs={12}  md={4}> 
+                          <Autocomplete
+                            multiple  
+                            className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
+                            id="checkboxes-tags-demo"
+                            isOptionEqualToValue={(option, value) => option.id === value.id}
+                            options={DocumentTypesList.length != 0 ? DocumentTypesList: []}
+                            disableCloseOnSelect
+                            getOptionLabel={(option) =>(
+                              option  ? option.name : ""
+                            )}
+                            value={DocumentType ? DocumentType : []}
+                            onChange={(event, value) => {
+                              if (value !== null) {
+                                setDocumentType(value);
+                              } else {
+                                setDocumentType(null);
+                              }
+                            }}
+                            renderOption={(props, option, { selected }) => (
+                              <li {...props}>
+                                <Checkbox
+                                  icon={icon}
+                                  checkedIcon={checkedIcon}
+                                  style={{ marginRight: 8 }}
+                                  checked={selected}
+                                />
+                                {option.name}
+                              </li>
+                            )}
+                            style={{ width: 500 }}
+                            renderInput={(params) => (
+                              <TextField {...params} 
+                              label={intl.formatMessage(messages.DocumentTypes)}
+                              />
+                            )}
+                          />
+                        </Grid>
                 </Grid>
 
                 <Grid

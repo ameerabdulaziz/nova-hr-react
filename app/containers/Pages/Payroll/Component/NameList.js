@@ -30,10 +30,16 @@ function NameList(props) {
 
 
 
-  const handleClose = (data) => {
-
+  const handleClose = useCallback(
+    (data) => {
+      data.map((row) => {
+        if (dataList.filter((x) => x.id == row.id).length == 0) 
+        {
+          setdataList((prev) => [...prev, row])
+        }
+      })
       setOpenPopup(false);
-    };
+    },[dataList])
 
 
   const savePopup = (data) => {

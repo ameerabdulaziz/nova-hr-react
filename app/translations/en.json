@@ -2082,6 +2082,7 @@
   "boilerplate.containers.Payroll.MainData.codes.useGPS": "Use GPS",
   "boilerplate.containers.Payroll.MainData.codes.worknature": "Work Nature Allowance",
   "boilerplate.containers.Payroll.MainData.codes.worknatureAllowance": "Work Nature Allowance",
+  "boilerplate.containers.Payroll.MainData.codes.DocumentTypes": "Document Types",
   "boilerplate.containers.Payroll.march": "March",
   "boilerplate.containers.Payroll.maxDate": "Max Date",
   "boilerplate.containers.Payroll.may": "May",
