@@ -15,9 +15,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
 import { toast } from 'react-hot-toast';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function LocationLog(props) {
   const { intl } = props;
@@ -206,10 +207,13 @@ function LocationLog(props) {
     {
       name: "insDate",
       label: intl.formatMessage(messages.insDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -296,7 +300,7 @@ function LocationLog(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

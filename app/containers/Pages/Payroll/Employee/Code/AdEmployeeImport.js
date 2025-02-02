@@ -10,7 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { read, utils } from 'xlsx';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
 import Payrollmessages from '../../messages';
 import ApiData from '../api/EmployeeData';
@@ -147,7 +147,7 @@ function AdEmployeeImport({ intl }) {
       </PapperBlock>
 
       {fileData.length !== 0 && (
-        <PayrollTable title={fileTitle} data={fileData} columns={cols} />
+        <SimplifiedPayrollTable title={fileTitle} data={fileData} columns={cols} />
       )}
     </PayRollLoader>
   );

@@ -17,12 +17,13 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/NewEmployeeReportData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function NewEmployeeReport(props) {
   const { intl } = props;
@@ -93,6 +94,13 @@ function NewEmployeeReport(props) {
       {
         name: 'hiringDate',
         label: intl.formatMessage(messages.hiringDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.birthDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: 'qualification',
@@ -105,6 +113,13 @@ function NewEmployeeReport(props) {
       {
         name: 'insuranceDate',
         label: intl.formatMessage(messages.insuranceDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.insuranceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: 'taxable',
@@ -128,6 +143,13 @@ function NewEmployeeReport(props) {
       {
         name: 'qualificationDate',
         label: intl.formatMessage(messages.qualificationDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.qualificationDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: 'idCardNumber',
@@ -136,6 +158,13 @@ function NewEmployeeReport(props) {
       {
         name: 'birthDate',
         label: intl.formatMessage(messages.birthDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.birthDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
       {
         name: 'gender',
@@ -410,7 +439,7 @@ function NewEmployeeReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} />
+      <SimplifiedPayrollTable title='' data={tableData} columns={columns} />
     </PayRollLoader>
   );
 }

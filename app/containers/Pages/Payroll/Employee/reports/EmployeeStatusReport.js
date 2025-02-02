@@ -20,7 +20,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../Style';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import hrMessages from '../../HumanResources/messages';
 import vacationMessages from '../../Vacation/messages';
@@ -32,6 +32,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import styles from '../../../../../styles/styles.scss';
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeStatusReport(props) {
   const { intl } = props;
@@ -108,17 +109,38 @@ function EmployeeStatusReport(props) {
 
     {
       name: 'fromDate',
-      label: intl.formatMessage(vacationMessages.fromDate),
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'toDate',
-      label: intl.formatMessage(vacationMessages.toDate),
+      label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'trxDate',
       label: intl.formatMessage(vacationMessages.transactionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -198,6 +220,13 @@ function EmployeeStatusReport(props) {
     {
       name: 'date',
       label: intl.formatMessage(hrMessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrMessages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -260,6 +289,13 @@ function EmployeeStatusReport(props) {
     {
       name: 'date',
       label: intl.formatMessage(hrMessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrMessages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -509,35 +545,35 @@ function EmployeeStatusReport(props) {
       </Grid>
       
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={intl.formatMessage(messages.vacationReport)}
         data={employeeInfo.vacation}
         columns={vacationColumns}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={intl.formatMessage(messages.rewordsReport)}
         data={employeeInfo.rewords}
         columns={rewordsColumns}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={intl.formatMessage(messages.penaltyReport)}
         data={employeeInfo.penalty}
         columns={penaltyColumns}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={intl.formatMessage(messages.jobsReport)}
         data={employeeInfo.jobs}
         columns={jobsColumns}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={intl.formatMessage(messages.EmployeeDocuments)}
         data={employeeInfo.employeeDocuments}

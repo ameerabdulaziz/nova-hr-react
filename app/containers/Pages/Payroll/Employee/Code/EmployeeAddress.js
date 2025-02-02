@@ -22,7 +22,7 @@ import tableMessage from '../../../../../components/Tables/messages';
 import AlertPopup from '../../Component/AlertPopup';
 import DecryptUrl from '../../Component/DecryptUrl';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeAddressData';
@@ -292,7 +292,7 @@ function EmployeeAddress(props) {
         
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         showLoader
