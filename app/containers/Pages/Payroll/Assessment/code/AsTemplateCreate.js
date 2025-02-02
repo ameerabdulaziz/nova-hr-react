@@ -26,7 +26,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import style from '../../../../../styles/styles.scss';
 import AlertPopup from '../../Component/AlertPopup';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/AsTemplateData';
@@ -237,7 +237,7 @@ function AsTemplateCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <AlertPopup
         handleClose={closeConfirmPopup}
         open={isConfirmPopupOpen}
@@ -311,7 +311,7 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <TextField
                       name='enDescription'
                       value={formInfo.enDescription}
@@ -326,7 +326,7 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <TextField
                       name='arDescription'
                       value={formInfo.arDescription}
@@ -341,7 +341,7 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Autocomplete
                       options={monthList}
                       multiple
@@ -375,7 +375,7 @@ function AsTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item md={3} xs={12}>
+                  <Grid item  xs={12}>
                     <FormControl>
                       <FormLabel>
                         {intl.formatMessage(messages.showStyles)}
@@ -400,7 +400,7 @@ function AsTemplateCreate(props) {
                     </FormControl>
                   </Grid>
 
-                  <Grid item md={3} xs={12}>
+                  <Grid item xs={12}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -469,7 +469,7 @@ function AsTemplateCreate(props) {
           </Card>
         </Grid>
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

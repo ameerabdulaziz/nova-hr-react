@@ -94,7 +94,7 @@ function StaffJobKPI(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <Grid container mt={3}>
-          <Grid item md={6}>
+          <Grid item xs={6}  lg={3}>
             <Autocomplete
               options={employeeList}
               value={employeeList.find((item) => item.id === employee?.id) ?? null}
