@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
+import payrollMessages from '../../messages';
 import api from '../api/JobOfferData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function JobOffer(props) {
   const { intl } = props;
@@ -66,9 +67,13 @@ function JobOffer(props) {
     {
       name: 'jobOfferDate',
       label: intl.formatMessage(messages.offerDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.offerDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -90,12 +95,12 @@ function JobOffer(props) {
       url: SITEMAP.recruitment.JobOfferEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

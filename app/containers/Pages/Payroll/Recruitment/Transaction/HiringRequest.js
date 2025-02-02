@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import api from '../api/HiringRequestData';
 import messages from '../messages';
+import payrollMessages from '../../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function HiringRequest(props) {
   const { intl } = props;
@@ -37,8 +38,6 @@ function HiringRequest(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -66,9 +65,13 @@ function HiringRequest(props) {
     {
       name: 'hiringRequestDate',
       label: intl.formatMessage(messages.applicationDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.applicationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -84,9 +87,13 @@ function HiringRequest(props) {
     {
       name: 'startDate',
       label: intl.formatMessage(messages.startDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.startDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -98,12 +105,12 @@ function HiringRequest(props) {
       url: SITEMAP.recruitment.HiringRequestEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
-import { formateDate } from '../../helpers';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
+import payrollMessages from '../../messages';
 import api from '../api/ManagerInterviewEvaluationData';
 import RowDropdown from '../components/ManagerInterviewEvaluation/RowDropdown';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function ManagerInterviewEvaluation(props) {
   const { intl } = props;
@@ -43,9 +44,13 @@ function ManagerInterviewEvaluation(props) {
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.applicationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -88,7 +93,7 @@ function ManagerInterviewEvaluation(props) {
   ];
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

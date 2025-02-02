@@ -15,12 +15,13 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/JobApplicationStatusData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function JobApplicationStatus(props) {
   const { intl } = props;
@@ -133,6 +134,13 @@ function JobApplicationStatus(props) {
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.applicationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -283,7 +291,7 @@ function JobApplicationStatus(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         data={tableData}
         columns={columns}
         isLoading={isLoading}

@@ -40,7 +40,7 @@ import CounterWidget from "../../../../../components/Counter/CounterWidget";
 import useWidgetStyles from "../../../../../components/Widget/widget-jss";
 import style from "../../../../../styles/styles.scss";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -48,6 +48,7 @@ import payrollMessages from "../../messages";
 import api from "../api/HRApplicationEvaluationData";
 import RowDropdown from "../components/HRApplicationEvaluation/RowDropdown";
 import messages from "../messages";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function HRApplicationEvaluation(props) {
   const { intl } = props;
@@ -432,6 +433,13 @@ function HRApplicationEvaluation(props) {
     {
       name: "appDate",
       label: intl.formatMessage(messages.applicationDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.applicationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -1410,7 +1418,7 @@ function HRApplicationEvaluation(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         data={tableData}
         columns={columns}
