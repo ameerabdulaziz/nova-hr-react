@@ -373,6 +373,8 @@
   "boilerplate.components.tables.codes.iban": "IBAN",
   "boilerplate.components.tables.codes.insuranceOffices": "Insurance Offices",
   "boilerplate.components.tables.codes.isCheckExpireDate": "Check Expire Date",
+  "boilerplate.components.tables.codes.ExpirationPeriod": "Expiration Period",
+  "boilerplate.components.tables.codes.ExpirationFollow": "Expiration Follow",
   "boilerplate.components.tables.codes.isHR": "Human Resources",
   "boilerplate.components.tables.codes.isleadership": "Leadership",
   "boilerplate.components.tables.codes.isManager": "Is Manager",

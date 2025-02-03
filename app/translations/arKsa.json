@@ -373,6 +373,8 @@
   "boilerplate.components.tables.codes.iban": "Iban",
   "boilerplate.components.tables.codes.insuranceOffices": "مكاتب التأمين",
   "boilerplate.components.tables.codes.isCheckExpireDate": "التخقق من تاريخ الانتهاء",
+  "boilerplate.components.tables.codes.ExpirationPeriod": "فترة الصلاحية",
+  "boilerplate.components.tables.codes.ExpirationFollow": "متابعة انتهاء الصلاحية",
   "boilerplate.components.tables.codes.isHR": "مسؤول موارد بشرية",
   "boilerplate.components.tables.codes.isleadership": "وظيفة قيادية",
   "boilerplate.components.tables.codes.isManager": "مدير",

@@ -108,6 +108,14 @@ export default defineMessages({
     id: `${scope}.codes.isCheckExpireDate`,
     defaultMessage: 'Check Expire Date',
   },
+  expirationPeriod: {
+    id: `${scope}.codes.ExpirationPeriod`,
+    defaultMessage: 'Expiration Period',
+  },
+  expirationFollow: {
+    id: `${scope}.codes.ExpirationFollow`,
+    defaultMessage: 'Expiration Follow',
+  },
   isleadership: {
     id: `${scope}.codes.isleadership`,
     defaultMessage: 'Is Leadership',

@@ -108,6 +108,14 @@ const useStyles = makeStyles()((theme) => ({
 
         apidata.qualificationDate = dateFormatFun(apidata.qualificationDate)
 
+        // this condition used in Documents page in master data to make validation in some fields
+        if(apidata.isCheckExpireDate && (apidata.expirationPeriod.length === 0 ||  apidata.expirationFollow.length === 0 ))
+        {
+          toast.error("You must to choose expiration Period and expiration Follow")
+          return
+        }
+        
+
       setIsLoading(true);
       const data =  await API.Save(apidata);
       // const data =  await API.Save(item);

@@ -53,6 +53,22 @@ function Documents() {
       width: 'auto',
       hidden: false,
     },
+    {
+      name: 'expirationPeriod',
+      label: 'expirationPeriod',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false,
+    },
+    {
+      name: 'expirationFollow',
+      label: 'expirationFollow',
+      type: 'text',
+      initialValue: '',
+      width: 'auto',
+      hidden: false
+    },
 
     {
       name: 'edited',
