@@ -147,7 +147,7 @@ function CustomerCreate(props) {
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item xs={12} md={2}>
+              <Grid item xs={6} md={4} lg={3} xl={1.5}>
                 <TextField
                   name="customerCode"
                   id="customerCode"
@@ -168,7 +168,7 @@ function CustomerCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   name="customerNameEN"
                   id="customerNameEN"
@@ -188,7 +188,7 @@ function CustomerCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   name="customerNameAR"
                   id="customerNameAR"
@@ -210,103 +210,7 @@ function CustomerCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-            </Grid>
-            <Grid item xs={10} >
-                  <TextareaAutosize
-                    name='customerAddress'
-                    value={formData.customerAddress}
-                    onChange={(e) => {
-                      setFormData((prevState) => ({
-                        ...prevState,
-                        customerAddress: e.target.value,
-                      }))
-                    }}
-                    required
-                    maxRows={3}
-                    // placeholder="Customer Address"
-                    placeholder={intl.formatMessage(messages.customerAddress)}
-                    className={`${style.investigationAnswer} ${classes.textareaSty}`}
-                    autoComplete='off'
-                  />
-              </Grid>
-
-              
-              <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                <Grid item xs={12} md={4}>
-                    <TextField
-                      name="customerPhone"
-                      id="customerPhone"
-                      // placeholder="Customer mobile number"
-                      // label="Customer mobile number"
-                      placeholder={intl.formatMessage(messages.customerPhone)}
-                      label={intl.formatMessage(messages.customerPhone)}
-                      required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={formData.customerPhone}
-                      onChange={(e) => {
-                        setFormData((prevState) => ({
-                          ...prevState,
-                          customerPhone: e.target.value,
-                        }))
-                      }}
-                      type="number"
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="customerEmail"
-                      id="customerEmail"
-                      // placeholder="Customer Email"
-                      // label="Customer Email"
-                      placeholder={intl.formatMessage(messages.customerEmail)}
-                      label={intl.formatMessage(messages.customerEmail)}
-                      required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={formData.customerEmail}
-                      onChange={(e) => {
-                        setFormData((prevState) => ({
-                          ...prevState,
-                          customerEmail: e.target.value,
-                        }))
-                      }}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      name="customerWebsite"
-                      id="customerWebsite"
-                      // placeholder="Customer web site"
-                      // label="Customer web site"
-                      placeholder={intl.formatMessage(messages.customerWebsite)}
-                      label={intl.formatMessage(messages.customerWebsite)}
-                      required
-                      className={`${classes.field} ${style.fieldsSty}`}
-                      margin="normal"
-                      variant="outlined"
-                      value={formData.customerWebsite}
-                      onChange={(e) => {
-                        setFormData((prevState) => ({
-                          ...prevState,
-                          customerWebsite: e.target.value,
-                        }))
-                      }}
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-              </Grid>
-
-
-              <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name="managerName"
                       id="managerName"
@@ -329,7 +233,7 @@ function CustomerCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2.5}>
                     <TextField
                       name="managerPhone"
                       id="managerPhone"
@@ -353,7 +257,7 @@ function CustomerCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name="managerEmail"
                       id="managerEmail"
@@ -376,7 +280,7 @@ function CustomerCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name="managerJobTitle"
                       id="managerJobTitle"
@@ -399,7 +303,97 @@ function CustomerCreate(props) {
                     />
                   </Grid>
 
-              </Grid>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
+                    <TextField
+                      name="customerPhone"
+                      id="customerPhone"
+                      // placeholder="Customer mobile number"
+                      // label="Customer mobile number"
+                      placeholder={intl.formatMessage(messages.customerPhone)}
+                      label={intl.formatMessage(messages.customerPhone)}
+                      required
+                      className={`${classes.field} ${style.fieldsSty}`}
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.customerPhone}
+                      onChange={(e) => {
+                        setFormData((prevState) => ({
+                          ...prevState,
+                          customerPhone: e.target.value,
+                        }))
+                      }}
+                      type="number"
+                      autoComplete='off'
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
+                    <TextField
+                      name="customerEmail"
+                      id="customerEmail"
+                      // placeholder="Customer Email"
+                      // label="Customer Email"
+                      placeholder={intl.formatMessage(messages.customerEmail)}
+                      label={intl.formatMessage(messages.customerEmail)}
+                      required
+                      className={`${classes.field} ${style.fieldsSty}`}
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.customerEmail}
+                      onChange={(e) => {
+                        setFormData((prevState) => ({
+                          ...prevState,
+                          customerEmail: e.target.value,
+                        }))
+                      }}
+                      autoComplete='off'
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
+                    <TextField
+                      name="customerWebsite"
+                      id="customerWebsite"
+                      // placeholder="Customer web site"
+                      // label="Customer web site"
+                      placeholder={intl.formatMessage(messages.customerWebsite)}
+                      label={intl.formatMessage(messages.customerWebsite)}
+                      required
+                      className={`${classes.field} ${style.fieldsSty}`}
+                      margin="normal"
+                      variant="outlined"
+                      value={formData.customerWebsite}
+                      onChange={(e) => {
+                        setFormData((prevState) => ({
+                          ...prevState,
+                          customerWebsite: e.target.value,
+                        }))
+                      }}
+                      autoComplete='off'
+                    />
+                  </Grid>
+
+            </Grid>
+            <Grid item xs={12} md={8} lg={6} xl={8} >
+                  <TextareaAutosize
+                    name='customerAddress'
+                    value={formData.customerAddress}
+                    onChange={(e) => {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        customerAddress: e.target.value,
+                      }))
+                    }}
+                    required
+                    maxRows={3}
+                    // placeholder="Customer Address"
+                    placeholder={intl.formatMessage(messages.customerAddress)}
+                    className={`${style.investigationAnswer} ${classes.textareaSty}`}
+                    autoComplete='off'
+                  />
+              </Grid>            
+
+
 
           </Grid>
 
