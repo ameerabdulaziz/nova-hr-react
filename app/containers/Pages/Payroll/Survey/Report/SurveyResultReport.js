@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import PropTypes from 'prop-types';
 import { Box, Button, Grid } from '@mui/material';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import { PapperBlock } from 'enl-components';
 import { useReactToPrint } from 'react-to-print';
 import SurveyResultReportPrint from '../report-tamplate/SurveyResultReportPrint';
@@ -102,7 +102,7 @@ function SurveyResultReport(props) {
     }, [printData])
 
 
-    return (<PayRollLoader isLoading={isLoading}>
+    return (<PayRollLoaderInForms isLoading={isLoading}>
         <Box
             sx={{
                 fontSize: "16px",
@@ -127,7 +127,7 @@ function SurveyResultReport(props) {
 
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
             <Grid container mt={2} ml={2} spacing={4}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={8} lg={6} xl={4}>
                     <Autocomplete
                         disablePortal
                         options={tableData}
@@ -174,7 +174,7 @@ function SurveyResultReport(props) {
 
         </PapperBlock>
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
 
 
     )
