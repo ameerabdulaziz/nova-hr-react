@@ -213,7 +213,7 @@ function SurveyTemplateCreate(props) {
                 </Typography>
 
                 <Grid container spacing={3} mt={0}>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={4} xl={3}>
                     <TextField
                       name='enName'
                       value={formInfo.enName}
@@ -226,7 +226,7 @@ function SurveyTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={4} xl={3}>
                     <TextField
                       name='arName'
                       value={formInfo.arName}
@@ -241,7 +241,7 @@ function SurveyTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={surveyTypeList}
                       value={
@@ -269,7 +269,7 @@ function SurveyTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={2.5} lg={2} xl={2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(payrollMessages.fromdate)}
@@ -294,7 +294,7 @@ function SurveyTemplateCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={2.5} lg={2} xl={2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(payrollMessages.todate)}
@@ -315,6 +315,7 @@ function SurveyTemplateCreate(props) {
                       />
                     </LocalizationProvider>
                   </Grid>
+                  <Grid item sm={12}></Grid>
 
                   <Grid item xs={12} md={6}>
                     <TextField

@@ -5,7 +5,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { getAutoCompleteValue } from '../../helpers';
@@ -138,11 +138,11 @@ function SurveyFollowReport(props) {
 
   
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onSearchBtnClick}>
             <Grid container spacing={3}>
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12}  lg={9} xl={7}>
                     <Search
                     setsearchData={setFormInfo}
                     searchData={formInfo}
@@ -154,7 +154,7 @@ function SurveyFollowReport(props) {
                     />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={6} lg={3} xl={3}>
                     <Autocomplete
                       value={surveyTemplate ? surveyTemplate : null}
                       isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -173,7 +173,7 @@ function SurveyFollowReport(props) {
                     />
                 </Grid>
 
-                <Grid item md={2}>
+                <Grid item xs={12} md={3} xl={2}>
                     <Button
                     variant='contained'
                     color='primary'
@@ -193,7 +193,7 @@ function SurveyFollowReport(props) {
         data={tableData}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
