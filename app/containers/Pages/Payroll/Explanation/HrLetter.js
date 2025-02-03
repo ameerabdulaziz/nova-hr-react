@@ -12,7 +12,7 @@ import useStyles from "../Style";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -88,13 +88,13 @@ function HrLetter(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={3} xl={2}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -127,8 +127,7 @@ function HrLetter(props) {
                     </LocalizationProvider>
                   </Grid>
 
-
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4}  xl={2.5}>
               <TextField
                 id="directedTo"
                 name="directedTo"
@@ -145,7 +144,8 @@ function HrLetter(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={4}  xl={2.5}>
               <TextField
                 id="hrLetterLang"
                 name="hrLetterLang"
@@ -162,7 +162,8 @@ function HrLetter(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} md={11}  xl={7}>
               <TextField
                 id="QuestionDetails"
                 name="QuestionDetails"
@@ -182,7 +183,9 @@ function HrLetter(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -192,7 +195,8 @@ function HrLetter(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -205,7 +209,7 @@ function HrLetter(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 HrLetter.propTypes = {
