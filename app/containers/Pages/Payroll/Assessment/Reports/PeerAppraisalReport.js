@@ -14,7 +14,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import style from "../../../../../styles/styles.scss";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
@@ -162,10 +162,10 @@ function AssessmentReport(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6} lg={3.5} xl={3}>
                 <Autocomplete
                    options={EmployeeList.length != 0 ? EmployeeList: []}
                   isOptionEqualToValue={(option, value) => option.id === value.id
@@ -191,7 +191,7 @@ function AssessmentReport(props) {
                   )}
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6} lg={4.5} xl={4}>
                       <Autocomplete
                       id="ddlMenu"   
                       isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -226,7 +226,7 @@ function AssessmentReport(props) {
                   )}
                   />
               </Grid>
-              <Grid item xs={12} md={2}>
+              <Grid item xs={4} sm={6} md={3} lg={2} xl={1.5}>
                 <Autocomplete
                     id="ddlMenu"   
                     isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -260,7 +260,7 @@ function AssessmentReport(props) {
                     )}
                     /> 
               </Grid>
-              <Grid item xs={12} md={2}>
+              <Grid item xs={4} sm={6} md={3} lg={2} xl={1.5}>
                   <Autocomplete
                   id="ddlMenu"   
                   isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -294,7 +294,7 @@ function AssessmentReport(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={4} sm={6} md={4} lg={3.5} xl={2}>
                 <Autocomplete
                 id="Status"
                 options={statusList}
@@ -317,7 +317,7 @@ function AssessmentReport(props) {
                 )}
                 />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12}>
                 <Button
                 variant="contained"
                 size="medium"
@@ -338,7 +338,7 @@ function AssessmentReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -16,7 +16,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import style from "../../../../../styles/styles.scss";
 import { toast } from 'react-hot-toast';
 import  ExamQuestionsPrint  from '../../Component/ExamQuestionsPrint';
@@ -46,7 +46,6 @@ function AssessmentReport(props) {
   const [Company, setCompany] = useState(branchId);
   const [Month, setMonth] = useState("");
   const [Year, setYear] = useState("");
-
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [companyList, setCompanyList] = useState([]);
   const [examData, setExamData] = useState();
@@ -366,12 +365,12 @@ const printJS = useReactToPrint({
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <Grid container spacing={2}>
           <Grid item container spacing={2}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={2.5}>
               <Autocomplete
                 options={companyList}
                 value={Company ? companyList.find(item => item.id === Company) ?? null : null}
@@ -396,7 +395,7 @@ const printJS = useReactToPrint({
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4}  xl={3.3}>
                   <Autocomplete
                   id="ddlMenu"   
                   isOptionEqualToValue={(option, value) => option.id === value.id}  
@@ -429,7 +428,7 @@ const printJS = useReactToPrint({
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2}  xl={1.5}>
                 <Autocomplete
                     id="ddlMenu"   
                     isOptionEqualToValue={(option, value) => option.id === value.id} 
@@ -467,7 +466,7 @@ const printJS = useReactToPrint({
                     /> 
               </Grid>
           
-              <Grid item xs={12} md={2}>
+              <Grid item xs={6} md={3} lg={2}  xl={1.5}>
                 <Autocomplete
                 id="ddlMenu"   
                 isOptionEqualToValue={(option, value) => option.id === value.id}  
@@ -502,10 +501,8 @@ const printJS = useReactToPrint({
                   )}
                 />
               </Grid>
-          </Grid>
 
-          <Grid item container spacing={2}>
-            <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} lg={8} xl={5.8}>
               <Autocomplete
                 options={EmployeeList.length != 0 ? EmployeeList: []}
                 multiple
@@ -541,7 +538,8 @@ const printJS = useReactToPrint({
             </Grid>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -578,7 +576,7 @@ const printJS = useReactToPrint({
          data={data}
          Year={Year}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
