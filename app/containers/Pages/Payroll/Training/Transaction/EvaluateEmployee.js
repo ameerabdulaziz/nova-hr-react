@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
 import { ServerURL } from '../../api/ServerConfig';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formatNumber, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -308,7 +308,7 @@ function EvaluateEmployee(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       {certificateInfo && (
         <PreviewCertificatePopup
           isOpen={isPrintPreviewOpen}
@@ -330,7 +330,7 @@ function EvaluateEmployee(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3}>
               <Autocomplete
                 options={trainingList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -361,9 +361,9 @@ function EvaluateEmployee(props) {
                 {intl.formatMessage(payrollMessages.search)}
               </Button>
             </Grid>
-            <Grid item xs={12} md={6}></Grid>
+            <Grid item xs={12}></Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3}>
               <TextField
                 name='arName'
                 value={training.courseName}
@@ -374,7 +374,7 @@ function EvaluateEmployee(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3}>
               <TextField
                 name='locationName'
                 value={training.locationName}
@@ -386,7 +386,7 @@ function EvaluateEmployee(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={2.5} lg={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
@@ -402,7 +402,7 @@ function EvaluateEmployee(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={2.5} lg={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}
@@ -429,7 +429,7 @@ function EvaluateEmployee(props) {
         columns={columns}
         actions={actions}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

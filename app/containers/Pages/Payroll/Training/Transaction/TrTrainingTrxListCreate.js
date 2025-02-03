@@ -156,7 +156,7 @@ function TrTrainingTrxListCreate(props) {
       <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <TextField
                 name="enName"
                 value={formInfo.enName}
@@ -169,7 +169,7 @@ function TrTrainingTrxListCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <TextField
                 name="arName"
                 value={formInfo.arName}
@@ -182,51 +182,7 @@ function TrTrainingTrxListCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={intl.formatMessage(payrollMessages.fromdate)}
-                  value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
-                  sx={{ width: "100%" }}
-                  onChange={(date) => onDatePickerChange(date, "fromDate")}
-                  onError={(error) => {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      fromDate: error !== null,
-                    }));
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                />
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={intl.formatMessage(payrollMessages.todate)}
-                  value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
-                  sx={{ width: "100%" }}
-                  onChange={(date) => onDatePickerChange(date, "toDate")}
-                  onError={(error) => {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      toDate: error !== null,
-                    }));
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                />
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={employeeList}
                 value={getAutoCompleteValue(employeeList, formInfo.trainerId)}
@@ -250,7 +206,7 @@ function TrTrainingTrxListCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={courseList}
                 value={getAutoCompleteValue(courseList, formInfo.courseId)}
@@ -272,7 +228,7 @@ function TrTrainingTrxListCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={locationList}
                 value={getAutoCompleteValue(locationList, formInfo.locationId)}
@@ -294,6 +250,50 @@ function TrTrainingTrxListCreate(props) {
                   />
                 )}
               />
+            </Grid>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(payrollMessages.fromdate)}
+                  value={formInfo.fromDate ? dayjs(formInfo.fromDate) : null}
+                  sx={{ width: "100%" }}
+                  onChange={(date) => onDatePickerChange(date, "fromDate")}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      fromDate: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(payrollMessages.todate)}
+                  value={formInfo.toDate ? dayjs(formInfo.toDate) : null}
+                  sx={{ width: "100%" }}
+                  onChange={(date) => onDatePickerChange(date, "toDate")}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      toDate: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
             </Grid>
 
             <Grid item xs={12}>

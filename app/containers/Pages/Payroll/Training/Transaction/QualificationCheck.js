@@ -267,7 +267,7 @@ function QualificationCheck(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={2.5}>
               <Autocomplete
                 options={functionsList}
                 value={getAutoCompleteValue(functionsList, formInfo.functionId)}
@@ -289,7 +289,7 @@ function QualificationCheck(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12}  md={6} lg={3} xl={3}>
               <Autocomplete
                 options={organizationList}
                 value={getAutoCompleteValue(
@@ -314,7 +314,7 @@ function QualificationCheck(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3} xl={2.5}>
               <Autocomplete
                 options={courseList}
                 value={getAutoCompleteValue(courseList, formInfo.courseId)}
@@ -335,7 +335,7 @@ function QualificationCheck(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={3} xl={2.5}>
               <Autocomplete
                 options={typeList}
                 value={getAutoCompleteValue(typeList, formInfo.type)}
@@ -356,7 +356,7 @@ function QualificationCheck(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 name='expirationDays'
                 value={formInfo.expirationDays}

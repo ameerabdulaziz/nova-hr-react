@@ -10,7 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import DropZone from '../../Component/DropZone';
-import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
+import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import GeneralListApis from '../../api/GeneralListApis';
 import { ServerURL } from '../../api/ServerConfig';
@@ -136,7 +136,7 @@ function CoursesCreate(props) {
   const documents = useMemo(() => filesList, [filesList]);
 
   return (
-    <PayRollLoaderInForms isLoading={isLoading}>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
@@ -280,7 +280,7 @@ function CoursesCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoaderInForms>
+    </PayRollLoader>
   );
 }
 
