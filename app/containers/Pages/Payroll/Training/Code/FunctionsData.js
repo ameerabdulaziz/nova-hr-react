@@ -15,7 +15,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import payrollMessages from '../../messages';
 import api from '../api/FunctionsData';
 import FunctionsList from '../components/FunctionsData/FunctionsList';
@@ -80,7 +80,7 @@ function FunctionsData(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <form onSubmit={onFormSubmit}>
@@ -175,7 +175,7 @@ function FunctionsData(props) {
           </Card>
         </Grid>
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

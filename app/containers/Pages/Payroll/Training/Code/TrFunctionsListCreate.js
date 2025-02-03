@@ -15,7 +15,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import NameList from '../../Component/NameList';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import payrollMessages from '../../messages';
 import api from '../api/TrFunctionsListData';
 import messages from '../messages';
@@ -102,7 +102,7 @@ function TrFunctionsListCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <Card>
           <CardContent sx={{ p: '16px!important' }}>
@@ -111,7 +111,7 @@ function TrFunctionsListCreate(props) {
                 <Typography variant='h6'>{pageTitle}</Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={6} lg={4} xl={3}>
                     <TextField
                       name='enName'
                       value={formInfo.enName}
@@ -124,7 +124,7 @@ function TrFunctionsListCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={6} lg={4} xl={3}>
                     <TextField
                       name='arName'
                       value={formInfo.arName}
@@ -166,7 +166,7 @@ function TrFunctionsListCreate(props) {
           </CardContent>
         </Card>
       </form>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

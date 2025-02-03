@@ -217,7 +217,7 @@ function TestTemplateCreate(props) {
                 </Typography>
 
                 <Grid container spacing={3} mt={0}>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={4} xl={3} >
                     <TextField
                       name='enName'
                       value={formInfo.enName}
@@ -232,7 +232,7 @@ function TestTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={4} xl={3}>
                     <TextField
                       name='arName'
                       value={formInfo.arName}
@@ -247,7 +247,7 @@ function TestTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={4} xl={3}>
                     <Autocomplete
                       options={trainingList}
                       value={getAutoCompleteValue(
@@ -274,7 +274,7 @@ function TestTemplateCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(payrollMessages.fromdate)}
@@ -299,7 +299,7 @@ function TestTemplateCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(payrollMessages.todate)}
@@ -319,7 +319,9 @@ function TestTemplateCreate(props) {
                         }}
                       />
                     </LocalizationProvider>
-                  </Grid>
+                  </Grid> 
+
+                  <Grid item xs={12}></Grid>
 
                   <Grid item xs={12} md={6}>
                     <TextField

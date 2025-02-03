@@ -10,7 +10,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import DropZone from '../../Component/DropZone';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import GeneralListApis from '../../api/GeneralListApis';
 import { ServerURL } from '../../api/ServerConfig';
@@ -136,11 +136,11 @@ function CoursesCreate(props) {
   const documents = useMemo(() => filesList, [filesList]);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3}  xl={2.5}>
               <TextField
                 name='arName'
                 value={formInfo.arName}
@@ -153,7 +153,7 @@ function CoursesCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3} xl={2.5}>
               <TextField
                 name='enName'
                 value={formInfo.enName}
@@ -166,7 +166,7 @@ function CoursesCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3} xl={2}>
               <Autocomplete
                 options={coursesTypes}
                 value={
@@ -197,7 +197,7 @@ function CoursesCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} md={4} lg={3}  xl={1.5}>
               <TextField
                 name='courseDays'
                 value={formInfo.courseDays}
@@ -210,7 +210,7 @@ function CoursesCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} md={4} lg={3} xl={1.5}>
               <TextField
                 name='courseHours'
                 value={formInfo.courseHours}
@@ -223,7 +223,7 @@ function CoursesCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} md={4} lg={3} xl={2}>
               <TextField
                 name='expiratioPeriod'
                 value={formInfo.expiratioPeriod}
@@ -280,7 +280,7 @@ function CoursesCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
