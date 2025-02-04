@@ -894,17 +894,18 @@ function HrPermission(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={intl.formatMessage(messages.notAllowedEmployees)} desc=''>
         <Grid container mb={5} spacing={3}>
+          
           <Grid item xs={6} md={6}>
             <NameList
-                dataList={notAllowedPayrollEmployeesList}
-                setdataList={setNotAllowedPayrollEmployeesList}
+                dataList={notAllowedEmployeesList}
+                setdataList={setNotAllowedEmployeesList}
                 Key={"Employee"}
               />
           </Grid>
           <Grid item xs={6} md={6}>
             <NameList
-                dataList={notAllowedEmployeesList}
-                setdataList={setNotAllowedEmployeesList}
+                dataList={notAllowedPayrollEmployeesList}
+                setdataList={setNotAllowedPayrollEmployeesList}
                 Key={"payrollEmployee"}
               />
           </Grid>
