@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -231,10 +231,10 @@ function OpeningLeaveBalancesReport(props) {
   },[formInfo.BranchId, formInfo.EmployeeId,yearsList])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={9} xl={6}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -244,7 +244,7 @@ function OpeningLeaveBalancesReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={6} md={3} lg={2.3} xl={1.5}>
             <Autocomplete
               value={getAutoCompleteValue(yearsList, formInfo.yearId)}
               isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -284,7 +284,7 @@ function OpeningLeaveBalancesReport(props) {
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

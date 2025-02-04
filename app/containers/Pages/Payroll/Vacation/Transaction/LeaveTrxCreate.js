@@ -419,14 +419,14 @@ function LeaveTrxCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={10} lg={7}  xl={6}>
               <EmployeeData
                 handleEmpChange={handleChange}
                 id={formInfo.employeeId}
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={5} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -435,7 +435,133 @@ function LeaveTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={3} lg={6}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.fromDate)}
+                          value={
+                            formInfo.fromDate ? dayjs(formInfo.fromDate) : null
+                          }
+                          className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              fromDate: date,
+                            }));
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                fromDate: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                fromDate: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
+                          disabled={empid ? true : false}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item xs={6} md={3} lg={6}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.toDate)}
+                          value={
+                            formInfo.toDate ? dayjs(formInfo.toDate) : null
+                          }
+                          className={classes.field}
+                          onChange={(date) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              toDate: date,
+                            }));
+                          }}
+                          /* disabled={
+                            formInfo.vacCode === 5 ||
+                            selectedLeave?.haveReplacementDay
+                          } */
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                toDate: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                toDate: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item xs={6} md={3} lg={6}>
+                      <TextField
+                        name="daysCount"
+                        value={formInfo.daysCount}
+                        /* disabled={formInfo.vacCode !== 5} */
+                        onChange={(evt) => {
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            daysCount: evt.target.value,
+                          }));
+                        }}
+                        label={intl.formatMessage(messages.daysCount)}
+                        type="number"
+                        //inputProps={{ step: 0.1, min: 0, max: 1 }}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                    {/* <Grid item xs={12} md={3}>
+                      <TextField
+                        name="dayDeducedBy"
+                        value={formInfo.dayDeducedBy}
+                        onChange={onNumericInputChange}
+                        label={intl.formatMessage(messages.dayDeducedBy)}
+                        className={classes.field}
+                        disabled
+                        variant="outlined"
+                        autoComplete="off"
+                      />
+                    </Grid> */}
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={12}  xl={10}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"
+                  >
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(payrollMessages.date)}
@@ -471,7 +597,7 @@ function LeaveTrxCreate(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4}  lg={6} xl={5}>
                       <Stack
                         direction="row"
                         justifyContent="space-between"
@@ -510,7 +636,7 @@ function LeaveTrxCreate(props) {
                       </Stack>
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4}  lg={6} xl={5}>
                       <Autocomplete
                         options={alternativeEmployeeList}
                         value={
@@ -542,7 +668,7 @@ function LeaveTrxCreate(props) {
                     </Grid>
 
                     {selectedLeave?.haveReplacementDay && (
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={12} md={4}  lg={6} xl={5}>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                           <DatePicker
                             label={intl.formatMessage(messages.replaceDate)}
@@ -653,133 +779,7 @@ function LeaveTrxCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.fromDate)}
-                          value={
-                            formInfo.fromDate ? dayjs(formInfo.fromDate) : null
-                          }
-                          className={classes.field}
-                          onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
-                              fromDate: date,
-                            }));
-                          }}
-                          onError={(error, value) => {
-                            if (error !== null) {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                fromDate: true,
-                              }));
-                            } else {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                fromDate: false,
-                              }));
-                            }
-                          }}
-                          slotProps={{
-                            textField: {
-                              required: true,
-                            },
-                          }}
-                          disabled={empid ? true : false}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                          label={intl.formatMessage(messages.toDate)}
-                          value={
-                            formInfo.toDate ? dayjs(formInfo.toDate) : null
-                          }
-                          className={classes.field}
-                          onChange={(date) => {
-                            setFormInfo((prev) => ({
-                              ...prev,
-                              toDate: date,
-                            }));
-                          }}
-                          /* disabled={
-                            formInfo.vacCode === 5 ||
-                            selectedLeave?.haveReplacementDay
-                          } */
-                          onError={(error, value) => {
-                            if (error !== null) {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                toDate: true,
-                              }));
-                            } else {
-                              setDateError((prevState) => ({
-                                ...prevState,
-                                toDate: false,
-                              }));
-                            }
-                          }}
-                          slotProps={{
-                            textField: {
-                              required: true,
-                            },
-                          }}
-                        />
-                      </LocalizationProvider>
-                    </Grid>
-
-                    <Grid item xs={12} md={3}>
-                      <TextField
-                        name="daysCount"
-                        value={formInfo.daysCount}
-                        /* disabled={formInfo.vacCode !== 5} */
-                        onChange={(evt) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            daysCount: evt.target.value,
-                          }));
-                        }}
-                        label={intl.formatMessage(messages.daysCount)}
-                        type="number"
-                        //inputProps={{ step: 0.1, min: 0, max: 1 }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        className={classes.field}
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid>
-
-                    {/* <Grid item xs={12} md={3}>
-                      <TextField
-                        name="dayDeducedBy"
-                        value={formInfo.dayDeducedBy}
-                        onChange={onNumericInputChange}
-                        label={intl.formatMessage(messages.dayDeducedBy)}
-                        className={classes.field}
-                        disabled
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid> */}
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} xl={10}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -845,10 +845,12 @@ function LeaveTrxCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item  >
               <SaveButton Id={id} processing={processing} />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item  >
               <Button
                 variant="contained"
                 size="medium"
@@ -858,6 +860,7 @@ function LeaveTrxCreate(props) {
                 <FormattedMessage {...payrollMessages.cancel} />
               </Button>
             </Grid>
+
           </Grid>
         </form>
       </PapperBlock>

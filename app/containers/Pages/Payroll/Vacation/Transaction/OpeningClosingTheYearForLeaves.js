@@ -19,7 +19,7 @@ import useStyles from "../../Style";
 import { Card, CardContent } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -201,7 +201,7 @@ function OpeningClosingTheYearForLeaves(props) {
   }, [fromDate, toDate]);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -210,7 +210,7 @@ function OpeningClosingTheYearForLeaves(props) {
       >
         <form>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="ddlOrg"
                 isOptionEqualToValue={(option, value) =>
@@ -247,7 +247,7 @@ function OpeningClosingTheYearForLeaves(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} sm={5} md={3} lg={2.4} xl={1.5}>
               <Autocomplete
                 id="ddlYear"
                 isOptionEqualToValue={(option, value) =>
@@ -284,7 +284,7 @@ function OpeningClosingTheYearForLeaves(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} sm={5} md={3} lg={2.4} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.StartDate)}
@@ -315,7 +315,7 @@ function OpeningClosingTheYearForLeaves(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={4} sm={5} md={3} lg={2.4} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.EndDate)}
@@ -346,7 +346,9 @@ function OpeningClosingTheYearForLeaves(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12}></Grid>
+             
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -372,7 +374,7 @@ function OpeningClosingTheYearForLeaves(props) {
               </Button>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -401,7 +403,7 @@ function OpeningClosingTheYearForLeaves(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

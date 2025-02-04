@@ -21,7 +21,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import FileViewerPopup from "../../../../../components/Popup/fileViewerPopup";
 import EmployeeData from "../../Component/EmployeeData";
 import GovernmentVacationPopup from "../../Component/GovernmentVacationPopup";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SaveButton from "../../Component/SaveButton";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -389,7 +389,7 @@ function GovernmentSickLeaveCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -402,11 +402,11 @@ function GovernmentSickLeaveCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={10} lg={7}  xl={6}>
               <EmployeeData handleEmpChange={handleChange} id={formInfo.employeeId} />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={5} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -416,233 +416,7 @@ function GovernmentSickLeaveCreate(props) {
                     direction="row"
                   >
 
-                <Grid item xs={12} md={4}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                       label={intl.formatMessage(Payrollmessages.date)}
-                        value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
-                        className={classes.field}
-                        onChange={(date) => {
-                          setFormInfo((prevFilters) => ({
-                            ...prevFilters,
-                            trxDate: date,
-                          }));
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`trxDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`trxDate`]: false
-                            }))
-                        }
-                      }}
-                       slotProps={{
-                          textField: {
-                              required: true,
-                            },
-                          }}
-                      />
-                  </LocalizationProvider>
-                  </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <Autocomplete
-                          value={
-                            vacationsList.find(
-                              (vac) => vac.id === formInfo.vacCode
-                            ) ?? null
-                          }
-                          options={vacationsList}
-                          getOptionLabel={(option) => option.name ?? ""}
-                          isOptionEqualToValue={(option, value) =>
-                            option.id === value.id
-                          }
-                          onChange={onVacationChange}
-                          fullWidth
-                          renderInput={(params) => (
-                            <TextField
-                              required
-                              {...params}
-                              name="vacCode"
-                              label={intl.formatMessage(messages.vacationType)}
-                            />
-                          )}
-                        />
-
-                        <GovernmentVacationPopup
-                          vacationId={formInfo.vacCode}
-                        />
-                      </Stack>
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <Autocomplete
-                        options={alternativeEmployeeList}
-                        value={
-                          alternativeEmployeeList.find(
-                            (alt) => alt.id === formInfo.alternativeStaff
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : "")}
-                        onChange={(_, value) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            alternativeStaff: value !== null ? value.id : null,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            required={formInfo.HasAlternativeEmp}
-                            {...params}
-                            label={intl.formatMessage(
-                              messages.alternativeEmployee
-                            )}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={2}>
-                      <Autocomplete
-                        value={
-                          monthsList.find(
-                            (month) => month.id === formInfo.monthId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : "")}
-                        options={monthsList}
-                        onChange={(_, value) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            monthId: value?.id,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            required={formInfo.HasAlternativeEmp}
-                            {...params}
-                            label={intl.formatMessage(messages.Month)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={2}>
-                      <Autocomplete
-                        value={
-                          yearsList.find(
-                            (year) => year.id === formInfo.yearId
-                          ) ?? null
-                        }
-                        isOptionEqualToValue={(option, value) =>
-                          option.id === value.id
-                        }
-                        getOptionLabel={(option) => (option ? option.name : "")}
-                        options={yearsList}
-                        onChange={(_, value) => {
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            yearId: value?.id,
-                          }));
-                        }}
-                        renderInput={(params) => (
-                          <TextField
-                            required={formInfo.HasAlternativeEmp}
-                            {...params}
-                            label={intl.formatMessage(messages.year)}
-                          />
-                        )}
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={4}>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <div>
-                          <input
-                            accept="image/*, .pdf, .doc, .docx"
-                            id="attachment-button-file"
-                            type="file"
-                            style={{ display: "none" }}
-                            onChange={onDocumentInputChange}
-                          />
-                          <label htmlFor="attachment-button-file">
-                            <Button variant="contained" component="span">
-                              <FormattedMessage
-                                {...messages.uploadAttachment}
-                              />
-                            </Button>
-                          </label>
-                        </div>
-
-                        {uploadedFile && (
-                          <Button
-                            component="span"
-                            onClick={onAttachmentPopupBtnClick}
-                          >
-                            <FormattedMessage {...Payrollmessages.preview} />
-                          </Button>
-                        )}
-                      </Stack>
-
-                      <FileViewerPopup
-                        handleClose={onAttachmentPopupClose}
-                        open={isAttachmentPopupOpen}
-                        uploadedFileType={getAttachmentType()}
-                        uploadedFile={uploadedFile}
-                        validImageTypes={validImageTypes}
-                        validPDFTypes={validPDFTypes}
-                      />
-                    </Grid>
-
-                    <Grid item md={3}>
-                      <FormControlLabel
-                        control={<Checkbox />}
-                        onChange={(evt) =>
-                          setFormInfo((prev) => ({
-                            ...prev,
-                            deductAnual: evt.target.checked,
-                          }))
-                        }
-                        checked={formInfo.deductAnual}
-                        label={intl.formatMessage(messages.reducedFromAnnual)}
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-
-            <Grid item xs={12} md={12}>
-              <Card className={classes.card}>
-                <CardContent>
-                  <Grid
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"
-                  >
-
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={3} lg={6} >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.fromDate)}
@@ -682,7 +456,7 @@ function GovernmentSickLeaveCreate(props) {
                     </LocalizationProvider>
                     </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={6} >
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                         label={intl.formatMessage(messages.toDate)}
@@ -723,7 +497,7 @@ function GovernmentSickLeaveCreate(props) {
                   </LocalizationProvider>
                   </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} lg={6} >
                       <TextField
                         name="daysCount"
                         value={formInfo.daysCount}
@@ -734,7 +508,7 @@ function GovernmentSickLeaveCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} lg={6} >
                       <TextField
                         name="dayDeducedBy"
                         value={formInfo.dayDeducedBy}
@@ -750,7 +524,235 @@ function GovernmentSickLeaveCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            
+            <Grid item xs={12} md={12}  xl={10}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"
+                  >
+
+                <Grid item xs={6} md={4} lg={3} xl={2}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker 
+                       label={intl.formatMessage(Payrollmessages.date)}
+                        value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                        className={classes.field}
+                        onChange={(date) => {
+                          setFormInfo((prevFilters) => ({
+                            ...prevFilters,
+                            trxDate: date,
+                          }));
+                      }}
+                      onError={(error,value)=>{
+                        if(error !== null)
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: true
+                            }))
+                        }
+                        else
+                        {
+                          setDateError((prevState) => ({
+                              ...prevState,
+                                [`trxDate`]: false
+                            }))
+                        }
+                      }}
+                       slotProps={{
+                          textField: {
+                              required: true,
+                            },
+                          }}
+                      />
+                  </LocalizationProvider>
+                  </Grid>
+
+                    <Grid item xs={12} md={4}  lg={6} xl={5}>
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={1}
+                      >
+                        <Autocomplete
+                          value={
+                            vacationsList.find(
+                              (vac) => vac.id === formInfo.vacCode
+                            ) ?? null
+                          }
+                          options={vacationsList}
+                          getOptionLabel={(option) => option.name ?? ""}
+                          isOptionEqualToValue={(option, value) =>
+                            option.id === value.id
+                          }
+                          onChange={onVacationChange}
+                          fullWidth
+                          renderInput={(params) => (
+                            <TextField
+                              required
+                              {...params}
+                              name="vacCode"
+                              label={intl.formatMessage(messages.vacationType)}
+                            />
+                          )}
+                        />
+
+                        <GovernmentVacationPopup
+                          vacationId={formInfo.vacCode}
+                        />
+                      </Stack>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}  lg={6} xl={5}>
+                      <Autocomplete
+                        options={alternativeEmployeeList}
+                        value={
+                          alternativeEmployeeList.find(
+                            (alt) => alt.id === formInfo.alternativeStaff
+                          ) ?? null
+                        }
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : "")}
+                        onChange={(_, value) => {
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            alternativeStaff: value !== null ? value.id : null,
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            required={formInfo.HasAlternativeEmp}
+                            {...params}
+                            label={intl.formatMessage(
+                              messages.alternativeEmployee
+                            )}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}  lg={3} xl={2} >
+                      <Autocomplete
+                        value={
+                          monthsList.find(
+                            (month) => month.id === formInfo.monthId
+                          ) ?? null
+                        }
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : "")}
+                        options={monthsList}
+                        onChange={(_, value) => {
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            monthId: value?.id,
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            required={formInfo.HasAlternativeEmp}
+                            {...params}
+                            label={intl.formatMessage(messages.Month)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}  lg={3} xl={2} >
+                      <Autocomplete
+                        value={
+                          yearsList.find(
+                            (year) => year.id === formInfo.yearId
+                          ) ?? null
+                        }
+                        isOptionEqualToValue={(option, value) =>
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option ? option.name : "")}
+                        options={yearsList}
+                        onChange={(_, value) => {
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            yearId: value?.id,
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            required={formInfo.HasAlternativeEmp}
+                            {...params}
+                            label={intl.formatMessage(messages.year)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4}  lg={6} xl={3}>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <div>
+                          <input
+                            accept="image/*, .pdf, .doc, .docx"
+                            id="attachment-button-file"
+                            type="file"
+                            style={{ display: "none" }}
+                            onChange={onDocumentInputChange}
+                          />
+                          <label htmlFor="attachment-button-file">
+                            <Button variant="contained" component="span">
+                              <FormattedMessage
+                                {...messages.uploadAttachment}
+                              />
+                            </Button>
+                          </label>
+                        </div>
+
+                        {uploadedFile && (
+                          <Button
+                            component="span"
+                            onClick={onAttachmentPopupBtnClick}
+                          >
+                            <FormattedMessage {...Payrollmessages.preview} />
+                          </Button>
+                        )}
+                      </Stack>
+
+                      <FileViewerPopup
+                        handleClose={onAttachmentPopupClose}
+                        open={isAttachmentPopupOpen}
+                        uploadedFileType={getAttachmentType()}
+                        uploadedFile={uploadedFile}
+                        validImageTypes={validImageTypes}
+                        validPDFTypes={validPDFTypes}
+                      />
+                    </Grid>
+
+                    <Grid item >
+                      <FormControlLabel
+                        control={<Checkbox />}
+                        onChange={(evt) =>
+                          setFormInfo((prev) => ({
+                            ...prev,
+                            deductAnual: evt.target.checked,
+                          }))
+                        }
+                        checked={formInfo.deductAnual}
+                        label={intl.formatMessage(messages.reducedFromAnnual)}
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+
+
+            <Grid item xs={12} md={12} xl={10}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -812,10 +814,12 @@ function GovernmentSickLeaveCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item >
               <SaveButton Id={id} processing={processing} />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -828,7 +832,7 @@ function GovernmentSickLeaveCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

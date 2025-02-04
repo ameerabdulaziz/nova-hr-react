@@ -537,7 +537,7 @@ function RequestsList(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={4} lg={3} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -563,7 +563,7 @@ function RequestsList(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={4} lg={3} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.todate)}
@@ -589,7 +589,7 @@ function RequestsList(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="employeeId"
                 options={EmployeeList}

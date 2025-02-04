@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -337,10 +337,10 @@ function LeaveTrxReport(props) {
   },[formInfo.BranchId, formInfo.EmployeeId,todayDateKey])   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={9} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -351,7 +351,7 @@ function LeaveTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} lg={4.5} xl={3.5}>
             <Autocomplete
               options={vacationsList}
               multiple
@@ -388,7 +388,7 @@ function LeaveTrxReport(props) {
             />
           </Grid>
 
-          <Grid item md={5}>
+          <Grid item xs={6} lg={4.5} xl={3.5}>
             <Stack
               direction='row'
               alignItems='center'
@@ -424,7 +424,7 @@ function LeaveTrxReport(props) {
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -278,10 +278,10 @@ function BalanceUpdateLog(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={9} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -292,7 +292,9 @@ function BalanceUpdateLog(props) {
             />
           </Grid>
 
-          <Grid item md={2}>
+          <Grid item xs={12}></Grid>
+
+          <Grid item >
             <Button
               variant='contained'
               color='primary'
@@ -312,7 +314,7 @@ function BalanceUpdateLog(props) {
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { getAutoCompleteValue } from '../../helpers';
@@ -156,10 +156,10 @@ function VacationBalanceCostReport(props) {
 
   
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={9} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -169,7 +169,9 @@ function VacationBalanceCostReport(props) {
             />
           </Grid>
 
-          <Grid item md={2}>
+          <Grid item xs={12} lg={0.1} ></Grid>
+
+          <Grid item mt={1} >
             <Button
               variant='contained'
               color='primary'
@@ -188,7 +190,7 @@ function VacationBalanceCostReport(props) {
         data={tableData}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

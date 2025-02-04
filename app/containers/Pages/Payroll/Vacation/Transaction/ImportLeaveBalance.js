@@ -27,7 +27,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { async } from '@dabeng/react-orgchart';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 
 
@@ -203,14 +203,14 @@ let lock = true
   },[])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid
             container
             spacing={3}
             mt={0}
             direction="row">
-              <Grid item md={4} >
+              <Grid item xs={12} md={6} lg={5} xl={4} >
                 <Autocomplete
                   id="ddlMenu"
                   options={LeavesList}
@@ -328,7 +328,7 @@ let lock = true
           />
         )}
           
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

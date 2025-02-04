@@ -17,7 +17,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { Card, CardContent } from "@mui/material";
 import SaveButton from "../../Component/SaveButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 function LeaveOpenBalance(props) {
   const [id, setid] = useState(0);
@@ -120,7 +120,7 @@ function LeaveOpenBalance(props) {
   }, [Employee, LeaveType]);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -135,17 +135,11 @@ function LeaveOpenBalance(props) {
             mt={0}
             direction="row"
           >
-            <Grid
-              item
-              xs={12}
-              md={12}
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-            >
-              <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={12} lg={8} xl={4} className={style.gridSty}>
+            <Card className={classes.card}>
+            <CardContent className={style.CardContentSty}>
+              <Grid container spacing={2}>
+              <Grid item xs={12} md={6} lg={6} xl={12}>
                 <Autocomplete
                   id="ddlMenu"
                   isOptionEqualToValue={(option, value) =>
@@ -179,19 +173,8 @@ function LeaveOpenBalance(props) {
                   )}
                 />
               </Grid>
-            </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={12}
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-              className={style.gridSty}
-            >
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={6} lg={6} xl={12}>
                 <Autocomplete
                   id="ddlMenu"
                   isOptionEqualToValue={(option, value) =>
@@ -224,10 +207,15 @@ function LeaveOpenBalance(props) {
                     />
                   )}
                 />
+              </Grid>                
               </Grid>
+              </CardContent>
+             </Card>
             </Grid>
 
-            <Grid item xs={12} md={12} className={style.gridSty}>
+
+
+            <Grid item xs={12} md={12} xl={4} className={style.gridSty}>
               <Card className={classes.card}>
                 <CardContent className={style.CardContentSty}>
                   <Grid
@@ -239,7 +227,7 @@ function LeaveOpenBalance(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} xl={6}>
                       <TextField
                         name="usedLeaves"
                         id="usedLeaves"
@@ -257,7 +245,7 @@ function LeaveOpenBalance(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} xl={6}>
                       <TextField
                         name="OpenBalance"
                         id="OpenBalance"
@@ -275,7 +263,7 @@ function LeaveOpenBalance(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} xl={6}>
                       <TextField
                         name="Balance"
                         id="Balance"
@@ -293,7 +281,7 @@ function LeaveOpenBalance(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={3} xl={6}>
                       <TextField
                         name="PostedBalance"
                         id="PostedBalance"
@@ -313,6 +301,8 @@ function LeaveOpenBalance(props) {
                 </CardContent>
               </Card>
             </Grid>
+
+            <Grid item xs={12}></Grid>
 
             <Grid
               item
@@ -354,14 +344,14 @@ function LeaveOpenBalance(props) {
               direction="row"
               className={style.itemsStyle}
             >
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <SaveButton Id={id} processing={processing} />
               </Grid>
             </Grid>
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

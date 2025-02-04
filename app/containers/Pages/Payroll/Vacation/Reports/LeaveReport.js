@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -302,10 +302,10 @@ function LeaveReport(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} lg={9} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -316,7 +316,9 @@ function LeaveReport(props) {
             />
           </Grid>
 
-          <Grid item md={3}>
+          <Grid item xs={12}></Grid>
+
+          <Grid item >
             <Button
               variant='contained'
               size='medium'
@@ -336,7 +338,7 @@ function LeaveReport(props) {
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
