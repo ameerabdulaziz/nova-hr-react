@@ -14,7 +14,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
@@ -301,7 +301,7 @@ function ExplanationReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
@@ -314,7 +314,7 @@ function ExplanationReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3}>
             <Autocomplete
               id="typeId"
               options={TypeList}
@@ -337,7 +337,7 @@ function ExplanationReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2}>
             <Button
               variant="contained"
               size="medium"
@@ -358,7 +358,7 @@ function ExplanationReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

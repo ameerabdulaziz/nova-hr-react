@@ -6,11 +6,11 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import ApiData from '../../api/UniformTrxData';
 import messages from '../../messages';
-
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function UniformDeliveryList(props) {
   const { intl } = props;
@@ -38,8 +38,6 @@ function UniformDeliveryList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -61,10 +59,13 @@ function UniformDeliveryList(props) {
     {
       name: 'date',
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -100,12 +101,12 @@ function UniformDeliveryList(props) {
       url: SITEMAP.humanResources.UniformDeliveryEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

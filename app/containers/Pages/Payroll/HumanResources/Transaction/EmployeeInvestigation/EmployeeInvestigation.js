@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../../messages';
 import api from '../../api/EmployeeInvestigationData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeInvestigation(props) {
   const { intl } = props;
@@ -67,6 +68,13 @@ function EmployeeInvestigation(props) {
     {
       name: 'incidentDate',
       label: intl.formatMessage(messages.incidentDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.incidentDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'trxDate',
@@ -83,8 +91,6 @@ function EmployeeInvestigation(props) {
       toast.success(notif.saved);
       fetchNeededData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -97,13 +103,13 @@ function EmployeeInvestigation(props) {
       url: SITEMAP.humanResources.EmpInvestigationEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={pageTitle}

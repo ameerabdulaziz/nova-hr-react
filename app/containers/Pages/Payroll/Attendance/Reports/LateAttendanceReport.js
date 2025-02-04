@@ -24,8 +24,9 @@ import style from '../../../../../styles/styles.scss'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function LateAttendanceReport(props) {
   const { intl } = props;
@@ -231,6 +232,13 @@ function LateAttendanceReport(props) {
         {
           name: "shiftDate",
           label: intl.formatMessage(messages.attendanceDate),
+          options: getDateColumnOptions(
+            intl.formatMessage(messages.attendanceDate),
+            {
+              minDateLabel: intl.formatMessage(payrollMessages.minDate),
+              maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+            }
+          ),
         },
         {
           name: "timeIn",
@@ -480,7 +488,7 @@ function LateAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

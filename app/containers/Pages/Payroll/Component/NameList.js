@@ -108,7 +108,7 @@ function NameList(props) {
       />
       <div>
         <Grid container spacing={3}>
-          <Grid item xs={6} md={2}>
+          <Grid item >
             <Button
               variant="contained"
               size="medium"

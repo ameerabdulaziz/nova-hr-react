@@ -27,7 +27,6 @@ import { format } from "date-fns";
 import GeneralListApis from "../../../api/GeneralListApis";
 import ItemTable from "./ItemTable";
 import NamePopup from "../../../Component/NamePopup";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
@@ -361,8 +360,8 @@ function PurchaseTrxCreate(props) {
           Key={"Items"}
         />
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
+          <Grid container spacing={2} alignItems="flex-start" direction="row" >
+            <Grid item xs={12} lg={6.1} xl={5} >
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -370,7 +369,8 @@ function PurchaseTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={6} lg={6}  xl={3.5}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -461,38 +461,7 @@ function PurchaseTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-
-            <Grid item xs={12} md={8}>
-              <Grid item xs={12} md={12}>
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Grid container spacing={3}>
-                      <Grid item xs={6} md={2}>
-                        <Button
-                          variant="contained"
-                          size="medium"
-                          color="secondary"
-                          disabled={!data.isAllowUpdate}
-                          onClick={() => handleClickOpenNamePopup()}
-                        >
-                          <FormattedMessage {...messages.AddItem} />
-                        </Button>
-                      </Grid>
-                      <Grid item xs={6} md={12}>
-                        <ItemTable
-                          handlechange={handleApply}
-                          dataList={data.items}
-                          setdataList={setdata}
-                          isdisabled={!data.isAllowUpdate}
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={6}  xl={3.5}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -751,8 +720,37 @@ function PurchaseTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
+            <Grid item xs={12}>
+              <Grid item xs={12} md={12}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Grid container spacing={3}>
+                      <Grid item xs={6} md={2}>
+                        <Button
+                          variant="contained"
+                          size="medium"
+                          color="secondary"
+                          disabled={!data.isAllowUpdate}
+                          onClick={() => handleClickOpenNamePopup()}
+                        >
+                          <FormattedMessage {...messages.AddItem} />
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6} md={12}>
+                        <ItemTable
+                          handlechange={handleApply}
+                          dataList={data.items}
+                          setdataList={setdata}
+                          isdisabled={!data.isAllowUpdate}
+                        />
+                      </Grid>
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} >
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -769,7 +767,7 @@ function PurchaseTrxCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -779,7 +777,7 @@ function PurchaseTrxCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"

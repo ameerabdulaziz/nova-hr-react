@@ -6,12 +6,13 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import messages from '../messages';
 import API from '../api/LeavesBalanceData';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function LeavesBalance(props) {
   const { intl } = props;
@@ -52,10 +53,24 @@ function LeavesBalance(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insuranceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     // {
     //   name: 'annOpen',
@@ -206,7 +221,7 @@ function LeavesBalance(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         filterHighlights={filterHighlights}

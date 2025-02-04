@@ -10,7 +10,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
@@ -19,6 +19,7 @@ import messages from '../../messages';
 import MissionDetails from '../../../Component/MissionDetails';
 import ImageIcon from '@mui/icons-material/Image';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function MissionTrxList(props) {
   const { intl } = props;
@@ -73,8 +74,6 @@ function MissionTrxList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -120,19 +119,40 @@ function MissionTrxList(props) {
     {
       name: 'insDate',
       label: intl.formatMessage(payrollMessages.transactionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'fromDate',
       label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
       label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeCode',
       label: intl.formatMessage(payrollMessages.employeeCode),
-    },  
+    },
     {
       name: 'employeeName',
       label: intl.formatMessage(payrollMessages.employeeName),
@@ -181,7 +201,7 @@ function MissionTrxList(props) {
       disabled: authState.user.isHR ? false : (row) => row.status !== null,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
       // disabled delete action is not HR and status is null
       disabled: authState.user.isHR ? false : (row) => row.status !== null,
     },
@@ -270,7 +290,7 @@ function MissionTrxList(props) {
         </div>
       </Box>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

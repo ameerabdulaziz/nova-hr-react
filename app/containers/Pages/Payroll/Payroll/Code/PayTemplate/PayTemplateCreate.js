@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import NamePopup from "../../../Component/NamePopup";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import ElementTable from "./ElementTable";
 import SITEMAP from "../../../../../App/routes/sitemap";
 
@@ -162,7 +162,7 @@ function PayTemplateCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -181,7 +181,7 @@ function PayTemplateCreate(props) {
         />
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={3}>
               <TextField
                 id="arName"
                 name="arName"
@@ -198,7 +198,7 @@ function PayTemplateCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={3}>
               <TextField
                 id="enName"
                 name="enName"
@@ -215,7 +215,7 @@ function PayTemplateCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={3}>
               <TextField
                 id="smsmsg"
                 name="smsmsg"
@@ -232,7 +232,7 @@ function PayTemplateCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={3}>
               <TextField
                 id="rptDetails"
                 name="rptDetails"
@@ -325,7 +325,7 @@ function PayTemplateCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item>
               <Button
                 variant="contained"
                 type="submit"
@@ -335,7 +335,7 @@ function PayTemplateCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item>
               <Button
                 variant="contained"
                 size="medium"
@@ -348,7 +348,7 @@ function PayTemplateCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 PayTemplateCreate.propTypes = {

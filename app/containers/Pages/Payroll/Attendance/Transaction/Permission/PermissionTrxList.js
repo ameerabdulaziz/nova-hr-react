@@ -10,13 +10,14 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import ApiData from '../../api/PermissionTrxData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function PermissionTrxList(props) {
   const { intl } = props;
@@ -67,8 +68,6 @@ function PermissionTrxList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -106,10 +105,24 @@ function PermissionTrxList(props) {
     {
       name: 'insDate',
       label: intl.formatMessage(payrollMessages.transactionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'date',
       label: intl.formatMessage(payrollMessages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeCode',
@@ -176,7 +189,7 @@ function PermissionTrxList(props) {
       disabled: isHR ? false : (row) => row.status !== null,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
       // disabled delete action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },
@@ -238,7 +251,7 @@ function PermissionTrxList(props) {
         </div>
       </Box>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

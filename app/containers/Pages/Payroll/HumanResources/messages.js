@@ -639,4 +639,29 @@ actualManPower: {
     id: `${scope}.EditResignReason`,
     defaultMessage: 'Edit Resign Reason',
   },
+  // HrResignRule
+  firstYear: {
+    id: `${scope}.firstYear`,
+    defaultMessage: 'First Year',
+  },
+  between2To5Years: {
+    id: `${scope}.between2To5Years`,
+    defaultMessage: 'Between Two To Five Years',
+  },
+  moreThan5Years: {
+    id: `${scope}.moreThan5Years`,
+    defaultMessage: 'More Than Five Years',
+  },
+  CreateHrResignRule: {
+    id: `${scope}.CreateHrResignRule`,
+    defaultMessage: 'Create Hr Resign Rule',
+  },
+  EditHrResignRule: {
+    id: `${scope}.EditHrResignRule`,
+    defaultMessage: 'Edit Hr Resign Rule',
+  },
+  SettlementYears: {
+    id: `${scope}.SettlementYears`,
+    defaultMessage: 'Settlement Years',
+  },
 });

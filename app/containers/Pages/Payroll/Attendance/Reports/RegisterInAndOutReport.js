@@ -18,9 +18,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function RegisterInAndOutReport(props) {
   const { intl } = props;
@@ -180,6 +181,13 @@ function RegisterInAndOutReport(props) {
       {
         name: "shiftDate",
         label: intl.formatMessage(messages.attendanceDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.attendanceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
       },
     {
       name: "employeeCode",
@@ -355,7 +363,7 @@ function RegisterInAndOutReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

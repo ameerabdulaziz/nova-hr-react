@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import GeneralListApis from '../api/GeneralListApis';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 
 
 
@@ -92,7 +92,7 @@ function NewIdea(props) {
     fetchData();
   }, []);
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <form onSubmit={handleSubmit}>
@@ -101,7 +101,11 @@ function NewIdea(props) {
                 spacing={3}
                 alignItems="flex-start"
                 direction="row">
-                    <Grid item xs={12} md={2}>
+
+
+                 <Grid item xs={12} md={5.5} lg={7} xl={5}>
+                    <Grid container spacing={3}>
+                       <Grid item xs={12}  lg={8}>
                         <Autocomplete  
                             id="typeid"                        
                             options={TypeList}
@@ -124,8 +128,32 @@ function NewIdea(props) {
                                 />
                             )}
                         />  
+                       </Grid>
+                       <Grid item xs={12}   lg={4}>
+                        <FormControlLabel
+                            control={(
+                            <Checkbox
+                                checked={data.meetingReq}
+                                onChange={(e) => setdata((prevFilters) => ({
+                                    ...prevFilters,
+                                    meetingReq: e.target.checked,
+                                  }))}   
+                                value={data.meetingReq}
+                                color="primary"
+                            />
+                            )}
+                            label={intl.formatMessage(Payrollmessages.meetingReq)}
+                        />
+                       </Grid>                         
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                  </Grid>
+
+                  <Grid item xs={1} lg={5} xl={7}></Grid>
+
+
+                  <Grid item xs={12} md={5.5}  lg={4.5} xl={4}>
+                    <Grid container spacing={3}>                        
+                       <Grid item xs={12}  lg={12}>
                         <Autocomplete  
                             id="directedTo"                        
                             options={directedToList}
@@ -148,25 +176,9 @@ function NewIdea(props) {
                                 />
                             )}
                         />  
-                    </Grid>
-                    <Grid item xs={12}  md={2}>
-                        <FormControlLabel
-                            control={(
-                            <Checkbox
-                                checked={data.meetingReq}
-                                onChange={(e) => setdata((prevFilters) => ({
-                                    ...prevFilters,
-                                    meetingReq: e.target.checked,
-                                  }))}   
-                                value={data.meetingReq}
-                                color="primary"
-                            />
-                            )}
-                            label={intl.formatMessage(Payrollmessages.meetingReq)}
-                        />
-                    </Grid> 
-                    <Grid item xs={12}  md={4}></Grid>           
-                    <Grid item xs={12}  md={4}>                
+                       </Grid>
+       
+                       <Grid item xs={12}   lg={12}>                
                         <TextField
                             id="QuestionTitle"
                             name="QuestionTitle"
@@ -180,8 +192,11 @@ function NewIdea(props) {
                             variant="outlined"
                             autoComplete='off'
                         />
+                       </Grid>
                     </Grid>
-                    <Grid item xs={12}  md={12}>                
+                  </Grid>
+
+                    <Grid item xs={12}  md={12} lg={7.5} xl={8}>                
                         <TextField
                             id="QuestionDetails"
                             name="QuestionDetails"
@@ -199,13 +214,13 @@ function NewIdea(props) {
                         />
                     </Grid>
                     
-                   
-                <Grid item xs={12} md={1}>                  
+                    <Grid item xs={12}></Grid>
+                <Grid item >                  
                     <Button variant="contained" type="submit" size="medium" color="primary" >
                        <FormattedMessage {...Payrollmessages.save} /> 
                     </Button>
                 </Grid>
-                <Grid item xs={12} md={1}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
                        <FormattedMessage {...Payrollmessages.cancel} /> 
                     </Button>
@@ -216,7 +231,7 @@ function NewIdea(props) {
         </form>
         </PapperBlock>
     
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 NewIdea.propTypes = {

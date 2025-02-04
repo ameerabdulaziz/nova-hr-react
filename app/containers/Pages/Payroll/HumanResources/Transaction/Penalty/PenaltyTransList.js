@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate, getAutoCompleteValue } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/PenaltyTransData';
@@ -24,6 +24,7 @@ import dayjs from 'dayjs';
 import useStyles from "../../../Style";
 import GeneralListApis from "../../../api/GeneralListApis";
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 
 function PenaltyTransList(props) {
@@ -85,9 +86,13 @@ function PenaltyTransList(props) {
     {
       name: 'date',
       label: intl.formatMessage(messages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -137,7 +142,7 @@ function PenaltyTransList(props) {
       url: SITEMAP.humanResources.PenaltyTransEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
@@ -360,7 +365,7 @@ function PenaltyTransList(props) {
 </Grid>
 </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

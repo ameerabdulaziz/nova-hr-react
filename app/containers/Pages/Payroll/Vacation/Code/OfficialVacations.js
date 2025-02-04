@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import Payrollmessages from '../../messages';
 import OfficialVacationsData from '../api/OfficialVacationsData';
@@ -39,8 +39,6 @@ function OfficialVacations({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -79,12 +77,12 @@ function OfficialVacations({ intl }) {
       url: SITEMAP.vacation.OfficialVacationsEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

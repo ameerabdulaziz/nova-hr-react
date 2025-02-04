@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import RegisterLocationData from '../../api/RegisterLocationData';
 import messages from '../../messages';
@@ -81,8 +81,6 @@ function RegisterLocation({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -95,12 +93,12 @@ function RegisterLocation({ intl }) {
       url: SITEMAP.attendance.RegisterLocationEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

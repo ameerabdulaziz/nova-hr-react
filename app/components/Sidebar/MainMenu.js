@@ -113,7 +113,7 @@ function MainMenu(props) {
         className={classes.nested}
         activeClassName={classes.active}
         component={LinkBtn}
-        to={item.link}
+        to={item.link ?? '#'}
         onClick={() => handleClick()}
       >
         {item.icon && (

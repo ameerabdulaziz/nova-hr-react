@@ -25,13 +25,14 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import useStyles from '../../Style';
 import { formateDate, formatNumber } from '../../helpers';
 import payrollMessages from '../../messages';
 import InsuranceReportForm2 from '../../reports-templates/InsuranceReportForm2';
 import api from '../api/Form2InsuranceData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function Form2Insurance(props) {
   const { intl } = props;
@@ -138,17 +139,25 @@ function Form2Insurance(props) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insuranceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -432,7 +441,7 @@ function Form2Insurance(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

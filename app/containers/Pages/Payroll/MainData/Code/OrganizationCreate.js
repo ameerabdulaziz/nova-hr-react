@@ -17,7 +17,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { PapperBlock } from "enl-components";
 import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import SITEMAP from "../../../../App/routes/sitemap";
@@ -78,7 +78,7 @@ function CreateAndEditOrg(props) {
 
   const getdata = async () => {
     try {
-      debugger;
+
       const employees = await GeneralListApis(locale).GetEmployeeList();
       
 
@@ -145,7 +145,7 @@ function CreateAndEditOrg(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -158,16 +158,8 @@ function CreateAndEditOrg(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid
-              item
-              xs={12}
-              md={12}
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-            >
-              <Grid item xs={12} md={4}>
+
+              <Grid item xs={12}  md={4} xl={3}>
                 <TextField
                   name="arName"
                   id="arName"
@@ -182,7 +174,7 @@ function CreateAndEditOrg(props) {
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} xl={3}>
                 <TextField
                   name="enName"
                   id="enName"
@@ -197,8 +189,8 @@ function CreateAndEditOrg(props) {
                   autoComplete='off'
                 />
               </Grid>
-            </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={4} xl={3}>
               <Autocomplete
                 id="ddlMenu"
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -231,7 +223,7 @@ function CreateAndEditOrg(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} xl={3}>
               <Autocomplete
                 id="ddlMenu"
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -266,16 +258,8 @@ function CreateAndEditOrg(props) {
                 )}
               />
             </Grid>
-            <Grid
-              item
-              xs={12}
-              md={12}
-              container
-              spacing={3}
-              alignItems="flex-start"
-              direction="row"
-            >
-              <Grid item xs={12} md={2}>
+
+              <Grid item xs={6} md={3} lg={2} xl={1.2}>
                 <TextField
                   name="manPower"
                   id="manPower"
@@ -300,7 +284,7 @@ function CreateAndEditOrg(props) {
                   </p>
                 )}
               </Grid>
-              <Grid item xs={12} md={2}>
+              <Grid item xs={6} md={4} lg={2.5} xl={1.8}>
                 <TextField
                   name="worknatureAllowance"
                   id="worknatureAllowance"
@@ -341,7 +325,7 @@ function CreateAndEditOrg(props) {
                   label={intl.formatMessage(messages.IsDisclaimer) }
                   /> 
               </Grid>
-            </Grid>
+
             <Grid item xs={12} md={8}>
               <TextField
                 name="note"
@@ -387,7 +371,7 @@ function CreateAndEditOrg(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

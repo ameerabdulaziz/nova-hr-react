@@ -20,8 +20,9 @@ import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/AttendanceReportsData";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EarlyLeavingReport(props) {
   const { intl } = props;
@@ -210,6 +211,13 @@ function EarlyLeavingReport(props) {
     {
         name: "shiftDate",
         label: intl.formatMessage(messages.attendanceDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.attendanceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
     },
     {
       name: "timeOut",
@@ -350,7 +358,7 @@ function EarlyLeavingReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

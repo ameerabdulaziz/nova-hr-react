@@ -17,7 +17,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -25,6 +25,7 @@ import payrollMessages from '../../messages';
 import API from '../api/LeaveTrxReportData';
 import messages from '../messages';
 import { useLocation } from 'react-router-dom';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function LeaveTrxReport(props) {
   const { intl } = props;
@@ -171,11 +172,25 @@ function LeaveTrxReport(props) {
     },
     {
       name: 'fromDate',
-      label: intl.formatMessage(messages.fromDate),
+      label: intl.formatMessage(payrollMessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
-      label: intl.formatMessage(messages.toDate),
+      label: intl.formatMessage(payrollMessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.todate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'daysCount',
@@ -402,7 +417,7 @@ function LeaveTrxReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title=''
         data={tableData}

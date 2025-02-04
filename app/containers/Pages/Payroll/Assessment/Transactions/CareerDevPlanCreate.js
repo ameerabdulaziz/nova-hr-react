@@ -252,7 +252,7 @@ function CareerDevPlanCreate(props) {
                 <Typography variant='h6'>{title}</Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={3} lg={2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.date)}
@@ -278,7 +278,7 @@ function CareerDevPlanCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3}>
                     <Autocomplete
                       options={employeeList}
                       value={
@@ -310,7 +310,7 @@ function CareerDevPlanCreate(props) {
                     <Divider />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.currentJob}
                       label={intl.formatMessage(messages.currentJobName)}
@@ -321,7 +321,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.department}
                       label={intl.formatMessage(messages.department)}
@@ -332,7 +332,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.reportingto}
                       label={intl.formatMessage(messages.reportingTo)}
@@ -343,7 +343,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       value={jobInfo.currentSalary}
                       label={intl.formatMessage(messages.currentSalary)}
@@ -354,7 +354,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name='hiringData'
                       value={formateDate(jobInfo.hiringDate) ?? ''}
@@ -365,7 +365,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} lg={3} xl={2}>
                     <TextField
                       name='jobDuties'
                       value={jobInfo.duties}
@@ -390,7 +390,7 @@ function CareerDevPlanCreate(props) {
                 </Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       value={formInfo.areasOfStrength}
                       label={intl.formatMessage(messages.areaOfStrength)}
@@ -404,7 +404,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       value={formInfo.areasForDevelopment}
                       label={intl.formatMessage(messages.areaForDevelopment)}
@@ -418,7 +418,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       value={formInfo.departmentStructureStatus}
                       label={intl.formatMessage(
@@ -434,7 +434,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       value={formInfo.actionPlanToImprove}
                       label={intl.formatMessage(messages.actionPlanToImprove)}
@@ -448,7 +448,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       name='goals'
                       value={formInfo.goals}
@@ -462,7 +462,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       name='trainingNeeds'
                       value={formInfo.trainingNeeds}
@@ -476,7 +476,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12}>
+                  <Grid item xs={12} xl={4}>
                     <TextField
                       name='others'
                       value={formInfo.others}
@@ -493,7 +493,7 @@ function CareerDevPlanCreate(props) {
                     <Divider />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={actionPlanResultList}
                       value={
@@ -521,7 +521,7 @@ function CareerDevPlanCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={effectiveList}
                       value={

@@ -14,7 +14,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../Component/Search";
 import ApiData from "./api/LogReportData";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../helpers";
@@ -171,11 +171,11 @@ function LogReport(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12}  md={3}> 
+          <Grid item xs={12}  md={4} xl={3}> 
             <Autocomplete
               id="usersList"
               options={usersList}
@@ -201,7 +201,7 @@ function LogReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={8}  xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -233,7 +233,7 @@ function LogReport(props) {
           columns={columns}
           filterHighlights={filterHighlights}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

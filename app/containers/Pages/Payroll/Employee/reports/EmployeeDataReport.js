@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import EmployeeDataReportData from '../api/EmployeeDataReportData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeDataReport({ intl }) {
   const title = localStorage.getItem('MenuName');
@@ -70,9 +71,13 @@ function EmployeeDataReport({ intl }) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'organizationName',
@@ -100,9 +105,13 @@ function EmployeeDataReport({ intl }) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'qualification',
@@ -175,9 +184,13 @@ function EmployeeDataReport({ intl }) {
     {
       name: 'qualificationDate',
       label: intl.formatMessage(messages.GraduationDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.GraduationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'idCardNumber',
@@ -194,7 +207,7 @@ function EmployeeDataReport({ intl }) {
   ];
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       title={title}
       isLoading={isLoading}
       showLoader

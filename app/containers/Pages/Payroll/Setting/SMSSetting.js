@@ -11,7 +11,7 @@ import notif from 'enl-api/ui/notifMessage';
 import messages from './messages';
 import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import Payrollmessages from '../messages';
 import SaveButton from '../Component/SaveButton';
 
@@ -129,7 +129,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
   };
 
   return (
-    <PayRollLoader isLoading={processing}>
+    <PayRollLoaderInForms isLoading={processing}>
       <Grid
         container
         spacing={3}
@@ -147,7 +147,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4} lg={3} xl={2.5}>
                 <TextField
                   name="url"
                   id="url"
@@ -160,7 +160,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4} lg={3} xl={2.5}>
                 <TextField
                   id="serverName"
                   name="serverName"
@@ -173,7 +173,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4} lg={3} xl={2.5}>
                 <TextField
                   name="userName"
                   id="userName"
@@ -187,7 +187,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={4} lg={3} xl={2.5}>
                 <TextField
                   id="password"
                   name="password"
@@ -202,8 +202,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-
-                <Grid item md={3} xs={12}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -214,7 +213,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                     }
                     label={intl.formatMessage(messages.stopSending)}
                   />
-                </Grid>
+              </Grid>
 
              </Grid>
               <div style={{paddingTop:"20px"}} >
@@ -233,7 +232,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
           </PapperBlock>
         </Grid>
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

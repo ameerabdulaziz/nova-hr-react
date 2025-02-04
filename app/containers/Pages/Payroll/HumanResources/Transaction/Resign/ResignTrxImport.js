@@ -16,7 +16,7 @@ import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { read, utils } from "xlsx";
 import PayRollLoader from "../../../Component/PayRollLoader";
-import PayrollTable from "../../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../../Component/SimplifiedPayrollTable";
 
 function ResignTrxImport({ intl }) {
   const { classes, cx } = useStyles();
@@ -170,7 +170,7 @@ function ResignTrxImport({ intl }) {
           </Toolbar>
 
           {fileData.length !== 0 && (
-            <PayrollTable
+            <SimplifiedPayrollTable
               title={fileTitle}
               data={fileData}
               columns={cols}

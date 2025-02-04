@@ -463,7 +463,7 @@ function ProjectCreate(props) {
               direction="row"
             >
 
-              <Grid item xs={12} md={2}>
+              <Grid item xs={12} md={4} lg={4} xl={3}>
                  <TextField
                  name='ProjectCode'
                  value={formInfo.ProjectCode}
@@ -477,7 +477,7 @@ function ProjectCreate(props) {
                  />
               </Grid>
 
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={4} xl={3}>
                     <TextField
                     name='EnName'
                     value={formInfo.EnName}
@@ -490,7 +490,7 @@ function ProjectCreate(props) {
                     />
               </Grid>
 
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={4} xl={3}>
                     <TextField
                     name='ArName'
                     value={formInfo.ArName}
@@ -503,8 +503,8 @@ function ProjectCreate(props) {
                     />
               </Grid>
 
-               <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                    <Grid item xs={12} md={4}>
+
+                    <Grid item xs={12} md={4} lg={4} xl={3}>
                       <Autocomplete
                         id="ddlMenu"
                         name="employee"
@@ -535,7 +535,7 @@ function ProjectCreate(props) {
                       />
                     </Grid>
               
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4} lg={4} xl={3}>
                       <Autocomplete
                           id="ddlMenu"
                           name="projectType"
@@ -564,7 +564,7 @@ function ProjectCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4} lg={4} xl={3}>
                       <Autocomplete
                           id="ddlMenu"
                           name="contract"
@@ -593,9 +593,9 @@ function ProjectCreate(props) {
                       />
                     </Grid>
 
-                </Grid>
 
-                <Grid item xs={12} md={4}>
+
+                <Grid item xs={6}  md={3} xl={2}>
                         <TextField
                         name='expectedWorkHours'
                         value={formInfo.expectedWorkHours}
@@ -609,7 +609,7 @@ function ProjectCreate(props) {
                         />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6}  md={3} xl={2}>
                         <TextField
                         name='expectedCost'
                         value={formInfo.expectedCost}
@@ -623,7 +623,7 @@ function ProjectCreate(props) {
                         />
                   </Grid>
 
-                  <Grid item xs={12}  md={2}> 
+                  <Grid item xs={6}   md={3} xl={2}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.expectedStartDate)}
@@ -660,7 +660,7 @@ function ProjectCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12}  md={2}> 
+                  <Grid item xs={6}   md={3} xl={2}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.expectedEndDate)}
@@ -697,7 +697,7 @@ function ProjectCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6}  md={3} xl={2}>
                     <TextField
                       name='actualWorkHours'
                       value={formInfo.actualWorkHours}
@@ -711,7 +711,7 @@ function ProjectCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6}  md={3} xl={2}>
                     <TextField
                       name='actualCost'
                       value={formInfo.actualCost}
@@ -725,7 +725,7 @@ function ProjectCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6}  md={3} xl={2}>
                     <TextField
                       name='profitMargin'
                       value={formInfo.profitMargin}
@@ -739,7 +739,7 @@ function ProjectCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12}  md={4}> 
+                  <Grid item xs={12}   xl={4}> 
                     <Autocomplete
                       id="ddlMenu"
                       isOptionEqualToValue={(option, value) => option.id === value.id}

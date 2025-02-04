@@ -11,11 +11,12 @@ import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import ApiData from '../api/InsuranceReportApisData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function InsuranceNotifications(props) {
   const { intl } = props;
@@ -126,6 +127,13 @@ function InsuranceNotifications(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'job',
@@ -134,6 +142,13 @@ function InsuranceNotifications(props) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'notes',
@@ -249,7 +264,7 @@ function InsuranceNotifications(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={data}
         columns={columns}

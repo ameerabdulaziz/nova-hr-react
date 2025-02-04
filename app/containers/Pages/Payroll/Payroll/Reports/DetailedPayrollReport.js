@@ -14,8 +14,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import EmployeeData from "../../Component/EmployeeData";
-import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
 import { formatNumber, formateDate, getAutoCompleteValue } from "../../helpers";
 import payrollMessages from "../../messages";
@@ -25,6 +25,7 @@ import style from "../../../../../styles/styles.scss";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function DetailedPayrollReport(props) {
   const { intl } = props;
@@ -165,7 +166,7 @@ function DetailedPayrollReport(props) {
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);
-      debugger;
+ 
       setFormInfo((prev) => ({ ...prev, TemplateId: [payTemplate[0]] }))
 
       const years = await GeneralListApis(locale).GetYears();
@@ -236,6 +237,13 @@ function DetailedPayrollReport(props) {
     {
       name: "hiringDate",
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -302,7 +310,7 @@ function DetailedPayrollReport(props) {
         : Boolean(formInfo.isBankTransfere);
 
     try {
-      debugger;
+
       const params = {
         EmployeeId: formInfo.EmployeeId,
         BranchId: formInfo.BranchId,
@@ -317,7 +325,7 @@ function DetailedPayrollReport(props) {
         JobLevelId: formInfo.JobLevelId === null ? "" : formInfo.JobLevelId,
       };
 
-      debugger;
+
       const response = await api(locale).GetList(params);
       setTableData(response);
 
@@ -426,11 +434,14 @@ function DetailedPayrollReport(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={pageTitle} desc="">
         <form onSubmit={onFormSubmit}>
-          <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={3}>
+          <Grid container mt={0} spacing={3} >
+            <Grid item container spacing={2} xl={12}>
+
+
+                  <Grid item xs={12} lg={4} xl={3} >
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -450,9 +461,8 @@ function DetailedPayrollReport(props) {
                   />
                 )}
               />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
+                  </Grid>
+                  <Grid item xs={12} lg={4} xl={3}  >
               <Autocomplete
                 options={payTemplateList}
                 multiple
@@ -488,53 +498,11 @@ function DetailedPayrollReport(props) {
                   />
                 )}
               />
-            </Grid>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={yearList}
-                value={getAutoCompleteValue(yearList, formInfo.YearId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, "YearId")}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.year)}
-                  />
-                )}
-              />
-            </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={monthList}
-                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, "MonthId")}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.month)}
-                  />
-                )}
-              />
-            </Grid>
 
-            <Grid item xs={12} md={3}>
+              <Grid item xs={6} lg={4} xl={1.5}>
               <Autocomplete
                 options={salaryTypesList}
                 value={getAutoCompleteValue(
@@ -560,7 +528,7 @@ function DetailedPayrollReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} lg={4} xl={2}>
               <Autocomplete
                 options={insuranceList}
                 value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
@@ -583,7 +551,8 @@ function DetailedPayrollReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} lg={4} xl={2.5}>
+              
               <Autocomplete
                 options={currencyList}
                 value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
@@ -606,7 +575,8 @@ function DetailedPayrollReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} lg={4} xl={2}>
+
               <Autocomplete
                 id="ddljobLevelId"
                 options={jobLevelList || []}
@@ -636,30 +606,56 @@ function DetailedPayrollReport(props) {
                 )}
               />
             </Grid>
-
-            {/* <Grid item md={3} xs={12}>
-              <FormControl>
-                <RadioGroup
-                  row
-                  value={formInfo.isVal}
-                  onChange={onRadioInputChange}
-                  name='isVal'
-                >
-                  <FormControlLabel
-                    value='1'
-                    control={<Radio />}
-                    label={intl.formatMessage(messages.enteredValues)}
+            
+            <Grid item xs={3} lg={2} xl={1.5}>
+            <Autocomplete
+                options={yearList}
+                value={getAutoCompleteValue(yearList, formInfo.YearId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : "")}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, "YearId")}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.year)}
                   />
-                  <FormControlLabel
-                    value='2'
-                    control={<Radio />}
-                    label={intl.formatMessage(messages.CalculatedValue)}
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Grid> */}
+                )}
+              />
+            </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={3} lg={2} xl={1.5}>
+            <Autocomplete
+                options={monthList}
+                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                getOptionLabel={(option) => (option ? option.name : "")}
+                renderOption={(propsOption, option) => (
+                  <li {...propsOption} key={option.id}>
+                    {option.name}
+                  </li>
+                )}
+                onChange={(_, value) => onAutoCompleteChange(value, "MonthId")}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    required
+                    label={intl.formatMessage(messages.month)}
+                  />
+                )}
+              />
+            </Grid>
+
+
+        
+            </Grid>
+ 
+            <Grid item xs={12} md={8}  xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}
@@ -668,7 +664,9 @@ function DetailedPayrollReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item >
               <Button variant="contained" color="primary" type="submit">
                 {intl.formatMessage(payrollMessages.search)}
               </Button>
@@ -677,13 +675,13 @@ function DetailedPayrollReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={tableData}
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

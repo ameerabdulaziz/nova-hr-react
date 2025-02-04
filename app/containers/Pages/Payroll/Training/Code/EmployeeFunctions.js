@@ -10,7 +10,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import AlertPopup from '../../Component/AlertPopup';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeFunctionsData';
@@ -166,7 +166,7 @@ function EmployeeFunctions(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <AlertPopup
         handleClose={() => {
           setIsFunctionsRequestPopupOpen(false);
@@ -181,7 +181,7 @@ function EmployeeFunctions(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={functionsList}
                 value={getAutoCompleteValue(functionsList, formInfo.functionId)}
@@ -204,7 +204,7 @@ function EmployeeFunctions(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={organizationList}
                 value={getAutoCompleteValue(
@@ -299,7 +299,7 @@ function EmployeeFunctions(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

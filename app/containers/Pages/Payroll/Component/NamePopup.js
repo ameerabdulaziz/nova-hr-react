@@ -17,7 +17,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import style from "../../../../styles/styles.scss";
-import PayrollTable from "./PayrollTable";
+import SimplifiedPayrollTable from "./SimplifiedPayrollTable";
 
 function NamePopup(props) {
   const { intl, IsInsured, withoutSalaryStructure, branchId, setOpenPopup } =
@@ -244,9 +244,9 @@ function NamePopup(props) {
         </Grid>
       </div>
     ),
-    onRowSelectionChange: (curRowSelected, allRowsSelected) => {
+    onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
       // onRowsSelect: (curRowSelected, allRowsSelected) => {
-      handleSelect(curRowSelected);
+      handleSelect(rowsSelectedIndexes);
     },
     rowsSelected: SelectedRows,
   };
@@ -276,7 +276,7 @@ function NamePopup(props) {
               <CircularProgress />
             </Stack>
           ) : (
-            <PayrollTable
+            <SimplifiedPayrollTable
               title=""
               data={EmployeeList}
               columns={columns}
@@ -292,7 +292,7 @@ function NamePopup(props) {
             className={style.deleteAlertBtnSty}
             onClick={() => {
               handleClose([]);
-              setOpenPopup(false);
+              // setOpenPopup(false);
             }}
           >
             <FormattedMessage {...Payrollmessages.cancel} />

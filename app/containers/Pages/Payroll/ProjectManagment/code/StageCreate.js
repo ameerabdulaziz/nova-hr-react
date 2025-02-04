@@ -9,7 +9,7 @@ import {
   import { FormattedMessage, injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
   import { useHistory, useLocation } from 'react-router-dom';
-  import PayRollLoader from '../../Component/PayRollLoader'; 
+  import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms'; 
   import SaveButton from '../../Component/SaveButton';
   import payrollMessages from '../../messages';
   import api from '../api/StageData';
@@ -211,7 +211,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
       }
 
     return (
-      <PayRollLoader isLoading={isLoading}>
+      <PayRollLoaderInForms isLoading={isLoading}>
         <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
           <form onSubmit={onFormSubmit}>
               <Grid
@@ -221,8 +221,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 alignItems="flex-start"
                 direction="row"
                 >
-                  <Grid container spacing={3} direction='row' style={{marginTop: "0",marginLeft:"0",marginRight:"0"}}>
-                      <Grid item xs={12} md={2}>
+                     <Grid item xs={6} md={3} lg={2}>
                           <TextField
                           name='StageCode'
                           value={formInfo.StageCode}
@@ -233,10 +232,9 @@ import SITEMAP from '../../../../App/routes/sitemap';
                           autoComplete='off'
                           />
                       </Grid>
-                  </Grid>
 
-                  <Grid container spacing={3} direction='row' style={{marginTop: "0",marginLeft:"0",marginRight:"0"}}>
-                    <Grid item xs={12} md={4}>
+
+                  <Grid item xs={12} md={4} lg={3}>
                           <TextField
                           name='StageNameEN'
                           value={formInfo.StageNameEN}
@@ -247,10 +245,8 @@ import SITEMAP from '../../../../App/routes/sitemap';
                           autoComplete='off'
                           />
                     </Grid>
-                  </Grid>
 
-                  <Grid container spacing={3} direction='row' style={{marginTop: "0",marginLeft:"0",marginRight:"0"}}>
-                    <Grid item xs={12} md={4}>
+                   <Grid item xs={12} md={4} lg={3}>
                           <TextField
                           name='StageNameAR'
                           value={formInfo.StageNameAR}
@@ -262,13 +258,13 @@ import SITEMAP from '../../../../App/routes/sitemap';
                           />
                     </Grid>
                   </Grid>
-              </Grid>
+
 
             <Card className={`${classes.card} ${style.tasksContainerSty}`}  >
                 <CardContent>
                   <Typography color='gray' variant='subtitle1' > {"Tasks"}  </Typography>
                   <Grid container spacing={3} direction='row' style={{marginTop: "0"}}>
-                    <Grid item xs={5} md={4}>
+                    <Grid item xs={12} md={4}>
                         <TextField
                             name='TaskNameEN'
                             value={formInfo.TaskNameEN}
@@ -281,7 +277,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                         />
                     </Grid>
 
-                    <Grid item xs={5} md={4}>
+                    <Grid item xs={12} md={4}>
                           <TextField
                               name='TaskNameAR'
                               value={formInfo.TaskNameAR}
@@ -414,7 +410,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
             </Grid>
           </form>
         </PapperBlock>
-      </PayRollLoader>
+      </PayRollLoaderInForms>
     );
   }
   

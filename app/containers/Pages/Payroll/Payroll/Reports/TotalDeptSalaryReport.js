@@ -19,9 +19,9 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
 function TotalDeptSalaryReport(props) {
   const { intl } = props;
@@ -267,7 +267,7 @@ function TotalDeptSalaryReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
           <Grid container spacing={2}>
@@ -298,7 +298,7 @@ function TotalDeptSalaryReport(props) {
                           />
                         )}
                       />
-                    </Grid>
+              </Grid>
 
               <Grid item xs={12} md={3}>
                 <Autocomplete
@@ -336,7 +336,7 @@ function TotalDeptSalaryReport(props) {
                     /> 
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={2} xl={1.5}>
                   <Autocomplete
                       id="ddlMenu"   
                       isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -372,7 +372,7 @@ function TotalDeptSalaryReport(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={2} xl={1.2} >
                   <Autocomplete
                       id="ddlMenu"   
                       isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -446,9 +446,11 @@ function TotalDeptSalaryReport(props) {
                       />
                     )}
                   />
-              </Grid>
+                </Grid>
 
-                <Grid item md={1.5} >
+               <Grid item xs={12}></Grid>
+
+                <Grid item xs={4} md={3}  xl={1} >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -466,7 +468,7 @@ function TotalDeptSalaryReport(props) {
                   />
                 </Grid>
 
-                <Grid item md={2}>
+                <Grid item xs={4} md={3} xl={1.5}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -484,7 +486,7 @@ function TotalDeptSalaryReport(props) {
                       />
                 </Grid>
 
-          <Grid item xs={12} md={2}>
+               <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -493,18 +495,18 @@ function TotalDeptSalaryReport(props) {
             >
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
-          </Grid>
+               </Grid>
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import tableMessage from '../../../../../components/Tables/messages';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../messages';
 import api from '../api/RecHrTestData';
 import SITEMAP from '../../../../App/routes/sitemap';
@@ -33,8 +33,6 @@ function RecHrTest(props) {
 
       fetchTableData();
     } catch (error) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -93,12 +91,12 @@ function RecHrTest(props) {
       url: SITEMAP.recruitment.RecHrTestEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

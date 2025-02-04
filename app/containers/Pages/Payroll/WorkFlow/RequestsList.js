@@ -26,7 +26,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import PayRollLoader from "../Component/PayRollLoader";
-import PayrollTable from "../Component/PayrollTable";
+import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 import NotePopup from "./NotePopup";
 import WFExecutionList from "./WFExecutionList";
 import { useLocation } from "react-router-dom";
@@ -645,7 +645,7 @@ function RequestsList(props) {
         </div>
       </PapperBlock>
 
-      <PayrollTable title="" data={data} columns={columns} options={options} />
+      <SimplifiedPayrollTable title="" data={data} columns={columns} options={options} />
     </PayRollLoader>
   );
 }

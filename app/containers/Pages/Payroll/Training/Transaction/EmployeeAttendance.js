@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import TrainingApis from "../api/TrTrainingTrxListData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { formateDate } from "../../helpers";
 import payrollMessages from "../../messages";
 import api from "../api/EmployeeAttendanceData";
@@ -123,11 +123,11 @@ function EmployeeAttendance(props) {
     list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3}>
               <Autocomplete
                 options={trainingList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -150,7 +150,7 @@ function EmployeeAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3.5} lg={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.attendanceDate)}
@@ -178,29 +178,8 @@ function EmployeeAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                name="get"
-              >
-                {intl.formatMessage(messages.getAttendance)}
-              </Button>
-            </Grid>
-
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                name="save"
-                type="submit"
-              >
-                {intl.formatMessage(payrollMessages.save)}
-              </Button>
-            </Grid>
-            {/* <Grid item xs={12} md={3}></Grid> */}
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} ></Grid>
+            <Grid item xs={12} md={4} lg={3}>
               <TextField
                 name="arName"
                 value={training.courseName}
@@ -211,7 +190,7 @@ function EmployeeAttendance(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3}>
               <TextField
                 name="locationName"
                 value={training.locationName}
@@ -223,7 +202,7 @@ function EmployeeAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
@@ -239,7 +218,7 @@ function EmployeeAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}
@@ -262,10 +241,32 @@ function EmployeeAttendance(props) {
                 />
               )}
             </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                name="get"
+              >
+                {intl.formatMessage(messages.getAttendance)}
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                variant="contained"
+                color="secondary"
+                name="save"
+                type="submit"
+              >
+                {intl.formatMessage(payrollMessages.save)}
+              </Button>
+            </Grid>
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

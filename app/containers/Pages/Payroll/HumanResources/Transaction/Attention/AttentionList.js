@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
+import payrollMessages from '../../../messages';
 import ApiData from '../../api/AttentionData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function AttentionList(props) {
   const { intl } = props;
@@ -36,8 +37,6 @@ function AttentionList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -58,9 +57,13 @@ function AttentionList(props) {
     {
       name: 'attentionDate',
       label: intl.formatMessage(messages.date),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(payrollMessages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -80,12 +83,12 @@ function AttentionList(props) {
       url: SITEMAP.humanResources.AttentionEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

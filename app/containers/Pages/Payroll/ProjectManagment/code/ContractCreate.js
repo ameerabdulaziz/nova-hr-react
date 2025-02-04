@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 import { PapperBlock } from "enl-components";
 import useStyles from "../../Style";
 import SaveButton from "../../Component/SaveButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format } from "date-fns";
@@ -134,7 +134,7 @@ function ContractCreate(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -156,7 +156,7 @@ function ContractCreate(props) {
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={3} lg={2} xl={2}>
                 <TextField
                   name="contractCode"
                   id="contractCode"
@@ -177,8 +177,8 @@ function ContractCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-               <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={4} lg={4} xl={3}>
                   <Autocomplete
                     id="ddlMenu"
                     isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -216,9 +216,8 @@ function ContractCreate(props) {
                     )}
                   />
                 </Grid>
-            </Grid>
 
-            <Grid item xs={12}  md={2}> 
+            <Grid item xs={6}  md={2.5} lg={2} xl={1.5}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.startDate)}
@@ -254,7 +253,7 @@ function ContractCreate(props) {
                         />
                     </LocalizationProvider>
             </Grid>
-            <Grid item xs={12}  md={2}> 
+            <Grid item xs={6}  md={2.5} lg={2} xl={1.5}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.endDate)}
@@ -290,10 +289,7 @@ function ContractCreate(props) {
                         />
                     </LocalizationProvider>
             </Grid>
-
-            </Grid>
-            <Grid container item spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2}  xl={1.5}>
                 <TextField
                   name="contractValue"
                   id="contractValue"
@@ -314,7 +310,9 @@ function ContractCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-              </Grid>           
+
+            </Grid>
+        
           </Grid>
 
           <Grid container spacing={3} alignItems="flex-start" direction="row">
@@ -329,10 +327,10 @@ function ContractCreate(props) {
               direction="row"
               className={style.itemsStyle}
             >
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <SaveButton Id={formData.id} />
               </Grid>
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <Button
                   variant="contained"
                   size="medium"
@@ -346,7 +344,7 @@ function ContractCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

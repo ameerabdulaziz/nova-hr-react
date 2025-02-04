@@ -25,9 +25,10 @@ import ApiData from "../api/EmployeeReportsApiData";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import { toast } from "react-hot-toast";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 
 function EmploymentDocs(props) {
@@ -226,18 +227,24 @@ function EmploymentDocs(props) {
     {
         name: "birthDate",
         label: intl.formatMessage(messages.birthDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
         name: "hiringDate",
         label: intl.formatMessage(messages.hiringDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
         name: "job",
@@ -398,7 +405,7 @@ if(data.length !== 0)
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

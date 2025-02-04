@@ -4,16 +4,15 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import Payrollmessages from '../../messages';
 import ReplaceAnnualLeaveBalanceData from '../api/ReplaceAnnualLeaveBalanceData';
 import messages from '../messages';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function ReplaceAnnualLeaveBalance({ intl }) {
-  const stringMenu = localStorage.getItem('Menu');
-  const menu = stringMenu ? JSON.parse(stringMenu) : null;
   const menuName = localStorage.getItem('MenuName');
 
   const locale = useSelector((state) => state.language.locale);
@@ -50,9 +49,13 @@ function ReplaceAnnualLeaveBalance({ intl }) {
     {
       name: 'trxDate',
       label: intl.formatMessage(Payrollmessages.date),
-      options: {
-        customBodyRender: (value) => formateDate(value),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.transactionDate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'payTemplateName',
@@ -85,8 +88,6 @@ function ReplaceAnnualLeaveBalance({ intl }) {
       toast.success(notif.saved);
       getdata();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -99,13 +100,13 @@ function ReplaceAnnualLeaveBalance({ intl }) {
       url: SITEMAP.vacation.ReplaceAnnualLeaveBalanceEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
     <>
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={menuName}

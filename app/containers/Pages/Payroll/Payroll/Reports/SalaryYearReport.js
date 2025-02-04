@@ -16,11 +16,12 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/PayrollReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import { format } from "date-fns";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function SalaryYearReport(props) {
   const { intl } = props;
@@ -204,10 +205,13 @@ function SalaryYearReport(props) {
     {
         name: "insuranceDate",
         label: intl.formatMessage(messages.InsuranceDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.InsuranceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
     },
     {
         name: "netSal",
@@ -277,11 +281,11 @@ function SalaryYearReport(props) {
   },[searchData.BranchId, searchData.EmployeeId,YearList])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -291,7 +295,7 @@ function SalaryYearReport(props) {
             ></Search>
           </Grid>
 
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={6} md={4} lg={2}>
             
                         <Autocomplete
                             id="ddlMenu"   
@@ -331,7 +335,7 @@ function SalaryYearReport(props) {
 
                   
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -345,14 +349,14 @@ function SalaryYearReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

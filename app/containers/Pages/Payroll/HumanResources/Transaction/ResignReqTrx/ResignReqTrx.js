@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../../helpers';
 import api from '../../api/ResignReqTrxData';
 import messages from '../../messages';
@@ -71,8 +71,6 @@ function ResignReqTrx(props) {
 
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -126,7 +124,7 @@ function ResignReqTrx(props) {
       url: SITEMAP.humanResources.ResignReqTrxEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <>     
@@ -172,7 +170,7 @@ function ResignReqTrx(props) {
 
   return (
     <>
-        <PayrollTable
+        <SimplifiedPayrollTable
           isLoading={isLoading}
           showLoader
           title={title}

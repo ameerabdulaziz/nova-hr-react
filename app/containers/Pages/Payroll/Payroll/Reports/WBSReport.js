@@ -10,8 +10,8 @@ import {
   import React, { useEffect, useState } from 'react';
   import { injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
-  import PayRollLoader from '../../Component/PayRollLoader';
-  import PayrollTable from '../../Component/PayrollTable';
+  import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
+  import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
   import GeneralListApis from '../../api/GeneralListApis';
   import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
   import payrollMessages from '../../messages';
@@ -267,11 +267,13 @@ import { format } from "date-fns";
     }
   
     return (
-      <PayRollLoader isLoading={isLoading}>
+      <PayRollLoaderInForms isLoading={isLoading}>
         <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
           <form onSubmit={onFormSubmit}>
             <Grid container mt={0} spacing={3}>
-              <Grid item xs={12} md={3}>
+              <Grid container item spacing={3} lg={7}>
+
+               <Grid item xs={12} md={6} >
                 <Autocomplete
                   options={bankList}
                   value={getAutoCompleteValue(bankList, formInfo.BankId)}
@@ -292,51 +294,7 @@ import { format } from "date-fns";
                 />
               </Grid>
   
-              {/* <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={yearList}
-                  value={getAutoCompleteValue(yearList, formInfo.YearId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id}
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'YearId')}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      label={intl.formatMessage(messages.year)}
-                    />
-                  )}
-                />
-              </Grid> */}
-  
-              {/* <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={monthList}
-                  value={getAutoCompleteValue(monthList, formInfo.MonthId)}
-                  isOptionEqualToValue={(option, value) => option.id === value.id}
-                  getOptionLabel={(option) => (option ? option.name : '')}
-                  renderOption={(propsOption, option) => (
-                    <li {...propsOption} key={option.id}>
-                      {option.name}
-                    </li>
-                  )}
-                  onChange={(_, value) => onAutoCompleteChange(value, 'MonthId')}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      required
-                      label={intl.formatMessage(messages.month)}
-                    />
-                  )}
-                />
-              </Grid> */}
-  
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <Autocomplete
                   options={payTemplateList}
                   value={getAutoCompleteValue(
@@ -362,7 +320,7 @@ import { format } from "date-fns";
                 />
               </Grid>
   
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <Autocomplete
                   options={companyList}
                   value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -383,7 +341,7 @@ import { format } from "date-fns";
                 />
               </Grid>
   
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6}>
                 <Autocomplete
                   options={departmentList}
                   value={getAutoCompleteValue(
@@ -408,7 +366,11 @@ import { format } from "date-fns";
                 />
               </Grid>
 
-              <Grid item xs={12} md={2}> 
+              </Grid>
+
+              <Grid container item spacing={3} lg={2}>
+
+                <Grid item xs={12} > 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                        label={intl.formatMessage(payrollMessages.fromdate)}
@@ -439,9 +401,9 @@ import { format } from "date-fns";
                       }}
                       />
                   </LocalizationProvider>
-            </Grid>
+                </Grid>
 
-            <Grid item xs={12} md={2}> 
+                <Grid item xs={12} > 
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                        label={intl.formatMessage(payrollMessages.todate)}
@@ -472,7 +434,11 @@ import { format } from "date-fns";
                       }}
                       />
                   </LocalizationProvider>
-            </Grid>
+               </Grid>    
+
+              </Grid>
+
+
   
               {/* <Grid item xs={12} md={3}>
                 <Autocomplete
@@ -561,8 +527,8 @@ import { format } from "date-fns";
           </form>
         </PapperBlock>
   
-        <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
-      </PayRollLoader>
+        <SimplifiedPayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      </PayRollLoaderInForms>
     );
   }
   

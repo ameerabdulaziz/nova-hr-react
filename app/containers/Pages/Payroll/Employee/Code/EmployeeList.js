@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate, getCheckboxIcon } from '../../helpers';
 import ApiData from '../api/PersonalData';
 import messages from '../messages';
@@ -18,6 +18,7 @@ import { getAutoCompleteValue } from '../../helpers';
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeList(props) {
   const { intl } = props;
@@ -253,9 +254,13 @@ function EmployeeList(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'organizationName',
@@ -292,7 +297,7 @@ function EmployeeList(props) {
       url: SITEMAP.employee.Personal.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <EmployeeNavigation
@@ -394,7 +399,7 @@ function EmployeeList(props) {
         </Grid>
       </PapperBlock>
 
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

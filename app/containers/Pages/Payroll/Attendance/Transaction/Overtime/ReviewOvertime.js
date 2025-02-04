@@ -15,7 +15,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import PayRollLoader from '../../../Component/PayRollLoader';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Search from '../../../Component/Search';
 import useStyles from '../../../Style';
 import GeneralListApis from '../../../api/GeneralListApis';
@@ -23,6 +23,7 @@ import { formateDate, getAutoCompleteValue } from '../../../helpers';
 import payrollMessages from '../../../messages';
 import api from '../../api/ReviewOvertimeData';
 import messages from '../../messages';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function ReviewOvertime(props) {
   const { intl } = props;
@@ -252,6 +253,13 @@ function ReviewOvertime(props) {
     {
       name: 'shiftDate',
       label: intl.formatMessage(messages.attendanceDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.attendanceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -269,6 +277,7 @@ function ReviewOvertime(props) {
       label: intl.formatMessage(messages.modifiedOvertime),
       options: {
         sort: false,
+        noFormatOnPrint: true,
         customBodyRender: (value, tableMeta) => (
           <TextField
             value={
@@ -291,6 +300,7 @@ function ReviewOvertime(props) {
       name: 'calcASRepVac',
       label: intl.formatMessage(messages.accruedLeave),
       options: {
+        noFormatOnPrint: true,
         sort: false,
         customBodyRender: (value, tableMeta) => (
           <Checkbox
@@ -323,6 +333,7 @@ function ReviewOvertime(props) {
       name: 'repVacVal',
       label: intl.formatMessage(messages.accruedLeaveMin),
       options: {
+        noFormatOnPrint: true,
         sort: false,
         customBodyRender: (value, tableMeta) => (
           <TextField
@@ -457,7 +468,7 @@ function ReviewOvertime(props) {
           </Grid>
         </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           isLoading={isLoading}
           filterHighlights={filterHighlights}
           title={pageTitle}

@@ -1,6 +1,8 @@
 import {
   Autocomplete,
   Button,
+  Card,
+  CardContent,
   FormControl,
   FormControlLabel,
   Grid,
@@ -15,12 +17,14 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SalaryReportData';
 import messages from '../messages';
+import useStyles from "../../Style";
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function SalaryReport(props) {
   const { intl } = props;
@@ -32,6 +36,7 @@ function SalaryReport(props) {
   const [payTemplateList, setPayTemplateList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
+  const { classes } = useStyles();
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -158,6 +163,13 @@ function SalaryReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -337,7 +349,11 @@ function SalaryReport(props) {
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid   item xs={12} md={8} lg={6}>
+          <Card className={classes.card}>
+          <CardContent>
+            <Grid item container spacing={3}>
+            <Grid item xs={12} md={6}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -359,7 +375,7 @@ function SalaryReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6}>
               <Autocomplete
                 options={payTemplateList}
                 value={getAutoCompleteValue(
@@ -385,7 +401,7 @@ function SalaryReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} xl={3}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -407,7 +423,7 @@ function SalaryReport(props) {
               />
             </Grid>
 
-            <Grid item md={3} xs={12}>
+            <Grid item xs={12} md={6} >
               <FormControl>
                 <RadioGroup
                   row
@@ -429,7 +445,12 @@ function SalaryReport(props) {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            </Grid>
+          </CardContent>
+          </Card>
+            </Grid>
+
+            <Grid item xs={12} md={8} lg={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}
@@ -447,7 +468,7 @@ function SalaryReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
+      <SimplifiedPayrollTable title='' data={tableData} columns={columns} filterHighlights={filterHighlights} />
     </PayRollLoader>
   );
 }

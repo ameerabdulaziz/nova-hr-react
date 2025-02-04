@@ -28,7 +28,7 @@ import TextField from "@mui/material/TextField";
 import { async } from '@dabeng/react-orgchart';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 
 
 
@@ -321,7 +321,7 @@ let lock = true
       </PapperBlock>
 
         {fileData.length !== 0 && (
-          <PayrollTable
+          <SimplifiedPayrollTable
           title={fileTitle}
           data={fileData}
           columns={cols}

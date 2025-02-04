@@ -11,6 +11,8 @@ const DocumentData = () => {
       name: obj.arName,
       EnName: obj.enName,
       isCheckExpireDate: obj.isCheckExpireDate,
+      expirationPeriod: obj.expirationPeriod,
+      expirationFollow: obj.expirationFollow,
       edited: false,
     }));
 
@@ -24,6 +26,8 @@ const DocumentData = () => {
       arName: Item.name,
       enName: Item.EnName,
       isCheckExpireDate: Item.isCheckExpireDate,
+      ExpirationPeriod: Item.ExpirationPeriod,
+      ExpirationFollow: Item.ExpirationFollow,
     };
 
     const result =

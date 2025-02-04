@@ -205,7 +205,7 @@ function FunctionsRequest(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6}>
               <Search
                 setsearchData={setSearchInfo}
                 searchData={searchInfo}
@@ -215,7 +215,7 @@ function FunctionsRequest(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} lg={3}>
               <Autocomplete
                 options={functionsList}
                 value={getAutoCompleteValue(functionsList, formInfo.functionId)}
@@ -237,7 +237,7 @@ function FunctionsRequest(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} lg={3}>
               <Autocomplete
                 options={statusList}
                 value={getAutoCompleteValue(statusList, formInfo.statusId)}

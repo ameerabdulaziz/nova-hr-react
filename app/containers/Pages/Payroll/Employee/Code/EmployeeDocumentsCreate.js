@@ -267,6 +267,41 @@ function CreateAndEditEmployeeDocuments(props) {
     });
   };
 
+
+  useEffect(()=>{
+
+      if(document && document.length !== 0 && startDate && ID === undefined)
+    {
+
+      let date = new Date(startDate)
+      if(document.expirationPeriod)
+      {
+        setEndDate(date.setMonth(date.getMonth() + document.expirationPeriod))
+      }
+      else
+      {
+        setEndDate(null)
+      }
+
+      if(document.expirationFollow)
+        {
+          setFollowDate(date.setDate(date.getDate() - document.expirationFollow))
+        }
+        else
+        {
+          setFollowDate(null)
+        }
+
+    }
+
+    if(startDate === null && ID === undefined)
+    {
+      setEndDate(null)
+      setFollowDate(null)
+    }
+
+  },[document,startDate])
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock

@@ -532,7 +532,7 @@ function EmployeeTrainingReport(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12}  md={5} lg={3}>
               <Autocomplete
                 options={trainingList}
                 value={getAutoCompleteValue(trainingList, formInfo.trainingId)}
@@ -554,7 +554,7 @@ function EmployeeTrainingReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3}>
               <Autocomplete
                 options={courseList}
                 value={getAutoCompleteValue(courseList, formInfo.courseId)}
@@ -575,7 +575,7 @@ function EmployeeTrainingReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
@@ -592,7 +592,7 @@ function EmployeeTrainingReport(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}

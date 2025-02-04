@@ -20,7 +20,7 @@ import AddButton from "../../Component/AddButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getCheckboxIcon } from "../../helpers";
 import EmployeeData from '../../Component/EmployeeData';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
@@ -29,6 +29,7 @@ import payrollMessages from '../../messages';
 import { Button } from '@mui/material';
 import SITEMAP from "../../../../App/routes/sitemap";
 import ApiData from '../api/PersonalData';
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EmployeeDocuments({ intl }) {
   const Title = localStorage.getItem("MenuName");
@@ -68,25 +69,35 @@ function EmployeeDocuments({ intl }) {
     {
       name: "startDate",
       label: intl.formatMessage(messages.startDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre> {formateDate(value)} </pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.startDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "endDate",
       label: intl.formatMessage(messages.endDate),
-      options: {
-        filter: true,
-        customBodyRender: (value) => <pre> {formateDate(value)} </pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.endDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "followDate",
       label: intl.formatMessage(messages.followDate),
-      options: {
-        filter: true,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.followDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "inDate",
@@ -237,7 +248,7 @@ function EmployeeDocuments({ intl }) {
           <EmployeeData  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeData>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         data={dataTable}
         columns={columns}
         options={options}

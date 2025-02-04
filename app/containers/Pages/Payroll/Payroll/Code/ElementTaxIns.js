@@ -19,7 +19,7 @@ import {
 import useStyles from "../../Style";
 import PropTypes from "prop-types";
 import NamePopup from "../../Component/NamePopup";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import ElementTable from "../Code/PayTemplate/ElementTable";
 import glApis from "../../api/GeneralListApis";
 
@@ -167,7 +167,7 @@ debugger;
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc={""}>
         <NamePopup
           handleClose={handleCloseNamePopup}
@@ -177,7 +177,7 @@ debugger;
         />
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={5} lg={4}>
               <Autocomplete
                 id="brCode"
                 options={BranchList}
@@ -206,7 +206,7 @@ debugger;
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item xs={2} md={1} lg={1}>
               <Button
                 variant="contained"
                 type="submit"
@@ -216,6 +216,7 @@ debugger;
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
+            <Grid item xs={0} md={6} lg={6}></Grid>
             <Grid item xs={12} md={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
@@ -275,7 +276,7 @@ debugger;
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 ElementTaxIns.propTypes = {

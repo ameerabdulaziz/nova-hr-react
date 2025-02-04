@@ -6,7 +6,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import BranchSalarySettingData from "../api/BranchSalarySettingData";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
-import { useHistory, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -27,8 +26,6 @@ function BranchSalarySetting(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false);
   const locale = useSelector((state) => state.language.locale);
-  const { state } = useLocation();
-  const history = useHistory();
   const { intl } = props;
   const { classes } = useStyles();
   const [BranchList, setBranchList] = useState([]);
@@ -300,8 +297,8 @@ function BranchSalarySetting(props) {
         desc={""}
       >
         <form onSubmit={handleSubmit}>
-          <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={3}>
+          <Grid container spacing={3} alignItems="flex-start" direction="row" mt={2}>
+            <Grid item xs={12} sm={6} md={4} lg={2.5} xl={2.2}>
               <Autocomplete
                 id="brCode"
                 options={BranchList}
@@ -327,13 +324,13 @@ function BranchSalarySetting(props) {
             </Grid>
           </Grid>
 
-          <Box
+          <Box           
             component="fieldset"
             style={{
               border: "1px solid #c4c4c4",
               padding: "30px",
               paddingTop: "40px",
-              marginTop: "20px",
+              marginTop: "25px",
             }}
           >
             <legend>
@@ -360,7 +357,7 @@ function BranchSalarySetting(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6} xl={4}>
                     <TextField
                       name="PersonalExemption"
                       id="PersonalExemption"
@@ -383,7 +380,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6} xl={4}>
                     <TextField
                       name="specialNeedsExemption"
                       id="specialNeedsExemption"
@@ -419,7 +416,7 @@ function BranchSalarySetting(props) {
                         alignItems="flex-start"
                         direction="row"
                       >
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={12}  md={4}>
                           <TextField
                             name="FirstBracketLimit"
                             id="FirstBracketLimit"
@@ -444,7 +441,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="FirstBracketTax"
                             id="FirstBracketTax"
@@ -474,7 +471,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="SecondBracketLimit"
                             id="SecondBracketLimit"
@@ -499,7 +496,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item  xs={6}   md={2}>
                           <TextField
                             name="SecondBracketTax"
                             id="SecondBracketTax"
@@ -530,19 +527,8 @@ function BranchSalarySetting(props) {
                             autoComplete='off'
                           />
                         </Grid>
-                      </Grid>
 
-                      <Grid
-                        item
-                        xs={12}
-                        md={12}
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                      >
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="ThirdBracketLimit"
                             id="ThirdBracketLimit"
@@ -567,7 +553,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="ThirdBracketTax"
                             id="ThirdBracketTax"
@@ -597,7 +583,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="FourthBracketLimit"
                             id="FourthBracketLimit"
@@ -622,7 +608,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="FourthBracketTax"
                             id="FourthBracketTax"
@@ -653,19 +639,8 @@ function BranchSalarySetting(props) {
                             autoComplete='off'
                           />
                         </Grid>
-                      </Grid>
 
-                      <Grid
-                        item
-                        xs={12}
-                        md={12}
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                      >
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="FifthBracketLimit"
                             id="FifthBracketLimit"
@@ -690,7 +665,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="FifthBracketTax"
                             id="FifthBracketTax"
@@ -720,7 +695,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="SixthBracketLimit"
                             id="SixthBracketLimit"
@@ -745,7 +720,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="SixthBracketTax"
                             id="SixthBracketTax"
@@ -774,19 +749,8 @@ function BranchSalarySetting(props) {
                             autoComplete='off'
                           />
                         </Grid>
-                      </Grid>
 
-                      <Grid
-                        item
-                        xs={12}
-                        md={12}
-                        container
-                        spacing={3}
-                        alignItems="flex-start"
-                        direction="row"
-                        className={style.EmployeeDaysDeduction}
-                      >
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="seventhBracketLimit"
                             id="seventhBracketLimit"
@@ -811,7 +775,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="seventhBracketTax"
                             id="seventhBracketTax"
@@ -843,7 +807,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={4}>
+                        <Grid item  xs={12}  md={4}>
                           <TextField
                             name="EighthBracketLimit"
                             id="EighthBracketLimit"
@@ -868,7 +832,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={2}>
+                        <Grid item xs={6}  md={2}>
                           <TextField
                             name="EighthBracketTax"
                             id="EighthBracketTax"
@@ -912,8 +876,9 @@ function BranchSalarySetting(props) {
                   spacing={3}
                   alignItems="flex-start"
                   direction="row"
+                  sx={{marginTop:"1px"}}
                 >
-                  <Grid item md={3} xs={12}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlNewEmpDedEl"
                       options={group1ElemList}
@@ -946,7 +911,7 @@ function BranchSalarySetting(props) {
                       )}
                     />
                   </Grid>
-                  <Grid item md={3} xs={12}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlGrossElementId"
                       options={GrossElemList}
@@ -980,7 +945,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
                   
-                  <Grid item md={3} xs={12}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlMedInsElement"
                       options={MedInsElemList}
@@ -1014,7 +979,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={eleOfCalcVacList}
                       value={eleOfCalcVacList.find((item) => item.id === data.Smartobjectiveelement) || null}
@@ -1039,7 +1004,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
                   
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <TextField
                       name="EpidemicsContribution"
                       id="EpidemicsContribution"
@@ -1067,7 +1032,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <TextField
                       name="DisplayName"
                       id="DisplayName"
@@ -1087,7 +1052,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12}  md={4} lg={3} xl={4}>
                     <Autocomplete
                       options={eleOfCalcVacList}
                       multiple
@@ -1164,7 +1129,7 @@ function BranchSalarySetting(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={5}>
+                  <Grid item xs={12} md={6} xl={4}>
                     <TextField
                       name="FixedElementsSILimit"
                       id="FixedElementsSILimit"
@@ -1187,7 +1152,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={3} xl={2.5}>
                     <TextField
                       name="CompanyShare"
                       id="CompanyShare"
@@ -1213,7 +1178,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={3} xl={2.5}>
                     <TextField
                       name="TheEmployeesShareOfSI"
                       id="TheEmployeesShareOfSI"

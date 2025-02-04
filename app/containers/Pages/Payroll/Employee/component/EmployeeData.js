@@ -4,7 +4,7 @@ import ApiData from "../api/EmployeeData";
 import messages from "../messages";
 import hrmessages from "../../HumanResources/messages";
 import payrollMessages from "../../messages";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
@@ -16,6 +16,7 @@ import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import DecryptUrl from "../../Component/DecryptUrl";
 import SITEMAP from "../../../../App/routes/sitemap";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function EmployeeData(props) {
   const { intl } = props;
@@ -78,10 +79,24 @@ function EmployeeData(props) {
     {
       name: "startDate",
       label: intl.formatMessage(hrmessages.commStartDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrmessages.commStartDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "finishDate",
       label: intl.formatMessage(hrmessages.commEndDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrmessages.commEndDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -91,10 +106,24 @@ function EmployeeData(props) {
     {
       name: "commStartDate",
       label: intl.formatMessage(hrmessages.commStartDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrmessages.commStartDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "commEndDate",
       label: intl.formatMessage(hrmessages.commEndDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(hrmessages.commEndDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "notes",
@@ -310,7 +339,7 @@ function EmployeeData(props) {
               </Card>
             </Grid>
             <Grid item xs={12} md={12}>
-              <PayrollTable
+              <SimplifiedPayrollTable
                 isLoading={isLoading}
                 showLoader
                 title={intl.formatMessage(payrollMessages.course)}
@@ -319,7 +348,7 @@ function EmployeeData(props) {
               />
             </Grid>
             <Grid item xs={12} md={12}>
-              <PayrollTable
+              <SimplifiedPayrollTable
                 isLoading={isLoading}
                 showLoader
                 title={intl.formatMessage(messages.vacation)}
@@ -328,7 +357,7 @@ function EmployeeData(props) {
               />
             </Grid>
             <Grid item xs={12} md={12}>
-              <PayrollTable
+              <SimplifiedPayrollTable
                 isLoading={isLoading}
                 showLoader
                 title={intl.formatMessage(hrmessages.uniformName)}

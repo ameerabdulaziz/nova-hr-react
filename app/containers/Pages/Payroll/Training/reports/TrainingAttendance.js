@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getAutoCompleteValue, getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -168,11 +168,11 @@ function TrainingAttendance(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={3} alignItems='center'>
-            <Grid item xs={12} md={12}>
+          <Grid container spacing={1} alignItems='center'>
+            <Grid item xs={12} md={12} lg={8}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -184,8 +184,10 @@ function TrainingAttendance(props) {
                 notShowDate={true}
               ></Search>
             </Grid>
+            
+            <Grid item xs={12}></Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} lg={4}>
               <Autocomplete
                 options={trainingList}
                 value={getAutoCompleteValue(trainingList, formInfo.trainingId)}
@@ -224,7 +226,7 @@ function TrainingAttendance(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

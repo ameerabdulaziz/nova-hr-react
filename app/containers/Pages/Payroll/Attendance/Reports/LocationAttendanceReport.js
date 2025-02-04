@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import GeneralListApis from "../../api/GeneralListApis";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import style from '../../../../../styles/styles.scss'
 import Checkbox from '@mui/material/Checkbox';
@@ -172,15 +172,18 @@ function LocationAttendanceReport(props) {
         customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
       },
     },
-
     {
-        name: "locAddress",
-        label: intl.formatMessage(messages.Address),
-      },
-      {
-        name: "distance",
-        label: intl.formatMessage(messages.Distance),
-      },
+      name: "locationName",
+      label: intl.formatMessage(messages.locationName),
+    },
+    {
+      name: "locAddress",
+      label: intl.formatMessage(messages.Address),
+    },
+    {
+      name: "distance",
+      label: intl.formatMessage(messages.Distance),
+    },
 
   ];
 
@@ -256,7 +259,7 @@ function LocationAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

@@ -16,13 +16,14 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/SocialInsuranceReportData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function SocialInsuranceReport(props) {
   const { intl } = props;
@@ -195,6 +196,13 @@ function SocialInsuranceReport(props) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'staffAge',
@@ -203,6 +211,13 @@ function SocialInsuranceReport(props) {
     {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.hiringDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'insuOffice',
@@ -215,6 +230,13 @@ function SocialInsuranceReport(props) {
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insuranceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'insuJobName',
@@ -242,6 +264,13 @@ function SocialInsuranceReport(props) {
     {
       name: 'c1inDate',
       label: intl.formatMessage(messages.c1DeliverDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.c1DeliverDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'c6inNo',
@@ -250,10 +279,24 @@ function SocialInsuranceReport(props) {
     {
       name: 'c6inDate',
       label: intl.formatMessage(messages.c6DeliverDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.c6DeliverDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'ka3bDate',
       label: intl.formatMessage(messages.workLetterDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.workLetterDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'ka3bNo',
@@ -557,7 +600,7 @@ function SocialInsuranceReport(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

@@ -2251,5 +2251,10 @@ devicePass: {
     id: `${scope}.shiftDateCalculatedFromEndDate`,
     defaultMessage: 'shift Date Calculated From End Date',
   },
+  // LocationAttendanceReport
+  locationName: {
+    id: `${scope}.locationName`,
+    defaultMessage: 'Location Name',
+  },
 });
 

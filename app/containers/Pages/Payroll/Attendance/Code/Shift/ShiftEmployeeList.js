@@ -8,13 +8,14 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import PayRollLoader from '../../../Component/PayRollLoader';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../../api/GeneralListApis';
 import { getCheckboxIcon } from '../../../helpers';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/ShiftEmployeeData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function ShiftEmployeeList(props) {
   const { intl } = props;
@@ -56,8 +57,6 @@ function ShiftEmployeeList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -115,10 +114,24 @@ function ShiftEmployeeList(props) {
     {
       name: 'fromDate',
       label: intl.formatMessage(Payrollmessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'toDate',
       label: intl.formatMessage(Payrollmessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.todate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'workHours',
@@ -199,7 +212,7 @@ function ShiftEmployeeList(props) {
       },
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
@@ -236,7 +249,7 @@ function ShiftEmployeeList(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         title={Title}
         data={data}

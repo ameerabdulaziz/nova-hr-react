@@ -15,9 +15,10 @@ import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
 import { toast } from "react-hot-toast";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function OverTimeDetailsReport(props) {
   const { intl } = props;
@@ -164,6 +165,13 @@ function OverTimeDetailsReport(props) {
     {
       name: "shiftDate",
       label: intl.formatMessage(messages.attendanceDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.attendanceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "overTime",
@@ -378,7 +386,7 @@ function OverTimeDetailsReport(props) {
         </Grid>
       </PapperBlock>
 
-        <PayrollTable
+        <SimplifiedPayrollTable
           title=""
           data={data}
           columns={columns}

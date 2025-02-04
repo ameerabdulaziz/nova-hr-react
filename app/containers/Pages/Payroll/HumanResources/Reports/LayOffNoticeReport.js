@@ -14,10 +14,11 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { toast } from 'react-hot-toast';
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
+import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 function LayOffNoticeReport(props) {
   const { intl } = props;
@@ -167,6 +168,13 @@ function LayOffNoticeReport(props) {
     {
       name: "noticeDate",
       label: intl.formatMessage(messages.date),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: "employeeName",
@@ -261,7 +269,7 @@ function LayOffNoticeReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         filterHighlights={filterHighlights}

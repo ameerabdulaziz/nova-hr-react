@@ -371,7 +371,7 @@ function TrainingCenterCreate(props) {
                 direction="row"
                 
               >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} lg={3} xl={2}>
                   <TextField
                     name="arName"
                     id="arName"
@@ -387,7 +387,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   <TextField
                     name="enName"
                     id="enName"
@@ -403,7 +403,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={3}>
                   <TextField
                     name="Address"
                     id="Address"
@@ -419,7 +419,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2.5}>
                   <TextField
                     name="Latitude"
                     id="Latitude"
@@ -437,7 +437,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2.5}>
                   <TextField
                     name="Longitude"
                     id="Longitude"
@@ -455,7 +455,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   <TextField
                     name="phone"
                     id="phone"
@@ -471,7 +471,7 @@ function TrainingCenterCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   <TextField
                     name="seatNo"
                     id="seatNo"
@@ -591,6 +591,8 @@ function TrainingCenterCreate(props) {
                 </Grid>
               </Grid>
             </Grid>
+
+
             <Grid container spacing={3} alignItems="flex-start" direction="row">
               <Grid item xs={12} md={12}></Grid>
               <Grid
@@ -603,10 +605,10 @@ function TrainingCenterCreate(props) {
                 direction="row"
                 className={style.itemsStyle}
               >
-                <Grid item xs={3} md={5} lg={3}>
+                <Grid item >
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
-                <Grid item xs={3} md={5} lg={3}>
+                <Grid item >
                   <Button
                     variant="contained"
                     size="medium"

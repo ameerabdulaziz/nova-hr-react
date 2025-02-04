@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import api from '../api/JobAdvertisementData';
 import messages from '../messages';
@@ -14,6 +14,7 @@ import {
 import Payrollmessages from '../../messages';
 import { useHistory } from 'react-router-dom';
 import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function JobAdvertisement(props) {
   const { intl } = props;
@@ -45,8 +46,6 @@ function JobAdvertisement(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -78,9 +77,13 @@ function JobAdvertisement(props) {
     {
       name: 'expireDate',
       label: intl.formatMessage(messages.expireDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.todate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
   ];
 
@@ -92,7 +95,7 @@ function JobAdvertisement(props) {
       url: SITEMAP.recruitment.JobAdvertisementEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <>
@@ -115,7 +118,7 @@ function JobAdvertisement(props) {
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

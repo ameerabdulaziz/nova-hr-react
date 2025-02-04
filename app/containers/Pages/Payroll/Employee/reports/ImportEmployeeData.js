@@ -20,7 +20,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import XLSX from 'xlsx-js-style';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
 import api from '../api/ImportEmployeeData';
@@ -524,7 +524,7 @@ debugger;
       </form>
 
       {tableData.length !== 0 && (
-        <PayrollTable title={fileTitle} data={tableData} columns={columns} />
+        <SimplifiedPayrollTable title={fileTitle} data={tableData} columns={columns} />
       )}
     </PayRollLoader>
   );

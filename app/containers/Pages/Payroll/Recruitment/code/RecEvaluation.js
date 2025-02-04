@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import tableMessage from '../../../../../components/Tables/messages';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/RecEvaluationData';
@@ -36,8 +36,6 @@ function RecEvaluation(props) {
 
       fetchTableData();
     } catch (error) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -105,12 +103,12 @@ function RecEvaluation(props) {
       url: SITEMAP.recruitment.RecEvaluationEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={title}

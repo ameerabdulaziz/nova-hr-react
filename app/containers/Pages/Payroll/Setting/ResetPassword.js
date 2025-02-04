@@ -14,7 +14,7 @@ import { toast } from "react-hot-toast";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import GeneralListApis from "../api/GeneralListApis";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import SaveButton from "../Component/SaveButton";
 import payrollMessages from "../messages";
 import useStyles from "../Style";
@@ -156,13 +156,12 @@ function ResetPassword(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+
+                <Grid item xs={12} md={6}  xl={4}>
                   <Autocomplete
                     id="ddldepartment"
                     value={
@@ -184,12 +183,8 @@ function ResetPassword(props) {
                     )}
                   />
                 </Grid>
-              </Grid>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} xl={3}>
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
@@ -211,12 +206,8 @@ function ResetPassword(props) {
                     )}
                   />
                 </Grid>
-              </Grid>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={8} md={6} lg={3.5} xl={3}>
                   <TextField
                     name="userName"
                     value={userName}
@@ -229,7 +220,7 @@ function ResetPassword(props) {
                   />
                 </Grid>
 
-                <Grid item>
+                <Grid item xs={4} lg={2.5} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -243,12 +234,8 @@ function ResetPassword(props) {
                     label={intl.formatMessage(messages.changeUsername)}
                   />
                 </Grid>
-              </Grid>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={8} md={6} lg={3.5} xl={3}>
                   <TextField
                     id="password"
                     name="password"
@@ -269,7 +256,7 @@ function ResetPassword(props) {
                     autoComplete="off"
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={4} lg={2.5} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -282,9 +269,10 @@ function ResetPassword(props) {
                     label={intl.formatMessage(messages.sendEmail)}
                   />
                 </Grid>
-              </Grid>
-            </Grid>
+
           </Grid>
+
+          <Grid item xs={12}></Grid>
 
           <div style={{ paddingTop: "20px" }}>
             <Grid container spacing={3}>
@@ -317,7 +305,7 @@ function ResetPassword(props) {
           </div>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

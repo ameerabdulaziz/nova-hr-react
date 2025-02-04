@@ -158,7 +158,7 @@ function Company(props) {
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 name='arName'
                 value={formInfo.arName}
@@ -171,7 +171,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 name='enName'
                 value={formInfo.enName}
@@ -184,7 +184,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 name='phone'
                 value={formInfo.phone}
@@ -197,7 +197,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={3}>
               <TextField
                 name='mail'
                 value={formInfo.mail}
@@ -211,7 +211,9 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item xs={12} lg={6}>
               <TextField
                 name='arCompanyOverView'
                 value={formInfo.arCompanyOverView}
@@ -225,7 +227,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6}>
               <TextField
                 name='enCompanyOverView'
                 value={formInfo.enCompanyOverView}
@@ -239,7 +241,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6}>
               <TextField
                 name='address'
                 value={formInfo.address}
@@ -253,7 +255,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6} >
               <TextField
                 name='cvarTitle'
                 value={formInfo.cvarTitle}
@@ -266,7 +268,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6} >
               <TextField
                 name='cvarSubTitle'
                 value={formInfo.cvarSubTitle}
@@ -279,7 +281,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6} >
               <TextField
                 name='cvenTitle'
                 value={formInfo.cvenTitle}
@@ -292,7 +294,7 @@ function Company(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} lg={6} >
               <TextField
                 name='cvenSubTitle'
                 value={formInfo.cvenSubTitle}
@@ -307,20 +309,7 @@ function Company(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formInfo.useGps}
-                        onChange={onCheckboxChange}
-                        name='useGps'
-                      />
-                    }
-                    label={intl.formatMessage(messages.useGPS)}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4}>
                   <TextField
                     name='apikey'
                     value={formInfo.apikey}
@@ -331,6 +320,19 @@ function Company(props) {
                     fullWidth
                     variant='outlined'
                     autoComplete='off'
+                  />
+                </Grid>
+
+                <Grid item>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={formInfo.useGps}
+                        onChange={onCheckboxChange}
+                        name='useGps'
+                      />
+                    }
+                    label={intl.formatMessage(messages.useGPS)}
                   />
                 </Grid>
 

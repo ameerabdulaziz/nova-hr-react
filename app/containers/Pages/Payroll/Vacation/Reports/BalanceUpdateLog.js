@@ -7,12 +7,13 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import API from '../api/BalanceUpdateLogData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function BalanceUpdateLog(props) {
   const { intl } = props;
@@ -121,6 +122,13 @@ function BalanceUpdateLog(props) {
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.fromDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.fromDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'tRxDesc',
@@ -296,7 +304,7 @@ function BalanceUpdateLog(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title=''

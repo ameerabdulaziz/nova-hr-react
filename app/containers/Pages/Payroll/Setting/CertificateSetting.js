@@ -22,7 +22,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import payrollMessages from '../messages';
 import vacationMessages from '../Vacation/messages';
 import API from './api/CertificateSettingData';
@@ -251,13 +251,13 @@ function CertificateSetting(props) {
 
   return (
     <>
-      <PayRollLoader isLoading={isLoading}>
+      <PayRollLoaderInForms isLoading={isLoading}>
         <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
           <form onSubmit={onFormSubmit}>
             <Grid container spacing={2} mt={0}>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} lg={2}>
                     <TextField
                       name='textColor'
                       label={intl.formatMessage(messages.textColor)}
@@ -309,7 +309,7 @@ function CertificateSetting(props) {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} lg={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -366,7 +366,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} lg={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -417,7 +417,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} lg={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -477,7 +477,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} lg={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -542,7 +542,7 @@ function CertificateSetting(props) {
             </Grid>
           </form>
         </PapperBlock>
-      </PayRollLoader>
+      </PayRollLoaderInForms>
 
       <PapperBlock
         whiteBg

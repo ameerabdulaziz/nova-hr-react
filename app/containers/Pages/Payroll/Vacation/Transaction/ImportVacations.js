@@ -24,7 +24,7 @@ import { object } from "prop-types";
 import messages from "../messages";
 import { Grid } from "@mui/material";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
 function ImportVacations({ intl }) {
   const { classes, cx } = useStyles();
@@ -291,7 +291,7 @@ debugger;
           </Toolbar>
 
           {fileData.length !== 0 && (
-            <PayrollTable
+            <SimplifiedPayrollTable
               title={fileTitle}
               data={fileData}
               columns={cols}

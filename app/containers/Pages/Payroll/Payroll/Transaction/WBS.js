@@ -12,7 +12,7 @@ import {
   import { useSelector } from 'react-redux';
   import XLSX from 'xlsx-js-style';
   import PayRollLoader from '../../Component/PayRollLoader';
-  import PayrollTable from '../../Component/PayrollTable';
+  import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
   import GeneralListApis from '../../api/GeneralListApis';
   import { formatNumber, formateDate, getAutoCompleteValue } from '../../helpers';
   import payrollMessages from '../../messages';
@@ -102,7 +102,7 @@ import {
     const options = {
         selectableRows: 'multiple',
         customToolbarSelect: () => null,
-        onRowSelectionChange: (rowsSelectedIndexes) => {
+        onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
           const selectedTableRows = tableData.filter((_, index) => rowsSelectedIndexes.includes(index))
           
             setSelectedRows(rowsSelectedIndexes);
@@ -537,7 +537,7 @@ import {
           </form>
         </PapperBlock>
   
-        <PayrollTable 
+        <SimplifiedPayrollTable 
             title='' 
             data={tableData} 
             columns={columns} 

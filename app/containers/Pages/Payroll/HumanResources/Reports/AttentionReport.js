@@ -10,7 +10,7 @@ import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
 import PayRollLoader from "../../Component/PayRollLoader";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { toast } from 'react-hot-toast';
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -257,7 +257,7 @@ function AttentionReport(props) {
         </Grid>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=""
         data={data}
         columns={columns}

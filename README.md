@@ -52,6 +52,7 @@ npm run start:prod
 
 - [ ] Eliminate the **debugger** from the project codebase.
 - [ ] Hide menu or submenu if empty or all is hidden
+- [ ] in payroll table, the **search** input is not working with print PDF
 - [ ] Error occurring when attempting to add multiple rows in the **editable table** component.
 - [ ] **Notification** still not work (on click **view** button the notification still appear)
 - [ ] Implement error handling for API responses, especially when data is not returned. For example, **login page**
@@ -262,9 +263,9 @@ const onTreePopupSave = (changedTree) => {
 
   Static Method to Build Tree from Array, if pass a `null` it will create empty tree.
 
-## PayrollTable Component
+## SimplifiedPayrollTable Component
 
-The `PayrollTable` component is a React component designed to display and manage payroll data in a tabular format. It provides features such as printing, adding, editing, and deleting rows.
+The `SimplifiedPayrollTable` component is a React component designed to display and manage payroll data in a tabular format. It provides features such as printing, adding, editing, and deleting rows.
 
 > Date format: `YYYY-MM-DD` by default for each column ending with **Date** word, and also change filter input to be **from** and **to** date.
 >
@@ -277,7 +278,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import PayrollTable from "../../Component/PayrollTable";
+import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate } from "../../helpers";
 import api from "../api/ExamplePageData";
 import messages from "../messages";
@@ -333,7 +334,7 @@ function ExamplePage(props) {
     }
   };
 
-  // Define columns for the PayrollTable
+  // Define columns for the SimplifiedPayrollTable
   const columns = [
     {
       name: "id",
@@ -362,7 +363,7 @@ function ExamplePage(props) {
     },
   ];
 
-  // Define actions for the PayrollTable
+  // Define actions for the SimplifiedPayrollTable
   const actions = {
     add: {
       url: "/Recruitment/ExamplePageCreate",
@@ -375,9 +376,9 @@ function ExamplePage(props) {
     },
   };
 
-  // Render the PayrollTable component with provided props
+  // Render the SimplifiedPayrollTable component with provided props
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}
@@ -410,7 +411,7 @@ export default injectIntl(ExamplePage);
 
 ### Actions
 
-In the provided `ExamplePage` example, the actions object is used to configure actions associated with the `PayrollTable`. These actions typically represent operations that can be performed on the data displayed in the table. The actions object has three properties: **add**, **edit**, and **delete**, each specifying the configuration for the corresponding action.
+In the provided `ExamplePage` example, the actions object is used to configure actions associated with the `SimplifiedPayrollTable`. These actions typically represent operations that can be performed on the data displayed in the table. The actions object has three properties: **add**, **edit**, and **delete**, each specifying the configuration for the corresponding action.
 
 > If the corresponding configuration is not provided, the button icon will not be displayed
 
@@ -450,7 +451,7 @@ const actions = {
 
 ### Columns
 
-The `columns` prop in the `PayrollTable` component is an array of objects, where each object represents a column in the table. The configuration of each column is specified using the following properties:
+The `columns` prop in the `SimplifiedPayrollTable` component is an array of objects, where each object represents a column in the table. The configuration of each column is specified using the following properties:
 
 - **name** (string): The key or property name in the data object.
 
@@ -470,7 +471,7 @@ The `columns` prop in the `PayrollTable` component is an array of objects, where
 
 ### Options
 
-The `options` prop in the `PayrollTable` component is an object containing settings for configuring the table. It includes settings such as:
+The `options` prop in the `SimplifiedPayrollTable` component is an object containing settings for configuring the table. It includes settings such as:
 
 - **viewColumns** (boolean, default: true): Enable or disable viewColumns for the table.
 - **print** (boolean, default: true): Enable or disable printing for the table.
@@ -479,7 +480,7 @@ The `options` prop in the `PayrollTable` component is an object containing setti
 
 ### Data
 
-The `data` prop in the `PayrollTable` component represents the actual data that you want to display in the table. It expects an array of objects, where each object corresponds to a row in the table, and the properties of the object represent the values for each column.
+The `data` prop in the `SimplifiedPayrollTable` component represents the actual data that you want to display in the table. It expects an array of objects, where each object corresponds to a row in the table, and the properties of the object represent the values for each column.
 
 Here's an example of how the data array might look like:
 
@@ -501,13 +502,13 @@ const data = [
 ];
 ```
 
-In this example, each object in the data array represents a row in the table. The properties of each object (id, departmentName, insDate, jobName) correspond to the name properties specified in the columns array. The PayrollTable component uses this data to populate the cells in the table.
+In this example, each object in the data array represents a row in the table. The properties of each object (id, departmentName, insDate, jobName) correspond to the name properties specified in the columns array. The SimplifiedPayrollTable component uses this data to populate the cells in the table.
 
 Adjust the structure of the data array based on the actual data you want to display in your table. Each property in the objects should match the name property in the corresponding column configuration within the columns array.
 
 ### Override the options
 
-If you need to override the default `options` for the `PayrollTable` component
+If you need to override the default `options` for the `SimplifiedPayrollTable` component
 
 ```jsx
 // .....
@@ -527,8 +528,8 @@ const options = {
 
 // ....
 
-// Pass the custom options to the PayrollTable component
-<PayrollTable
+// Pass the custom options to the SimplifiedPayrollTable component
+<SimplifiedPayrollTable
   isLoading={isLoading}
   data={tableData}
   columns={columns}
@@ -539,7 +540,7 @@ const options = {
 
 ### Add Custom Column
 
-If you want to add a custom `column` to your `PayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
+If you want to add a custom `column` to your `SimplifiedPayrollTable` component and ensure that the **print** option for this column is set to `false`, you can include the options object within the column configuration.
 
 **Example**
 
@@ -591,8 +592,8 @@ if (employee) {
 }
 setFilterHighlights(result);
 
-// Pass the highlights to the PayrollTable component
-<PayrollTable
+// Pass the highlights to the SimplifiedPayrollTable component
+<SimplifiedPayrollTable
   isLoading={isLoading}
   title=''
   data={tableData}

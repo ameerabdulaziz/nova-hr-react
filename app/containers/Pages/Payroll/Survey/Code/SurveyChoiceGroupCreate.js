@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import payrollMessages from '../../messages';
 import api from '../api/SurveyChoiceGroupData';
 import ChoicesInfo from '../components/SurveyChoiceGroup/ChoicesInfo';
@@ -88,7 +88,7 @@ function SurveyChoiceGroupCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <Grid container spacing={3} mt={0} direction='row'>
         <Grid item xs={12}>
           <Card>
@@ -96,7 +96,7 @@ function SurveyChoiceGroupCreate(props) {
               <Typography variant='h6'>{pageTitle}</Typography>
 
               <Grid container spacing={3} mt={0} direction='row'>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={5} lg={4} xl={3}>
                   <TextField
                     name='enName'
                     value={formInfo.enName}
@@ -109,7 +109,7 @@ function SurveyChoiceGroupCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={5} lg={4} xl={3}>
                   <TextField
                     name='arName'
                     value={formInfo.arName}
@@ -154,7 +154,7 @@ function SurveyChoiceGroupCreate(props) {
           </Card>
         </Grid>
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import Payrollmessages from '../../../messages';
 import ApiData from '../../api/EmpCourseData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function EmpCourseList(props) {
   const { intl } = props;
@@ -38,8 +39,6 @@ function EmpCourseList(props) {
       toast.success(notif.saved);
       fetchData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   }
@@ -69,10 +68,24 @@ function EmpCourseList(props) {
     {
       name: 'startDate',
       label: intl.formatMessage(Payrollmessages.fromdate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.fromdate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'finishDate',
       label: intl.formatMessage(Payrollmessages.todate),
+      options: getDateColumnOptions(
+        intl.formatMessage(Payrollmessages.todate),
+        {
+          minDateLabel: intl.formatMessage(Payrollmessages.minDate),
+          maxDateLabel: intl.formatMessage(Payrollmessages.maxDate),
+        }
+      ),
     },
     {
       name: 'CourseCost',
@@ -95,12 +108,12 @@ function EmpCourseList(props) {
       url: SITEMAP.humanResources.EmpCourseEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

@@ -18,7 +18,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmploymentData';
@@ -180,7 +180,7 @@ function Employment(props) {
         </IconButton>
       </div>
     ),
-    onRowSelectionChange: (rowsSelectedIndexes) => {
+    onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
       setSelectedRows(rowsSelectedIndexes);
     },
     rowsSelected: SelectedRows
@@ -326,7 +326,7 @@ function Employment(props) {
         submitFun={onPopupFormSubmit}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

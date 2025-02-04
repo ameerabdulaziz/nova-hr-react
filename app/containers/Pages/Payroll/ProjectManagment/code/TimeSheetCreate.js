@@ -20,7 +20,7 @@ import SaveButton from "../../Component/SaveButton";
 import PayRollLoader from "../../Component/PayRollLoader";
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { TextareaAutosize } from '@mui/material';
+import { Card, CardContent, TextareaAutosize } from '@mui/material';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { format, parseISO } from "date-fns";
@@ -316,15 +316,18 @@ function TimeSheetCreate(props) {
               direction="row"
             >
 
-                <Grid item xs={12} style={{paddingTop:"14px"}}>
+                <Grid item xs={12} lg={9} xl={5}>
                   <EmployeeData
                       handleEmpChange={handleEmpChange}
                       id={data.employeeId}             
                   />
 
                 </Grid>
-
-                <Grid item xs={12}  md={2}> 
+                <Grid item xs={12} lg={9} xl={7}>
+                <Card className={classes.card}>
+                  <CardContent>
+                     <Grid container spacing={3} alignItems="flex-start" direction="row">
+                <Grid item xs={6}  md={3}  xl={3}> 
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.AttendenceDate)}
@@ -357,7 +360,7 @@ function TimeSheetCreate(props) {
                         />
                     </LocalizationProvider>
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} xl={3.5}>
                   <TextField
                     name='FromHours'
                     required
@@ -378,7 +381,7 @@ function TimeSheetCreate(props) {
                     autoComplete='off'
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} xl={3.5}>
                   <TextField
                     name='ToHours'
                     required
@@ -400,7 +403,7 @@ function TimeSheetCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={2} xl={2}>
                   <TextField
                     type="number"
                     id="NumberOfMinutes"
@@ -415,8 +418,7 @@ function TimeSheetCreate(props) {
                   />
                 </Grid>
 
-               <Grid container item spacing={3} alignItems="flex-start" direction="row">
-                    <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={3} xl={3.5}>
                       <Autocomplete
                           id="ddlMenu"
                           isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -450,7 +452,7 @@ function TimeSheetCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} xl={3}>
                       <Autocomplete
                           id="ddlMenu"
                           isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -484,7 +486,7 @@ function TimeSheetCreate(props) {
                       />
                     </Grid>
                     
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} xl={3.5}>
                       <Autocomplete
                           id="ddlMenu"
                           isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -518,7 +520,7 @@ function TimeSheetCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} xl={2}>
                       <Autocomplete
                           id="ddlMenu"
                           isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -551,7 +553,10 @@ function TimeSheetCreate(props) {
                           )}
                       />
                     </Grid>
-              </Grid>
+                     </Grid>
+                  </CardContent>
+                </Card>
+                </Grid>
 
               <Grid item xs={9} >
                     <TextareaAutosize
@@ -582,10 +587,10 @@ function TimeSheetCreate(props) {
               direction="row"
               className={style.itemsStyle}
             >
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <SaveButton Id={data.id} />
               </Grid>
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <Button
                   variant="contained"
                   size="medium"

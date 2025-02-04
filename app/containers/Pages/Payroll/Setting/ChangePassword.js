@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import payrollMessages from '../messages';
 import api from './api/ChangePasswordData';
 import messages from './messages';
@@ -55,13 +55,13 @@ function ChangePassword(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container>
-            <Grid item xs={12} md={6}>
+
               <Grid container spacing={3}>
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6} lg={3} xl={2.5}>
                   <TextField
                     name='oldPassword'
                     value={formInfo.oldPassword}
@@ -75,7 +75,7 @@ function ChangePassword(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6} lg={3} xl={2.5}>
                   <TextField
                     name='newPassword'
                     value={formInfo.newPassword}
@@ -90,7 +90,7 @@ function ChangePassword(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6} lg={3} xl={2.5}>
                   <TextField
                     name='confirmPassword'
                     value={formInfo.confirmPassword}
@@ -105,7 +105,7 @@ function ChangePassword(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6} lg={3} xl={2.5}>
                   <Grid container spacing={3}>
                     <Grid item>
                       <Button variant='contained' type='submit' color='primary'>
@@ -115,11 +115,11 @@ function ChangePassword(props) {
                   </Grid>
                 </Grid>
               </Grid>
-            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

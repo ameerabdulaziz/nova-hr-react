@@ -23,7 +23,7 @@ import NameList from "../Component/NameList";
 import StepsList from "./StepsList";
 import ActionsList from "./ActionsList";
 import GeneralListApis from "../api/GeneralListApis";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import Vacapi from "../Vacation/api/LeaveTrxData";
 import SITEMAP from "../../../App/routes/sitemap";
 
@@ -125,7 +125,6 @@ function WorkFlowCreate(props) {
         result = await GeneralListApis(locale).GetRewards();
 
       setDocTypeList(result);
-      debugger;
       result = await GeneralListApis(locale).GetActionByDocList(
         DocumentId == 0 || DocumentId == null ? 1 : DocumentId
       );
@@ -195,7 +194,7 @@ function WorkFlowCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -217,7 +216,7 @@ function WorkFlowCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6} lg={4} xl={4}>
                       <TextField
                         id="arName"
                         name="arName"
@@ -230,7 +229,7 @@ function WorkFlowCreate(props) {
                         autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6} lg={4} xl={4}>
                       <TextField
                         id="enName"
                         name="enName"
@@ -243,7 +242,7 @@ function WorkFlowCreate(props) {
                         autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <Autocomplete
                         id="documentId"
                         options={DocumentList}
@@ -281,7 +280,7 @@ function WorkFlowCreate(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <Autocomplete
                         id="docTypeId"
                         options={DocTypeList}
@@ -312,6 +311,7 @@ function WorkFlowCreate(props) {
                         )}
                       />
                     </Grid>
+                    <Grid item xs={12}></Grid>
                     <Grid item xs={12} md={4}>
                       <Card className={classes.card}>
                         <CardContent>
@@ -399,7 +399,7 @@ function WorkFlowCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 WorkFlowCreate.propTypes = {

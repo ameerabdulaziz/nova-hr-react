@@ -6,10 +6,10 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import ApiData from '../../api/LayOffNoticeData';
 import messages from '../../messages';
-
-import PayrollTable from '../../../Component/PayrollTable';
-import { formateDate } from '../../../helpers';
+import payrollMessages from '../../../messages';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function LayOffNoticeList(props) {
   const { intl } = props;
@@ -61,10 +61,13 @@ function LayOffNoticeList(props) {
     {
       name: 'noticeDate',
       label: intl.formatMessage(messages.date),
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.date),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
     {
       name: 'employeeName',
@@ -91,12 +94,12 @@ function LayOffNoticeList(props) {
       url: SITEMAP.humanResources.LayOffNoticeEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
-    <PayrollTable
+    <SimplifiedPayrollTable
       isLoading={isLoading}
       showLoader
       title={Title}

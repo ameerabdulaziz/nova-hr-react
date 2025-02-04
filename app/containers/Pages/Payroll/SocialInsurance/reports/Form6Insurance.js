@@ -33,13 +33,14 @@ import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
 import PayRollLoader from '../../Component/PayRollLoader';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import useStyles from '../../Style';
 import { formateDate, formatNumber } from '../../helpers';
 import payrollMessages from '../../messages';
 import InsuranceReportForm6 from '../../reports-templates/InsuranceReportForm6';
 import api from '../api/Form2InsuranceData';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function Form6Insurance(props) {
   const { intl } = props;
@@ -146,17 +147,25 @@ function Form6Insurance(props) {
     {
       name: 'birthDate',
       label: intl.formatMessage(messages.birthDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.birthDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
       name: 'insuranceDate',
       label: intl.formatMessage(messages.insuranceDate),
-      options: {
-        customBodyRender: (value) => (value ? <pre>{formateDate(value)}</pre> : ''),
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.insuranceDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -224,7 +233,7 @@ function Form6Insurance(props) {
   const options = {
     print: false,
     selectableRows: 'multiple',
-    onRowSelectionChange: (rowsSelectedIndexes) => {
+    onRowSelectionChange: (rows, allRows, rowsSelectedIndexes) => {
       setSelectedRowsIndex(rowsSelectedIndexes);
     },
     rowsSelected: selectedRowsIndex,
@@ -500,7 +509,7 @@ function Form6Insurance(props) {
         </form>
       </PapperBlock>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         title=''
         data={tableData}
         columns={columns}

@@ -10,7 +10,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import GeneralListApis from '../api/GeneralListApis';
 import payrollMessages from '../messages';
 import api from './api/PrintFormData';
@@ -139,11 +139,11 @@ function PrintForm(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} xl={3}>
               <Autocomplete
                 options={departmentList}
                 value={getAutoCompleteValue(
@@ -168,7 +168,7 @@ function PrintForm(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} xl={3}>
               <Autocomplete
                 options={employeeList}
                 value={getAutoCompleteValue(employeeList, formInfo.employeeId)}
@@ -190,7 +190,7 @@ function PrintForm(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} xl={3}>
               <Autocomplete
                 options={printFormList}
                 value={getAutoCompleteValue(printFormList, formInfo.printFormId)}
@@ -212,7 +212,7 @@ function PrintForm(props) {
               />
             </Grid>
 
-            <Grid item xs={12} sm={12}>
+            <Grid item xs={6} sm={4} xl={3}>
               <Button variant='contained' type='submit'>
                 {intl.formatMessage(payrollMessages.Print)}
               </Button>
@@ -240,7 +240,7 @@ function PrintForm(props) {
           {parse(formInfo.printFormat)}
         </Box>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

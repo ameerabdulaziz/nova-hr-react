@@ -5,7 +5,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import messages from '../../../../../../components/Tables/messages';
 import payrollMessages from '../../../messages';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import api from '../../api/MissionTypeData';
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
@@ -82,8 +82,6 @@ function MissionType(props) {
       toast.success(notif.saved);
       fetchNeededData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -97,14 +95,14 @@ function MissionType(props) {
       url: SITEMAP.attendance.MissionTypeEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 
   return (
     <div>
         <div className={classes.root}>
-          <PayrollTable
+          <SimplifiedPayrollTable
             isLoading={isLoading}
             showLoader
             title={pageTitle}

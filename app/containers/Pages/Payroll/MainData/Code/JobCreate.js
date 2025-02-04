@@ -14,7 +14,7 @@ import messages from '../messages';
 import Payrollmessages from '../../messages';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import SaveButton from '../../Component/SaveButton';
@@ -240,7 +240,7 @@ function oncancel(){
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
 
       <FormPopup  
         handleClose={()=>handleClose("jobNature")}
@@ -277,12 +277,8 @@ function oncancel(){
                 spacing={3}
                 alignItems="flex-start"
                 direction="row">
-                  <Grid item xs={12}  md={12} 
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"> 
-                      <Grid item xs={12}  md={4}> 
+
+                      <Grid item xs={12}  md={6} lg={3} xl={3}> 
                           <TextField
                           name="arName"
                           id="arName"
@@ -298,7 +294,7 @@ function oncancel(){
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={3} xl={3}> 
                         <TextField
                           name="enName"
                           id="enName"
@@ -313,17 +309,8 @@ function oncancel(){
                           autoComplete='off'
                         />
                       </Grid>
-                    </Grid>
 
-                    
-
-                    <Grid item xs={12}  md={12} 
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"> 
-
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={12}  md={6} lg={3} xl={3}> 
                       <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
 
                           <Autocomplete
@@ -365,7 +352,7 @@ function oncancel(){
                     
                     </Grid>
 
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={12}  md={6} lg={3} xl={3}> 
                       <div className={locale === "en" ?  style.comboBoxContainer : style.comboBoxContainerAR}>
                           <Autocomplete
                                   id="ddlMenu"  
@@ -405,15 +392,7 @@ function oncancel(){
                         </div>
                     </Grid>
 
-                    </Grid>
-
-                    <Grid item xs={12}  md={12} 
-                    container
-                    spacing={3}
-                    alignItems="flex-start"
-                    direction="row"> 
-
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={12}  md={6} lg={3} xl={3}> 
                     <Autocomplete
                         id="ddlMenu"   
                         isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -446,7 +425,7 @@ function oncancel(){
                     />
                     </Grid>
 
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={6}  md={6} lg={3} xl={1.5}> 
                         <Autocomplete
                             id="ddlMenu"    
                             isOptionEqualToValue={(option, value) => option.id === value.id}  
@@ -480,10 +459,7 @@ function oncancel(){
                         />
                     </Grid>
 
-                    </Grid>
-
-
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={6}  md={4} lg={2} xl={1.5}> 
                         <TextField
                           name="jobCode"
                           id="jobCode"
@@ -498,7 +474,7 @@ function oncancel(){
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={6}  md={4} lg={2.5} xl={1.5}> 
                       <TextField
                         name="medicalInsuranceStartDay"
                         id="medicalInsuranceStartDay"
@@ -515,7 +491,7 @@ function oncancel(){
                     </Grid>
 
 
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={6}  md={4} lg={2.5} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -538,7 +514,7 @@ function oncancel(){
                     direction="row"
                     style={{marginTop:"0"}}
                     > 
-                       <Grid item xs={12}  md={4}> 
+                       <Grid item xs={12}  lg={4}> 
                           <Autocomplete
                             multiple  
                             className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -607,7 +583,7 @@ function oncancel(){
               </form>
 
           </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

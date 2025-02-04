@@ -11,7 +11,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { Button, Grid, TextField } from "@mui/material";
 import useStyles from "../Style";
 import PropTypes from "prop-types";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 
 function Complaint(props) {
   const { intl } = props;
@@ -58,12 +58,14 @@ function Complaint(props) {
     });
   }
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} lg={4}>
+              <Grid container spacing={3}>
+                  <Grid item xs={6} lg={12} >
               <TextField
                 id="location"
                 name="location"
@@ -79,9 +81,8 @@ function Complaint(props) {
                 variant="outlined"
                 autoComplete='off'
               />
-            </Grid>
-            <Grid item xs={12} md={8}></Grid>
-            <Grid item xs={12} md={4}>
+                 </Grid>
+                 <Grid item xs={6} lg={12}>
               <TextField
                 id="QuestionTitle"
                 name="QuestionTitle"
@@ -97,8 +98,11 @@ function Complaint(props) {
                 variant="outlined"
                 autoComplete='off'
               />
+                 </Grid> 
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12}  lg={8}>
               <TextField
                 id="QuestionDetails"
                 name="QuestionDetails"
@@ -118,7 +122,7 @@ function Complaint(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -128,7 +132,7 @@ function Complaint(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -141,7 +145,7 @@ function Complaint(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 Complaint.propTypes = {

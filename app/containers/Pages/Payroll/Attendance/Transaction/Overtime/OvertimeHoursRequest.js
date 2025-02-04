@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../../Component/SimplifiedPayrollTable';
 import payrollMessages from '../../../messages';
 import WFExecutionList from '../../../WorkFlow/WFExecutionList';
 import api from '../../api/OvertimeHoursRequestData';
 import messages from '../../messages';
 import SITEMAP from '../../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../../Component/PayrollTable/utils.payroll-table';
 
 function OvertimeHoursRequest(props) {
   const { intl } = props;
@@ -44,8 +45,6 @@ function OvertimeHoursRequest(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-    } finally {
       setIsLoading(false);
     }
   };
@@ -71,6 +70,13 @@ function OvertimeHoursRequest(props) {
     {
       name: 'trxDate',
       label: intl.formatMessage(messages.subscriptionDate),
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.subscriptionDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -140,7 +146,7 @@ function OvertimeHoursRequest(props) {
       disabled: isHR ? false : (row) => row.status !== null,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
       // disabled delete action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },
@@ -167,7 +173,7 @@ function OvertimeHoursRequest(props) {
         DocumentId={6}
       />
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}

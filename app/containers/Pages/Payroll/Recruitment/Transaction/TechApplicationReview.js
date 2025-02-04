@@ -16,13 +16,13 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayrollTable from '../../Component/PayrollTable';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
-import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/TechApplicationReviewData';
 import RowDropdown from '../components/TechApplicationReview/RowDropdown';
 import messages from '../messages';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function TechApplicationReview(props) {
   const { intl } = props;
@@ -98,9 +98,13 @@ function TechApplicationReview(props) {
     {
       name: 'appDate',
       label: intl.formatMessage(messages.applicationDate),
-      options: {
-        customBodyRender: (value) => <pre>{formateDate(value)}</pre>,
-      },
+      options: getDateColumnOptions(
+        intl.formatMessage(messages.applicationDate),
+        {
+          minDateLabel: intl.formatMessage(payrollMessages.minDate),
+          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+        }
+      ),
     },
 
     {
@@ -283,7 +287,7 @@ function TechApplicationReview(props) {
         </DialogActions>
       </Dialog>
 
-      <PayrollTable
+      <SimplifiedPayrollTable
         isLoading={isLoading}
         showLoader
         title={Title}
