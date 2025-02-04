@@ -567,6 +567,33 @@ const ResignReasonEdit = loadable(
   }
 );
 
+const HrResignRuleList = loadable(
+  () => import(
+    '../../../Pages/Payroll/HumanResources/Code/hrResignRule'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const HrResignRuleCreate = loadable(
+  () => import(
+    '../../../Pages/Payroll/HumanResources/Code/hrResignRuleCreate'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const HrResignRuleEdit = loadable(
+  () => import(
+    '../../../Pages/Payroll/HumanResources/Code/hrResignRuleCreate'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const humanResources = {
   Courses,
   CoursesCreate,
@@ -640,7 +667,10 @@ const humanResources = {
   TransferRequestEdit,
   ResignReasonList,
   ResignReasonCreate,
-  ResignReasonEdit
+  ResignReasonEdit,
+  HrResignRuleList,
+  HrResignRuleCreate,
+  HrResignRuleEdit,
 };
 
 export default humanResources;

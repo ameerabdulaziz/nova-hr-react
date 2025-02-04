@@ -445,6 +445,7 @@ function Application(props) {
         />
 
         {/* Human Resources */}
+
         {/* <Route
           path={SITEMAP.humanResources.ResignReason.route}
           component={GeneralCodePages.ResignReason}
@@ -898,6 +899,21 @@ function Application(props) {
         <Route
           path={SITEMAP.humanResources.ResignReasonEdit.route}
           component={PAGES.humanResources.ResignReasonEdit}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.HrResignRuleList.route}
+          component={PAGES.humanResources.HrResignRuleList}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.HrResignRuleCreate.route}
+          component={PAGES.humanResources.HrResignRuleCreate}
+        />
+
+        <Route
+          path={SITEMAP.humanResources.HrResignRuleEdit.route}
+          component={PAGES.humanResources.HrResignRuleEdit}
         />
 
         <Route

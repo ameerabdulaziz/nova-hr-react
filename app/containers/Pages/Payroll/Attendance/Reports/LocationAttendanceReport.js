@@ -172,15 +172,18 @@ function LocationAttendanceReport(props) {
         customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
       },
     },
-
     {
-        name: "locAddress",
-        label: intl.formatMessage(messages.Address),
-      },
-      {
-        name: "distance",
-        label: intl.formatMessage(messages.Distance),
-      },
+      name: "locationName",
+      label: intl.formatMessage(messages.locationName),
+    },
+    {
+      name: "locAddress",
+      label: intl.formatMessage(messages.Address),
+    },
+    {
+      name: "distance",
+      label: intl.formatMessage(messages.Distance),
+    },
 
   ];
 
