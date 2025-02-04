@@ -366,6 +366,9 @@ const SITEMAP = {
     TransferRequestApproval: {
       route: '/HR/TransferRequestApproval',
     },
+    HrResignRuleList: { route: '/HR/HrResignRule' },
+    HrResignRuleCreate: { route: '/HR/HrResignRuleCreate' },
+    HrResignRuleEdit: { route: '/HR/HrResignRuleEdit' },
   },
   exp: {
     Complaint: { route: '/EXP/Complaint' },
