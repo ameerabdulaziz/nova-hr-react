@@ -22,7 +22,7 @@ import Checkbox from '@mui/material/Checkbox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import SaveButton from '../../Component/SaveButton';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -170,7 +170,7 @@ useEffect(() => {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
 
       <PapperBlock whiteBg icon="border_color" 
           title={ID ?  
@@ -187,7 +187,7 @@ useEffect(() => {
               alignItems="flex-start"
               direction="row">
 
-                  <Grid item xs={12}  md={4}> 
+                  <Grid item xs={6}  md={4} lg={2.8} xl={2}> 
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -221,10 +221,8 @@ useEffect(() => {
                         />
                     </LocalizationProvider>
                   </Grid>
-
-                
                     
-                <Grid item xs={12}  md={4}> 
+                <Grid item xs={12}  md={4} lg={4} xl={3}> 
                   <TextField
                       name="vacationDescriptionAr"
                       id="vacationDescriptionAr"
@@ -241,7 +239,7 @@ useEffect(() => {
               
                 </Grid>
                     
-                <Grid item xs={12}  md={4}> 
+                <Grid item xs={12}  md={4} lg={4} xl={3}> 
                   <TextField
                       name="vacationDescriptionEN"
                       id="vacationDescriptionEN"
@@ -256,7 +254,7 @@ useEffect(() => {
                   />
                 </Grid>
 
-                <Grid item xs={12}  md={6}> 
+                <Grid item xs={12}  md={6} lg={6} xl={4}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -315,10 +313,10 @@ useEffect(() => {
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
+                <Grid item >                  
                     <SaveButton Id={id} processing={processing} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >
@@ -330,7 +328,7 @@ useEffect(() => {
           </form>
       </PapperBlock>         
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

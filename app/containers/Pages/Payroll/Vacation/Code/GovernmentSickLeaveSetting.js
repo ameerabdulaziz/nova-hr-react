@@ -18,7 +18,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import {Backdrop, Box, Card ,CardContent, CircularProgress} from "@mui/material";
 import SaveButton from '../../Component/SaveButton';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 
 
 
@@ -149,7 +149,7 @@ useEffect(() => {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
           title={ intl.formatMessage(messages.GovernmentSickLeaveSetting) } 
           desc={""}>
@@ -164,7 +164,7 @@ useEffect(() => {
             
               <Grid item xs={12} >
                 <Grid container spacing={3}>
-                  <Grid item xs={12}  md={3}> 
+                  <Grid item xs={12} md={5}  lg={3.5} xl={2.5}> 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -202,7 +202,7 @@ useEffect(() => {
             
                   </Grid>
 
-                  <Grid item xs={12}  md={3}> 
+                  <Grid item xs={12} md={5}  lg={3.5} xl={2.5}> 
                         <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -290,7 +290,7 @@ useEffect(() => {
                         direction="row"
                         >
     
-                        <Grid item xs={6}  md={3} > 
+                        <Grid item xs={6} sm={4}   md={3} lg={2.5} xl={2} > 
                           <TextField
                             name="DaysNumber"
                             id="DaysNumber"
@@ -306,7 +306,7 @@ useEffect(() => {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={3} > 
+                        <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                             <TextField
                             name="CountValueDay"
                             id="CountValueDay"
@@ -323,7 +323,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={6}  md={3} > 
+                        <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                           <TextField
                             name="DaysNumber"
                             id="DaysNumber"
@@ -338,7 +338,7 @@ useEffect(() => {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={3} > 
+                        <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                             <TextField
                             name="CountValueDay"
                             id="CountValueDay"
@@ -354,7 +354,7 @@ useEffect(() => {
                             />
                         </Grid>
     
-                          <Grid item xs={6}  md={3} > 
+                          <Grid item xs={6} sm={4}  md={3} lg={2} xl={2} > 
                             <TextField
                               name="DaysNumber"
                               id="DaysNumber"
@@ -369,7 +369,7 @@ useEffect(() => {
                             />
                           </Grid>
 
-                          <Grid item xs={6}  md={3} > 
+                          <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                               <TextField
                               name="CountValueDay"
                               id="CountValueDay"
@@ -385,7 +385,7 @@ useEffect(() => {
                               />
                           </Grid>
 
-                          <Grid item xs={6}  md={3} > 
+                          <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                             <TextField
                               name="DaysNumber"
                               id="DaysNumber"
@@ -400,7 +400,7 @@ useEffect(() => {
                             />
                           </Grid>
 
-                          <Grid item xs={6}  md={3} > 
+                          <Grid item xs={6} sm={4}  md={3} lg={2.5} xl={2} > 
                               <TextField
                               name="CountValueDay"
                               id="CountValueDay"
@@ -448,7 +448,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

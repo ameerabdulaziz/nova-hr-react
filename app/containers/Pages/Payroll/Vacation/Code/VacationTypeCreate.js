@@ -19,7 +19,7 @@ import GeneralListApis from '../../api/GeneralListApis';
 import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import {Card ,CardContent, Checkbox} from "@mui/material";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import SaveButton from '../../Component/SaveButton';
@@ -280,7 +280,7 @@ useEffect(() => {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
 
       <PapperBlock whiteBg icon="border_color" 
           title={ID ?  
@@ -307,7 +307,7 @@ useEffect(() => {
                   className={style.gridSty}
                   > 
                       
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={6}  md={4} xl={2}> 
                       <TextField
                           name="vacationName"
                           id="vacationName"
@@ -323,7 +323,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={6}  md={4} xl={2}> 
                       <TextField
                           name="enName"
                           id="enName"
@@ -338,7 +338,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-                    <Grid item xs={12}  md={4}> 
+                    <Grid item xs={6}  md={4} xl={2}> 
                       <TextField
                           name="Shortcut"
                           id="Shortcut"
@@ -354,7 +354,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-              <Grid item xs={12} md={6}>
+                   <Grid item xs={12} md={6} xl={3}>
                 <Autocomplete
                   options={dayList}
                   multiple
@@ -385,9 +385,9 @@ useEffect(() => {
                     />
                   )}
                 />
-              </Grid>
+                   </Grid>
 
-              <Grid item xs={12} md={6}>
+                   <Grid item xs={12} md={6} xl={3}>
                 <Autocomplete
                   options={branchList}
                   multiple
@@ -419,7 +419,7 @@ useEffect(() => {
                     />
                   )}
                 />
-              </Grid>
+                   </Grid>
                   </Grid>
 
                 <Grid item xs={12}  md={12}  className={style.gridSty}> 
@@ -446,7 +446,7 @@ useEffect(() => {
                               /> 
                           </Grid>
 
-                          <Grid item xs={12}  md={3} className={` ${locale === "ar" ?  style.timeContainer : null}`}> 
+                          <Grid item xs={6}  md={6} lg={3}  xl={2} className={` ${locale === "ar" ?  style.timeContainer : null}`}> 
                             <Autocomplete
                             id="ddlMenu"   
                             isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -486,7 +486,7 @@ useEffect(() => {
                           </Grid>
                     
                   
-                          <Grid item xs={12}  md={2}   className={` ${locale === "ar" ?  style.DayValueContainer : null}`}> 
+                          <Grid item xs={6}  md={3} lg={2} xl={1.5}   className={` ${locale === "ar" ?  style.DayValueContainer : null}`}> 
                             <TextField
                               name="DayValue"
                               id="DayValue"
@@ -550,7 +550,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3} className={style.totalMinutesContainer}>
+                    <Grid item xs={12} md={5} xl={3.5} className={style.totalMinutesContainer}>
                       <TextField
                         name="ReqBeforeShiftInMinute"
                         id="ReqBeforeShiftInMinute"
@@ -580,7 +580,7 @@ useEffect(() => {
                     alignItems="flex-start"
                     direction="row">
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={5} lg={3} xl={2.5}>
                       <TextField
                         name="maxRequestNo"
                         label={intl.formatMessage(messages.maxRequestNo)}
@@ -596,7 +596,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={5} lg={3} xl={2.5}>
                       <TextField
                         name="allowedAfterMonthNo"
                         label={intl.formatMessage(messages.allowedAfterMonthNo)}
@@ -654,7 +654,7 @@ useEffect(() => {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3} className={style.totalMinutesContainer}>
+                    <Grid item xs={12} md={5} lg={4} xl={3.5} className={style.totalMinutesContainer}>
                       <TextField
                         name="ReplacementVacOvertimeMinNo"
                         id="ReplacementVacOvertimeMinNo"
@@ -962,7 +962,7 @@ useEffect(() => {
       </PapperBlock>         
 
      
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
