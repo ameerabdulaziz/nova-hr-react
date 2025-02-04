@@ -14,7 +14,7 @@ import { injectIntl,FormattedMessage } from 'react-intl';
 import useStyles from '../Style';
 import Payrollmessages from '../messages';
 import SaveButton from '../Component/SaveButton';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 
 
 function MailSetting(props) {
@@ -156,13 +156,9 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     }));
   };
 
-
-
   const mailTestChangeFun = (e) =>{
     setMailTest(e.target.value)
   }
-
-
 
   const mailTestFun = async (e) =>{
     e.preventDefault();  
@@ -186,7 +182,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
 
 
   return (
-    <PayRollLoader isLoading={processing}>
+    <PayRollLoaderInForms isLoading={processing}>
       <Grid
         container
         spacing={3}
@@ -199,7 +195,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
           
             <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>           
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} lg={3} xl={3}>
                 <TextField                    
                   type="email"                  
                   error={email === 'Invalid email'}
@@ -215,7 +211,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   name="userName"
                   id="userName"
@@ -229,7 +225,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   id="password"
                   name="password"
@@ -244,7 +240,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   id="serverName"
                   name="serverName"
@@ -258,7 +254,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                 />
               </Grid>
               
-              <Grid item xs={12} md={4}>
+              <Grid item xs={12} md={4} lg={3} xl={2}>
                 <TextField
                   name="url"
                   id="url"
@@ -271,7 +267,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item xs={12} md={4}>
+              <Grid item xs={6} md={4} lg={2} xl={1}>
                 <TextField
                   name="mailPort"
                   id="mailPort"
@@ -285,7 +281,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
                 />
               </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={5} lg={4} xl={3}>
                   <TextField
                     name="jobAdvMails"
                     label={intl.formatMessage(messages.emailsCommaSeparated)}
@@ -386,7 +382,7 @@ value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
 
 
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

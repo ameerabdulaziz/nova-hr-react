@@ -385,7 +385,7 @@ function ElementReview(props) {
           <Grid item xs={12}  lg={6} >
            <Grid container spacing={2}>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7} lg={7} xl={6}>
              <Autocomplete
                  id="ddlMenu"   
                  isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -422,9 +422,8 @@ function ElementReview(props) {
                  /> 
             </Grid>
 
-            <Grid item xs={12} md={6} >
-            <Grid item xs={8}>
-              <Autocomplete
+            <Grid item xs={6} md={5} lg={4} >
+            <Autocomplete
                   id="ddlMenu"   
                   value={Year && Year.length !== 0 ? Year : null}
                   isOptionEqualToValue={(option, value) => option.id === value.id}                      
@@ -457,10 +456,9 @@ function ElementReview(props) {
                       />
                   )}
               />
-              </Grid>
             </Grid>
 
-            <Grid item xs={12} md={6} > 
+            <Grid item xs={12} md={6} lg={11} xl={6}> 
               <Autocomplete
                     multiple  
                     className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
@@ -498,9 +496,8 @@ function ElementReview(props) {
                 />
             </Grid>
 
-            <Grid item xs={12} md={6}> 
-               <Grid item xs={8}>
-              <Autocomplete
+            <Grid item xs={12} md={6} lg={11} xl={6}> 
+            <Autocomplete
                     multiple  
                     className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
                     id="checkboxes-tags-demo"
@@ -535,7 +532,6 @@ function ElementReview(props) {
                     />
                   )}
                 />
-                </Grid>
             </Grid>
 
            </Grid>

@@ -297,7 +297,7 @@ function PaymentSlip(props) {
             <Grid container mt={2} >
 
               <Grid container spacing={2} md={12} xl={8}>
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Autocomplete
                     options={companyList}
                     value={getAutoCompleteValue(companyList, formInfo.branchId)}
@@ -320,7 +320,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={4}>
                   <Autocomplete
                     options={payTemplateList}
                     value={getAutoCompleteValue(
@@ -347,7 +347,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Autocomplete
                     options={insuranceList}
                     value={getAutoCompleteValue(
@@ -373,7 +373,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={2}>
                   <Autocomplete
                     options={salaryTypesList}
                     value={getAutoCompleteValue(
@@ -399,7 +399,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Autocomplete
                     options={salaryValuesList}
                     value={getAutoCompleteValue(
@@ -425,7 +425,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Autocomplete
                     options={currencyList}
                     value={getAutoCompleteValue(currencyList, formInfo.currenyId)}
@@ -448,7 +448,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Grid item sm={8}>
                     <Autocomplete
                       options={yearList}
@@ -473,7 +473,7 @@ function PaymentSlip(props) {
                   </Grid>
                 </Grid>
 
-                <Grid item xs={12} md={3} xl={3}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Grid item sm={6}>
                     <Autocomplete
                       options={monthList}

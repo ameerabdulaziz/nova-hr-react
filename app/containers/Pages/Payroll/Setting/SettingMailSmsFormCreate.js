@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import PayRollLoader from '../Component/PayRollLoader';
+import PayRollLoaderInForms from '../Component/PayRollLoaderInForms';
 import payrollMessages from '../messages';
 import api from './api/SettingMailSmsFormData';
 import messages from './messages';
@@ -177,11 +177,11 @@ function SettingMailSmsFormCreate(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={formTypesList}
                 value={
@@ -208,7 +208,7 @@ function SettingMailSmsFormCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <TextField
                 value={formInfo.subject}
                 label={intl.formatMessage(messages.subject)}
@@ -220,7 +220,7 @@ function SettingMailSmsFormCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={2} lg={4} xl={6}>
               {decoratorList.length > 0 && (
                 <Button
                   variant='contained'
@@ -234,7 +234,7 @@ function SettingMailSmsFormCreate(props) {
               )}
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={10} lg={8} xl={6}>
               <TextareaAutosize
                 onClick={() => setFocusInput("mobileBody")}
                 name='customerAddress'
@@ -338,7 +338,7 @@ function SettingMailSmsFormCreate(props) {
         </form>
       </PapperBlock>
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -6,7 +6,7 @@ import useStyles from '../Style';
 import Payrollmessages from '../messages';
 import messages from './messages';
 import { PapperBlock } from 'enl-components';
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import UserMenuData from './api/UserMenuData';
 import MenuTemplateData from './api/MenuTemplateData';
 import IconButton from '@mui/material/IconButton';
@@ -398,7 +398,7 @@ useEffect(()=>{
 
 
     return (
-        <PayRollLoader isLoading={isLoading}>
+        <PayRollLoaderInForms isLoading={isLoading}>
               <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
                 <MenuTemplatePopup
@@ -419,7 +419,7 @@ useEffect(()=>{
                 
                     <div>
                         <Grid container spacing={3} mb={3}>            
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6} lg={3}>
                                 <Autocomplete
                                     id="ddlEmp"                        
                                     options={menuTemplateList}
@@ -447,7 +447,7 @@ useEffect(()=>{
                                     )}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={3}>
+                            <Grid item xs={6} lg={3}>
                                 <Autocomplete
                                     id="ddlMenu"                        
                                     options={MenuList}
@@ -465,7 +465,7 @@ useEffect(()=>{
                                     )}
                                 />
                             </Grid>
-                            <Grid item xs={6} md={3} >
+                            <Grid item xs={6} lg={3} >
                             
                                 <FormControl variant="filled">
                                     <Input
@@ -662,7 +662,7 @@ useEffect(()=>{
                         />  
                     </div>
               </PapperBlock>
-        </PayRollLoader>
+        </PayRollLoaderInForms>
     )
 }
 

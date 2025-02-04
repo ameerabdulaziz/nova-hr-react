@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import GeneralListApis from "../api/GeneralListApis";
 import { formateDate } from "../helpers";
 import api from "./api/OpenCloseMonthData";
@@ -200,11 +200,13 @@ function OpenCloseMonth(props) {
     list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon="border_color" title={title} desc="">
+          
           <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
+
+            <Grid item xs={12} md={6}  xl={3}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(
@@ -231,7 +233,7 @@ function OpenCloseMonth(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.yearId)}
@@ -256,7 +258,7 @@ function OpenCloseMonth(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <Autocomplete
                 options={monthList}
                 disabled={!formInfo.closedMonth && formInfo.id}
@@ -280,10 +282,8 @@ function OpenCloseMonth(props) {
                 )}
               />
             </Grid>
-          </Grid>
 
-          <Grid container spacing={2} mt={0}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -314,7 +314,7 @@ function OpenCloseMonth(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -345,7 +345,7 @@ function OpenCloseMonth(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} xl={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -378,7 +378,7 @@ function OpenCloseMonth(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} xl={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -409,22 +409,7 @@ function OpenCloseMonth(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={formInfo.lastDayToApproveEmployeeRequests}
-                    onChange={onCheckboxChange}
-                    name="lastDayToApproveEmployeeRequests"
-                  />
-                }
-                label={intl.formatMessage(
-                  messages.lastDayToApproveEmployeeRequests
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} xl={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -459,7 +444,25 @@ function OpenCloseMonth(props) {
                 />
               </LocalizationProvider>
             </Grid>
-          </Grid>
+
+            <Grid item xs={12} md={12} xl={3}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formInfo.lastDayToApproveEmployeeRequests}
+                    onChange={onCheckboxChange}
+                    name="lastDayToApproveEmployeeRequests"
+                  />
+                }
+                label={intl.formatMessage(
+                  messages.lastDayToApproveEmployeeRequests
+                )}
+              />
+            </Grid>
+
+
+
+            </Grid>
 
           <Stack direction="row" spacing={2} mt={3}>
             <Button
@@ -493,7 +496,7 @@ function OpenCloseMonth(props) {
           </Stack>
         </PapperBlock>
       </form>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
