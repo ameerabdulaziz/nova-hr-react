@@ -27,7 +27,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import FileViewerPopup from '../../../../../components/Popup/fileViewerPopup';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import { ServerURL } from '../../api/ServerConfig';
 import payrollMessages from '../../messages';
@@ -276,7 +276,7 @@ function CompanyDocumentCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <EmployeePopup
         isOpen={isEmployeePopupOpen}
         setIsOpen={setIsEmployeePopupOpen}
@@ -294,7 +294,7 @@ function CompanyDocumentCreate(props) {
                 <Typography variant='h6'>{title}</Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3}>
                     <Autocomplete
                       options={typeList}
                       value={
@@ -321,7 +321,7 @@ function CompanyDocumentCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3}>
                     <Autocomplete
                       options={categoryList}
                       value={
@@ -349,7 +349,7 @@ function CompanyDocumentCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3}>
                     <TextField
                       value={formInfo.docType}
                       label={intl.formatMessage(messages.documentType)}
@@ -361,7 +361,9 @@ function CompanyDocumentCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={12}>
+                  <Grid item xs={12}></Grid>
+
+                  <Grid item xs={12} md={12} lg={6}>
                     <TextField
                       value={formInfo.docDesc}
                       label={intl.formatMessage(messages.documentDescription)}
@@ -559,7 +561,7 @@ function CompanyDocumentCreate(props) {
           </Grid>
         </Grid>
       </form>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

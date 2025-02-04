@@ -136,7 +136,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
         <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
           <form onSubmit={onFormSubmit}>
             <Grid container spacing={3} direction='row'>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2.5}>
                 <TextField
                   name='arName'
                   value={formInfo.arName}
@@ -149,7 +149,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 />
               </Grid>
   
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2.5} >
                 <TextField
                   name='enName'
                   value={formInfo.enName}
@@ -162,7 +162,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2}>
                 <TextField
                   name='phone'
                   value={formInfo.phone}
@@ -174,7 +174,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={3}>
                 <TextField
                   name='email'
                   value={formInfo.email}
@@ -186,7 +186,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 />
               </Grid>
   
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={bankList}
                       value={formInfo.bank !== null && formInfo.bank.length !== 0 ? formInfo.bank : null}
@@ -213,7 +213,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                     />
                   </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2.5}>
                 <TextField
                   name='bankAccount'
                   value={formInfo.bankAccount}
@@ -225,7 +225,7 @@ import SITEMAP from '../../../../App/routes/sitemap';
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={4} lg={3} xl={2.5}>
                 <TextField
                   name='iban'
                   value={formInfo.iban}
