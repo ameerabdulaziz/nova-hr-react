@@ -14,7 +14,7 @@ import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import  InsuranceFormPopUp  from '../../Component/InsuranceFormPopUp';
 import notif from 'enl-api/ui/notifMessage';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -322,12 +322,12 @@ function MedicalInsuranceReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
 
-                  <Grid item xs={12} md={2}>
+           <Grid item xs={6} md={4} lg={3} xl={2}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -355,9 +355,11 @@ function MedicalInsuranceReport(props) {
                         }}
                         />
                     </LocalizationProvider>
-                  </Grid>
+           </Grid>
 
-          <Grid item xs={12} md={10}>
+           <Grid item xs={12}></Grid>
+
+          <Grid item xs={12} md={10} lg={9} xl={8}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -368,7 +370,7 @@ function MedicalInsuranceReport(props) {
           </Grid>
 
           
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -378,7 +380,7 @@ function MedicalInsuranceReport(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
+
         </Grid>
       </PapperBlock>
 
@@ -394,7 +396,7 @@ function MedicalInsuranceReport(props) {
         open={hrNotes}
         callFun={createHrNotesFun}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

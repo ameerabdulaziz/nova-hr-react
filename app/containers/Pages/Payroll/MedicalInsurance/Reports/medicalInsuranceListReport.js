@@ -18,7 +18,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
@@ -220,11 +220,11 @@ function medicalInsuranceListReport(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={10} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -234,7 +234,7 @@ function medicalInsuranceListReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={5} lg={3.5} xl={2.5}>
             <Autocomplete
               id="InsuranceCompany"
               name="InsuranceCompany"
@@ -259,7 +259,7 @@ function medicalInsuranceListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={5} lg={3.5} xl={2.5}>
             <Autocomplete
               id="medicalInsuranceCategory"
               name="medicalInsuranceCategory"
@@ -284,7 +284,9 @@ function medicalInsuranceListReport(props) {
             />
           </Grid>
 
-          <Grid item md={1}>
+          <Grid item xs={12}></Grid>
+
+          <Grid item md={4} lg={3} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -303,7 +305,7 @@ function medicalInsuranceListReport(props) {
                   />
             </Grid>
 
-            <Grid item md={2}>
+            <Grid item md={4} lg={4} xl={3}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -322,7 +324,7 @@ function medicalInsuranceListReport(props) {
                   />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item md={4} lg={4} xl={3}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -342,7 +344,7 @@ function medicalInsuranceListReport(props) {
             </Grid>
     
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -352,7 +354,7 @@ function medicalInsuranceListReport(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
+          <Grid item xs={12} ></Grid>
         </Grid>
       </PapperBlock>
 
@@ -363,7 +365,7 @@ function medicalInsuranceListReport(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

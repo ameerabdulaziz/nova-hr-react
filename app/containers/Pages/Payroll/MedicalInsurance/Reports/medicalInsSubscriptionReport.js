@@ -15,7 +15,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 
@@ -336,11 +336,11 @@ function medicalInsSubscription(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} xl={7}>
             <Search
                setsearchData={setSearchData}
                searchData={searchData}
@@ -351,7 +351,9 @@ function medicalInsSubscription(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6}  lg={6} xl={5}>
+            <Grid container spacing={2}>
+               <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="DeleteList"
               name="DeleteList"
@@ -374,8 +376,9 @@ function medicalInsSubscription(props) {
                 />
               )}
             />
-          </Grid>
-          <Grid item xs={12} md={2}>
+               </Grid>
+          
+               <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="InsuranceCompany"
               name="InsuranceCompany"
@@ -398,9 +401,9 @@ function medicalInsSubscription(props) {
                 />
               )}
             />
-          </Grid>
+               </Grid>
 
-          <Grid item xs={12} md={2}>
+               <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="medicalInsuranceCategory"
               name="medicalInsuranceCategory"
@@ -423,10 +426,11 @@ function medicalInsSubscription(props) {
                 />
               )}
             />
+               </Grid>
+            </Grid>
           </Grid>
-    
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -436,6 +440,7 @@ function medicalInsSubscription(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -446,7 +451,7 @@ function medicalInsSubscription(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -16,7 +16,7 @@ import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
@@ -330,11 +330,11 @@ function staffMedicalInsuranceReport(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} xl={7}>
             <Search
                setsearchData={setSearchData}
                searchData={searchData}
@@ -345,7 +345,10 @@ function staffMedicalInsuranceReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6}  lg={6} xl={5}>
+            <Grid container spacing={2}>
+
+          <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="DeleteList"
               name="DeleteList"
@@ -369,7 +372,8 @@ function staffMedicalInsuranceReport(props) {
               )}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+
+          <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="MedicalTypes"
               name="MedicalTypes"
@@ -394,7 +398,7 @@ function staffMedicalInsuranceReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={12} lg={6} xl={6}>
             <Autocomplete
               id="MedicalInsuranceCenters"
               name="MedicalInsuranceCenters"
@@ -417,10 +421,14 @@ function staffMedicalInsuranceReport(props) {
                 />
               )}
             />
-          </Grid>
-    
+          </Grid>      
 
-          <Grid item xs={12} md={2}>
+            </Grid>
+          </Grid>
+
+
+    
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -430,6 +438,7 @@ function staffMedicalInsuranceReport(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -441,7 +450,7 @@ function staffMedicalInsuranceReport(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
