@@ -32,7 +32,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, uuid } from '../../helpers';
@@ -448,7 +448,7 @@ function EmploymentRequestCreate(props) {
   }, [selectedLang]);
   
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <WorkDescriptionPopup
         isOpen={isDescriptionPopupOpen}
         setIsOpen={setIsDescriptionPopupOpen}
@@ -497,7 +497,7 @@ function EmploymentRequestCreate(props) {
                 </Typography>
 
                 <Grid container spacing={3} mt={0} direction='row'>
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={3}>
                     <Autocomplete
                       options={jobsList}
                       value={
@@ -523,7 +523,7 @@ function EmploymentRequestCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={3}>
                     <Autocomplete
                       options={departmentList}
                       value={
@@ -551,7 +551,34 @@ function EmploymentRequestCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4}  xl={3}>
+                    <Autocomplete
+                      options={jobsList}
+                      value={
+                        jobsList.find(
+                          (item) => item.id === formInfo.reportingTo
+                        ) ?? null
+                      }
+                      isOptionEqualToValue={(option, value) => option.id === value.id
+                      }
+                      getOptionLabel={(option) => (option ? option.name : '')}
+                      renderOption={(propsOption, option) => (
+                        <li {...propsOption} key={option.id}>
+                          {option.name}
+                        </li>
+                      )}
+                      onChange={(_, value) => onAutoCompleteChange(value, 'reportingTo')
+                      }
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={intl.formatMessage(messages.reportingTo)}
+                        />
+                      )}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={4} xl={2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label={intl.formatMessage(messages.startDate)}
@@ -585,34 +612,7 @@ function EmploymentRequestCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
-                    <Autocomplete
-                      options={jobsList}
-                      value={
-                        jobsList.find(
-                          (item) => item.id === formInfo.reportingTo
-                        ) ?? null
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'reportingTo')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={intl.formatMessage(messages.reportingTo)}
-                        />
-                      )}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={2}>
                     <TextField
                       value={formInfo.noOfVacancies}
                       label={intl.formatMessage(messages.vacanciesNumber)}
@@ -624,7 +624,7 @@ function EmploymentRequestCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={2}>
                     <TextField
                       value={formInfo.noOfSubordinates}
                       label={intl.formatMessage(messages.subordinatesNumber)}
@@ -636,7 +636,7 @@ function EmploymentRequestCreate(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={3.5}>
                     <Autocomplete
                       options={replacementList}
                       value={
@@ -667,7 +667,7 @@ function EmploymentRequestCreate(props) {
                   </Grid>
 
                   {formInfo.positionTypeId === 2 ? (
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4} xl={3.5}>
                       <Autocomplete
                         options={employeeList}
                         value={
@@ -695,7 +695,7 @@ function EmploymentRequestCreate(props) {
                       />
                     </Grid>
                   ) : (
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={4} xl={3.5}>
                       <TextField
                         value={formInfo.newPosition}
                         label={intl.formatMessage(messages.newPosition)}
@@ -708,7 +708,7 @@ function EmploymentRequestCreate(props) {
                     </Grid>
                   )}
 
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={12} md={4} xl={4}>
                     <TextField
                       value={formInfo.salaryRange}
                       label={intl.formatMessage(messages.salaryRange)}
@@ -750,7 +750,7 @@ function EmploymentRequestCreate(props) {
                     <FormLabel>{intl.formatMessage(messages.age)}</FormLabel>
                   </FormControl>
                   <Grid container spacing={1} mt={0} direction='row'>
-                    <Grid item xs={12} md={1}>
+                    <Grid item xs={6} md={3} lg={2} xl={1}>
                       <TextField
                         value={formInfo.fromAge}
                         label={intl.formatMessage(messages.fromAge)}
@@ -760,7 +760,7 @@ function EmploymentRequestCreate(props) {
                         autoComplete='off'
                       />
                     </Grid>
-                    <Grid item xs={12} md={1}>
+                    <Grid item xs={6}  md={3} lg={2} xl={1}>
                       <TextField
                         value={formInfo.toAge}
                         label={intl.formatMessage(messages.toAge)}
@@ -1390,7 +1390,7 @@ function EmploymentRequestCreate(props) {
           </Grid>
         </Grid>
       </form>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

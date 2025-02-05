@@ -206,7 +206,7 @@ function JobApplicationStatus(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4.5} lg={3.5} xl={2.5}>
               <Autocomplete
                 options={statusList}
                 value={getAutoCompleteValue(statusList, formInfo.StatusId)}
@@ -227,7 +227,7 @@ function JobApplicationStatus(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.fromdate)}
@@ -244,7 +244,7 @@ function JobApplicationStatus(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.todate)}
@@ -261,7 +261,7 @@ function JobApplicationStatus(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4.5} lg={3.5} xl={2.5}>
               <Autocomplete
                 options={jobList}
                 value={getAutoCompleteValue(jobList, formInfo.JobId)}
@@ -282,7 +282,7 @@ function JobApplicationStatus(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item >
               <Button variant='contained' color='primary' type='submit'>
                 {intl.formatMessage(payrollMessages.search)}
               </Button>

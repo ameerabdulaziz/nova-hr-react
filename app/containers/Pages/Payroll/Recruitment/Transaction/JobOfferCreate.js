@@ -297,7 +297,7 @@ function JobOfferCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={3.5}>
               <Autocomplete
                 options={applicantsList}
                 value={
@@ -326,7 +326,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={3.5}>
               <TextField
                 value={formInfo.candidateName}
                 label={intl.formatMessage(messages.applicantName)}
@@ -338,7 +338,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -368,7 +368,7 @@ function JobOfferCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={9} lg={4} xl={3.5}>
               <Autocomplete
                 options={departmentList}
                 value={
@@ -395,7 +395,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3.8} xl={3.5}>
               <Autocomplete
                 options={contractTypeList}
                 value={
@@ -422,7 +422,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3.7} xl={3.5}>
               <Autocomplete
                 options={jobList}
                 value={
@@ -446,7 +446,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -476,7 +476,7 @@ function JobOfferCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item  xs={12} md={5} lg={3.7} xl={3.5}>
               <Autocomplete
                 options={reportList}
                 value={
@@ -501,7 +501,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item  xs={12} md={4} lg={2.5} xl={1.7}>
               <TextField
                 value={formInfo.grossSalary}
                 label={intl.formatMessage(messages.salaryInGross)}
@@ -513,7 +513,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={2.5} xl={1.7}>
               <TextField
                 name='commession'
                 value={formInfo.commession}
@@ -525,7 +525,7 @@ function JobOfferCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={2.5} xl={1.7}>
               <Autocomplete
                 options={salaryStructureList}
                 value={
@@ -550,6 +550,8 @@ function JobOfferCreate(props) {
                 )}
               />
             </Grid>
+
+
 
             <Grid item xs={12}>
               <TextField

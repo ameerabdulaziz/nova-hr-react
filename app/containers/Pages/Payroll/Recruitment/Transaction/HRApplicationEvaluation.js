@@ -1167,7 +1167,7 @@ function HRApplicationEvaluation(props) {
           <Card className={classes.card}>
             <CardContent>
               <Grid container spacing={2}>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={2} >
                   <Autocomplete
                     options={jobAdvList}
                     value={getAutoCompleteValue(jobAdvList, formInfo.JobAdv)}
@@ -1192,7 +1192,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={4} xl={3}>
                   <TextField
                     name="Appliname"
                     onChange={onInputChange}
@@ -1204,7 +1204,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={2}>
                   <TextField
                     name="Idcardno"
                     onChange={onNumericInputChange}
@@ -1216,7 +1216,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={5} lg={2.5} xl={2}>
                   <Autocomplete
                     options={statusList}
                     value={getAutoCompleteValue(statusList, formInfo.Status)}
@@ -1241,7 +1241,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} lg={2} xl={1.5}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.fromdate)}
@@ -1260,7 +1260,7 @@ function HRApplicationEvaluation(props) {
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} lg={2} xl={1.5}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(payrollMessages.todate)}
@@ -1277,32 +1277,7 @@ function HRApplicationEvaluation(props) {
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
-                  <Autocomplete
-                    options={jobList}
-                    value={getAutoCompleteValue(jobList, formInfo.JobId)}
-                    isOptionEqualToValue={(option, value) =>
-                      option.id === value.id
-                    }
-                    getOptionLabel={(option) => (option ? option.name : "")}
-                    renderOption={(propsOption, option) => (
-                      <li {...propsOption} key={option.id}>
-                        {option.name}
-                      </li>
-                    )}
-                    onChange={(_, value) =>
-                      onAutoCompleteChange(value, "JobId")
-                    }
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label={intl.formatMessage(messages.jobName)}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={2}>
                   <Autocomplete
                     options={genderList}
                     value={getAutoCompleteValue(genderList, formInfo.GenderId)}
@@ -1327,7 +1302,32 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={4} lg={5} xl={3}>
+                  <Autocomplete
+                    options={jobList}
+                    value={getAutoCompleteValue(jobList, formInfo.JobId)}
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
+                    }
+                    getOptionLabel={(option) => (option ? option.name : "")}
+                    renderOption={(propsOption, option) => (
+                      <li {...propsOption} key={option.id}>
+                        {option.name}
+                      </li>
+                    )}
+                    onChange={(_, value) =>
+                      onAutoCompleteChange(value, "JobId")
+                    }
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={intl.formatMessage(messages.jobName)}
+                      />
+                    )}
+                  />
+                </Grid>
+
+                <Grid item xs={6} md={4} lg={2.5} xl={2}>
                   <Autocomplete
                     options={workFromList}
                     value={getAutoCompleteValue(
@@ -1355,7 +1355,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={5} lg={2.5} xl={2}>
                   <Autocomplete
                     options={graduationGradList}
                     value={getAutoCompleteValue(
@@ -1383,7 +1383,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} lg={2} xl={1.5}>
                   <TextField
                     name="Fromage"
                     onChange={onNumericInputChange}
@@ -1395,7 +1395,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3.5} lg={2} xl={1.5}>
                   <TextField
                     name="Toage"
                     onChange={onNumericInputChange}
@@ -1407,7 +1407,7 @@ function HRApplicationEvaluation(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12}>
                   <Button variant="contained" color="primary" type="submit">
                     {intl.formatMessage(payrollMessages.search)}
                   </Button>

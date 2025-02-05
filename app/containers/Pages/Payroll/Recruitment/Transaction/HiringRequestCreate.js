@@ -213,7 +213,8 @@ function HiringRequestCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={6} lg={3} xl={3.5}>
               <Autocomplete
                 options={applicantsList}
                 value={
@@ -240,7 +241,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={3} xl={3.5}>
               <TextField
                 value={formInfo.candidateName}
                 label={intl.formatMessage(messages.applicantName)}
@@ -252,7 +253,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -283,7 +284,7 @@ function HiringRequestCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={9} lg={4} xl={3.5}>
               <Autocomplete
                 options={reportList}
                 value={
@@ -308,7 +309,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={3.8} xl={3.5}>
               <Autocomplete
                 options={positionList}
                 value={
@@ -335,7 +336,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={3.7} xl={3.5}>
               <Autocomplete
                 options={departmentList}
                 value={
@@ -362,7 +363,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
 
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -392,7 +393,7 @@ function HiringRequestCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={2.5} xl={1.8}>
               <TextField
                 value={formInfo.contractDuration}
                 label={intl.formatMessage(messages.contractDuration)}
@@ -404,7 +405,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={2.5} xl={1.7}>
               <TextField
                 value={formInfo.salary}
                 label={intl.formatMessage(messages.salaryInGross)}
@@ -416,7 +417,9 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid ittem xs={12}></Grid>
+
+            <Grid item xs={12} md={6} >
               <Autocomplete
                 options={assignList}
                 multiple
@@ -452,7 +455,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} >
               <TextField
                 name='benefits'
                 value={formInfo.benefits}
@@ -467,7 +470,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} >
               <TextField
                 name='tools'
                 value={formInfo.tools}
@@ -482,7 +485,7 @@ function HiringRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <TextField
                 name='comments'
                 value={formInfo.comments}
