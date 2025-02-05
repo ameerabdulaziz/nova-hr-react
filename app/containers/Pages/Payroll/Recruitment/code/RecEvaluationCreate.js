@@ -15,7 +15,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import tableMessage from '../../../../../components/Tables/messages';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/RecEvaluationData';
@@ -111,11 +111,12 @@ function RecEvaluationCreate(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} mt={0}>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={4.5} lg={4.5} xl={3.5}>
               <TextField
                 name='enName'
                 value={formInfo.enName}
@@ -128,7 +129,7 @@ function RecEvaluationCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={4.5} xl={3.5}>
               <TextField
                 name='arName'
                 value={formInfo.arName}
@@ -141,7 +142,7 @@ function RecEvaluationCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={3} lg={3} xl={2}>
               <TextField
                 name='elFinGrad'
                 value={formInfo.elFinGrad}
@@ -154,7 +155,7 @@ function RecEvaluationCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={4.5} xl={3}>
               <TextField
                 name='elPercent'
                 value={formInfo.elPercent}
@@ -167,7 +168,7 @@ function RecEvaluationCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={4.5} xl={3.5}>
               <Autocomplete
                 options={jobList}
                 value={getAutoCompleteValue(jobList, formInfo.elJob)}
@@ -189,6 +190,8 @@ function RecEvaluationCreate(props) {
                 )}
               />
             </Grid>
+
+            <Grid item xs={12} xl={6} ></Grid>
 
             <Grid item xs={12} md={6}>
               <TextField
@@ -266,7 +269,7 @@ function RecEvaluationCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

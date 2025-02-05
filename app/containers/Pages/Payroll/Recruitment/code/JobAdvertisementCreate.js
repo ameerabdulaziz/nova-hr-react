@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
 import { EditTable } from '../../../../Tables/demos';
 import AlertPopup from '../../Component/AlertPopup';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -412,7 +412,7 @@ const closeQuesPopup = () => {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <AlertPopup
         handleClose={handleClose}
         open={openParentPopup}
@@ -423,7 +423,7 @@ const closeQuesPopup = () => {
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' desc='' title={title}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={jobList}
                 value={
@@ -447,7 +447,7 @@ const closeQuesPopup = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 name='jobAdvertisementCode'
                 onChange={onInputChange}
@@ -459,7 +459,7 @@ const closeQuesPopup = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.expireDate)}
@@ -483,7 +483,7 @@ const closeQuesPopup = () => {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <TextField
                 name='experiance'
                 value={formInfo.experiance}
@@ -496,7 +496,7 @@ const closeQuesPopup = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={6.5} >
               <Autocomplete
                 multiple  
                 className={`${Styles.AutocompleteMulSty} ${locale !== "en" ?  Styles.AutocompleteMulStyAR : null}`}
@@ -535,7 +535,7 @@ const closeQuesPopup = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} md={6.5}>
               <TextField
                 name='jobDescription'
                 value={formInfo.jobDescription}
@@ -569,11 +569,11 @@ const closeQuesPopup = () => {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={2} lg={1}>
+                <Grid item >
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={2} lg={1.3}>
+                <Grid item >
                   <Button
                     variant='contained'
                     size='medium'
@@ -584,7 +584,7 @@ const closeQuesPopup = () => {
                   </Button>
                 </Grid>
 
-                <Grid item xs={12} md={2} lg={1.3}>
+                <Grid item >
                   <Button
                     variant='contained'
                     size='medium'
@@ -624,7 +624,7 @@ const closeQuesPopup = () => {
           popupType={popupType}
         />
       </form>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

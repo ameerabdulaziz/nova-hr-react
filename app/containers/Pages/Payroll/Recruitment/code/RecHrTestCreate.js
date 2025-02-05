@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
 import tableMessage from '../../../../../components/Tables/messages';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import payrollMessages from '../../messages';
 import api from '../api/RecHrTestData';
 import SITEMAP from '../../../../App/routes/sitemap';
@@ -83,11 +83,11 @@ function RecHrTestCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} mt={0}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} xl={3}>
               <TextField
                 name='enName'
                 value={formInfo.enName}
@@ -100,7 +100,7 @@ function RecHrTestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} xl={3}>
               <TextField
                 name='arName'
                 value={formInfo.arName}
@@ -113,7 +113,7 @@ function RecHrTestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={3} xl={2}>
               <TextField
                 name='finalGrad'
                 value={formInfo.finalGrad}
@@ -176,7 +176,7 @@ function RecHrTestCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
