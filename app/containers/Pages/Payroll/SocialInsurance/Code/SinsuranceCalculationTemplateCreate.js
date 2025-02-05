@@ -293,7 +293,7 @@ useEffect(() => {
                   className={style.itemsStyle}
                   >
                 <Grid item xs={3}  md={5} lg={3}>                  
-                    <SaveButton Id={id} processing={processing} />
+                    <SaveButton Id={formData.id} processing={processing} />
                 </Grid>
                 <Grid item xs={3}  md={5} lg={3}>
                     <Button variant="contained" size="medium" color="primary" 

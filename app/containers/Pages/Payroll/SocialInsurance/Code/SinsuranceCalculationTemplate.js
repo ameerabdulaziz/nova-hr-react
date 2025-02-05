@@ -16,12 +16,8 @@ function SinsuranceCalculationTemplate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem('MenuName');
-
   const [isLoading, setIsLoading] = useState(true);
   const [tableData, setTableData] = useState([]);
-
-
-
 
 
   const fetchTableData = async () => {
@@ -47,9 +43,7 @@ function SinsuranceCalculationTemplate(props) {
 
       fetchTableData();
     } catch (err) {
-      //
-      console.log("dcdcc =",err);
-      
+      //      
     } finally {
       setIsLoading(false);
     }
@@ -116,10 +110,6 @@ function SinsuranceCalculationTemplate(props) {
       callback: deleteRow,
     },
   };
-
-console.log("tableData =", tableData);
-
-
 
 
   return (
