@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import api from '../api/HrEmployeeDocumentTrxData';
 import messages from '../messages';
-import SITEMAP from '../../../../App/routes/sitemap';
-import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
+import Payrollmessages from '../../messages'
 
 function HrEmployeeDocumentTrx(props) {
   const { intl } = props;
