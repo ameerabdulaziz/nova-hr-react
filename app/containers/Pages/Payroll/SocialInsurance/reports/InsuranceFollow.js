@@ -10,7 +10,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -207,10 +207,10 @@ function InsuranceNotifications(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={5} lg={4} xl={3}>
             <Autocomplete
               options={companyList}
               value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -231,7 +231,7 @@ function InsuranceNotifications(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={4.5} lg={3.5} xl={2.5}>
             <Autocomplete
               options={insuranceStatusList}
               value={getAutoCompleteValue(
@@ -276,7 +276,7 @@ function InsuranceNotifications(props) {
         open={hrNotes}
         callFun={createHrNotesFun}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

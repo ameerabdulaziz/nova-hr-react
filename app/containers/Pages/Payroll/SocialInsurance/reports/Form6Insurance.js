@@ -32,7 +32,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import SITEMAP, { DOMAIN_NAME } from '../../../../App/routes/sitemap';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import useStyles from '../../Style';
 import { formateDate, formatNumber } from '../../helpers';
@@ -291,7 +291,7 @@ function Form6Insurance(props) {
   }, [selectedRowsIndex, tableData]);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <Box
         ref={printDivRef}
         sx={{
@@ -316,7 +316,7 @@ function Form6Insurance(props) {
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} mb={5} spacing={2}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} sm={6} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={organizationList}
                 value={
@@ -338,7 +338,7 @@ function Form6Insurance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} sm={6} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={officeList}
                 value={
@@ -361,7 +361,7 @@ function Form6Insurance(props) {
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} sm={4} md={3} lg={2.5} xl={1.5}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.toDate)}
@@ -515,7 +515,7 @@ function Form6Insurance(props) {
         columns={columns}
         options={options}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

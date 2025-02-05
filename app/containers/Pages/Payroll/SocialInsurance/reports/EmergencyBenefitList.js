@@ -14,7 +14,7 @@ import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import style from '../../../../../styles/styles.scss';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { getAutoCompleteValue } from '../../helpers';
@@ -190,11 +190,11 @@ function EmergencyBenefitList(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6} lg={5} xl={4}>
               <Autocomplete
                 options={organizationList}
                 multiple
@@ -227,7 +227,7 @@ function EmergencyBenefitList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={3}>
               <Autocomplete
                 options={officeList}
                 value={getAutoCompleteValue(officeList, formInfo.InsOffice)}
@@ -248,7 +248,7 @@ function EmergencyBenefitList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={2.9} lg={2} xl={1.5}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -270,7 +270,7 @@ function EmergencyBenefitList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={2.6} lg={2} xl={1.5}>
               <Autocomplete
                 options={monthsList}
                 value={getAutoCompleteValue(monthsList, formInfo.MonthId)}
@@ -324,7 +324,7 @@ function EmergencyBenefitList(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

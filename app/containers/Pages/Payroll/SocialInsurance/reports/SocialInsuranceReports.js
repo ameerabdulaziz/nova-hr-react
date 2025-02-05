@@ -15,7 +15,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import InsuranceFormPopUp from '../../Component/InsuranceFormPopUp';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -464,7 +464,7 @@ function SocialInsuranceReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <InsuranceFormPopUp
         handleClose={closeHRNotesPopup}
         open={isHRNotesPopupOpen}
@@ -474,7 +474,8 @@ function SocialInsuranceReport(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} md={12} xl={7}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -484,7 +485,10 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+          <Grid item xs={12} xl={4}>
+            <Grid container spacing={2}>
+
+            <Grid item xs={12} md={6} lg={4} xl={8}>
               <Autocomplete
                 options={officeList}
                 value={getAutoCompleteValue(officeList, formInfo.InsOffice)}
@@ -501,7 +505,7 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={2} xl={4}>
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -524,7 +528,7 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={2.5} xl={4}>
               <Autocomplete
                 options={monthsList}
                 value={getAutoCompleteValue(monthsList, formInfo.MonthId)}
@@ -541,7 +545,7 @@ function SocialInsuranceReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3.5} xl={6}>
               <Autocomplete
                 options={ageList}
                 value={getAutoCompleteValue(ageList, formInfo.age)}
@@ -556,6 +560,10 @@ function SocialInsuranceReport(props) {
                 )}
               />
             </Grid>
+
+            </Grid>
+          </Grid>
+
 
             <Grid item>
               <FormControlLabel
@@ -606,7 +614,7 @@ function SocialInsuranceReport(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import GeneralListApis from '../../api/GeneralListApis';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -269,10 +269,10 @@ function StopInsuranceReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={8} xl={7}>
             <Search
               setsearchData={setSearchData}
               searchData={searchData}
@@ -283,7 +283,7 @@ function StopInsuranceReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2.5} xl={1.7}>
             <Autocomplete
               options={deleteList}
               value={getAutoCompleteValue(deleteList, searchData.isDeleted)}
@@ -304,7 +304,7 @@ function StopInsuranceReport(props) {
             />
           </Grid>
 
-          <Grid item>
+          <Grid xs={12} item>
             <Button
               variant='contained'
               color='primary'
@@ -322,7 +322,7 @@ function StopInsuranceReport(props) {
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
