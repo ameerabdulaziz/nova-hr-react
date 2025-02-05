@@ -131,7 +131,8 @@ function SInsuranceOrgnizationCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12}>
+
+            <Grid item xs={12} lg={6} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -140,7 +141,7 @@ function SInsuranceOrgnizationCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3}  lg={6}>
                       <TextField
                         name='arName'
                         value={formInfo.arName}
@@ -153,7 +154,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='enName'
                         value={formInfo.enName}
@@ -166,7 +167,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='insuranceNumber'
                         value={formInfo.insuranceNumber}
@@ -179,7 +180,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='address'
                         value={formInfo.address}
@@ -196,7 +197,7 @@ function SInsuranceOrgnizationCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -205,7 +206,7 @@ function SInsuranceOrgnizationCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='owner'
                         value={formInfo.owner}
@@ -218,7 +219,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='legalStatus'
                         value={formInfo.legalStatus}
@@ -233,7 +234,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <TextField
                         name='companyLegalForm'
                         required
@@ -250,7 +251,7 @@ function SInsuranceOrgnizationCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={6} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -259,7 +260,7 @@ function SInsuranceOrgnizationCreate(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <Autocomplete
                         options={governmentList}
                         value={
@@ -286,7 +287,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <Autocomplete
                         options={regionList}
                         value={
@@ -313,7 +314,7 @@ function SInsuranceOrgnizationCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={12} md={3} lg={6}>
                       <Autocomplete
                         options={insuranceOfficeList}
                         value={
