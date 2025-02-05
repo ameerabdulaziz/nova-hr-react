@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate } from '../../helpers';
@@ -119,13 +119,13 @@ function StopMedicalInsuranceCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
             <Grid item md={12}>
               <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={8} md={6} lg={4}  xl={3}>
                   {id === 0 ? (
                     <Autocomplete
                       options={employeeList}
@@ -160,7 +160,7 @@ function StopMedicalInsuranceCreate(props) {
                   )}
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={4.5} md={3} lg={2.2} xl={1.5}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.endDate)}
@@ -181,6 +181,8 @@ function StopMedicalInsuranceCreate(props) {
                     />
                   </LocalizationProvider>
                 </Grid>
+
+                <Grid item xs={12}></Grid>
 
                 <Grid item xs={6}>
                   <TextField
@@ -235,7 +237,7 @@ function StopMedicalInsuranceCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

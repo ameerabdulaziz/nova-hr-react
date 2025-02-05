@@ -13,6 +13,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { format } from "date-fns";
+import dayjs from 'dayjs';
 import notif from 'enl-api/ui/notifMessage';
 import { PapperBlock } from 'enl-components';
 import PropTypes from 'prop-types';
@@ -25,13 +29,9 @@ import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import { formateDate } from '../../helpers';
+import Payrollmessages from "../../messages";
 import api from '../api/MedicalInsuranceData';
 import messages from '../messages';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
-import { format } from "date-fns";
-import Payrollmessages from "../../messages";
 
 function MedicalInsuranceData(props) {
   const { intl } = props;
@@ -193,15 +193,15 @@ function MedicalInsuranceData(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2} direction='row'>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12}  lg={12} xl={5}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.employeeId}
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <Card className={classes.card} sx={{ mt: '0!important' }}>
+            <Grid item xs={12} md={6} lg={6}  xl={3.5}>
+              <Card className={classes.card} >
                 <CardContent>
                   <FormControlLabel
                     control={
@@ -223,7 +223,7 @@ function MedicalInsuranceData(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={8} lg={6}>
                       <TextField
                         name='medicalNumber'
                         value={governmentState.medicalNumber}
@@ -237,7 +237,7 @@ function MedicalInsuranceData(props) {
                       />
                     </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={8} lg={6}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -279,8 +279,8 @@ function MedicalInsuranceData(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <Card className={classes.card} sx={{ mt: '0!important' }}>
+            <Grid item xs={12} md={6} lg={6} xl={3.5}>
+              <Card className={classes.card} >
                 <CardContent>
                   <FormControlLabel
                     control={
@@ -300,7 +300,7 @@ function MedicalInsuranceData(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={8}  lg={6}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -340,7 +340,7 @@ function MedicalInsuranceData(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={8}  lg={6}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -385,7 +385,7 @@ function MedicalInsuranceData(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item md={8} lg={12}  xs={8.5}>
               <TextField
                 name='medInsNotes'
                 value={formInfo.medInsNotes}

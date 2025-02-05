@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
-import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/EmployeeMedicalBenefitsData';
 import messages from '../messages';
-import SITEMAP from '../../../../App/routes/sitemap';
-import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function EmployeeMedicalBenefits(props) {
   const { intl } = props;
@@ -60,7 +59,7 @@ function EmployeeMedicalBenefits(props) {
       name: 'trxDate',
       label: intl.formatMessage(payrollMessages.date),
       options: getDateColumnOptions(
-        intl.formatMessage(messages.date),
+        intl.formatMessage(payrollMessages.date),
         {
           minDateLabel: intl.formatMessage(payrollMessages.minDate),
           maxDateLabel: intl.formatMessage(payrollMessages.maxDate),

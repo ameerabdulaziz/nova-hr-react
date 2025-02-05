@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -137,33 +137,11 @@ function EmployeeMedicalBenefitsCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={4}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label={intl.formatMessage(messages.applicationDate)}
-                  value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
-                  sx={{ width: '100%' }}
-                  onChange={(date) => onDatePickerChange(date, 'trxDate')}
-                  onError={(error) => {
-                    setDateError((prevState) => ({
-                      ...prevState,
-                      trxDate: error !== null,
-                    }));
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                />
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={4} xl={4}>
               <Autocomplete
                 options={employeeList}
                 value={
@@ -185,7 +163,29 @@ function EmployeeMedicalBenefitsCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.applicationDate)}
+                  value={formInfo.trxDate ? dayjs(formInfo.trxDate) : null}
+                  sx={{ width: '100%' }}
+                  onChange={(date) => onDatePickerChange(date, 'trxDate')}
+                  onError={(error) => {
+                    setDateError((prevState) => ({
+                      ...prevState,
+                      trxDate: error !== null,
+                    }));
+                  }}
+                  slotProps={{
+                    textField: {
+                      required: true,
+                    },
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
               <Autocomplete
                 options={codesList}
                 value={
@@ -206,7 +206,7 @@ function EmployeeMedicalBenefitsCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
               <Autocomplete
                 options={centersList}
                 value={
@@ -227,7 +227,7 @@ function EmployeeMedicalBenefitsCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
               <TextField
                 name='totalvalue'
                 value={formInfo.totalvalue}
@@ -240,7 +240,7 @@ function EmployeeMedicalBenefitsCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
               <TextField
                 name='employeeShare'
                 value={formInfo.employeeShare}
@@ -270,11 +270,11 @@ function EmployeeMedicalBenefitsCreate(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <Button
                     variant='contained'
                     size='medium'
@@ -289,7 +289,7 @@ function EmployeeMedicalBenefitsCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -18,6 +18,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import SITEMAP from '../../../../App/routes/sitemap';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
@@ -26,7 +27,6 @@ import { formateDate, getDefaultYearAndMonth } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/MedicalInsuranceSubscriptionData';
 import messages from '../messages';
-import SITEMAP from '../../../../App/routes/sitemap';
 
 function MedicalInsuranceSubscriptionCreate(props) {
   const { intl } = props;
@@ -225,7 +225,11 @@ function MedicalInsuranceSubscriptionCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={4}>
+          <Grid item xs={12} lg={6}>
+              <Card className={classes.card} >
+                <CardContent>
+                  <Grid container spacing={3} direction='row'>
+                      <Grid item xs={6} md={4} lg={6}>
               <Autocomplete
                 options={employeeList}
                 value={
@@ -244,9 +248,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 )}
               />
-            </Grid>
+                      </Grid>
 
-            <Grid item xs={12} md={4}>
+                       <Grid item xs={6} md={4} lg={6}>
               <Autocomplete
                 options={insuranceCompanyList}
                 value={
@@ -265,9 +269,9 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 )}
               />
-            </Grid>
+                       </Grid>
 
-            <Grid item xs={12} md={4}>
+                       <Grid item xs={6} md={4} lg={6}>
               <Autocomplete
                 options={insuranceCategoryList}
                 value={
@@ -287,13 +291,17 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 )}
               />
-            </Grid>
+                       </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
+          </Grid>
 
-            <Grid item xs={12}>
-              <Card className={classes.card} sx={{ mt: '0!important' }}>
+          <Grid item xs={12} lg={6}>
+              <Card className={classes.card} >
                 <CardContent>
                   <Grid container spacing={3} direction='row'>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={6}>
                       <TextField
                         name='employeeShare'
                         disabled
@@ -305,7 +313,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={6}>
                       <TextField
                         name='cmpShare'
                         disabled
@@ -317,7 +325,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={6}>
                       <TextField
                         name='subMonthlyFees'
                         disabled
@@ -333,7 +341,11 @@ function MedicalInsuranceSubscriptionCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} lg={6} xl={3}>
+              <Card className={classes.card} >
+                <CardContent>
+                  <Grid container spacing={3} direction='row'>
+            <Grid item xs={6} md={4} lg={6} xl={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.subscriptionDate)}
@@ -362,7 +374,8 @@ function MedicalInsuranceSubscriptionCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={4} lg={6} xl={12}
+>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.medicalEndDate)}
@@ -396,7 +409,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4}  lg={12} xl={12}>
               <TextField
                 name='privlMedCareNumber'
                 value={formInfo.privlMedCareNumber}
@@ -408,10 +421,17 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 autoComplete='off'
               />
             </Grid>
+                  </Grid>
+               </CardContent>
+              </Card>
+            </Grid>
 
-            <Grid item xs={12}>
-              <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={2}>
+            <Grid item xs={12} lg={6} xl={3}>
+              <Card className={classes.card} >
+                <CardContent>
+                  <Grid container spacing={3} direction='row'>
+
+                <Grid item xs={6} md={3} lg={5} xl={6}>
                   <Autocomplete
                     options={yearList}
                     value={
@@ -433,7 +453,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={3} lg={5} xl={6}>
                   <Autocomplete
                     options={monthsList}
                     value={
@@ -455,7 +475,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={3} lg={6} xl={12}>
                   <TextField
                     name='subMonthlyFees'
                     value={formInfo.subMonthlyFees}
@@ -468,7 +488,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={3} lg={6} xl={12}>
                   <TextField
                     name='cmpFees'
                     value={formInfo.cmpFees}
@@ -479,11 +499,20 @@ function MedicalInsuranceSubscriptionCreate(props) {
                     required
                     autoComplete='off'
                   />
-                </Grid>
-              </Grid>
+                </Grid>   
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} xl={4}>
+              <Card className={classes.card} >
+                <CardContent>
+                  <Grid container spacing={3} direction='row'>
+
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
+
               <TextField
                 name='fathersNo'
                 value={formInfo.fathersNo}
@@ -491,19 +520,23 @@ function MedicalInsuranceSubscriptionCreate(props) {
                   const value = evt.target.value.replace(/[^\d]/g, '');
 
                   setFormInfo((prev) => ({
+
                     ...prev,
                     fathersNo: value,
                     fathersValue: value * fixedBoxState.familyMemberValue,
+
                   }));
                 }}
+
                 label={intl.formatMessage(messages.fatherNumbers)}
                 fullWidth
                 variant='outlined'
                 autoComplete='off'
               />
-            </Grid>
 
-            <Grid item xs={12} md={2}>
+          </Grid>
+
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
               <TextField
                 name='fathersValue'
                 value={formInfo.fathersValue}
@@ -515,7 +548,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
               <TextField
                 name='wivesNo'
                 value={formInfo.wivesNo}
@@ -535,7 +568,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
               <TextField
                 name='wivesValue'
                 value={formInfo.wivesValue}
@@ -547,7 +580,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
               <TextField
                 name='childrenNo'
                 value={formInfo.childrenNo}
@@ -567,7 +600,7 @@ function MedicalInsuranceSubscriptionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2.5} xl={6}>
               <TextField
                 name='childrenValue'
                 value={formInfo.childrenValue}
@@ -577,7 +610,12 @@ function MedicalInsuranceSubscriptionCreate(props) {
                 variant='outlined'
                 autoComplete='off'
               />
-            </Grid>
+            </Grid>    
+
+                  </Grid>     
+               </CardContent>
+             </Card>
+           </Grid>
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
@@ -608,3 +646,317 @@ MedicalInsuranceSubscriptionCreate.propTypes = {
 };
 
 export default injectIntl(MedicalInsuranceSubscriptionCreate);
+
+
+
+
+
+
+
+        //  <Grid item xs={12} lg={6}>
+        //       <Card className={classes.card} >
+        //         <CardContent>
+        //           <Grid container spacing={3} direction='row'>
+        //               <Grid item xs={6} md={4} lg={6}>
+        //       <Autocomplete
+        //         options={employeeList}
+        //         value={
+        //           employeeList.find(
+        //             (item) => item.id === formInfo.employeeId
+        //           ) ?? null
+        //         }
+        //         isOptionEqualToValue={(option, value) => option.id === value.id}
+        //         getOptionLabel={(option) => (option ? option.name : '')}
+        //         onChange={(_, value) => onEmployeeAutoCompleteChange(value)}
+        //         renderInput={(params) => (
+        //           <TextField
+        //             required
+        //             {...params}
+        //             label={intl.formatMessage(messages.employeeName)}
+        //           />
+        //         )}
+        //       />
+        //               </Grid>
+
+        //                <Grid item xs={6} md={4} lg={6}>
+        //       <Autocomplete
+        //         options={insuranceCompanyList}
+        //         value={
+        //           insuranceCompanyList.find(
+        //             (item) => item.id === formInfo.insCmpId
+        //           ) ?? null
+        //         }
+        //         isOptionEqualToValue={(option, value) => option.id === value.id}
+        //         getOptionLabel={(option) => (option ? option.name : '')}
+        //         onChange={(_, value) => onAutoCompleteChange(value, 'insCmpId')}
+        //         renderInput={(params) => (
+        //           <TextField
+        //             required
+        //             {...params}
+        //             label={intl.formatMessage(messages.insuranceCompany)}
+        //           />
+        //         )}
+        //       />
+        //                </Grid>
+
+        //                <Grid item xs={6} md={4} lg={6}>
+        //       <Autocomplete
+        //         options={insuranceCategoryList}
+        //         value={
+        //           insuranceCategoryList.find(
+        //             (item) => item.id === formInfo.medInsuCatId
+        //           ) ?? null
+        //         }
+        //         onChange={(_, value) => onAutoCompleteChange(value, 'medInsuCatId')
+        //         }
+        //         isOptionEqualToValue={(option, value) => option.id === value.id}
+        //         getOptionLabel={(option) => (option ? option.name : '')}
+        //         renderInput={(params) => (
+        //           <TextField
+        //             required
+        //             {...params}
+        //             label={intl.formatMessage(messages.insuranceCategory)}
+        //           />
+        //         )}
+        //       />
+        //                </Grid>
+        //           </Grid>
+        //         </CardContent>
+        //       </Card>
+        //   </Grid>
+
+
+        //     <Grid item xs={12} lg={6}>
+        //       <Card className={classes.card} >
+        //         <CardContent>
+        //           <Grid container spacing={3} direction='row'>
+        //             <Grid item xs={6} md={4} lg={6}>
+        //               <TextField
+        //                 name='employeeShare'
+        //                 disabled
+        //                 value={fixedBoxState.employeeShare}
+        //                 label={intl.formatMessage(messages.employeeShare)}
+        //                 fullWidth
+        //                 variant='outlined'
+        //                 autoComplete='off'
+        //               />
+        //             </Grid>
+
+        //             <Grid item xs={6} md={4} lg={6}>
+        //               <TextField
+        //                 name='cmpShare'
+        //                 disabled
+        //                 value={fixedBoxState.cmpShare}
+        //                 label={intl.formatMessage(messages.companyShare)}
+        //                 fullWidth
+        //                 variant='outlined'
+        //                 autoComplete='off'
+        //               />
+        //             </Grid>
+
+        //             <Grid item xs={6} md={4} lg={6}>
+        //               <TextField
+        //                 name='subMonthlyFees'
+        //                 disabled
+        //                 value={fixedBoxState.familyMemberValue}
+        //                 label={intl.formatMessage(messages.familyMemberValue)}
+        //                 fullWidth
+        //                 variant='outlined'
+        //                 autoComplete='off'
+        //               />
+        //             </Grid>
+        //           </Grid>
+        //         </CardContent>
+        //       </Card>
+        //     </Grid>
+
+        //     <Grid item xs={6} md={4} lg={3} xl={2}>
+        //       <LocalizationProvider dateAdapter={AdapterDayjs}>
+        //         <DatePicker
+        //           label={intl.formatMessage(messages.subscriptionDate)}
+        //           value={formInfo.subDate ? dayjs(formInfo.subDate) : null}
+        //           className={classes.field}
+        //           onChange={(date) => onDatePickerChange(date, 'subDate')}
+        //           onError={(error) => {
+        //             if (error !== null) {
+        //               setDateError((prevState) => ({
+        //                 ...prevState,
+        //                 subDate: true,
+        //               }));
+        //             } else {
+        //               setDateError((prevState) => ({
+        //                 ...prevState,
+        //                 subDate: false,
+        //               }));
+        //             }
+        //           }}
+        //           slotProps={{
+        //             textField: {
+        //               required: true,
+        //             },
+        //           }}
+        //         />
+        //       </LocalizationProvider>
+        //     </Grid>
+
+        //     <Grid item xs={6} md={4} lg={3} xl={2}>
+        //       <LocalizationProvider dateAdapter={AdapterDayjs}>
+        //         <DatePicker
+        //           label={intl.formatMessage(messages.medicalEndDate)}
+        //           value={
+        //             formInfo.medCareEndDate
+        //               ? dayjs(formInfo.medCareEndDate)
+        //               : null
+        //           }
+        //           className={classes.field}
+        //           onChange={(date) => onDatePickerChange(date, 'medCareEndDate')
+        //           }
+        //           onError={(error) => {
+        //             if (error !== null) {
+        //               setDateError((prevState) => ({
+        //                 ...prevState,
+        //                 medCareEndDate: true,
+        //               }));
+        //             } else {
+        //               setDateError((prevState) => ({
+        //                 ...prevState,
+        //                 medCareEndDate: false,
+        //               }));
+        //             }
+        //           }}
+        //           slotProps={{
+        //             textField: {
+        //               required: true,
+        //             },
+        //           }}
+        //         />
+        //       </LocalizationProvider>
+        //     </Grid>
+
+        //     <Grid item xs={12} md={4}  lg={4} xl={2}>
+        //       <TextField
+        //         name='privlMedCareNumber'
+        //         value={formInfo.privlMedCareNumber}
+        //         required
+        //         onChange={onNumericInputChange}
+        //         label={intl.formatMessage(messages.medicalCardNumber)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
+        //       <TextField
+        //         name='fathersNo'
+        //         value={formInfo.fathersNo}
+        //         onChange={(evt) => {
+        //           const value = evt.target.value.replace(/[^\d]/g, '');
+
+        //           setFormInfo((prev) => ({
+        //             ...prev,
+        //             fathersNo: value,
+        //             fathersValue: value * fixedBoxState.familyMemberValue,
+        //           }));
+        //         }}
+        //         label={intl.formatMessage(messages.fatherNumbers)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
+        //       <TextField
+        //         name='fathersValue'
+        //         value={formInfo.fathersValue}
+        //         onChange={onNumericInputChange}
+        //         label={intl.formatMessage(messages.value)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
+        //       <TextField
+        //         name='wivesNo'
+        //         value={formInfo.wivesNo}
+        //         onChange={(evt) => {
+        //           const value = evt.target.value.replace(/[^\d]/g, '');
+
+        //           setFormInfo((prev) => ({
+        //             ...prev,
+        //             wivesNo: value,
+        //             wivesValue: value * fixedBoxState.familyMemberValue,
+        //           }));
+        //         }}
+        //         label={intl.formatMessage(messages.wifeNumbers)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
+        //       <TextField
+        //         name='wivesValue'
+        //         value={formInfo.wivesValue}
+        //         onChange={onNumericInputChange}
+        //         label={intl.formatMessage(messages.value)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
+        //       <TextField
+        //         name='childrenNo'
+        //         value={formInfo.childrenNo}
+        //         onChange={(evt) => {
+        //           const value = evt.target.value.replace(/[^\d]/g, '');
+
+        //           setFormInfo((prev) => ({
+        //             ...prev,
+        //             childrenNo: value,
+        //             childrenValue: value * fixedBoxState.familyMemberValue,
+        //           }));
+        //         }}
+        //         label={intl.formatMessage(messages.childrenNumbers)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={6} md={3} lg={2} xl={1.5}>
+        //       <TextField
+        //         name='childrenValue'
+        //         value={formInfo.childrenValue}
+        //         onChange={onNumericInputChange}
+        //         label={intl.formatMessage(messages.value)}
+        //         fullWidth
+        //         variant='outlined'
+        //         autoComplete='off'
+        //       />
+        //     </Grid>
+
+        //     <Grid item xs={12} >
+        //       <Grid container spacing={3}>
+        //         <Grid item>
+        //           <SaveButton Id={id} processing={isLoading} />
+        //         </Grid>
+
+        //         <Grid item>
+        //           <Button
+        //             variant='contained'
+        //             color='primary'
+        //             onClick={onCancelBtnClick}
+        //           >
+        //             <FormattedMessage {...payrollMessages.cancel} />
+        //           </Button>
+        //         </Grid>
+        //       </Grid>
+        //     </Grid>
+        //   </Grid>
