@@ -340,7 +340,6 @@ function ImportEmployeeData(props) {
 
   const onExcelFileInputChange = (evt) => {
     const file = evt.target.files[0];
-debugger;
     setFormInfo((prev) => ({ ...prev, rows: [] }));
     setFileTitle(file.name.split('.')[0]);
 
@@ -414,6 +413,7 @@ debugger;
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={title} desc=''>
           <Grid container spacing={3}>
+
             <Grid item xs={12}>
               <FormControl>
                 <RadioGroup
@@ -436,7 +436,7 @@ debugger;
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={fieldsList}
                 value={getAutoCompleteValue(fieldsList, formInfo.fieldId)}
@@ -476,6 +476,7 @@ debugger;
                 )}
               />
             </Grid>
+
           </Grid>
 
           <Stack direction='row' spacing={2} mt={3}>

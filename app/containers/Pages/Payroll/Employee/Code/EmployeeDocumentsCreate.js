@@ -26,7 +26,7 @@ import printJS from "print-js";
 import { format } from "date-fns";
 import { ServerURL } from "../../api/ServerConfig";
 import SaveButton from "../../Component/SaveButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -303,7 +303,7 @@ function CreateAndEditEmployeeDocuments(props) {
   },[document,startDate])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -339,7 +339,7 @@ function CreateAndEditEmployeeDocuments(props) {
                 direction="row"
                 className={style.container}
               >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6} lg={5} xl={4}>
                   <Autocomplete
                     id="ddlMenu"
                     isOptionEqualToValue={(option, value) =>
@@ -401,7 +401,7 @@ function CreateAndEditEmployeeDocuments(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -436,7 +436,7 @@ function CreateAndEditEmployeeDocuments(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -471,7 +471,7 @@ function CreateAndEditEmployeeDocuments(props) {
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -577,7 +577,7 @@ function CreateAndEditEmployeeDocuments(props) {
 
               </Grid>}
 
-              <Grid item xs={12}>
+              <Grid item xs={12} lg={9} xl={6}>
                 <TextField
                   name="note"
                   id="note"
@@ -698,7 +698,7 @@ function CreateAndEditEmployeeDocuments(props) {
         validImageTypes={validImageTypes}
         validPDFTypes={validPDFTypes}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

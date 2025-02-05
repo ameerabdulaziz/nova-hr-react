@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { useSelector } from "react-redux";
 import GeneralListApis from "../../api/GeneralListApis";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, Card, CardContent } from "@mui/material";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
@@ -27,9 +27,9 @@ import EmployeeData from "../../Component/EmployeeData";
 function EmployeeContract2(props) {
 
   const location = useLocation();
-  
+
   // get employee data from url
-  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
+  const empid = DecryptUrl() ? DecryptUrl() : location.state ? location.state : { id: 0, name: "" }
   const { intl, pristine } = props;
 
 
@@ -58,21 +58,21 @@ function EmployeeContract2(props) {
   const [ResidenceNumberEndDate, setResidenceNumberEndDate] = useState(null);
   const locale = useSelector((state) => state.language.locale);
 
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    	// used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-        return;
-      }
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
     try {
       setIsLoading(true);
@@ -142,18 +142,18 @@ function EmployeeContract2(props) {
   const GetLookup = useCallback(async () => {
     try {
 
-        const guarantorData = await GeneralListApis(locale).GetGuarantorList();
-        setGuarantorList(guarantorData || []);
+      const guarantorData = await GeneralListApis(locale).GetGuarantorList();
+      setGuarantorList(guarantorData || []);
 
-        const HiringSourcedata = await GeneralListApis(
-          locale
-        ).GetHiringSourceList();
-        sethiringSourceList(HiringSourcedata || []);
+      const HiringSourcedata = await GeneralListApis(
+        locale
+      ).GetHiringSourceList();
+      sethiringSourceList(HiringSourcedata || []);
 
-        const ContractTypedata = await ContractTypeData(
-          locale
-        ).GetList();
-        setcontractTypeList(ContractTypedata || []);
+      const ContractTypedata = await ContractTypeData(
+        locale
+      ).GetList();
+      setcontractTypeList(ContractTypedata || []);
 
     } catch (err) {
     } finally {
@@ -167,70 +167,66 @@ function EmployeeContract2(props) {
 
 
   async function fetchData() {
-    try 
-    {
+    try {
 
       setIsLoading(true);
       const dataApi = await EmployeeContractKSAData(locale).GetList(employee.id);
 
-      if (Object.keys(dataApi).length > 0) 
-        {
+      if (Object.keys(dataApi).length > 0) {
 
-          setid(dataApi.id);
+        setid(dataApi.id);
 
-          sethiringSourceId(
-            dataApi.hiringSourceId && dataApi.hiringSourceName ?
+        sethiringSourceId(
+          dataApi.hiringSourceId && dataApi.hiringSourceName ?
             {
-            id: dataApi.hiringSourceId,
-            name: dataApi.hiringSourceName,
+              id: dataApi.hiringSourceId,
+              name: dataApi.hiringSourceName,
             }
             : ""
-            );
-          
-          setcontractTypeId(
-            dataApi.contractTypeId && dataApi.contractTypeName ?
+        );
+
+        setcontractTypeId(
+          dataApi.contractTypeId && dataApi.contractTypeName ?
             {
-            id: dataApi.contractTypeId,
-            name: dataApi.contractTypeName,
-            } 
-            : ""
-            );
-          setcontractStartDate(dataApi.contractStartDate ? dayjs(dataApi.contractStartDate) : null);
-          setcontractEndDate(dataApi.contractEndDate ? dayjs(dataApi.contractEndDate) : null);
-
-
-
-          setGuarantor(
-            dataApi.guarantorId && dataApi.guarantorName ?
-            {
-            id: dataApi.guarantorId,
-            name: dataApi.guarantorName,
+              id: dataApi.contractTypeId,
+              name: dataApi.contractTypeName,
             }
             : ""
-          )
-          setAccruedLeaveBalance( dataApi.vacBalance)
-          setStartDateOfWork(dataApi.startWorkingDate ? dayjs(dataApi.startWorkingDate) : null)
-          setBorderNumber(dataApi.borderNumber)
-          setBorderNumberStartDate(dataApi.borderIssuingDate ? dayjs(dataApi.borderIssuingDate) : null)
-          setBorderNumberEndDate(dataApi.borderExpiry ? dayjs(dataApi.borderExpiry) : null)
-          setResidenceNumber(dataApi.residencyNumber)
-          setResidenceNumberStartDate(dataApi.residencyIssuingDate ? dayjs(dataApi.residencyIssuingDate) : null)
-          setResidenceNumberEndDate(dataApi.residencyExpiry ? dayjs(dataApi.residencyExpiry) : null)
+        );
+        setcontractStartDate(dataApi.contractStartDate ? dayjs(dataApi.contractStartDate) : null);
+        setcontractEndDate(dataApi.contractEndDate ? dayjs(dataApi.contractEndDate) : null);
 
-        } 
-        else 
-        {
-          clear();
-        }
-    } catch (e) {
-      } finally {
-        setIsLoading(false);
+
+
+        setGuarantor(
+          dataApi.guarantorId && dataApi.guarantorName ?
+            {
+              id: dataApi.guarantorId,
+              name: dataApi.guarantorName,
+            }
+            : ""
+        )
+        setAccruedLeaveBalance(dataApi.vacBalance)
+        setStartDateOfWork(dataApi.startWorkingDate ? dayjs(dataApi.startWorkingDate) : null)
+        setBorderNumber(dataApi.borderNumber)
+        setBorderNumberStartDate(dataApi.borderIssuingDate ? dayjs(dataApi.borderIssuingDate) : null)
+        setBorderNumberEndDate(dataApi.borderExpiry ? dayjs(dataApi.borderExpiry) : null)
+        setResidenceNumber(dataApi.residencyNumber)
+        setResidenceNumberStartDate(dataApi.residencyIssuingDate ? dayjs(dataApi.residencyIssuingDate) : null)
+        setResidenceNumberEndDate(dataApi.residencyExpiry ? dayjs(dataApi.residencyExpiry) : null)
+
       }
+      else {
+        clear();
+      }
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   useEffect(() => {
-    if(employee && employee.id !== 0)
-    {
+    if (employee && employee.id !== 0) {
       fetchData();
     }
   }, [employee]);
@@ -241,18 +237,15 @@ function EmployeeContract2(props) {
 
     const startDate = new Date(date);
 
-    if(!contractTypeId)
-    {
-      startDate.setFullYear(startDate.getFullYear() + 1, startDate.getMonth() , startDate.getDate() - 1);
+    if (!contractTypeId) {
+      startDate.setFullYear(startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate() - 1);
 
       setcontractEndDate(startDate)
     }
 
-    if(contractTypeId)
-    {
-      if(contractTypeId.contractPeriod !== 0)
-      {
-        startDate.setMonth( startDate.getMonth() + contractTypeId.contractPeriod , startDate.getDate() - 1);
+    if (contractTypeId) {
+      if (contractTypeId.contractPeriod !== 0) {
+        startDate.setMonth(startDate.getMonth() + contractTypeId.contractPeriod, startDate.getDate() - 1);
         setcontractEndDate(startDate)
       }
     }
@@ -284,24 +277,30 @@ function EmployeeContract2(props) {
 
     return undefined;
   };
-  
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} mt={0} >
-            <Grid item xs={12}>
+
+            <Grid item xs={12} lg={10} xl={6}>
               <EmployeeData handleEmpChange={handleEmpChange} id={empid && empid.id !== 0 ? empid.id : null} />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} lg={10} xl={6}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+                  <Grid item xs={12} md={6} lg={5} xl={6}>
               <Autocomplete
                 id="ddlhiringSourceId"
                 options={hiringSourceList}
-                value={hiringSourceId.length !== 0 ?{
+                value={hiringSourceId.length !== 0 ? {
                   id: hiringSourceId.id,
                   name: hiringSourceId.name,
-                }: null}
+                } : null}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
                 }
@@ -322,36 +321,36 @@ function EmployeeContract2(props) {
                   />
                 )}
               />
-            </Grid>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={6} lg={5} xl={6}>
               <Autocomplete
                 id="guarantor"
                 required
                 options={guarantorList}
-                value={guarantor.length !== 0 ?{
+                value={guarantor.length !== 0 ? {
                   id: guarantor.id,
                   name: guarantor.name,
-                }: null}
+                } : null}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) =>(
-                  option  ? option.name : ""
-              )
-              }
-              renderOption={(props, option) => {
-                  return (
-                  <li {...props} key={option.id}>
-                      {option.name}
-                  </li>
-                  );
-              }}
-              onChange={(event, value) => {
-                if (value !== null) {
-                  setGuarantor(value);
-                } else {
-                  setGuarantor("");
+                getOptionLabel={(option) => (
+                  option ? option.name : ""
+                )
                 }
-              }}
+                renderOption={(props, option) => {
+                  return (
+                    <li {...props} key={option.id}>
+                      {option.name}
+                    </li>
+                  );
+                }}
+                onChange={(event, value) => {
+                  if (value !== null) {
+                    setGuarantor(value);
+                  } else {
+                    setGuarantor("");
+                  }
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -361,15 +360,15 @@ function EmployeeContract2(props) {
                   />
                 )}
               />
-            </Grid>
+                  </Grid>
 
-            <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={5} lg={4} xl={4}>
 
               <TextField
                 name='AccruedLeaveBalance'
                 type="number"
                 value={AccruedLeaveBalance}
-                onChange={(e)=>{
+                onChange={(e) => {
                   setAccruedLeaveBalance(e.target.value)
                 }}
                 label={intl.formatMessage(messages.AccruedLeaveBalance)}
@@ -377,39 +376,44 @@ function EmployeeContract2(props) {
                 variant='outlined'
                 autoComplete='off'
               />
+                  </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
+
+
             <Grid container item spacing={3} >
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={5} lg={4} xl={3}>
                 <Autocomplete
                   id="ddlcontractTypeId"
                   required
                   options={contractTypeList}
-                  value={contractTypeId?{
+                  value={contractTypeId ? {
                     id: contractTypeId.id,
                     ...(locale === "en" ? {
                       enName: contractTypeId.name
                     } : {
                       name: contractTypeId.name
                     })
-                  }: null}
+                  } : null}
                   isOptionEqualToValue={(option, value) =>
                     value.id === 0 || value.id === "" || option.id === value.id
                   }
                   getOptionLabel={(option) => (
                     option ? locale === "en" ? option.enName : option.name : ""
-                    )}
+                  )}
                   onChange={(event, value) => {
-                    if(value !== null)
-                    {
+                    if (value !== null) {
                       setcontractTypeId({
                         id: value.id,
-                        name: locale === "en" ?  value.enName  : value.name ,
-                        contractPeriod: value.contractPeriod ,
+                        name: locale === "en" ? value.enName : value.name,
+                        contractPeriod: value.contractPeriod,
                       });
                     }
-                    else
-                    {
+                    else {
                       setcontractTypeId(null)
                     }
 
@@ -427,9 +431,9 @@ function EmployeeContract2(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.contractStartDate)}
                     value={contractStartDate ? dayjs(contractStartDate) : contractStartDate}
                     className={classes.field}
@@ -438,20 +442,18 @@ function EmployeeContract2(props) {
                     onChange={(date) => {
                       contractStartDateFun(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`contractStartDate`]: true
-                          }))
+                          ...prevState,
+                          [`contractStartDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`contractStartDate`]: false
-                          }))
+                          ...prevState,
+                          [`contractStartDate`]: false
+                        }))
                       }
                     }}
                     slotProps={{
@@ -463,74 +465,70 @@ function EmployeeContract2(props) {
                 </LocalizationProvider>
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5} xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.contractEndDate)}
-                      value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
+                    value={contractEndDate ? dayjs(contractEndDate) : contractEndDate}
                     className={classes.field}
                     minDate={contractStartDate}
-                      onChange={(date) => {
-                        setcontractEndDate(date)
+                    onChange={(date) => {
+                      setcontractEndDate(date)
                     }}
                     disabled={!contractTypeId || contractTypeId && contractTypeId.contractPeriod !== 0 ? true : false}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`contractEndDate`]: true
-                          }))
+                          ...prevState,
+                          [`contractEndDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`contractEndDate`]: false
-                          }))
+                          ...prevState,
+                          [`contractEndDate`]: false
+                        }))
                       }
                     }}
-                    />
+                  />
                 </LocalizationProvider>
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5} xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.StartDateOfWork)}
-                      value={StartDateOfWork ? dayjs(StartDateOfWork) : StartDateOfWork}
+                    value={StartDateOfWork ? dayjs(StartDateOfWork) : StartDateOfWork}
                     className={classes.field}
-                      onChange={(date) => {
-                        setStartDateOfWork(date)
+                    onChange={(date) => {
+                      setStartDateOfWork(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`StartDateOfWork`]: true
-                          }))
+                          ...prevState,
+                          [`StartDateOfWork`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`StartDateOfWork`]: false
-                          }))
+                          ...prevState,
+                          [`StartDateOfWork`]: false
+                        }))
                       }
                     }}
-                    />
+                  />
                 </LocalizationProvider>
               </Grid>
             </Grid>
 
             <Grid container item spacing={3} >
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <TextField
                   name='BorderNumber'
                   type="number"
                   value={BorderNumber}
-                  onChange={(e)=>{
+                  onChange={(e) => {
                     setBorderNumber(e.target.value)
                   }}
                   label={intl.formatMessage(messages.BorderNumber)}
@@ -540,62 +538,58 @@ function EmployeeContract2(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.startDate)}
                     value={BorderNumberStartDate ? dayjs(BorderNumberStartDate) : BorderNumberStartDate}
                     className={classes.field}
                     onChange={(date) => {
                       setBorderNumberStartDate(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`BorderNumberStartDate`]: true
-                          }))
+                          ...prevState,
+                          [`BorderNumberStartDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`BorderNumberStartDate`]: false
-                          }))
+                          ...prevState,
+                          [`BorderNumberStartDate`]: false
+                        }))
                       }
                     }}
                   />
                 </LocalizationProvider>
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.endDate)}
-                      value={BorderNumberEndDate ? dayjs(BorderNumberEndDate) : BorderNumberEndDate}
+                    value={BorderNumberEndDate ? dayjs(BorderNumberEndDate) : BorderNumberEndDate}
                     className={classes.field}
                     minDate={contractStartDate}
-                      onChange={(date) => {
-                        setBorderNumberEndDate(date)
+                    onChange={(date) => {
+                      setBorderNumberEndDate(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`BorderNumberEndDate`]: true
-                          }))
+                          ...prevState,
+                          [`BorderNumberEndDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`BorderNumberEndDate`]: false
-                          }))
+                          ...prevState,
+                          [`BorderNumberEndDate`]: false
+                        }))
                       }
                     }}
-                    />
+                  />
                 </LocalizationProvider>
               </Grid>
 
@@ -603,79 +597,75 @@ function EmployeeContract2(props) {
 
 
             <Grid container item spacing={3} >
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <TextField
-                      name='ResidenceNumber'
-                      type="number"
-                      value={ResidenceNumber}
-                      onChange={(e)=>{
-                        setResidenceNumber(e.target.value)
-                      }}
-                      // label="address"
-                      // label="Residence number"
-                      label={intl.formatMessage(messages.ResidenceNumber)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
+                  name='ResidenceNumber'
+                  type="number"
+                  value={ResidenceNumber}
+                  onChange={(e) => {
+                    setResidenceNumber(e.target.value)
+                  }}
+                  // label="address"
+                  // label="Residence number"
+                  label={intl.formatMessage(messages.ResidenceNumber)}
+                  fullWidth
+                  variant='outlined'
+                  autoComplete='off'
+                />
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.startDate)}
                     value={ResidenceNumberStartDate ? dayjs(ResidenceNumberStartDate) : ResidenceNumberStartDate}
                     className={classes.field}
                     onChange={(date) => {
                       setResidenceNumberStartDate(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`ResidenceNumberStartDate`]: true
-                          }))
+                          ...prevState,
+                          [`ResidenceNumberStartDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`ResidenceNumberStartDate`]: false
-                          }))
+                          ...prevState,
+                          [`ResidenceNumberStartDate`]: false
+                        }))
                       }
                     }}
                   />
                 </LocalizationProvider>
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3} lg={2.5}  xl={2}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
+                  <DatePicker
                     label={intl.formatMessage(messages.endDate)}
-                      value={ResidenceNumberEndDate ? dayjs(ResidenceNumberEndDate) : ResidenceNumberEndDate}
+                    value={ResidenceNumberEndDate ? dayjs(ResidenceNumberEndDate) : ResidenceNumberEndDate}
                     className={classes.field}
                     minDate={contractStartDate}
-                      onChange={(date) => {
-                        setResidenceNumberEndDate(date)
+                    onChange={(date) => {
+                      setResidenceNumberEndDate(date)
                     }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
+                    onError={(error, value) => {
+                      if (error !== null) {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`ResidenceNumberEndDate`]: true
-                          }))
+                          ...prevState,
+                          [`ResidenceNumberEndDate`]: true
+                        }))
                       }
-                      else
-                      {
+                      else {
                         setDateError((prevState) => ({
-                            ...prevState,
-                              [`ResidenceNumberEndDate`]: false
-                          }))
+                          ...prevState,
+                          [`ResidenceNumberEndDate`]: false
+                        }))
                       }
                     }}
-                    />
+                  />
                 </LocalizationProvider>
               </Grid>
             </Grid>

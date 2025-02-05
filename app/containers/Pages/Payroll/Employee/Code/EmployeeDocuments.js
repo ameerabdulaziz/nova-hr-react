@@ -17,7 +17,7 @@ import notif from "enl-api/ui/notifMessage";
 import EditButton from "../../Component/EditButton";
 import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { useLocation } from "react-router-dom";
 import Payrollmessages from "../../messages";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
@@ -227,10 +227,10 @@ function EmployeeDocuments({ intl }) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container justifyContent='end' mt={0}>
-            <Grid item>
+            <Grid item xs={12}  >
               <EmployeeNavigation
                 employeeId={employee.id}
                 employeeName={employee.name}
@@ -243,9 +243,15 @@ function EmployeeDocuments({ intl }) {
                 }
               />
             </Grid>
+
           </Grid>
 
-          <EmployeeData  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeData>
+          <Grid container spacing={2}>
+            <Grid item xs={12} lg={10} xl={8}>
+              <EmployeeData  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeData>          
+            </Grid>
+          </Grid>
+
       </PapperBlock>
 
       <SimplifiedPayrollTable
@@ -255,7 +261,7 @@ function EmployeeDocuments({ intl }) {
         actions={actions}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
