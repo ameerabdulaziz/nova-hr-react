@@ -372,7 +372,7 @@ function ExamplePage(props) {
       url: "/Recruitment/ExamplePageEdit",
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 

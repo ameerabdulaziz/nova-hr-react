@@ -405,7 +405,7 @@ function ShiftOrgnization(props) {
 
   const actions = {
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 

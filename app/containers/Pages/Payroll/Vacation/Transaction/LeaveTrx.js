@@ -256,7 +256,7 @@ function LeaveTrxList(props) {
       disabled: isHR ? false : (row) => row.status !== null,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
       // disabled delete action is not HR and status is null
       disabled: isHR ? false : (row) => row.status !== null,
     },

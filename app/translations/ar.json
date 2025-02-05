@@ -379,6 +379,8 @@
   "boilerplate.components.tables.codes.isleadership": "وظيفة قيادية",
   "boilerplate.components.tables.codes.isManager": "مدير",
   "boilerplate.components.tables.codes.isPercentage": "هل نسبة مئوية",
+  "boilerplate.components.tables.codes.CreatInsuranceCalculationTemplate": " اضافه نموذج حساب التأمينات",
+  "boilerplate.components.tables.codes.EditInsuranceCalculationTemplate": "تعديل نموذج حساب التأمينات",
   "boilerplate.components.tables.codes.job": "الوظيفة",
   "boilerplate.components.tables.codes.jobcode": "كود الوظيفة",
   "boilerplate.components.tables.codes.jobCode": "كود الوظيفة",

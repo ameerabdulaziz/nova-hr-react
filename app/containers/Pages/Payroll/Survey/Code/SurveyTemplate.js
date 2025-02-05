@@ -163,7 +163,7 @@ function SurveyTemplate(props) {
       url: SITEMAP.survey.SurveyTemplateEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
     extraActions: (row) => (
       <Tooltip

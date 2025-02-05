@@ -124,7 +124,7 @@ function SwapShiftTrx(props) {
       url: SITEMAP.attendance.SwapShiftTrxCreate.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 

@@ -22,6 +22,13 @@ const SinsuranceCalculationTemplateData = () => {
     return finalData;
   };
 
+  api.GetDataById = async (id) => {
+    
+    const data = await axiosInstance.get(`SinsuranceCalculationTemplate/${id}`);
+    return data.data;
+
+  };
+
   api.Save = async (Item) => {
     const data = {
       id: Item.id,

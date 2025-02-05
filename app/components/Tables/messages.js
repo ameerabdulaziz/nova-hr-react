@@ -399,6 +399,14 @@ export default defineMessages({
     id: `${scope}.codes.isPercentage`,
     defaultMessage: 'isPercentage',
   },
+  CreatInsuranceCalculationTemplate: {
+    id: `${scope}.codes.CreatInsuranceCalculationTemplate`,
+    defaultMessage: 'Creat Insurance Calculation Template',
+  },
+  EditInsuranceCalculationTemplate: {
+    id: `${scope}.codes.EditInsuranceCalculationTemplate`,
+    defaultMessage: 'Edit Insurance Calculation Template',
+  },
   isHR: {
     id: `${scope}.codes.isHR`,
     defaultMessage: 'isHR',

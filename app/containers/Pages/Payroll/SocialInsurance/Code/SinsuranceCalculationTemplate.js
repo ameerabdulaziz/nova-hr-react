@@ -1,129 +1,136 @@
-/* eslint-disable no-unused-vars */
-import { PapperBlock } from 'enl-components';
-import React from 'react';
+import notif from 'enl-api/ui/notifMessage';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
-import { makeStyles } from 'tss-react/mui';
-import { EditTable } from '../../../../Tables/demos';
-import SinsuranceCalculationTemplateData from '../api/SinsuranceCalculationTemplateData';
+import { useSelector } from 'react-redux';
+import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
+import api from '../api/SinsuranceCalculationTemplateData';
+import payrollMessages from '../../messages';
+import messages from '../../../../../components/Tables/messages';
+import SITEMAP from '../../../../App/routes/sitemap';
+import { getCheckboxIcon } from "../../helpers";
 
-const useStyles = makeStyles()(() => ({
-  root: {
-    flexGrow: 1,
-  },
-}));
 
-function SinsuranceCalculationTemplate() {
-  const title = localStorage.getItem('MenuName');
-  const { classes } = useStyles();
+function SinsuranceCalculationTemplate(props) {
 
-  const anchorTable = [
+  const { intl } = props;
+  const locale = useSelector((state) => state.language.locale);
+  const Title = localStorage.getItem('MenuName');
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [tableData, setTableData] = useState([]);
+
+
+
+
+
+  const fetchTableData = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await api(locale).GetList();
+      setTableData(response);
+    } catch (error) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteRow = async (id) => {    
+    setIsLoading(true);
+
+    try {
+      await api(locale).Delete({id:id});
+
+      toast.success(notif.saved);
+
+      fetchTableData();
+    } catch (err) {
+      //
+      console.log("dcdcc =",err);
+      
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTableData();
+  }, []);
+
+  const columns = [
     {
       name: 'id',
-      label: 'code',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
+      label: intl.formatMessage(payrollMessages.id),
+      // options: {
+      //   filter: false,
+      //   display: false,
+      //   print: false,
+      // },
     },
     {
       name: 'name',
-      label: 'name',
-      type: 'text',
-      width: 'auto',
-      initialValue: '',
-      hidden: false,
+      label: intl.formatMessage(payrollMessages.arName),
     },
+
     {
       name: 'EnName',
-      label: 'enname',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(payrollMessages.enName),
     },
+
     {
       name: 'salaryLimit',
-      label: 'salaryLimit',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(messages.salaryLimit),
     },
+
     {
       name: 'companyShare',
-      label: 'companyShare',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(messages.companyShare),
     },
     {
       name: 'employeeShare',
-      label: 'employeeShare',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
-    },
-    {
-      name: 'fromAge',
-      label: 'fromAge',
-      type: 'text',
-      initialValue: '0',
-      width: 'auto',
-      hidden: true,
-    },
-    {
-      name: 'toAge',
-      label: 'toAge',
-      type: 'text',
-      initialValue: '0',
-      width: 'auto',
-      hidden: true,
+      label: intl.formatMessage(messages.employeeShare),
     },
     {
       name: 'newSalaryLimit',
-      label: 'newSalaryLimit',
-      type: 'text',
-      initialValue: '',
-      width: 'auto',
-      hidden: false,
+      label: intl.formatMessage(messages.newSalaryLimit),
     },
     {
       name: 'isPercentage',
-      label: 'isPercentage',
-      type: 'toggle',
-      initialValue: false,
-      width: 'auto',
-      hidden: false,
-    },
-    {
-      name: 'edited',
-      label: '',
-      type: 'static',
-      initialValue: '',
-      hidden: true,
-    },
-    {
-      name: 'action',
-      label: 'action',
-      type: 'static',
-      initialValue: '',
-      hidden: false,
+      label: intl.formatMessage(messages.isPercentage),
+      options: {
+        customBodyRender: (value) => getCheckboxIcon(value),
+      },
     },
   ];
 
+  const actions = {
+    add: {
+      url: SITEMAP.socialInsurance.SinsuranceCalculationTemplateCreate.route,
+    },
+    edit: {
+      url: SITEMAP.socialInsurance.SinsuranceCalculationTemplateEdit.route,
+    },
+    delete: {
+      callback: deleteRow,
+    },
+  };
+
+console.log("tableData =", tableData);
+
+
+
+
   return (
-    <>
-      <PapperBlock whiteBg icon="border_color" title={title} desc="">
-        <div className={classes.root}>
-          <EditTable
-            anchorTable={anchorTable}
-            title={title}
-            API={SinsuranceCalculationTemplateData()}
-          />
-        </div>
-      </PapperBlock>
-    </>
+      <SimplifiedPayrollTable
+          isLoading={isLoading}
+          showLoader
+          title={Title}
+          data={tableData}
+          columns={columns}
+          actions={actions}
+        />
   );
 }
 

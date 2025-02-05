@@ -379,6 +379,8 @@
   "boilerplate.components.tables.codes.isleadership": "Leadership",
   "boilerplate.components.tables.codes.isManager": "Is Manager",
   "boilerplate.components.tables.codes.isPercentage": "Is Percentage",
+  "boilerplate.components.tables.codes.CreatInsuranceCalculationTemplate": "Creat Insurance Calculation Template",
+  "boilerplate.components.tables.codes.EditInsuranceCalculationTemplate": "Edit Insurance Calculation Template",
   "boilerplate.components.tables.codes.job": "Job",
   "boilerplate.components.tables.codes.jobcode": "Code",
   "boilerplate.components.tables.codes.jobCode": "Jop Code",

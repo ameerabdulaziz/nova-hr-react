@@ -149,7 +149,7 @@ function EmployeeDocuments({ intl }) {
       url: SITEMAP.employee.EmployeeDocumentsEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 

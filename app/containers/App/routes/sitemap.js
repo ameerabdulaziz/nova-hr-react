@@ -640,6 +640,12 @@ const SITEMAP = {
     SinsuranceCalculationTemplate: {
       route: '/insurance/SinsuranceCalculationTemplate',
     },
+    SinsuranceCalculationTemplateCreate: {
+      route: '/insurance/SinsuranceCalculationTemplateCreate',
+    },
+    SinsuranceCalculationTemplateEdit: {
+      route: '/insurance/SinsuranceCalculationTemplateEdit',
+    },
     SInsuranceOrgnization: {
       route: '/insurance/SInsuranceOrgnization',
     },

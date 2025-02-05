@@ -135,7 +135,7 @@ function GovernmentSickLeave(props) {
       url: SITEMAP.vacation.GovernmentSickLeaveEdit.route,
     },
     delete: {
-      api: deleteRow,
+      callback: deleteRow,
     },
   };
 

@@ -25,6 +25,24 @@ const SinsuranceCalculationTemplate = loadable(
   }
 );
 
+const SinsuranceCalculationTemplateCreate = loadable(
+  () => import(
+    '../../../Pages/Payroll/SocialInsurance/Code/SinsuranceCalculationTemplateCreate'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const SinsuranceCalculationTemplateEdit = loadable(
+  () => import(
+    '../../../Pages/Payroll/SocialInsurance/Code/SinsuranceCalculationTemplateCreate'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const SInsuranceOrgnization = loadable(
   () => import('../../../Pages/Payroll/SocialInsurance/Code/SInsuranceOrgnization'),
   {
@@ -166,6 +184,8 @@ const socialInsurance = {
   InsuranceOffices,
   SInsuranceJob,
   SinsuranceCalculationTemplate,
+  SinsuranceCalculationTemplateCreate,
+  SinsuranceCalculationTemplateEdit,
   SInsuranceOrgnization,
   SInsuranceOrgnizationCreate,
   StopInsurance,

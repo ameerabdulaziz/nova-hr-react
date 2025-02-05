@@ -1990,6 +1990,16 @@ function Application(props) {
         />
 
         <Route
+          path={SITEMAP.socialInsurance.SinsuranceCalculationTemplateCreate.route}
+          component={PAGES.socialInsurance.SinsuranceCalculationTemplateCreate}
+        />
+
+        <Route
+          path={SITEMAP.socialInsurance.SinsuranceCalculationTemplateEdit.route}
+          component={PAGES.socialInsurance.SinsuranceCalculationTemplateEdit}
+        />
+
+        <Route
           path={SITEMAP.socialInsurance.SInsuranceOrgnization.route}
           component={PAGES.socialInsurance.SInsuranceOrgnization}
         />
