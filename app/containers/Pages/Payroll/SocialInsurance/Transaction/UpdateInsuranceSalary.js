@@ -17,7 +17,7 @@ import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import AlertPopup from '../../Component/AlertPopup';
 import NameList from '../../Component/NameList';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import api from '../api/UpdateInsuranceSalaryData';
@@ -93,7 +93,7 @@ function UpdateInsuranceSalary(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
 
       <AlertPopup
         handleClose={handleClose}
@@ -105,7 +105,7 @@ function UpdateInsuranceSalary(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={8} md={5} lg={4}>
               <RadioGroup
                 value={updateBy}
                 onChange={(evt) => setUpdateBy(evt.target.value)}
@@ -128,6 +128,7 @@ function UpdateInsuranceSalary(props) {
               <Card className={classes.card}>
                 <CardContent>
                   <TextField
+                  sx={{width:"80%"}}
                     name='NewMainSal'
                     value={formInfo.NewMainSal}
                     onChange={onNumericInputChange}
@@ -161,7 +162,7 @@ function UpdateInsuranceSalary(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={7} lg={8}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -186,7 +187,7 @@ function UpdateInsuranceSalary(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

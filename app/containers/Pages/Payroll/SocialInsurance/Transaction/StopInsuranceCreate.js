@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate } from '../../helpers';
@@ -116,7 +116,7 @@ function StopInsuranceCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -129,7 +129,8 @@ function StopInsuranceCreate(props) {
       >
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={3}>
+
+            <Grid item xs={12} md={6} lg={6} xl={4.5}>
               {id === 0 ? (
                 <Autocomplete
                   options={employeeList}
@@ -168,7 +169,7 @@ function StopInsuranceCreate(props) {
               )}
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2.5} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
@@ -192,9 +193,9 @@ function StopInsuranceCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item md={12}>
-              <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={6}>
+            <Grid item xs={12}></Grid>
+
+            <Grid item xs={12} lg={6}>
                   <TextField
                     name='insReason'
                     value={formInfo.insReason}
@@ -207,13 +208,9 @@ function StopInsuranceCreate(props) {
                     rows={1}
                     autoComplete='off'
                   />
-                </Grid>
-              </Grid>
             </Grid>
 
-            <Grid item md={12}>
-              <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={6}>
+            <Grid item xs={12} lg={6}>
                   <TextField
                     name='notes'
                     value={formInfo.notes}
@@ -226,13 +223,9 @@ function StopInsuranceCreate(props) {
                     variant='outlined'
                     autoComplete='off'
                   />
-                </Grid>
-              </Grid>
             </Grid>
 
-            <Grid item md={12}>
-              <Grid container spacing={3} direction='row'>
-                <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={5}  lg={3} xl={2}>
                   <TextField
                     name='c6inNo'
                     value={formInfo.c6inNo}
@@ -242,9 +235,9 @@ function StopInsuranceCreate(props) {
                     variant='outlined'
                     autoComplete='off'
                   />
-                </Grid>
+              </Grid>
 
-                <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={5} lg={3} xl={2}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.c6DeliverDate)}
@@ -261,17 +254,16 @@ function StopInsuranceCreate(props) {
                       }}
                     />
                   </LocalizationProvider>
-                </Grid>
-              </Grid>
-            </Grid>
+               </Grid>
 
-            <Grid item xs={12}>
+
+            <Grid item xs={12} >
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <Button
                     variant='contained'
                     size='medium'
@@ -283,10 +275,11 @@ function StopInsuranceCreate(props) {
                 </Grid>
               </Grid>
             </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

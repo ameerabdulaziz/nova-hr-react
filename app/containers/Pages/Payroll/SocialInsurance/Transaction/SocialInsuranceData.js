@@ -19,7 +19,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
 import payrollMessages from '../../messages';
@@ -266,18 +266,18 @@ function SocialInsuranceData(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.employeeId}
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} xl={12}>
               <Card className={classes.card} sx={{ mt: '0!important' }}>
                 <CardContent>
                   <FormControlLabel
@@ -297,7 +297,7 @@ function SocialInsuranceData(props) {
                     alignItems='flex-start'
                     direction='row'
                   >
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <Autocomplete
                         options={calculationTemplateList}
                         value={
@@ -327,7 +327,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <TextField
                         name='socialInsuranceId'
                         value={insuredState.socialInsuranceId}
@@ -341,7 +341,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.insuranceDate)}
@@ -380,7 +380,7 @@ function SocialInsuranceData(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={3}>
                       <Autocomplete
                         options={insuranceOfficeList}
                         disabled={!isInsured}
@@ -408,7 +408,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={3}>
                       <Autocomplete
                         options={insuranceJobList}
                         disabled={!isInsured}
@@ -435,7 +435,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <TextField
                         name='mainSalary'
                         value={insuredState.mainSalary}
@@ -449,7 +449,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={3}>
                       <Autocomplete
                         options={branchInsuranceList}
                         disabled={!isInsured}
@@ -477,7 +477,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <TextField
                         name='insGrossSalary'
                         value={insuredState.insGrossSalary}
@@ -491,7 +491,7 @@ function SocialInsuranceData(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={3}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <TextField
                         name='mainSalaryNew'
                         value={insuredState.mainSalaryNew}
@@ -508,7 +508,7 @@ function SocialInsuranceData(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} xl={12}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
                   <Card className={classes.card} sx={{ mt: '0!important' }}>
@@ -520,7 +520,7 @@ function SocialInsuranceData(props) {
                         alignItems='flex-start'
                         direction='row'
                       >
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12}  lg={6} xl={5} >
                           <TextField
                             name='c1inNo'
                             value={formInfo.c1inNo}
@@ -534,7 +534,7 @@ function SocialInsuranceData(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} lg={6} xl={4}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label={intl.formatMessage(messages.c1DeliverDate)}
@@ -574,7 +574,7 @@ function SocialInsuranceData(props) {
                         alignItems='flex-start'
                         direction='row'
                       >
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} lg={6} xl={5}>
                           <TextField
                             name='c6inNo'
                             value={formInfo.c6inNo}
@@ -588,7 +588,7 @@ function SocialInsuranceData(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} lg={6} xl={4}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label={intl.formatMessage(messages.c6DeliverDate)}
@@ -634,7 +634,7 @@ function SocialInsuranceData(props) {
                         alignItems='flex-start'
                         direction='row'
                       >
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} lg={6} xl={4}>
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
                               label={intl.formatMessage(
@@ -669,7 +669,7 @@ function SocialInsuranceData(props) {
                           </LocalizationProvider>
                         </Grid>
 
-                        <Grid item xs={12} md={6}>
+                        <Grid item xs={12} lg={6} xl={4}>
                           <TextField
                             name='ka3bNo'
                             value={formInfo.ka3bNo}
@@ -689,7 +689,7 @@ function SocialInsuranceData(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} xl={12}>
               <TextField
                 name='insNotes'
                 value={formInfo.insNotes}
@@ -713,7 +713,7 @@ function SocialInsuranceData(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
