@@ -15,7 +15,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import EmployeeSalaryData from "../api/EmployeeSalaryData";
 
 import Payrollmessages from "../../messages";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { PapperBlock } from "enl-components";
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
@@ -178,7 +178,7 @@ function EmployeeSalary(props) {
   }, [employee]);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid
@@ -190,7 +190,7 @@ function EmployeeSalary(props) {
         >
           <Grid item xs={12} md={8}>
             <Grid container spacing={2} mb={2}>
-              <Grid item xs={12} md={12} >
+              <Grid item xs={12}  lg={6} xl={5} >
                 <Autocomplete
                   id="ddlEmp"
                   options={employeeList}
@@ -217,7 +217,7 @@ function EmployeeSalary(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={12} >
+              <Grid item xs={6}  lg={4.5} xl={3.4} >
                 <Autocomplete
                   id="ddlsalaryStructureId"
                   options={salaryStructurelist}
@@ -293,7 +293,7 @@ function EmployeeSalary(props) {
               </div>
 
               <Grid container spacing={2} alignItems='center' >
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12} md={10} lg={8} xl={6} >
                   <FormControlLabel
                     control={
                       <Switch
@@ -309,7 +309,7 @@ function EmployeeSalary(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} >
+                <Grid item xs={6} md={4} lg={3} xl={2} >
                   <TextField
                     id="hourPricetxt"
                     name="hourPricetxt"
@@ -386,7 +386,7 @@ function EmployeeSalary(props) {
               </div>
 
               <Grid container spacing={2} mb={2} alignItems='center' >
-                <Grid item xs={12} md={8} >
+                <Grid item xs={12}  lg={7} xl={6}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -400,7 +400,7 @@ function EmployeeSalary(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} >
+                <Grid item xs={12}  lg={4.5} xl={3.5}>
                   <Autocomplete
                     id="ddlincentiveFrom"
                     options={incentiveFromlist}
@@ -460,7 +460,7 @@ function EmployeeSalary(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 export default injectIntl(EmployeeSalary);

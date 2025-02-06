@@ -19,7 +19,7 @@ import React, { useState, useEffect } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import useStyles from '../../Style';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import hrMessages from '../../HumanResources/messages';
@@ -480,25 +480,34 @@ function EmployeeStatusReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
+
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={10} lg={9} xl={7.5}>
           <Search
             setsearchData={setFormInfo}
             searchData={formInfo}
             requireEmployee
             setIsLoading={setIsLoading}
             company={formInfo.BranchId}
-          />
+          />              
+            </Grid>
 
+            <Grid item md={2}>
           <Button
             variant='contained'
             color='primary'
-            sx={{ mt: 3 }}
             type='submit'
           >
             {intl.formatMessage(payrollMessages.search)}
-          </Button>
+          </Button>              
+            </Grid>
+          </Grid>
+
+
+
         </form>
       </PapperBlock>
 
@@ -579,7 +588,7 @@ function EmployeeStatusReport(props) {
         data={employeeInfo.employeeDocuments}
         columns={employeeDocumentsColumns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -196,8 +196,8 @@ const empid  = DecryptUrl()
           direction="row"
           //justifyContent="center"
         >
-          <Grid container justifyContent='end' mt={0}>
-            <Grid item>
+          <Grid container mt={2} ml={1}>
+            <Grid item >
               <EmployeeNavigation
                 employeeId={employee.id}
                 employeeName={employee.name}
@@ -211,7 +211,7 @@ const empid  = DecryptUrl()
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={10} lg={9} xl={7}>
             <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
         </Grid>
         </Grid>

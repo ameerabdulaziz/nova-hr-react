@@ -16,7 +16,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import GeneralListApis from '../../api/GeneralListApis';
 import { formateDate, getAutoCompleteValue } from '../../helpers';
@@ -307,10 +307,10 @@ function NewEmployeeReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -348,7 +348,7 @@ function NewEmployeeReport(props) {
                 )}
               />
             </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6} lg={4} xl={3}>
             <Autocomplete
               options={departmentList}
               onChange={(_, value) => {
@@ -380,7 +380,7 @@ function NewEmployeeReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={6} md={3} lg={2} xl={1.5}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.fromDate)}
@@ -397,7 +397,7 @@ function NewEmployeeReport(props) {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={6} md={3} lg={2} xl={1.5}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(messages.toDate)}
@@ -414,7 +414,7 @@ function NewEmployeeReport(props) {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item md={3}>
+          <Grid item md={6} lg={4} xl={3}>
             <FormControlLabel
               control={<Checkbox />}
               onChange={(evt) => setFormInfo((prev) => ({
@@ -427,7 +427,7 @@ function NewEmployeeReport(props) {
             />
           </Grid>
 
-          <Grid item md={3}>
+          <Grid item xs={12}>
             <Button
               variant='contained'
               color='primary'
@@ -440,7 +440,7 @@ function NewEmployeeReport(props) {
       </PapperBlock>
 
       <SimplifiedPayrollTable title='' data={tableData} columns={columns} />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

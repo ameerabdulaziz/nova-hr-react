@@ -24,7 +24,7 @@ import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckIcon from "@mui/icons-material/Check";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 import { toast } from "react-hot-toast";
@@ -281,10 +281,10 @@ if(data.length !== 0)
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12}  lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -294,7 +294,7 @@ if(data.length !== 0)
             ></Search>
           </Grid>
 
-          <Grid item xs={12}  md={4}> 
+          <Grid item xs={12}  md={6} lg={5} xl={4}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -334,7 +334,9 @@ if(data.length !== 0)
               
                   </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+               <Grid item sm={12}  md={6} lg={7} xl={1}></Grid>
+
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -348,7 +350,7 @@ if(data.length !== 0)
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -362,7 +364,7 @@ if(data.length !== 0)
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -376,7 +378,7 @@ if(data.length !== 0)
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -391,7 +393,7 @@ if(data.length !== 0)
                     </Grid>
 
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -411,7 +413,7 @@ if(data.length !== 0)
         filterHighlights={filterHighlights}
         columns={columns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -272,7 +272,15 @@ function EmployeeAddress(props) {
       />
 
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
-        <Grid container justifyContent='end' mt={0}>
+          <Grid
+            container
+            spacing={1}
+            alignItems="flex-start"
+            direction="row"
+            //justifyContent="center"
+          >
+
+        <Grid container mt={2} ml={1}>
           <Grid item>
             <EmployeeNavigation
               employeeId={employee.id}
@@ -288,8 +296,13 @@ function EmployeeAddress(props) {
           </Grid>
         </Grid>
 
-          <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
-        
+        <Grid item xs={12} md={10} lg={9} xl={7}>
+          <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>            
+        </Grid>
+
+        </Grid>
+
+      
       </PapperBlock>
 
       <SimplifiedPayrollTable

@@ -13,7 +13,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
@@ -266,11 +266,11 @@ function followStaffContracts(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={10} lg={9} xl={7.5}>
             <Search
                setsearchData={setSearchData}
                searchData={searchData}
@@ -303,7 +303,7 @@ function followStaffContracts(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

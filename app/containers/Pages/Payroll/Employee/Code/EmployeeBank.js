@@ -1,6 +1,6 @@
-import { BorderColor, Delete } from '@mui/icons-material';
-import Add from '@mui/icons-material/Add';
-import PeopleIcon from '@mui/icons-material/People';
+import { BorderColor, Delete } from "@mui/icons-material";
+import Add from "@mui/icons-material/Add";
+import PeopleIcon from "@mui/icons-material/People";
 import {
   Autocomplete,
   Box,
@@ -12,55 +12,55 @@ import {
   TextField,
   Typography,
   Switch,
-} from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import Drawer from '@mui/material/Drawer';
-import Fab from '@mui/material/Fab';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Tooltip from '@mui/material/Tooltip';
-import brand from 'enl-api/dummy/brand';
-import avatarApi from 'enl-api/images/avatars';
-import notif from 'enl-api/ui/notifMessage';
-import css from 'enl-styles/Form.scss';
+} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Drawer from "@mui/material/Drawer";
+import Fab from "@mui/material/Fab";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Tooltip from "@mui/material/Tooltip";
+import brand from "enl-api/dummy/brand";
+import avatarApi from "enl-api/images/avatars";
+import notif from "enl-api/ui/notifMessage";
+import css from "enl-styles/Form.scss";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
-import { useSelector } from 'react-redux';
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { injectIntl } from "react-intl";
+import { useSelector } from "react-redux";
 
-import PayRollLoader from '../../Component/PayRollLoader';
-import GeneralListApis from '../../api/GeneralListApis';
-import payrollMessages from '../../messages';
-import api from '../api/EmployeeBankData';
-import useStyles from '../component/BankList/EmpBank-jss';
-import TemplatePopup from '../component/BankList/TemplatePopup';
-import messages from '../messages';
-import { uuid } from '../../helpers';
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
+import GeneralListApis from "../../api/GeneralListApis";
+import payrollMessages from "../../messages";
+import api from "../api/EmployeeBankData";
+import useStyles from "../component/BankList/EmpBank-jss";
+import TemplatePopup from "../component/BankList/TemplatePopup";
+import messages from "../messages";
+import { uuid } from "../../helpers";
 import DecryptUrl from "../../Component/DecryptUrl";
-import { PapperBlock } from 'enl-components';
-import { useLocation } from 'react-router-dom';
-import { DOMAIN_NAME } from '../../../../App/routes/sitemap';
+import { PapperBlock } from "enl-components";
+import { useLocation } from "react-router-dom";
+import { DOMAIN_NAME } from "../../../../App/routes/sitemap";
 
 const INIT_FORM_INFO = {
   id: 0,
-  name: '',
+  name: "",
   bankId: null,
-  bnkAcc: '',
-  bankBranchNo: '',
-  iban: '',
-  bnkEmpCode: '',
-  swiftCode: '',
+  bnkAcc: "",
+  bankBranchNo: "",
+  iban: "",
+  bnkEmpCode: "",
+  swiftCode: "",
   empEmpBankElement: [],
   isBnkTransfer: false,
 };
@@ -69,11 +69,14 @@ function EmployeeBank(props) {
   const location = useLocation();
 
   // get employee data from url
-  const empid  = DecryptUrl() ?   DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
+  const empid = DecryptUrl()
+    ? DecryptUrl()
+    : location.state
+    ? location.state
+    : { id: 0, name: "" };
   const { intl } = props;
 
-
-  const title = localStorage.getItem('MenuName');
+  const title = localStorage.getItem("MenuName");
   const description = brand.desc;
   const { classes, cx } = useStyles();
 
@@ -81,10 +84,7 @@ function EmployeeBank(props) {
 
   const [formInfo, setFormInfo] = useState(INIT_FORM_INFO);
 
- 
-  const [selectedEmployee, setSelectedEmployee] = useState(
-    empid?.id ?? 0
-  );
+  const [selectedEmployee, setSelectedEmployee] = useState(empid?.id ?? 0);
   const [selectedBank, setSelectedBank] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -149,7 +149,8 @@ function EmployeeBank(props) {
     }
   }, [selectedEmployee]);
 
-  const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
+  const getAutoCompleteValue = (list, key) =>
+    list.find((item) => item.id === key) ?? null;
 
   useEffect(() => {
     if (selectedBank !== -1) {
@@ -160,13 +161,13 @@ function EmployeeBank(props) {
       if (selectedBankInfo) {
         const bank = {
           id: selectedBankInfo.id ?? 0,
-          name: selectedBankInfo.name ?? '',
-          bankId: selectedBankInfo.bankId ?? '',
-          bnkAcc: selectedBankInfo.bnkAcc ?? '',
-          bankBranchNo: selectedBankInfo.bankBranchNo ?? '',
-          iban: selectedBankInfo.iban ?? '',
-          bnkEmpCode: selectedBankInfo.bnkEmpCode ?? '',
-          swiftCode: selectedBankInfo.swiftCode ?? '',
+          name: selectedBankInfo.name ?? "",
+          bankId: selectedBankInfo.bankId ?? "",
+          bnkAcc: selectedBankInfo.bnkAcc ?? "",
+          bankBranchNo: selectedBankInfo.bankBranchNo ?? "",
+          iban: selectedBankInfo.iban ?? "",
+          bnkEmpCode: selectedBankInfo.bnkEmpCode ?? "",
+          swiftCode: selectedBankInfo.swiftCode ?? "",
           empEmpBankElement: selectedBankInfo.empEmpBankElement ?? [],
           isBnkTransfer: selectedBankInfo?.isBnkTransfer ?? false,
         };
@@ -303,7 +304,7 @@ function EmployeeBank(props) {
       return currency.name;
     }
 
-    return '';
+    return "";
   };
 
   const getPayTemplateName = (id) => {
@@ -313,11 +314,11 @@ function EmployeeBank(props) {
       return template.name;
     }
 
-    return '';
+    return "";
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <TemplatePopup
         isOpen={isPopupOpen}
         setIsOpen={setIsPopupOpen}
@@ -327,352 +328,396 @@ function EmployeeBank(props) {
         currencyList={currencyList}
         payTemplateList={payTemplateList}
       />
-<PapperBlock whiteBg icon='border_color' title={title} desc=''>
-      <form onSubmit={onFormSubmit}>
-        <div className={cx(classes.root, classes.padding)}>
-        <Grid container >
-        <Grid item xs={1} sm={4}>
-          <Drawer
-            variant='permanent'
-            anchor='left'
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            PaperProps={{
-              sx: {
-                width: "100% !important",
-              }
-            }}
-          >
-            <div>
-              <div className={cx(classes.toolbar, classes.clippedRight)}>
-                <div className={classes.searchWrapper}>
-                  <Autocomplete
-                    options={employeeList}
-                    value={getAutoCompleteValue(employeeList, selectedEmployee)}
-                    isOptionEqualToValue={(option, value) => option.id === value.id
-                    }
-                    getOptionLabel={(option) => (option ? option.name : '')}
-                    renderOption={(propsOption, option) => (
-                      <li {...propsOption} key={option.id}>
-                        {option.name}
-                      </li>
-                    )}
-                    onChange={(event, value) => {
-                      setSelectedEmployee(value !== null ? value.id : null);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        required
-                        label={intl.formatMessage(messages.selectEmployee)}
-                      />
-                    )}
-                  />
-                </div>
-              </div>
+      <PapperBlock whiteBg icon="border_color" title={title} desc="">
+        <form onSubmit={onFormSubmit}>
+          <div className={cx(classes.root, classes.padding)}>
+            <Grid container>
+              <Grid item xs={6} xl={4}>
+                <Drawer
+                  variant="permanent"
+                  anchor="left"
+                  open
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  PaperProps={{
+                    sx: {
+                      width: "100% !important",
+                    },
+                  }}
+                >
+                  <div>
+                    <div className={cx(classes.toolbar, classes.clippedRight)}>
+                      <Grid item xs={12}  xl={12}>
+                       <div className={classes.searchWrapper}>
+                        <Autocomplete
+                          options={employeeList}
+                          value={getAutoCompleteValue(
+                            employeeList,
+                            selectedEmployee
+                          )}
+                          isOptionEqualToValue={(option, value) =>
+                            option.id === value.id
+                          }
+                          getOptionLabel={(option) =>
+                            option ? option.name : ""
+                          }
+                          renderOption={(propsOption, option) => (
+                            <li {...propsOption} key={option.id}>
+                              {option.name}
+                            </li>
+                          )}
+                          onChange={(event, value) => {
+                            setSelectedEmployee(
+                              value !== null ? value.id : null
+                            );
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              required
+                              label={intl.formatMessage(
+                                messages.selectEmployee
+                              )}
+                            />
+                          )}
+                        />
+                      </div>
+                      </Grid>
+                    </div>
 
-              <List className={classes.contactList}>
-                {employeeBankList.map((item) => (
-                  <ListItem
-                    button
-                    key={item.id}
-                    className={
-                      item.id === selectedBank ? classes.selected : ''
-                    }
-                    onClick={() => {
-                      setSelectedBank(item.id);
-                      setShowMobileDetail(false);
-                    }}
+                    <List className={classes.contactList}>
+                      {employeeBankList.map((item) => (
+                        <ListItem
+                          button
+                          key={item.id}
+                          className={
+                            item.id === selectedBank ? classes.selected : ""
+                          }
+                          onClick={() => {
+                            setSelectedBank(item.id);
+                            setShowMobileDetail(false);
+                          }}
+                        >
+                          <ListItemAvatar>
+                            <Avatar
+                              alt={item.bankName}
+                              src={`/${DOMAIN_NAME}/${avatarApi[11]}`}
+                              className={classes.avatar}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={item.bankName}
+                            secondary={item.bankBranchNo}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </div>
+                </Drawer>
+
+                <Tooltip title="add">
+                  <Fab
+                    color="secondary"
+                    onClick={() => setSelectedBank(-1)}
+                    className={classes.addBtn}
                   >
-                    <ListItemAvatar>
-                      <Avatar
-                        alt={item.bankName}
-                        src={`/${DOMAIN_NAME}/${avatarApi[11]}`}
-                        className={classes.avatar}
-                      />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={item.bankName}
-                      secondary={item.bankBranchNo}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            </div>
-          </Drawer>
-
-          <Tooltip title='add'>
-            <Fab
-              color='secondary'
-              onClick={() => setSelectedBank(-1)}
-              className={classes.addBtn}
-              >
-              <Add />
-            </Fab>
-          </Tooltip>
+                    <Add />
+                  </Fab>
+                </Tooltip>
               </Grid>
 
-              <Grid item xs={1} sm={8}>
-
-          <main
-            className={cx(
-              classes.content,
-              showMobileDetail ? classes.detailPopup : ''
-            )}
-          >
-            <section className={classes.cover}>
-              <div className={classes.opt}>
-                <IconButton
-                  color='secondary'
-                  onClick={onDeleteBtnClick}
-                  size='large'
-                  disabled={!selectedEmployee}
-                  className={classes.EditBtn}
+              <Grid item xs={6}  xl={8}>
+                <main
+                  className={cx(
+                    classes.content,
+                    showMobileDetail ? classes.detailPopup : ""
+                  )}
                 >
-                  <Delete />
-                </IconButton>
-              </div>
-
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={formInfo.isBnkTransfer}
-                        onChange={() => setFormInfo(prev => ({ ...prev, isBnkTransfer: !prev.isBnkTransfer }))}
+                  <section className={classes.cover}>
+                    <div className={classes.opt}>
+                      <IconButton
                         color="secondary"
-                      />
-                    }
-                    label={intl.formatMessage(messages.isBnkTransfer)}
-                  />
-            </section>
+                        onClick={onDeleteBtnClick}
+                        size="large"
+                        disabled={!selectedEmployee}
+                        className={classes.EditBtn}
+                      >
+                        <Delete />
+                      </IconButton>
+                    </div>
 
-            <div className={classes.detailContact}>
-              <section className={css.bodyForm}>
-                <Grid container spacing={2}>
-                  <Grid item xs={6} sm={6}>
-                    <Autocomplete
-                      options={bankList}
-                      value={getAutoCompleteValue(bankList, formInfo.bankId)}
-                      disabled={!selectedEmployee}
-                      isOptionEqualToValue={(option, value) => option.id === value.id
-                      }
-                      getOptionLabel={(option) => (option ? option.name : '')}
-                      renderOption={(propsOption, option) => (
-                        <li {...propsOption} key={option.id}>
-                          {option.name}
-                        </li>
-                      )}
-                      onChange={(_, value) => onAutoCompleteChange(value, 'bankId')
-                      }
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          required
-                          disabled={!selectedEmployee}
-                          label={intl.formatMessage(messages.bank)}
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={formInfo.isBnkTransfer}
+                          onChange={() =>
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              isBnkTransfer: !prev.isBnkTransfer,
+                            }))
+                          }
+                          color="secondary"
                         />
-                      )}
+                      }
+                      label={intl.formatMessage(messages.isBnkTransfer)}
                     />
-                  </Grid>
+                  </section>
 
-                  <Grid item xs={6} sm={6}>
-                    <TextField
-                      name='bnkAcc'
-                      value={formInfo.bnkAcc}
-                      required
-                      disabled={!selectedEmployee}
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.bankAccount)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={6} sm={6}>
-                    <TextField
-                      name='bankBranchNo'
-                      value={formInfo.bankBranchNo}
-                      disabled={!selectedEmployee}
-                      required
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.branchNumber)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={6} sm={6}>
-                    <TextField
-                      name='bnkEmpCode'
-                      value={formInfo.bnkEmpCode}
-                      disabled={!selectedEmployee}
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.bankEmployeeCode)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={6} sm={6}>
-                    <TextField
-                      name='iban'
-                      disabled={!selectedEmployee}
-                      value={formInfo.iban}
-                      onChange={onInputChange}
-                      label={intl.formatMessage(messages.iban)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={6} sm={6}>
-                    <TextField
-                      name='swiftCode'
-                      value={formInfo.swiftCode}
-                      onChange={onInputChange}
-                      disabled={!selectedEmployee}
-                      label={intl.formatMessage(messages.swiftCode)}
-                      fullWidth
-                      variant='outlined'
-                      autoComplete='off'
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Card>
-                      <CardContent sx={{ p: '16px!important' }}>
-                        <Grid
-                          container
-                          justifyContent='space-between'
-                          alignItems='center'
-                          mb={3}
-                        >
-                          <Grid item>
-                            <Typography variant='h6'>
-                              {intl.formatMessage(messages.templateInfo)}
-                            </Typography>
-                          </Grid>
-
-                          <Grid item>
-                            <Button
-                              variant='contained'
-                              disabled={!selectedEmployee}
-                              onClick={
-                                !selectedEmployee ? undefined : openPopup
-                              }
-                              color='primary'
-                            >
-                              {intl.formatMessage(messages.addOrChangeTemplate)}
-                            </Button>
-                          </Grid>
+                  <div className={classes.detailContact}>
+                    <section className={css.bodyForm}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12} xl={3}>
+                          <Autocomplete
+                            options={bankList}
+                            value={getAutoCompleteValue(
+                              bankList,
+                              formInfo.bankId
+                            )}
+                            disabled={!selectedEmployee}
+                            isOptionEqualToValue={(option, value) =>
+                              option.id === value.id
+                            }
+                            getOptionLabel={(option) =>
+                              option ? option.name : ""
+                            }
+                            renderOption={(propsOption, option) => (
+                              <li {...propsOption} key={option.id}>
+                                {option.name}
+                              </li>
+                            )}
+                            onChange={(_, value) =>
+                              onAutoCompleteChange(value, "bankId")
+                            }
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                required
+                                disabled={!selectedEmployee}
+                                label={intl.formatMessage(messages.bank)}
+                              />
+                            )}
+                          />
                         </Grid>
 
-                        {formInfo.empEmpBankElement.length > 0 ? (
-                          <>
-                            <TableContainer>
-                              <Table sx={{ minWidth: 650 }} size='small'>
-                                <TableHead>
-                                  <TableRow>
-                                    <TableCell>
+                        <Grid item xs={12} xl={3}>
+                          <TextField
+                            name="bnkAcc"
+                            value={formInfo.bnkAcc}
+                            required
+                            disabled={!selectedEmployee}
+                            onChange={onInputChange}
+                            label={intl.formatMessage(messages.bankAccount)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete="off"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} xl={3}>
+                          <TextField
+                            name="bankBranchNo"
+                            value={formInfo.bankBranchNo}
+                            disabled={!selectedEmployee}
+                            required
+                            onChange={onInputChange}
+                            label={intl.formatMessage(messages.branchNumber)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete="off"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} xl={3}>
+                          <TextField
+                            name="bnkEmpCode"
+                            value={formInfo.bnkEmpCode}
+                            disabled={!selectedEmployee}
+                            onChange={onInputChange}
+                            label={intl.formatMessage(
+                              messages.bankEmployeeCode
+                            )}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete="off"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} xl={3}>
+                          <TextField
+                            name="iban"
+                            disabled={!selectedEmployee}
+                            value={formInfo.iban}
+                            onChange={onInputChange}
+                            label={intl.formatMessage(messages.iban)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete="off"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12} xl={3}>
+                          <TextField
+                            name="swiftCode"
+                            value={formInfo.swiftCode}
+                            onChange={onInputChange}
+                            disabled={!selectedEmployee}
+                            label={intl.formatMessage(messages.swiftCode)}
+                            fullWidth
+                            variant="outlined"
+                            autoComplete="off"
+                          />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                          <Card>
+                            <CardContent sx={{ p: "16px!important" }}>
+                              <Grid
+                                container
+                                justifyContent="space-between"
+                                alignItems="center"
+                                mb={3}
+                              >
+                                <Grid item>
+                                  <Typography variant="h6">
+                                    {intl.formatMessage(messages.templateInfo)}
+                                  </Typography>
+                                </Grid>
+
+                                <Grid item>
+                                  <Button
+                                    variant="contained"
+                                    disabled={!selectedEmployee}
+                                    onClick={
+                                      !selectedEmployee ? undefined : openPopup
+                                    }
+                                    color="primary"
+                                  >
+                                    {intl.formatMessage(
+                                      messages.addOrChangeTemplate
+                                    )}
+                                  </Button>
+                                </Grid>
+                              </Grid>
+
+                              {formInfo.empEmpBankElement.length > 0 ? (
+                                <>
+                                  <TableContainer>
+                                    <Table sx={{ minWidth: 650 }} size="small">
+                                      <TableHead>
+                                        <TableRow>
+                                          <TableCell>
+                                            {intl.formatMessage(
+                                              messages.templateName
+                                            )}
+                                          </TableCell>
+                                          <TableCell>
+                                            {intl.formatMessage(
+                                              messages.currency
+                                            )}
+                                          </TableCell>
+                                        </TableRow>
+                                      </TableHead>
+
+                                      <TableBody>
+                                        {formInfo.empEmpBankElement.map(
+                                          (item, index) => (
+                                            <TableRow
+                                              key={item.id}
+                                              sx={{
+                                                "&:last-child td, &:last-child th":
+                                                  {
+                                                    border: 0,
+                                                  },
+                                              }}
+                                            >
+                                              <TableCell>
+                                                {getPayTemplateName(
+                                                  item.payTemplateId
+                                                )}
+                                              </TableCell>
+                                              <TableCell>
+                                                {getCurrencyName(
+                                                  item.currencyId
+                                                )}
+                                              </TableCell>
+                                              <TableCell>
+                                                <Stack
+                                                  direction="row"
+                                                  spacing={2}
+                                                >
+                                                  <IconButton
+                                                    color="primary"
+                                                    size="small"
+                                                    onClick={() =>
+                                                      onTemplateEdit(item)
+                                                    }
+                                                  >
+                                                    <BorderColor />
+                                                  </IconButton>
+
+                                                  <IconButton
+                                                    size="small"
+                                                    color="error"
+                                                    onClick={() =>
+                                                      onTemplateRemove(index)
+                                                    }
+                                                  >
+                                                    <Delete />
+                                                  </IconButton>
+                                                </Stack>
+                                              </TableCell>
+                                            </TableRow>
+                                          )
+                                        )}
+                                      </TableBody>
+                                    </Table>
+                                  </TableContainer>
+                                </>
+                              ) : (
+                                <Stack
+                                  direction="row"
+                                  sx={{ minHeight: 200 }}
+                                  alignItems="center"
+                                  justifyContent="center"
+                                  textAlign="center"
+                                >
+                                  <Box>
+                                    <PeopleIcon
+                                      sx={{ color: "#a7acb2", fontSize: 30 }}
+                                    />
+                                    <Typography color="#a7acb2" variant="body1">
                                       {intl.formatMessage(
-                                        messages.templateName
+                                        messages.noTemplateAdded
                                       )}
-                                    </TableCell>
-                                    <TableCell>
-                                      {intl.formatMessage(messages.currency)}
-                                    </TableCell>
-                                  </TableRow>
-                                </TableHead>
+                                    </Typography>
+                                  </Box>
+                                </Stack>
+                              )}
+                            </CardContent>
+                          </Card>
+                        </Grid>
 
-                                <TableBody>
-                                  {formInfo.empEmpBankElement.map((item, index) => (
-                                    <TableRow
-                                      key={item.id}
-                                      sx={{
-                                        '&:last-child td, &:last-child th': {
-                                          border: 0,
-                                        },
-                                      }}
-                                    >
-                                      <TableCell>
-                                        {getPayTemplateName(item.payTemplateId)}
-                                      </TableCell>
-                                      <TableCell>
-                                        {getCurrencyName(item.currencyId)}
-                                      </TableCell>
-                                      <TableCell>
-                                        <Stack direction='row' spacing={2}>
-                                          <IconButton
-                                            color='primary'
-                                            size='small'
-                                            onClick={() => onTemplateEdit(item)}
-                                          >
-                                            <BorderColor />
-                                          </IconButton>
-
-                                          <IconButton
-                                            size='small'
-                                            color='error'
-                                            onClick={() => onTemplateRemove(index)
-                                            }
-                                          >
-                                            <Delete />
-                                          </IconButton>
-                                        </Stack>
-                                      </TableCell>
-                                    </TableRow>
-                                  ))}
-                                </TableBody>
-                              </Table>
-                            </TableContainer>
-                          </>
-                        ) : (
-                          <Stack
-                            direction='row'
-                            sx={{ minHeight: 200 }}
-                            alignItems='center'
-                            justifyContent='center'
-                            textAlign='center'
+                        <Grid item xs={12} sm={12}>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            type="submit"
+                            disabled={!selectedEmployee}
                           >
-                            <Box>
-                              <PeopleIcon
-                                sx={{ color: '#a7acb2', fontSize: 30 }}
-                              />
-                              <Typography color='#a7acb2' variant='body1'>
-                                {intl.formatMessage(messages.noTemplateAdded)}
-                              </Typography>
-                            </Box>
-                          </Stack>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </Grid>
-
-                  <Grid item xs={12} sm={12}>
-                    <Button
-                      variant='contained'
-                      color='secondary'
-                      type='submit'
-                      disabled={!selectedEmployee}
-                    >
-                      {intl.formatMessage(payrollMessages.save)}
-                    </Button>
-                  </Grid>
-                </Grid>
-              </section>
-            </div>
-          </main>
-          </Grid>
-          </Grid>
-        </div>
-      </form>
+                            {intl.formatMessage(payrollMessages.save)}
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </section>
+                  </div>
+                </main>
+              </Grid>
+            </Grid>
+          </div>
+        </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

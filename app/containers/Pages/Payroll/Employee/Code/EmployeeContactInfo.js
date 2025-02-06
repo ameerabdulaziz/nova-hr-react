@@ -13,7 +13,7 @@ import { Autocomplete } from "@mui/material";
 import Payrollmessages from "../../messages";
 import useStyles from "../../Style";
 import notif from "enl-api/ui/notifMessage";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
@@ -153,7 +153,7 @@ function EmployeeContactInfo(props) {
     }
   };
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <Grid
           container
@@ -166,7 +166,7 @@ function EmployeeContactInfo(props) {
                 container
                 spacing={3}
               >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={8} lg={6} xl={4}>
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
@@ -193,7 +193,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     id="mobile"
                     name="mobile"
@@ -208,7 +208,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     id="telPhone"
                     name="telPhone"
@@ -222,7 +222,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                {/* <Grid item xs={12} md={4}>
+                {/* <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     id="workMobile"
                     name="workMobile"
@@ -236,7 +236,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid> */}
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     id="relativesPhoneNo"
                     name="relativesPhoneNo"
@@ -250,7 +250,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     type="email"
                     name="workEmail"
@@ -264,7 +264,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     type="email"
                     error={email === "Invalid email"}
@@ -281,7 +281,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                   <TextField
                     name="RelativesName"
                     value={RelativesName}
@@ -293,7 +293,7 @@ function EmployeeContactInfo(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2}>
                 <Autocomplete
                   id="ddkinshipLinkId"
                   options={kinshipLinkList}
@@ -344,7 +344,7 @@ function EmployeeContactInfo(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

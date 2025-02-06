@@ -967,7 +967,7 @@ function Personal(props) {
           <Grid container spacing={2}>
             <Grid item md={10} xs={12}>
               <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} lg={4} xl={3}>
                   <TextField
                     id="arname"
                     required
@@ -983,7 +983,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} lg={4} xl={3}>
                   <TextField
                     id="enname"
                     name="enname"
@@ -999,7 +999,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={4} xl={3}>
                   <TextField
                     id="nickName"
                     name="nickName"
@@ -1012,7 +1012,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   <Autocomplete
                     options={saluteList}
                     value={saluteId}
@@ -1040,7 +1040,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={1.5}>
                   <TextField
                     id="empcode"
                     name="empcode"
@@ -1060,7 +1060,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2} xl={1.5} >
                   <TextField
                     id="machineCode"
                     type="number"
@@ -1074,7 +1074,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2} xl={1.5} >
                   <TextField
                     id="eRPCode"
                     name="eRPCode"
@@ -1089,7 +1089,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={1.5} >
                   <Autocomplete
                     disabled
                     id="ddlstatusId"
@@ -1128,7 +1128,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={2.5} xl={1.5} >
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       name="hdate"
@@ -1160,7 +1160,7 @@ function Personal(props) {
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={8} lg={5} xl={3.5} >
                   <Autocomplete
                     options={reportToList}
                     value={reportTo}
@@ -1240,14 +1240,14 @@ function Personal(props) {
           <hr />
 
           <Grid container spacing={2} alignItems="flex-start" direction="row">
-            <Grid item xs={10} md={12}>
+            <Grid item xs={12} md={12}>
               <Grid
                 container
                 spacing={2}
                 alignItems="flex-start"
                 direction="row"
               >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2.2}>
                   <Autocomplete
                     id="ddlidentityType"
                     options={identityTypeList || []}
@@ -1299,7 +1299,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2.2}>
                   <TextField
                     id="identityIssuingAuth"
                     name="identityIssuingAuth"
@@ -1312,7 +1312,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4} lg={3} xl={2.2}>
                   <TextField
                     id="identityNumber"
                     name="identityNumber"
@@ -1326,7 +1326,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2.5} xl={1.7}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.identityIssuingDate)}
@@ -1371,7 +1371,7 @@ function Personal(props) {
                   </LocalizationProvider>
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2.5} xl={1.7}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.identityExpiry)}
@@ -1418,7 +1418,37 @@ function Personal(props) {
               <hr />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={4} xl={3}>
+              <TextField
+                name="workEmail"
+                type="email"
+                value={workEmail}
+                onChange={(e) => {
+                  setWorkEmail(e.target.value);
+                }}
+                label={intl.formatMessage(messages.workEmail)}
+                className={classes.field}
+                variant="outlined"
+                autoComplete="off"
+              />
+            </Grid>
+
+            <Grid item xs={12} md={4} lg={4} xl={3}>
+              <TextField
+                name="userName"
+                required
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                label={intl.formatMessage(messages.userName)}
+                fullWidth
+                disabled={id && id !== 0}
+                variant="outlined"
+                autoComplete="off"
+              />
+            </Grid>
+
+
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlGenderId"
                 options={genderList || []}
@@ -1451,7 +1481,7 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlNationalityId"
                 options={nationalityList || []}
@@ -1484,7 +1514,7 @@ function Personal(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlreligionId"
                 options={religionList || []}
@@ -1518,7 +1548,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.birthDate)}
@@ -1555,36 +1585,7 @@ function Personal(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <TextField
-                name="workEmail"
-                type="email"
-                value={workEmail}
-                onChange={(e) => {
-                  setWorkEmail(e.target.value);
-                }}
-                label={intl.formatMessage(messages.workEmail)}
-                className={classes.field}
-                variant="outlined"
-                autoComplete="off"
-              />
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <TextField
-                name="userName"
-                required
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                label={intl.formatMessage(messages.userName)}
-                fullWidth
-                disabled={id && id !== 0}
-                variant="outlined"
-                autoComplete="off"
-              />
-            </Grid>
-
-            <Grid item xs={6} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlbirthGovId"
                 options={birthGovList || []}
@@ -1617,7 +1618,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={6} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlbirthcityId"
                 options={birthCityList || []}
@@ -1650,7 +1651,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="motherName"
                 name="motherName"
@@ -1663,7 +1664,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <Autocomplete
                 id="ddlsocialStatusId"
                 options={socialStatusList || []}
@@ -1696,7 +1697,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="sonNo"
                 name="sonNo"
@@ -1710,7 +1711,7 @@ function Personal(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={4} lg={3} xl={2.5}>
               <Autocomplete
                 id="ddlmilitaryStatusId"
                 options={militaryStatusList || []}
@@ -1756,7 +1757,7 @@ function Personal(props) {
 
                 <Grid item container spacing={2}>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlorganization"
                       options={organizationList || []}
@@ -1794,7 +1795,7 @@ function Personal(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlorganization"
                       options={businessUnitList || []}
@@ -1838,7 +1839,7 @@ function Personal(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                       id="ddlcontrolParameterId"
                       options={controlParameterList || []}
@@ -1877,7 +1878,11 @@ function Personal(props) {
 
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={12}>
+                  <hr />
+                </Grid>
+
+                <Grid item xs={12} md={6} lg={4} xl={3}>
                   <Autocomplete
                     id="ddljobid"
                     required
@@ -1916,7 +1921,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={4} md={3} lg={2} xl={1.5}>
                   <Autocomplete
                     id="ddljobLevelId"
                     options={jobLevelList || []}
@@ -1953,7 +1958,7 @@ function Personal(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={4.5} md={3.5} lg={2.5} xl={1.5}>
                   <Autocomplete
                     id="menuTemplate"
                     options={menuTemplateList || []}

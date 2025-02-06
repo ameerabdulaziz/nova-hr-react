@@ -15,7 +15,7 @@ import useStyles from "../../Style";
 import messages from "../messages";
 import Payrollmessages from "../../messages";
 import { injectIntl, FormattedMessage } from "react-intl";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
 import { useLocation } from "react-router-dom";
@@ -151,7 +151,7 @@ function EmployeeCar(props) {
     // if (!data.length) { fetchData(); }
   }, [employee.id]);
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
      
       <Grid
@@ -164,7 +164,7 @@ function EmployeeCar(props) {
         <Grid item xs={12}>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={7.5} lg={5} xl={4}>
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
@@ -191,7 +191,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                   <TextField
                     id="carModel"
                     name="carModel"
@@ -207,7 +207,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                   <TextField
                     id="manufactureYear"
                     name="manufactureYear"
@@ -223,7 +223,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={12}>
+                <Grid item xs={12} md={6} lg={3.5} xl={4}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -239,7 +239,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                   <TextField
                     id="licenseNo"
                     name="licenseNo"
@@ -255,7 +255,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                   <TextField
                     id="trafficUnit"
                     name="trafficUnit"
@@ -271,7 +271,7 @@ function EmployeeCar(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                   <Autocomplete
                     id="ddlgrade"
                     options={gradelist}
@@ -323,7 +323,7 @@ function EmployeeCar(props) {
         </Grid>
       </Grid>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

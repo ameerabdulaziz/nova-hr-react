@@ -21,7 +21,7 @@ import style from '../../../../../styles/styles.scss'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import { toast } from "react-hot-toast";
@@ -275,11 +275,11 @@ function EmploymentDocsDetails(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12}  lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -289,7 +289,7 @@ function EmploymentDocsDetails(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12}  md={4}> 
+          <Grid item xs={12}  md={6} lg={5} xl={4}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -329,7 +329,9 @@ function EmploymentDocsDetails(props) {
               
                   </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                  <Grid item sm={12}  md={6} lg={7} xl={1}></Grid>
+
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -343,7 +345,7 @@ function EmploymentDocsDetails(props) {
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -357,7 +359,7 @@ function EmploymentDocsDetails(props) {
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -371,7 +373,7 @@ function EmploymentDocsDetails(props) {
                         />
                     </Grid>
 
-                    <Grid item xs={12}  md={2}> 
+                    <Grid item xs={12} md={6}  lg={3} xl={2}> 
                       <FormControlLabel  
                         control={ 
                           <Switch  
@@ -386,7 +388,7 @@ function EmploymentDocsDetails(props) {
                     </Grid>
 
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -406,7 +408,7 @@ function EmploymentDocsDetails(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

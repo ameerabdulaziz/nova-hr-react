@@ -7,7 +7,7 @@ import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
 import { useSelector } from "react-redux";
 import GeneralListApis from "../../api/GeneralListApis";
-import { Autocomplete } from "@mui/material";
+import { Autocomplete, Card, CardContent } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import messages from "../messages";
@@ -267,11 +267,16 @@ function EmployeeContract(props) {
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} mt={0} >
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={10} xl={6}>
               <EmployeeData handleEmpChange={handleEmpChange} id={empid && empid.id !== 0 ? empid.id : null} />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+          <Grid item xs={12} lg={10} xl={6}>
+           <Card className={classes.card}>
+            <CardContent>
+             <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+            <Grid item xs={12} md={6} lg={6}>
               <Autocomplete
                 id="ddlhiringSourceId"
                 options={hiringSourceList}
@@ -302,7 +307,7 @@ function EmployeeContract(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={6}>
               <Autocomplete
                 id="ddlcontractTypeId"
                 required
@@ -351,7 +356,7 @@ function EmployeeContract(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3.5} lg={3.2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker 
                   label={intl.formatMessage(messages.contractStartDate)}
@@ -387,7 +392,7 @@ function EmployeeContract(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3.5} lg={3.2}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(messages.contractEndDate)}
@@ -417,9 +422,14 @@ function EmployeeContract(props) {
                         />
                     </LocalizationProvider>
 
-            </Grid>
+            </Grid>              
 
-            <Grid item xs={12} md={3}>
+             </Grid>
+            </CardContent>          
+            </Card>
+          </Grid>
+
+            <Grid item xs={12} md={6} lg={3.5} xl={2} >
               <FormControlLabel
                 control={
                   <Switch
@@ -432,7 +442,7 @@ function EmployeeContract(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3.5} xl={2}>
               <FormControlLabel
                 control={
                   <Switch
@@ -445,9 +455,8 @@ function EmployeeContract(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={3}>
+
+                <Grid item xs={12} md={6} lg={3.5} xl={2}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -463,7 +472,7 @@ function EmployeeContract(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                   <Autocomplete
                     id="ddkinshipLinkId"
                     required
@@ -496,7 +505,7 @@ function EmployeeContract(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={7} lg={5} xl={4}>
                   <Autocomplete
                     id="ddlkinshipEmpId"
                     {...required}
@@ -527,8 +536,7 @@ function EmployeeContract(props) {
                     )}
                   />
                 </Grid>
-              </Grid>
-            </Grid>
+
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
