@@ -27,7 +27,7 @@ function InsuranceReportForm2Table(props) {
 
   return (
     <TableContainer>
-      <Table size='small'>
+      <Table size='small' style={{marginBottom:"5px"}}>
         <TableHead>
           <StyledTableThRow>
             <StyledTableThCell align='center' rowSpan={2}>
