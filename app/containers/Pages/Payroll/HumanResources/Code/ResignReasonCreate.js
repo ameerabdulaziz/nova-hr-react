@@ -14,7 +14,7 @@ import { PapperBlock } from 'enl-components';
 import useStyles from '../../Style';
 import { format } from "date-fns";
 import SaveButton from '../../Component/SaveButton';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import {
     Button,
     Grid,
@@ -44,9 +44,6 @@ function ResignReasonCreate(props) {
   });
 
   const { classes } = useStyles();
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,8 +81,6 @@ function ResignReasonCreate(props) {
     
   };
  
-
-
 const getdata =  async () => {
   setIsLoading(true);
 
@@ -123,7 +118,6 @@ const getEditdata =  async () => {
   }
 };
 
-
 useEffect(() => {
   getdata();
 }, []);
@@ -135,12 +129,9 @@ useEffect(() => {
   }
   }, [ID,SpecifiedContractData]);
 
-
-
   function oncancel(){
     history.push(SITEMAP.humanResources.ResignReason.route);
   }
-
 
   const onChangeFieldFun = (name,val) => {
     setFormDate((prev)=>({
@@ -149,9 +140,8 @@ useEffect(() => {
     }))
   } 
 
-
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" 
           title={ID ?  
                     intl.formatMessage(messages.EditResignReason)
@@ -174,7 +164,7 @@ useEffect(() => {
                     alignItems="flex-start"
                     direction="row">
 
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={5} lg={4} xl={3.5}> 
                             <TextField
                                 name="ENName"
                                 id="ENName"
@@ -192,7 +182,7 @@ useEffect(() => {
                             />
                         </Grid>
                     
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={5} lg={4} xl={3.5}> 
                             <TextField
                                 name="ARName"
                                 id="ARName"
@@ -218,7 +208,7 @@ useEffect(() => {
                     alignItems="flex-start"
                     direction="row">
                     
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12}  md={5} lg={4} xl={3.5}>
                             <Autocomplete
                             id="ddlMenu"
                             isOptionEqualToValue={(option, value) =>
@@ -254,7 +244,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12}  md={5} lg={4} xl={3.5}>
                             <Autocomplete
                             id="ddlMenu"
                             isOptionEqualToValue={(option, value) =>
@@ -305,10 +295,10 @@ useEffect(() => {
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
+                <Grid item >                  
                     <SaveButton Id={formDate.id} processing={processing} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >
@@ -320,7 +310,7 @@ useEffect(() => {
           </form>
       </PapperBlock>         
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

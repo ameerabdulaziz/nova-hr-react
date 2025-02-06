@@ -190,7 +190,7 @@ function PenaltyCreate(props) {
                   alignItems="flex-start"
                   direction="row">
               
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={6}  lg={4} xl={3}>
                       
                           <TextField
                           id="arName"
@@ -204,7 +204,7 @@ function PenaltyCreate(props) {
                           autoComplete='off'
                           />
                   </Grid>
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={6}  lg={4} xl={3}>
                       
                           <TextField
                           id="enName"
@@ -218,7 +218,7 @@ function PenaltyCreate(props) {
                           autoComplete='off'
                           />
                   </Grid>
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} md={4.5}  lg={2} xl={2}>
                         <Autocomplete  
                             id="elementId"                        
                             options={ElementList}  
@@ -247,7 +247,7 @@ function PenaltyCreate(props) {
                             )}
                         />  
                   </Grid>
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} md={4.5}  lg={2} xl={2}>
                         <Autocomplete  
                             id="typelist"                        
                             options={[{"id":1,"name":"شهرى"},{"id":2,"name":"نصف سنوى"},{"id":3,"name":"سنوى"},{"id":4,"name":"من تاريخ التعيين"}]}  
@@ -275,10 +275,13 @@ function PenaltyCreate(props) {
                             )}
                         />  
                   </Grid>
-                  <Grid item xs={12} md={1}>
+
+                  <Grid item xs={12} ></Grid>
+                  
+                  <Grid item >
                       <SaveButton Id={id} />
                   </Grid>
-                  <Grid item xs={12} md={1}>
+                  <Grid item >
                     <Button variant="contained" size="medium" color="primary" onClick={oncancel} >
                        <FormattedMessage {...Payrollmessages.cancel} /> 
                     </Button>

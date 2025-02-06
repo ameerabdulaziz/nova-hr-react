@@ -48,9 +48,6 @@ function hrResignRuleCreate(props) {
 
   const { classes } = useStyles();
 
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,8 +85,6 @@ function hrResignRuleCreate(props) {
     }
     
   };
- 
-
 
 const getdata =  async () => {
   setIsLoading(true);
@@ -142,8 +137,6 @@ useEffect(() => {
   }
   }, [ID,SpecifiedContractData]);
 
-
-
   function oncancel(){
     history.push(SITEMAP.humanResources.HrResignRuleList.route);
   }
@@ -173,13 +166,8 @@ useEffect(() => {
                 spacing={3}
                 alignItems="flex-start"
                 direction="row">
-                  <Grid
-                      container
-                      item
-                      spacing={3}
-                      alignItems="flex-start"
-                      direction="row">
-                        <Grid item xs={12}  md={3}> 
+
+                        <Grid item xs={12}  md={5} lg={4} xl={3}> 
                             <TextField
                                 name="ENName"
                                 id="ENName"
@@ -197,7 +185,7 @@ useEffect(() => {
                             />
                         </Grid>
                       
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={5} lg={4} xl={3}> 
                             <TextField
                                 name="ARName"
                                 id="ARName"
@@ -214,15 +202,8 @@ useEffect(() => {
                                 autoComplete='off'
                             />
                         </Grid>
-                  </Grid>
 
-                  <Grid
-                      container
-                      item
-                      spacing={3}
-                      alignItems="flex-start"
-                      direction="row">
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={3} lg={2} xl={1.5}> 
                             <TextField
                                 name="firstYear"
                                 id="firstYear"
@@ -241,7 +222,7 @@ useEffect(() => {
                             />
                         </Grid>
                       
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={5} lg={3.5} xl={2.5}> 
                             <TextField
                                 name="from2To5"
                                 id="from2To5"
@@ -259,15 +240,8 @@ useEffect(() => {
                                 autoComplete='off'
                             />
                         </Grid>
-                  </Grid>
 
-                  <Grid
-                      container
-                      item
-                      spacing={3}
-                      alignItems="flex-start"
-                      direction="row">
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={5} lg={3.5} xl={2.5}> 
                             <TextField
                                 name="more5"
                                 id="more5"
@@ -286,7 +260,7 @@ useEffect(() => {
                             />
                         </Grid>
                       
-                        <Grid item xs={12}  md={3}> 
+                        <Grid item xs={12}  md={3} lg={2} xl={1.5}> 
                             <TextField
                                 name="maxYear"
                                 id="maxYear"
@@ -304,7 +278,7 @@ useEffect(() => {
                                 autoComplete='off'
                             />
                         </Grid>
-                  </Grid>
+
               </Grid>
 
               <Grid
@@ -321,10 +295,10 @@ useEffect(() => {
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
+                <Grid item >                  
                     <SaveButton Id={formDate.id} processing={processing} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >
