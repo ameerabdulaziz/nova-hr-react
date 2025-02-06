@@ -384,6 +384,9 @@ function BankList(props) {
   // 1. move templates to separate file
   // 2. can convert rows from array to object's ??
   const getCIBTemplate = () => {
+
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
       fill: { fgColor: { rgb: '008000' } },
@@ -410,7 +413,7 @@ function BankList(props) {
 
     const today = new Date();
 
-    const debitAmount = tableData.reduce((acc, item) => acc + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 ? item.netSal : 0), 0);
+    const debitAmount = tableData.reduce((acc, item) => acc + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 && item.netSal > 0 ? item.netSal : 0), 0);
 
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
@@ -422,7 +425,7 @@ function BankList(props) {
       'CIBEEGCXXXX', // Creditor_BIC_Code
       bank?.bnkAcc ?? '', // Account_Number
       bank?.name ?? '', // Account_Name
-      formatNumber(debitAmount), // Debit_Amount
+      { v: debitAmount.toFixed(2) , s: numberFormatSty}, // Debit_Amount
       '', // Credit_Amount
     ];
 
@@ -434,19 +437,20 @@ function BankList(props) {
       '', // Creditor_BIC_Code
       '', // Account_Number
       tableData.length, // Account_Name
-      formatNumber(debitAmount), // Debit_Amount
+      { v: debitAmount.toFixed(2) , s: numberFormatSty}, // Debit_Amount
       {
-        v: formatNumber(debitAmount),
+        v:  debitAmount.toFixed(2),
         s: {
           font: { bold: true, color: { rgb: '000000' } },
           fill: { fgColor: { rgb: 'ffffcc' } },
+          numFmt: '0'
         },
       }, // Credit_Amount
     ];
 
     const bodyRows = tableData.map((item) => [
       
-        ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+        ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
       
           formateDate(today, 'dd/MM/yyyy'), // File_Date
           formateDate(today, 'dd/MM/yyyy'), // Value_Date
@@ -457,17 +461,18 @@ function BankList(props) {
           item.employeeName, // Account_Name
           '', // Debit_Amount
           {
-            v: formatNumber(item.netSal),
+            v: item.netSal.toFixed(2) ,
             s: {
               font: { bold: true, color: { rgb: '000000' } },
               fill: { fgColor: { rgb: 'ffffcc' } },
+              numFmt: '0'
             },
           }, // Credit_Amount
           ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
         
       ] : [])
     ]).filter(
-    (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
   );
 
 
