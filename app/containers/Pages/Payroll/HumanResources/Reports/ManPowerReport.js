@@ -14,7 +14,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { toast } from 'react-hot-toast';
 import GeneralListApis from "../../api/GeneralListApis";
@@ -307,11 +307,11 @@ const columns = [
 }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
       <form onSubmit={handleSearch}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={8} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -325,7 +325,7 @@ const columns = [
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6} lg={4} xl={3}>
             <Autocomplete
               isOptionEqualToValue={(option, value) => option.id === value.id}
               getOptionLabel={(option) => (option ? option.name : '')}
@@ -344,7 +344,7 @@ const columns = [
               )}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} xl={2}>
             <Button
               variant="contained"
               size="medium"
@@ -366,7 +366,7 @@ const columns = [
         options={options}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

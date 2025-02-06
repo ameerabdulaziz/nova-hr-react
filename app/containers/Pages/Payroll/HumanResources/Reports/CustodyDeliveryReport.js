@@ -14,7 +14,7 @@ import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 
@@ -276,10 +276,10 @@ function CustodyDeliveryReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -289,7 +289,7 @@ function CustodyDeliveryReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={5.5} lg={3} xl={2}>
             <Autocomplete
               id="custodyId"
               options={custodyList}
@@ -312,7 +312,7 @@ function CustodyDeliveryReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -333,7 +333,7 @@ function CustodyDeliveryReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

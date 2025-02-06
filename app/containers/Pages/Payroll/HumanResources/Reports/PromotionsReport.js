@@ -11,7 +11,7 @@ import useStyles from "../../Style";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 
@@ -274,11 +274,11 @@ function PromotionsReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={10} xl={8}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -288,7 +288,7 @@ function PromotionsReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -309,7 +309,7 @@ function PromotionsReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

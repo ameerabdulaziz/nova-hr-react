@@ -18,7 +18,7 @@ import Search from "../../Component/Search";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import style from "../../../../../../app/styles/styles.scss";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
 
@@ -308,10 +308,10 @@ function ResignTrxReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12}  lg={10} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -321,7 +321,7 @@ function ResignTrxReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={5} xl={3.5}>
             <Autocomplete
               id="ResignId"
               options={ResignList}
@@ -344,7 +344,7 @@ function ResignTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -365,7 +365,7 @@ function ResignTrxReport(props) {
         filterHighlights={filterHighlights}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

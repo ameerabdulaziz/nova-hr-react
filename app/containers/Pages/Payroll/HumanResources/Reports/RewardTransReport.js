@@ -16,7 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { useLocation } from 'react-router-dom';
@@ -387,10 +387,10 @@ function RewardTransReport(props) {
   },[searchData.BranchId, searchData.EmployeeId,todayDateKey])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -400,7 +400,7 @@ function RewardTransReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={6} md={4} lg={3} xl={3}>
             <Autocomplete
               id="RewardsId"
               options={RewardsList}
@@ -423,7 +423,7 @@ function RewardTransReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={4} lg={4.5} xl={2}>
             <Autocomplete
               id="StatusList"
               options={rewordStatusList}
@@ -446,7 +446,7 @@ function RewardTransReport(props) {
               )}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={4} lg={3} xl={2.5}>
             <Autocomplete
               id="DeleteList"
               options={deleteList}
@@ -470,7 +470,7 @@ function RewardTransReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={2} lg={1.5}>
             <Button
               variant="contained"
               size="medium"
@@ -491,7 +491,7 @@ function RewardTransReport(props) {
         columns={columns}
       />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

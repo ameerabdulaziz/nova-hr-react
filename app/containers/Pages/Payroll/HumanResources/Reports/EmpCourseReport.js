@@ -15,7 +15,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 
@@ -284,11 +284,11 @@ function EmpCourseReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11}  lg={8} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -298,7 +298,7 @@ function EmpCourseReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12}  md={5.5} lg={4} xl={3}>
             <Autocomplete
               id="CourseId"
               options={CourseList}
@@ -321,7 +321,7 @@ function EmpCourseReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -341,7 +341,7 @@ function EmpCourseReport(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

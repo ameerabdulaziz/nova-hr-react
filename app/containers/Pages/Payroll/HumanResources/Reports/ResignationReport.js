@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -362,7 +362,7 @@ function ResignationReport(props) {
   },[formInfo.BranchId, formInfo.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <Box
         ref={printDivRef}
         sx={{
@@ -381,7 +381,7 @@ function ResignationReport(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={11} lg={10} xl={7}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -392,7 +392,7 @@ function ResignationReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4.5} xl={2.5} >
               <Autocomplete
                 options={actionStatusList}
                 value={getAutoCompleteValue(
@@ -416,7 +416,7 @@ function ResignationReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4.5} xl={2.5}>
               <Autocomplete
                 options={resignList}
                 value={getAutoCompleteValue(
@@ -456,7 +456,7 @@ function ResignationReport(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
