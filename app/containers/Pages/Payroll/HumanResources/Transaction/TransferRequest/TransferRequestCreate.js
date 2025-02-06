@@ -8,7 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import { Button, Grid, TextField, Autocomplete, Card, CardContent } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -44,9 +44,9 @@ function AttentionCreate(props) {
   });
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
+  const dateFormatFun = (date) => {
      return  date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
@@ -64,7 +64,7 @@ function AttentionCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -102,15 +102,15 @@ function AttentionCreate(props) {
   async function fetchData() {
       try 
       {
-        setIsLoading(true);
+      setIsLoading(true);
 
-        const organizations = await GeneralListApis(locale).GetDepartmentList();
-        setorganizationList(organizations);
+      const organizations = await GeneralListApis(locale).GetDepartmentList();
+      setorganizationList(organizations);
 
-      } catch (err) {
-      } finally {
-        setIsLoading(false);
-      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
 
     
   }
@@ -142,8 +142,8 @@ function AttentionCreate(props) {
       employeeId: dataApi.employeeId,
       organization: dataApi.organizationId ?  organizationList.find((item) => item.id === dataApi.organizationId ) : null
     }
-    
-      setdata(editData);
+
+    setdata(editData);
   }
 
 
@@ -161,168 +161,194 @@ function AttentionCreate(props) {
         whiteBg
         icon="border_color"
         title={
-           data.id == 0
-             ? intl.formatMessage(messages.createTransferRequesTitle)
-             : intl.formatMessage(messages.editTransferRequesTitle)
+          data.id == 0
+            ? intl.formatMessage(messages.createTransferRequesTitle)
+            : intl.formatMessage(messages.editTransferRequesTitle)
         }
         desc={""}
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
-                <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
+            <Grid item xs={12} md={12} lg={10} xl={6}>
+              <EmployeeData
+                handleEmpChange={handleEmpChange}
+                id={data.employeeId}
+              ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                   label={intl.formatMessage(messages.TransactionDate)}
-                    value={data.transactionDate ? dayjs(data.transactionDate) : data.transactionDate}
-                  className={classes.field}
-                    onChange={(date) => {
-                      onHandleChange("transactionDate", date)
-                  }}
-                  onError={(error,value)=>{
-                    if(error !== null)
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`transactionDate`]: true
-                        }))
-                    }
-                    else
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`transactionDate`]: false
-                        }))
-                    }
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                  />
-              </LocalizationProvider>
+            <Grid item xs={12} md={12} lg={10} xl={6}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid
+                    container
+                    spacing={3}
+                    alignItems="flex-start"
+                    direction="row"
+                  >
+                    <Grid item xs={6} md={3} lg={4}  xl={4}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.TransactionDate)}
+                          value={
+                            data.transactionDate
+                              ? dayjs(data.transactionDate)
+                              : data.transactionDate
+                          }
+                          className={classes.field}
+                          onChange={(date) => {
+                            onHandleChange("transactionDate", date);
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`transactionDate`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`transactionDate`]: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item xs={6} md={3} lg={4} xl={4}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(
+                            messages.actualTransferDate
+                          )}
+                          value={
+                            data.actualTransfereDate
+                              ? dayjs(data.actualTransfereDate)
+                              : data.actualTransfereDate
+                          }
+                          className={classes.field}
+                          onChange={(date) => {
+                            onHandleChange("actualTransfereDate", date);
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`actualTransferDate`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`actualTransferDate`]: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item xs={6} md={3} lg={4} xl={4}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(messages.decisionDate)}
+                          value={
+                            data.decisionDate
+                              ? dayjs(data.decisionDate)
+                              : data.decisionDate
+                          }
+                          className={classes.field}
+                          onChange={(date) => {
+                            onHandleChange("decisionDate", date);
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`DecisionDate`]: true,
+                              }));
+                            } else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`DecisionDate`]: false,
+                              }));
+                            }
+                          }}
+                          slotProps={{
+                            textField: {
+                              required: true,
+                            },
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}  lg={6} xl={8}>
+                      <Autocomplete
+                        id="Section"
+                        options={organizationList}
+                        value={data.organization}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 ||
+                          value.id === "" ||
+                          option.id === value.id
+                        }
+                        getOptionLabel={(option) =>
+                          option.name ? option.name : ""
+                        }
+                        onChange={(event, value) => {
+                          onHandleChange("organization", value);
+                        }}
+                        renderOption={(props, option) => {
+                          return (
+                            <li {...props} key={option.id}>
+                              {option.name}
+                            </li>
+                          );
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="Section"
+                            label={intl.formatMessage(
+                              Payrollmessages.organizationName
+                            )}
+                          />
+                        )}
+                        required
+                      />
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                   label={intl.formatMessage(messages.actualTransferDate)}
-                    value={data.actualTransfereDate ? dayjs(data.actualTransfereDate) : data.actualTransfereDate}
-                  className={classes.field}
-                    onChange={(date) => {
-                      onHandleChange("actualTransfereDate", date)
-                  }}
-                  onError={(error,value)=>{
-                    if(error !== null)
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`actualTransferDate`]: true
-                        }))
-                    }
-                    else
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`actualTransferDate`]: false
-                        }))
-                    }
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                  />
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                   label={intl.formatMessage(messages.decisionDate)}
-                    value={data.decisionDate ? dayjs(data.decisionDate) : data.decisionDate}
-                  className={classes.field}
-                    onChange={(date) => {
-                      onHandleChange("decisionDate", date)
-                  }}
-                  onError={(error,value)=>{
-                    if(error !== null)
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`DecisionDate`]: true
-                        }))
-                    }
-                    else
-                    {
-                      setDateError((prevState) => ({
-                          ...prevState,
-                            [`DecisionDate`]: false
-                        }))
-                    }
-                  }}
-                  slotProps={{
-                    textField: {
-                      required: true,
-                    },
-                  }}
-                  />
-              </LocalizationProvider>
-            </Grid>
-
-            <Grid item xs={6} md={3}>
-              <Autocomplete
-                id="Section"
-                options={organizationList}
-                value={data.organization}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  onHandleChange("organization", value)
-                }}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.id}>
-                      {option.name}
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="Section"
-                    label={intl.formatMessage(Payrollmessages.organizationName)}
-                  />
-                )}
-                required
-              />
-            </Grid>
-
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 id="Notes"
                 name="Notes"
                 multiline
                 rows={2}
                 value={data.Notes}
-                onChange={(e) =>
-                  onHandleChange("Notes", e.target.value)
-                }
+                onChange={(e) => onHandleChange("Notes", e.target.value)}
                 label={intl.formatMessage(Payrollmessages.notes)}
                 className={classes.field}
                 variant="outlined"
-                autoComplete='off'
+                autoComplete="off"
                 required
               />
             </Grid>
+
             <Grid item xs={12} md={1}>
               <SaveButton Id={ID} />
             </Grid>

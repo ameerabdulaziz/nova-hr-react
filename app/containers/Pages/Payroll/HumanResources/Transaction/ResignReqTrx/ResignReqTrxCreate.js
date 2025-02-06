@@ -208,7 +208,7 @@ function ResignReqTrxCreate(props) {
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} mt={0} >
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={2.5}>
               <TextField
                 value={userInfo.name}
                 label={intl.formatMessage(messages.employeeName)}
@@ -224,7 +224,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={2.5} >
               <TextField
                 value={userInfo.jobName}
                 label={intl.formatMessage(messages.job)}
@@ -240,7 +240,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={2.5}>
               <TextField
                 value={userInfo.organizationName}
                 label={intl.formatMessage(messages.department)}
@@ -256,7 +256,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={3} xl={1.5}>
               <TextField
                 value={formateDate(userInfo.hiringDate)}
                 label={intl.formatMessage(messages.hiringDate)}
@@ -272,7 +272,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={3} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.resignationDate)}
@@ -306,7 +306,7 @@ function ResignReqTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={3} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   className={classes.field}
@@ -342,7 +342,7 @@ function ResignReqTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={3} xl={2.5}>
               <TextField
                 name='mob'
                 value={formInfo.mob}
@@ -355,7 +355,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4.5} lg={3} xl={2.5}>
               <TextField
                 name='telNumber'
                 value={formInfo.telNumber}
@@ -367,7 +367,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={3} xl={2.5}>
               <TextField
                 name='emailAddress'
                 type='email'
@@ -380,7 +380,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={6} xl={4.5}>
               <Autocomplete
                 options={resignReasonsList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -402,7 +402,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item lg={6} xs={12}>
               <TextField
                 name='employeeAddress'
                 multiline
@@ -416,7 +416,7 @@ function ResignReqTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item md={6} xs={12}>
+            <Grid item lg={6} xs={12}>
               <TextField
                 name='notes'
                 multiline

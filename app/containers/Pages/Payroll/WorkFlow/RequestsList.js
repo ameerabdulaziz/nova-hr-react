@@ -25,7 +25,7 @@ import PropTypes from "prop-types";
 import GeneralListApis from "../api/GeneralListApis";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
-import PayRollLoader from "../Component/PayRollLoader";
+import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../Component/SimplifiedPayrollTable";
 import NotePopup from "./NotePopup";
 import WFExecutionList from "./WFExecutionList";
@@ -533,7 +533,7 @@ function RequestsList(props) {
   if (columns.length > 0) columns.push(action);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <div>
           <Grid container spacing={3}>
@@ -646,7 +646,7 @@ function RequestsList(props) {
       </PapperBlock>
 
       <SimplifiedPayrollTable title="" data={data} columns={columns} options={options} />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

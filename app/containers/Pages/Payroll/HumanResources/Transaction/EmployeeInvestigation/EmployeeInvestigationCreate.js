@@ -9,7 +9,7 @@ import {
   import { FormattedMessage, injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
   import { useHistory, useLocation } from 'react-router-dom';
-  import PayRollLoader from '../../../Component/PayRollLoader';
+  import PayRollLoaderInForms from '../../../Component/PayRollLoaderInForms';
   import SaveButton from '../../../Component/SaveButton';
   import GeneralListApis from '../../../api/GeneralListApis';
   import { ServerURL } from '../../../api/ServerConfig';
@@ -340,11 +340,11 @@ import SITEMAP from '../../../../../App/routes/sitemap';
       };
 
     return (
-      <PayRollLoader isLoading={isLoading}>
+      <PayRollLoaderInForms isLoading={isLoading}>
         <PapperBlock whiteBg icon='border_color' desc='' title={pageTitle}>
           <form onSubmit={onFormSubmit}>
             <Grid container spacing={3} direction='row' >
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2} xl={1.5}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                         name='date'
@@ -380,7 +380,7 @@ import SITEMAP from '../../../../../App/routes/sitemap';
                       />
                   </LocalizationProvider>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={12} md={9}>
                 <Grid container spacing={3} justifyContent="end">
                   <Grid item>
                     <Tooltip title={intl.formatMessage(messages.Attachment)} >
@@ -426,7 +426,7 @@ import SITEMAP from '../../../../../App/routes/sitemap';
               </Grid>
             </Grid>
             <Grid container spacing={3} direction='row' style={{marginTop: "0"}}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={5} xl={4}>
                 <Autocomplete
                         options={employeeList.filter(user => user.id !== formInfo.employee?.id)}
                         value={getAutoCompleteValue(employeeList, formInfo.investigator?.id)}
@@ -452,7 +452,7 @@ import SITEMAP from '../../../../../App/routes/sitemap';
                         )}
                     />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6} lg={5} xl={4}>
                 <Autocomplete
                         options={employeeList.filter(user => user.id !== formInfo.investigator?.id)}
                         value={getAutoCompleteValue(employeeList, formInfo.employee?.id)}
@@ -480,7 +480,7 @@ import SITEMAP from '../../../../../App/routes/sitemap';
               </Grid>
             </Grid>
             <Grid container spacing={3} direction='row' style={{marginTop: "0"}}>
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
                         name='incidentDate'
@@ -697,7 +697,7 @@ import SITEMAP from '../../../../../App/routes/sitemap';
 
 
 
-      </PayRollLoader>
+      </PayRollLoaderInForms>
     );
   }
   

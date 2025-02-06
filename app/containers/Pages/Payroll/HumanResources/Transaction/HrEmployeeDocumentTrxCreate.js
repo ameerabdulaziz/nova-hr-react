@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import useStyles from '../../Style';
 import { formateDate } from '../../helpers';
 import payrollMessages from '../../messages';
@@ -139,11 +139,11 @@ function HrEmployeeDocumentTrxCreate(props) {
   const getAutoCompleteValue = (list, key) => list.find((item) => item.id === key) ?? null;
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} mt={0}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={2} >
               <TextField
                 value={userInfo.name}
                 label={intl.formatMessage(messages.employeeName)}
@@ -154,7 +154,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={2}>
               <TextField
                 value={userInfo.jobName}
                 label={intl.formatMessage(messages.job)}
@@ -165,7 +165,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={2}>
               <TextField
                 value={userInfo.organizationName}
                 label={intl.formatMessage(messages.department)}
@@ -176,7 +176,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={3} xl={2}>
               <TextField
                 value={formateDate(userInfo.hiringDate)}
                 label={intl.formatMessage(messages.hiringDate)}
@@ -187,7 +187,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={3} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.date)}
@@ -221,7 +221,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={3} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.returnDate)}
@@ -255,7 +255,7 @@ function HrEmployeeDocumentTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={4.5} xl={4}>
               <Autocomplete
                 options={documentTypeList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -313,7 +313,7 @@ function HrEmployeeDocumentTrxCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 HrEmployeeDocumentTrxCreate.propTypes = {
