@@ -479,6 +479,11 @@ function BankList(props) {
   const getDefaultTemplate = () => {
 
     const textSty = { numFmt: '@' } // make cell type text
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+
+
+    const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const headers = [
       'Beneficiary Account No',
       'Beneficiary Name',
@@ -494,39 +499,61 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         { v: item.bnkAcc , s: textSty}, // Beneficiary Account No
         item.employeeName, // Beneficiary Name
         'EGP', // Transaction Currency
-        formatNumber(item.netSal), // Payment Amount
+        { v: item.netSal.toFixed(2) , s: numberFormatSty}, // Payment Amount
+        // formatNumber(item.netSal), // Payment Amount
         item.employeeCode, // Employee ID
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+
+    const footer = [
+      '',
+      '',
+      'Total',
+      { v: total.toFixed(2) , s: numberFormatSty}
+    ]
+
+    return [headers, ...rows, footer];
   };
 
   const getCridetAgricoleTemplate = () => {
+
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+
+    const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         item.bnkAcc,
         item.employeeName,
         'salary',
-        formatNumber(item.netSal),
+        { v: item.netSal.toFixed(2) , s: numberFormatSty},
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return rows;
+    const footer = [
+      '',
+      '',
+      'Total',
+      { v: total.toFixed(2) , s: numberFormatSty}
+    ]
+
+    return [...rows, footer];
   };
 
   const getHSBCTemplate = () => {
     const today = new Date();
+    const numberFormatSty = { numFmt: '0' } // make cell type number
 
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
@@ -580,14 +607,16 @@ function BankList(props) {
 
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
 
+    const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         'ACH', // Payment type
         bank?.bnkAcc ?? '', // Debit Account Number
         'EG', // Debit Account Country
         'EGP', // Debit Account Currency
         'EGP', // Transaction currency
-        formatNumber(item.netSal), // Transaction Amount
+        { v: item.netSal.toFixed(2) , s: numberFormatSty}, // Transaction Amount
         formateDate(today, 'yyyyMMdd'), // Value Date
         `${formateDate(today, 'MMMM')} Salary yyy`, // First Party Reference
         '', // Payment Set Code
@@ -623,15 +652,27 @@ function BankList(props) {
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined  // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+
+    const footer = [
+      '',
+      '',
+      '',
+      '',
+      'Total',
+      { v: total.toFixed(2) , s: numberFormatSty}
+    ]
+
+    return [headers, ...rows, footer];
   };
 
   const getQNBTemplate = () => {
 
     const textSty = { numFmt: '@' } // make cell type text
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+
     const headers = [
       'Branch code',
       'Customer ID ',
@@ -648,27 +689,41 @@ function BankList(props) {
         headers.push('Section') 
       }
 
+      const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         item.bnkBrcode, // Branch code
         item.bnkEmpCode, // Customer ID
         { v: item.bnkAcc , s: textSty}, // Account Number
         item.employeeName, // Employee Name
         item.bnkBrcode, // Code
         '', // Reason
-        { v: Math.round(item.netSal) , s: textSty}, // Amount
+        { v: item.netSal.toFixed(2)  , s: numberFormatSty}, // Amount
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+    const footer = [
+      '',
+      '',
+      '',
+      '',
+      '',
+      'Total',
+      { v: total.toFixed(2) , s: numberFormatSty}
+    ]
+
+    return [headers, ...rows, footer];
   };
 
   const getQNBArabicTemplate = () => {
 
-    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+
+    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
 
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
@@ -691,7 +746,7 @@ function BankList(props) {
       },
     }
 
-     const textSty = { numFmt: '@' } // make cell type text
+    //  const textSty = { numFmt: '@' } // make cell type text
     
       const title1 = [
         'السادة بنك قطر الوطنى',
@@ -699,7 +754,7 @@ function BankList(props) {
 
       const title2 = [
         'يرجى التكرم بخصم',
-        totalAmount,
+        { v: totalAmount.toFixed(2) , s: numberFormatSty}
       ]
 
       const title3 = [
@@ -725,23 +780,28 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         { v: item.bnkBrcode , s: styles2}, // Branch code
         { v: '' , s: styles2},  // ID
         { v: item.bnkAcc , s: styles2}, // Account Number
         { v: item.employeeName , s: styles2}, // Employee Name
         { v: item.bnkBrcode , s: styles2}, // Code
         { v: '', s: styles2}, // Reason
-        { v: item.netSal , s: {...styles2, ...textSty}},  // Amount
+        { v: item.netSal.toFixed(2) , s: {...styles2, ...numberFormatSty}},  // Amount
         ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
     const footer = [
+      '',
+      '',
+      '',
+      '',
+      '',
       'الاجمالى',
-      totalAmount
+      { v: totalAmount.toFixed(2) , s: numberFormatSty}
     ]
     
     return [title1, title2, title3,"",headers, ...rows,footer];
@@ -752,10 +812,11 @@ function BankList(props) {
   const getCIBSmsTemplate = () => {
 
     const textSty = { numFmt: '@' } // make cell type text
+    const numberFormatSty = { numFmt: '0' } // make cell type number
     const customSty = { numFmt: '##' }  // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
     const company = getAutoCompleteValue(companyList, formInfo.BranchId)
-    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
+    const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
 
     const headers = [
       'SALARY 1',
@@ -771,22 +832,20 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
-        { v: item.netSal , s: customSty} , // SALARY 1
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
+        { v: item.netSal.toFixed(2)  , s: numberFormatSty} , // SALARY 1
         item.employeeName ?? '', // ACCOUNT NAME
         company?.name ?? '', // COMPANY NAME
         { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
     const footer = [
-      '',
-      '',
+      { v: totalAmount.toFixed(2), s: numberFormatSty},
       'Total',
-      { v: totalAmount, s: textSty},
     ]
 
     return [headers, ...rows, '', footer];
@@ -796,6 +855,7 @@ function BankList(props) {
   const getAAIBTemplate = () => {
 
     const textSty = { numFmt: '@' } // make cell type text
+    const numberFormatSty = { numFmt: '0' } // make cell type number
     const customSty = { numFmt: '##' } // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const headers = [
       'Org_Cus_Num',
@@ -816,30 +876,43 @@ function BankList(props) {
         headers.push('Section') 
       }
 
+      const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const rows = tableData.map((item,index) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         item.accNo , // Org_Cus_Num
         index + 1 , // Emp_Ref_Num
         item.employeeName , // Emp_Name
         '' , // NID
         { v: item.bnkAcc , s: textSty} , // Emp_Acc_Num
         'EGP' , // Curr
-        { v: item.netSal , s: customSty} , // Amount
+        { v: item.netSal.toFixed(2) , s: numberFormatSty} , // Amount
         '' , // Hiring Date
         '' , // Emp_Position
         '' , // SDU
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+    const footer = [
+      '',
+      '',
+      '',
+      '',
+      '',
+      'Total',
+      { v: total.toFixed(2), s: numberFormatSty},
+    ]
+
+    return [headers, ...rows, footer];
   };
 
   const getABSmsTemplate = () => {
 
     const textSty = { numFmt: '@' }  // make cell type text
+    const numberFormatSty = { numFmt: '0' } // make cell type number
     const customSty = { numFmt: '##' } // make cell custom format ( show number in cell without fractions and Rounding a decimal number )
     const headers = [
       'Employee Name',
@@ -853,18 +926,28 @@ function BankList(props) {
         headers.push('Section') 
       }
 
+      const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
+
     const rows = tableData.map((item,index) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         item.employeeName , // Employee Name
         { v: item.bnkAcc , s: textSty} , // Account
-        { v: item.netSal , s: customSty}, // Amount
+        { v: item.netSal.toFixed(2) , s: numberFormatSty}, // Amount
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+
+    const footer = [
+      '',
+      'Total',
+      { v: total.toFixed(2), s: numberFormatSty},
+    ]
+
+    return [headers, ...rows, footer];
   };
 
   const getCSVFileTemplate = () => {
@@ -884,26 +967,41 @@ function BankList(props) {
         headers.push('Section') 
       }
 
+
+      const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
+
     const rows = tableData.map((item,index) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         index + 1, // مسلسل
-        { v: item.bnkAcc , s: textSty} , // رقم الحساب
+        item.bnkAcc  , // رقم الحساب
         item.employeeName , // الاسم
         '' , // جيروكود
-        formatNumber(item.netSal) , // Amount
+        item.netSal.toFixed(2) , // Amount
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
     );
 
-    return [headers, ...rows];
+
+    const footer = [
+      '',
+      '',
+      '',
+      'Total',
+      total.toFixed(2),
+    ]
+
+    return [headers, ...rows, footer];
   };
 
 
   const getNBETemplate = () => {
 
-    let totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
+    const numberFormatSty = { numFmt: '0' } // make cell type number
+    const textSty = { numFmt: '@' }  // make cell type text
+
+    let totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? item.netSal : 0), 0)
 
     const styles = {
       font: { bold: true, color: { rgb: '000000' } },
@@ -925,7 +1023,7 @@ function BankList(props) {
       },
     }
 
-    const textSty = { numFmt: '@' }  // make cell type text
+    
     
       const title1 = [
         'السادة / بنك الاتحاد الوطنى',
@@ -933,7 +1031,7 @@ function BankList(props) {
 
       const title2 = [
         'يرجى التكرم بخصم',
-        totalAmount
+        { v: totalAmount.toFixed(2), s: numberFormatSty}
       ]
 
       const title3 = [
@@ -957,21 +1055,24 @@ function BankList(props) {
       }
 
     const rows = tableData.map((item, index) => [
-      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
+      ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 && item.netSal > 0  ? [ // used for do not list employees without netSal in sheet
         { v: index + 1, s: styles2}, // SN
         { v: item.bnkAcc , s: styles2}, // ACCOUNT Number
         { v: "EGP" , s: styles2}, // Currency
         { v: item.employeeName , s: styles2},  // Staff name
-        { v: item.netSal,  s: {...styles2, ...textSty}}, // Net salary
+        { v: item.netSal.toFixed(2),  s: {...styles2, ...numberFormatSty}}, // Net salary
         ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode , s: styles2} , { v: item.organizationName , s: styles2}] : []) // Employee Code and Section
      ] : [])
     ]).filter(
-      (arr) => !(arr.length === 1 && arr[0] === undefined) // used to remove empty arrays from generated array
+      arr => arr.length > 0 && arr[0] !== undefined  // used to remove empty arrays from generated array
     );
 
     const footer = [
+      '',
+      '',
+      '',
       'الاجمالى',
-      totalAmount
+      { v: totalAmount.toFixed(2), s: numberFormatSty}
     ]
     
     return [title1, title2, title3,"",headers, ...rows,footer];
