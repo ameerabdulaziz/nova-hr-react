@@ -651,7 +651,7 @@ function BankList(props) {
     const rows = tableData.map((item) => [
       ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
         item.bnkBrcode, // Branch code
-        '', // Customer ID
+        item.bnkEmpCode, // Customer ID
         { v: item.bnkAcc , s: textSty}, // Account Number
         item.employeeName, // Employee Name
         item.bnkBrcode, // Code
@@ -758,10 +758,10 @@ function BankList(props) {
     const totalAmount = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? item.netSal : 0), 0)
 
     const headers = [
+      'SALARY 1',
       'ACCOUNT NAME',
       'COMPANY NAME',
       'ACCOUNT NO',
-      'SALARY 1',
     ];
 
     if(formInfo.exportSectionAndCode)
@@ -772,10 +772,10 @@ function BankList(props) {
 
     const rows = tableData.map((item) => [
       ...(item.netSal !== null && item.netSal !== undefined &&  item.netSal.length !== 0 ? [ // used for do not list employees without netSal in sheet
-        bank?.name ?? '', // ACCOUNT NAME
+        { v: item.netSal , s: customSty} , // SALARY 1
+        item.employeeName ?? '', // ACCOUNT NAME
         company?.name ?? '', // COMPANY NAME
         { v: item.bnkAcc , s: textSty}, // ACCOUNT NO
-        { v: item.netSal , s: customSty} , // SALARY 1
         ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
       ] : [])
     ]).filter(
