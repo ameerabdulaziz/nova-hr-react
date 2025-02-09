@@ -3149,5 +3149,17 @@
   "boilerplate.containers.Payroll.projectManagment.FromHours": "From Hours",
   "boilerplate.containers.Payroll.projectManagment.ToHours": "To Hours",
   "boilerplate.containers.Payroll.projectManagment.NumberOfMinutes": "To Hours",
-  "boilerplate.containers.Payroll.projectManagment.timeSheetDetails": "TimeSheet Details"
+  "boilerplate.containers.Payroll.projectManagment.timeSheetDetails": "TimeSheet Details",
+
+
+
+  "boilerplate.containers.Payroll.HrNotifications.jobName": "Job Name",
+  "boilerplate.containers.Payroll.HrNotifications.txDate": "Date",
+  "boilerplate.containers.Payroll.HrNotifications.trxReason": "Reason",
+  "boilerplate.containers.Payroll.HrNotifications.adminNotes": "Admin Notes",
+  "boilerplate.containers.Payroll.HrNotifications.birthDate": "Birth Date",
+  "boilerplate.containers.Payroll.HrNotifications.workEmail": "Work Email",
+  "boilerplate.containers.Payroll.HrNotifications.mobile": "Mobile",
+  "boilerplate.containers.Payroll.HrNotifications.template": "Template",
+  "boilerplate.containers.Payroll.HrNotifications.docname": "Doc Name"
 }

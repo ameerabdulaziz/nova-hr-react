@@ -369,6 +369,7 @@ const SITEMAP = {
     HrResignRuleList: { route: '/HR/HrResignRule' },
     HrResignRuleCreate: { route: '/HR/HrResignRuleCreate' },
     HrResignRuleEdit: { route: '/HR/HrResignRuleEdit' },
+    hrNotifications: { route: '/HR/hrNotifications' },
   },
   exp: {
     Complaint: { route: '/EXP/Complaint' },
@@ -1019,6 +1020,9 @@ const SITEMAP = {
     ProjectCreate: { route: '/ProjectManagment/ProjectCreate' },
     ProjectEdit: { route: '/ProjectManagment/ProjectEdit' },
   },
+  // hrNotifications: {
+  //   hrNotifications: { route: '/hrNotifications' },
+  // },
   auth: {
     Login: {
       route: '/login',
