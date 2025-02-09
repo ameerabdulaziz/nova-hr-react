@@ -202,10 +202,21 @@ function CalculateAttendance(props) {
       return;
     }
 
-    if (formInfo.EmployeeIds.length === 0) {
-      toast.error(intl.formatMessage(messages.employeeErrMess));
-      return;
-    }
+    // used to check if the user choose more than one day then he must to choose employee 
+    // if he choose one day then get data without choose employee
+    if(formInfo.FromDate && formInfo.ToDate)
+      {
+        const timeDiff = Math.abs(new Date(formInfo.ToDate ) - new Date(formInfo.FromDate));
+        const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+  
+        if(dayDiff > 0)
+        {          
+          if (formInfo.EmployeeIds.length === 0) {
+            toast.error(intl.formatMessage(messages.employeeErrMess));
+            return;
+          }
+        }
+      }
 
     setIsLoading(true);
 

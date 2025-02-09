@@ -38,15 +38,14 @@ function RowDropdown(props) {
 
   const onRedirectBtnClick = (
     tableMeta,
-    validationIndex,
+    colName,
     url,
     shoetcutName
   ) => {    
     closeDropdown(tableMeta.rowIndex);
-    if (!tableMeta.rowData[validationIndex]) {
 
-      window
-        .open(
+    if (!DataOfSelectedRow[colName]) {
+      window.open(
           `${DOMAIN_NAME}${encodeURI(
             `${url}/${btoa(
               encodeURIComponent(
@@ -129,7 +128,7 @@ function RowDropdown(props) {
           onClick={() => {
             onRedirectBtnClick(
               tableMeta,
-              12,
+              "vac",
               SITEMAP.vacation.LeaveTrxCreate.route,
               "Vacation"
             );
@@ -151,7 +150,7 @@ function RowDropdown(props) {
           onClick={() => {
             onRedirectBtnClick(
               tableMeta,
-              13,
+              "mission",
               SITEMAP.attendance.MissionTrxEdit.route,
               "Mission"
             );
@@ -172,7 +171,7 @@ function RowDropdown(props) {
           onClick={() => {
             onRedirectBtnClick(
               tableMeta,
-              14,
+              "per",
               SITEMAP.attendance.PermissionTrxCreate.route,
               "Permission"
             );
