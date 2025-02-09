@@ -24,7 +24,7 @@ import TimeDelayRules from "./Component/TimeDelayRules";
 import VacationsRules from "./Component/VacationsRules";
 import WorkhoursRules from "./Component/WorkHoursRules";
 import GeneralListApis from "../../../api/GeneralListApis";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import SITEMAP from "../../../../../App/routes/sitemap";
 
 function AttRulesCreate(props) {
@@ -351,7 +351,7 @@ function AttRulesCreate(props) {
     },
   };
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -563,7 +563,7 @@ function AttRulesCreate(props) {
           )}
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 AttRulesCreate.propTypes = {

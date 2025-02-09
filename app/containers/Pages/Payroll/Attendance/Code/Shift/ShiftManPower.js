@@ -240,7 +240,7 @@ function ShiftManPower(props) {
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="shift" />
         <div>
           <Grid container spacing={3}>
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={8} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="ddlOrganization"
                 options={organizationList}

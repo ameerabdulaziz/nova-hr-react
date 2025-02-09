@@ -37,7 +37,7 @@ function ShiftCreate(props) {
     enName: "",
     startTime: "",
     hours: "",
-    breakMinutes:"",
+    breakMinutes: "",
     endTime: "",
     allowedLate: "",
     allowedEarlyEx: "",
@@ -61,7 +61,7 @@ function ShiftCreate(props) {
   const [processing, setprocessing] = useState(false);
 
   const handleChange = (event) => {
-    
+
     if (event.target.name == "breakMinutes")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -211,117 +211,7 @@ function ShiftCreate(props) {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid container item md={8} xs={12} direction="row" spacing={3}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  id="arName"
-                  name="arName"
-                  value={data.arName}
-                  onChange={(e) => handleChange(e)}
-                  label={intl.formatMessage(Payrollmessages.arName)}
-                  className={classes.field}
-                  variant="outlined"
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  id="enName"
-                  name="enName"
-                  value={data.enName}
-                  onChange={(e) => handleChange(e)}
-                  label={intl.formatMessage(Payrollmessages.enName)}
-                  className={classes.field}
-                  variant="outlined"
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <TextField
-                  id="startTime"
-                  name="startTime"
-                  value={data.startTime}
-                  label={intl.formatMessage(messages.startTime)}
-                  type="time"
-                  onChange={(e) => handleChange(e)}
-                  className={classes.field}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  required
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <TextField
-                  id="endTime"
-                  name="endTime"
-                  value={data.endTime}
-                  label={intl.formatMessage(messages.endTime)}
-                  type="time"
-                  onChange={(e) => handleChange(e)}
-                  className={classes.field}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  required
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <TextField
-                  id="hours"
-                  name="hours"
-                  value={data.hours}
-                  onChange={(e) => handleChange(e)}
-                  label={intl.formatMessage(messages.hours)}
-                  required
-                  className={classes.field}
-                  variant="outlined"
-                  disabled
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <TextField
-                  id="breakMinutes"
-                  name="breakMinutes"
-                  value={data.breakMinutes}
-                  onChange={(e) => handleChange(e)}
-                  label={intl.formatMessage(messages.breakMinutes)}
-                  required
-                  className={classes.field}
-                  variant="outlined"                  
-                  autoComplete="off"
-                />
-              </Grid>
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  id="ddlShiftType"
-                  options={ShiftTypeList}
-                  value={
-                    ShiftTypeList.find((item) => item.id === data.shiftType) ||
-                    null
-                  }
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      shiftType: value !== null ? value.id : null,
-                    }));
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      variant="outlined"
-                      {...params}
-                      name="shiftType"
-                      label={intl.formatMessage(messages.ShiftType)}
-                    />
-                  )}
-                />
-              </Grid>
+
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -331,7 +221,135 @@ function ShiftCreate(props) {
                       alignItems="flex-start"
                       direction="row"
                     >
-                      <Grid item xs={12} md={6}>
+
+                      <Grid item xs={12} md={12} lg={6} xl={6} >
+                        <TextField
+                          id="arName"
+                          name="arName"
+                          value={data.arName}
+                          onChange={(e) => handleChange(e)}
+                          label={intl.formatMessage(Payrollmessages.arName)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={12} lg={6} xl={6}>
+                        <TextField
+                          id="enName"
+                          name="enName"
+                          value={data.enName}
+                          onChange={(e) => handleChange(e)}
+                          label={intl.formatMessage(Payrollmessages.enName)}
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={3} xl={2}>
+                        <TextField
+                          id="startTime"
+                          name="startTime"
+                          value={data.startTime}
+                          label={intl.formatMessage(messages.startTime)}
+                          type="time"
+                          onChange={(e) => handleChange(e)}
+                          className={classes.field}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          required
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={3} xl={2}>
+                        <TextField
+                          id="endTime"
+                          name="endTime"
+                          value={data.endTime}
+                          label={intl.formatMessage(messages.endTime)}
+                          type="time"
+                          onChange={(e) => handleChange(e)}
+                          className={classes.field}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          required
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={4} lg={3} xl={2}>
+                        <TextField
+                          id="hours"
+                          name="hours"
+                          value={data.hours}
+                          onChange={(e) => handleChange(e)}
+                          label={intl.formatMessage(messages.hours)}
+                          required
+                          className={classes.field}
+                          variant="outlined"
+                          disabled
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3} xl={3}>
+                        <TextField
+                          id="breakMinutes"
+                          name="breakMinutes"
+                          value={data.breakMinutes}
+                          onChange={(e) => handleChange(e)}
+                          label={intl.formatMessage(messages.breakMinutes)}
+                          required
+                          className={classes.field}
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3} xl={3}>
+                        <Autocomplete
+                          id="ddlShiftType"
+                          options={ShiftTypeList}
+                          value={
+                            ShiftTypeList.find((item) => item.id === data.shiftType) ||
+                            null
+                          }
+                          isOptionEqualToValue={(option, value) =>
+                            value.id === 0 || value.id === "" || option.id === value.id
+                          }
+                          getOptionLabel={(option) => (option.name ? option.name : "")}
+                          onChange={(event, value) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              shiftType: value !== null ? value.id : null,
+                            }));
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              variant="outlined"
+                              {...params}
+                              name="shiftType"
+                              label={intl.formatMessage(messages.ShiftType)}
+                            />
+                          )}
+                        />
+                      </Grid>
+
+                    </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+
+              <Grid item xs={12} md={12}>
+                <Card className={classes.card}>
+                  <CardContent>
+                    <Grid
+                      container
+                      spacing={3}
+                      alignItems="flex-start"
+                      direction="row"
+                    >
+                      <Grid item xs={12} md={10} lg={6} xl={4}>
                         <TextField
                           id="allowedLate"
                           name="allowedLate"
@@ -343,7 +361,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} md={10} lg={6} xl={4}>
                         <TextField
                           id="allowedEarlyEx"
                           name="allowedEarlyEx"
@@ -355,7 +373,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} md={10} lg={6} xl={4}>
                         <TextField
                           id="allowedLateEx"
                           name="allowedLateEx"
@@ -367,7 +385,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} md={10} lg={6} xl={4}>
                         <TextField
                           id="allowedEarlyenter"
                           name="allowedEarlyenter"
@@ -383,6 +401,7 @@ function ShiftCreate(props) {
                   </CardContent>
                 </Card>
               </Grid>
+
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -392,7 +411,7 @@ function ShiftCreate(props) {
                       alignItems="flex-start"
                       direction="row"
                     >
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <TextField
                           id="firstM"
                           name="firstM"
@@ -404,7 +423,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <TextField
                           id="firstMfactor"
                           name="firstMfactor"
@@ -416,7 +435,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <TextField
                           id="restTimeFactor"
                           name="restTimeFactor"
@@ -433,6 +452,7 @@ function ShiftCreate(props) {
                 </Card>
               </Grid>
             </Grid>
+
             <Grid container item md={4} xs={12} direction="row" spacing={3}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
@@ -546,7 +566,7 @@ function ShiftCreate(props) {
                       alignItems="flex-start"
                       direction="row"
                     >
-                      <Grid item xs={12} md={12}>
+                      <Grid item xs={12}   >
                         <FormControlLabel
                           control={
                             <Checkbox
@@ -565,7 +585,7 @@ function ShiftCreate(props) {
                         />
                       </Grid>
 
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={12} lg={6}>
                         <TextField
                           id="coreStart"
                           name="coreStart"
@@ -580,7 +600,7 @@ function ShiftCreate(props) {
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={6} md={12} lg={6}>
                         <TextField
                           id="coreEnd"
                           name="coreEnd"
@@ -600,7 +620,7 @@ function ShiftCreate(props) {
                 </Card>
               </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -617,7 +637,7 @@ function ShiftCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
