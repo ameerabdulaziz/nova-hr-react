@@ -109,6 +109,7 @@ function DataFromAllDevices(props) {
         if (fileExtension === "dat") {
           var text = reader.result;
           var rows = text.split(/\r?\n/g); //split by newline chars to get all lines as array
+          debugger;
           if (rows.length !== 0) {
             for (var i = 0; i < rows.length; i++) {
               obj = {};
@@ -139,11 +140,11 @@ function DataFromAllDevices(props) {
                 (items) => (
                   (obj = {}),
                   Object.keys(items).map((item, index) => {
-                    if (index === 0 && items[item].length !== 0) {
+                    if ((item.toLowerCase()?.includes("enno") || item.toLowerCase()?.includes("empId") )&&  items[item].length !== 0) {
                       obj.enrollNumber = Number(items[item]);
                     }
 
-                    if (index === 1 && items[item].length !== 0) {
+                    if ( item.toLowerCase()?.includes("date") && items[item].length !== 0) {//index === 1
                       if (
                         items[item].endsWith("AM") ||
                         items[item].endsWith("PM")
@@ -154,13 +155,13 @@ function DataFromAllDevices(props) {
                       } else obj.date = items[item];
                     }
 
-                    if (index === 2 && items[item].length !== 0) {
+                    if ( (item.toLowerCase()?.includes("verfy") || item.toLowerCase()?.includes("mode") )&& items[item].length !== 0) {//index === 2
                       obj.verifyMode = Number(items[item]);
                     }
-                    if (index === 3 && items[item].length !== 0) {
+                    if ( item.toLowerCase()?.includes("inout") && items[item].length !== 0) {//index === 3
                       obj.inOutMode = Number(items[item]);
                     }
-                    if (index === 4 && items[item].length !== 0) {
+                    if (item.toLowerCase()?.includes("code")&& items[item].length !== 0) {//index === 4 
                       obj.workCode = Number(items[item]);
                     }
                     if (Object.keys(items).length === 2) {
