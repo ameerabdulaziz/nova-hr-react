@@ -57,10 +57,10 @@ function EmpCourseCreate(props) {
   const [DateError, setDateError] = useState({});
 
 
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
   const handleChange = (event) => {
@@ -80,7 +80,7 @@ function EmpCourseCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -155,141 +155,133 @@ function EmpCourseCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-  
-                  <Grid item xs={12} md={3}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.fromdate)}
-                          value={data.startDate ? dayjs(data.startDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              startDate: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`startDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`startDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
 
-                <Grid item xs={12} md={3}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                        value={data.finishDate ? dayjs(data.finishDate) : null}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            finishDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`finishDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`finishDate`]: false
-                            }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
 
-                <Grid item xs={12} md={3}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(messages.commStartDate)}
-                        value={data.commStartDate ? dayjs(data.commStartDate) : null}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            commStartDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`commStartDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`commStartDate`]: false
-                            }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={data.startDate ? dayjs(data.startDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      startDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`startDate`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`startDate`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-                <Grid item xs={12} md={3}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(messages.commEndDate)}
-                        value={data.commEndDate ? dayjs(data.commEndDate) : null}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            commEndDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`commEndDate`]: true
-                            }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                              ...prevState,
-                                [`commEndDate`]: false
-                            }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={data.finishDate ? dayjs(data.finishDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      finishDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`finishDate`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`finishDate`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.commStartDate)}
+                  value={data.commStartDate ? dayjs(data.commStartDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      commStartDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`commStartDate`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`commStartDate`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.commEndDate)}
+                  value={data.commEndDate ? dayjs(data.commEndDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      commEndDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`commEndDate`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`commEndDate`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="employeeId"
                 options={EmployeeList}
@@ -316,7 +308,7 @@ function EmpCourseCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="courseId"
                 options={CourseList}
@@ -344,7 +336,7 @@ function EmpCourseCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3} xl={2}>
               <Autocomplete
                 id="gradeId"
                 options={GradeList}
@@ -372,7 +364,7 @@ function EmpCourseCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={5} lg={3} xl={2.5}>
               <Autocomplete
                 id="centerId"
                 options={CenterList}
@@ -400,7 +392,7 @@ function EmpCourseCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={2} lg={2} xl={1.5}>
               <TextField
                 id="courseCost"
                 name="courseCost"
@@ -414,7 +406,7 @@ function EmpCourseCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={9}>
+            <Grid item xs={12} md={12} lg={12} xl={6}>
               <TextField
                 id="notes"
                 name="notes"
@@ -426,21 +418,27 @@ function EmpCourseCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={4}></Grid>
 
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={id} />
+
+            <Grid item xs={12}>
+              <Grid container spacing={2}>
+                <Grid item >
+                  <SaveButton Id={id} />
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
+
           </Grid>
         </form>
       </PapperBlock>

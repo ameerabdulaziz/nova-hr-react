@@ -44,7 +44,7 @@ function PenaltyTransList(props) {
 
   async function fetchData() {
     try {
-      
+
       const company = await GeneralListApis(locale).GetBranchList();
 
       setCompanyList(company);
@@ -146,8 +146,6 @@ function PenaltyTransList(props) {
     },
   };
 
-
-
   const getFilterHighlights = () => {
     const highlights = [];
 
@@ -181,48 +179,45 @@ function PenaltyTransList(props) {
   const handleSearch = async (e) => {
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
 
-  try {
-    setIsLoading(true);
-    let formData = {
-      FromDate: formateDate(FromDate),
-      ToDate: formateDate(ToDate),
-    };
-    Object.keys(formData).forEach((key) => {
-      formData[key] = formData[key] === null ? "" : formData[key];
-    });
-    const dataApi = await ApiData(locale).GetReport(formData);
+    try {
+      setIsLoading(true);
+      let formData = {
+        FromDate: formateDate(FromDate),
+        ToDate: formateDate(ToDate),
+      };
+      Object.keys(formData).forEach((key) => {
+        formData[key] = formData[key] === null ? "" : formData[key];
+      });
+      const dataApi = await ApiData(locale).GetReport(formData);
 
-    setdata(dataApi);
+      setdata(dataApi);
 
-    getFilterHighlights();
-  } catch (err) {
-  } finally {
-    setIsLoading(false);
-  }
-};
+      getFilterHighlights();
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
   const onCompanyAutoCompleteChange = async (value) => {
-    
+
     let branchId
     let OpenMonthData
 
-    try
-    {
-      if(value)
-      {
+    try {
+      if (value) {
 
         branchId = value
-        OpenMonthData = await GeneralListApis(locale).getOpenMonth(value,0);
+        OpenMonthData = await GeneralListApis(locale).getOpenMonth(value, 0);
       }
-      else
-      {
+      else {
         branchId = null
       }
 
@@ -230,36 +225,33 @@ function PenaltyTransList(props) {
       setToDate(OpenMonthData ? OpenMonthData.todateAtt : null)
 
     }
-    catch(err)
-    {}
+    catch (err) { }
   }
 
 
 
-  useEffect( ()=>{
-    if(company)
-    {            
+  useEffect(() => {
+    if (company) {
       onCompanyAutoCompleteChange(company)
     }
 
-    if(!company)
-    {
+    if (!company) {
       setFromDate(null)
       setToDate(null)
     }
 
-  },[company])
+  }, [company])
 
 
 
-  
+
 
   return (
     <PayRollLoader isLoading={isLoading}>
-       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
+      <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
-<Grid container spacing={2}>
-      <Grid item xs={12} md={4}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4} lg={3.5} xl={2.5}>
             <Autocomplete
               options={companyList}
               value={getAutoCompleteValue(companyList, company)}
@@ -270,18 +262,16 @@ function PenaltyTransList(props) {
                   {option.name}
                 </li>
               )}
-            onChange={(e,value)=>{
-              if(value)
-              {
-                setCompany(value.id);
-              }
-              else
-              {
-                setCompany(null);
-                setFromDate(null)
-                setToDate(null)
-              }
-            }}
+              onChange={(e, value) => {
+                if (value) {
+                  setCompany(value.id);
+                }
+                else {
+                  setCompany(null);
+                  setFromDate(null)
+                  setToDate(null)
+                }
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -290,80 +280,75 @@ function PenaltyTransList(props) {
               )}
             />
           </Grid>
-    
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2.5} lg={2} xl={1.5}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker 
-               label={intl.formatMessage(Payrollmessages.fromdate)}
-                value={FromDate  ? dayjs(FromDate) : FromDate}
+              <DatePicker
+                label={intl.formatMessage(Payrollmessages.fromdate)}
+                value={FromDate ? dayjs(FromDate) : FromDate}
                 className={classes.field}
-                  onChange={(date) => {
-                    setFromDate(date)
+                onChange={(date) => {
+                  setFromDate(date)
                 }}
-                onError={(error,value)=>{
-                  if(error !== null)
-                  {
+                onError={(error, value) => {
+                  if (error !== null) {
                     setDateError((prevState) => ({
                       ...prevState,
-                        [`FromDate`]: true
+                      [`FromDate`]: true
                     }))
                   }
-                  else
-                  {
+                  else {
                     setDateError((prevState) => ({
                       ...prevState,
-                        [`FromDate`]: false
+                      [`FromDate`]: false
                     }))
                   }
                 }}
-                />
+              />
             </LocalizationProvider>
           </Grid>
 
-        <Grid item xs={12} md={2}>
-          
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker 
-             label={intl.formatMessage(Payrollmessages.todate)}
-              value={ToDate  ? dayjs(ToDate) : ToDate}
-              className={classes.field}
+          <Grid item xs={6} md={2.5} lg={2} xl={1.5}>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label={intl.formatMessage(Payrollmessages.todate)}
+                value={ToDate ? dayjs(ToDate) : ToDate}
+                className={classes.field}
                 onChange={(date) => {
                   setToDate(date)
-              }}
-              onError={(error,value)=>{
-                if(error !== null)
-                {
-                  setDateError((prevState) => ({
-                    ...prevState,
+                }}
+                onError={(error, value) => {
+                  if (error !== null) {
+                    setDateError((prevState) => ({
+                      ...prevState,
                       [`ToDate`]: true
-                  }))
-                }
-                else
-                {
-                  setDateError((prevState) => ({
-                    ...prevState,
+                    }))
+                  }
+                  else {
+                    setDateError((prevState) => ({
+                      ...prevState,
                       [`ToDate`]: false
-                  }))
-                }
-              }}
+                    }))
+                  }
+                }}
               />
-          </LocalizationProvider>
+            </LocalizationProvider>
+          </Grid>
+
+
+          <Grid item xs={12} md={2}>
+            <Button
+              variant="contained"
+              size="medium"
+              color="primary"
+              onClick={handleSearch}
+            >
+              <FormattedMessage {...Payrollmessages.search} />
+            </Button>
+          </Grid>
         </Grid>
-
-
-  <Grid item xs={12} md={2}>
-    <Button
-      variant="contained"
-      size="medium"
-      color="primary"
-      onClick={handleSearch}
-    >
-      <FormattedMessage {...Payrollmessages.search} />
-    </Button>
-  </Grid>
-</Grid>
-</PapperBlock>
+      </PapperBlock>
 
       <SimplifiedPayrollTable
         isLoading={isLoading}

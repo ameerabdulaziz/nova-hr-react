@@ -8,7 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import { Button, Grid, TextField, Autocomplete, Card, CardContent } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -51,10 +51,10 @@ function PromotionsCreate(props) {
   const history = useHistory();
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
 
@@ -71,7 +71,7 @@ function PromotionsCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -85,7 +85,7 @@ function PromotionsCreate(props) {
       data.decisionDate = dateFormatFun(data.decisionDate)
 
       console.log("data =", data);
-      
+
 
       let response = await ApiData(locale).Save(data);
 
@@ -139,105 +139,102 @@ function PromotionsCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={2.5} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                    label={intl.formatMessage(messages.date)}
-                    value={data.date ? dayjs(data.date) : null}
-                    className={classes.field}
-                    onChange={(date) => {
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        date: date ,
+                <DatePicker
+                  label={intl.formatMessage(messages.date)}
+                  value={data.date ? dayjs(data.date) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      date: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true
                       }))
-                    }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: true
-                          }))
-                      }
-                      else
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: false
-                          }))
-                      }
-                    }}
-                    disabled
-                  />
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false
+                      }))
+                    }
+                  }}
+                  disabled
+                />
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2.7} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                    label={intl.formatMessage(messages.actualPromotionDate)}
-                    value={data.promotionDate ? dayjs(data.promotionDate) : null}
-                    className={classes.field}
-                    onChange={(date) => {
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        promotionDate: date ,
+                <DatePicker
+                  label={intl.formatMessage(messages.actualPromotionDate)}
+                  value={data.promotionDate ? dayjs(data.promotionDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      promotionDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true
                       }))
-                    }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: true
-                          }))
-                      }
-                      else
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: false
-                          }))
-                      }
-                    }}
-                  />
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false
+                      }))
+                    }
+                  }}
+                />
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={2.5} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker 
-                    // label="decisionDate"
-                    label={intl.formatMessage(messages.decisionDate)}
-                    value={data.decisionDate ? dayjs(data.decisionDate) : null}
-                    className={classes.field}
-                    onChange={(date) => {
-                      setdata((prevFilters) => ({
-                        ...prevFilters,
-                        decisionDate: date ,
+                <DatePicker
+                  // label="decisionDate"
+                  label={intl.formatMessage(messages.decisionDate)}
+                  value={data.decisionDate ? dayjs(data.decisionDate) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      decisionDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true
                       }))
-                    }}
-                    onError={(error,value)=>{
-                      if(error !== null)
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: true
-                          }))
-                      }
-                      else
-                      {
-                        setDateError((prevState) => ({
-                            ...prevState,
-                              [`date`]: false
-                          }))
-                      }
-                    }}
-                  />
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false
+                      }))
+                    }
+                  }}
+                />
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xl={6}></Grid>
+
+
+            <Grid item xs={12} md={12} lg={10} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 GetSalary={true}
@@ -245,94 +242,109 @@ function PromotionsCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Autocomplete
-                id="job"
-                options={JobList}
-                key={{ id: data.newJobId, name: data.newJob }}
-                value={{ id: data.newJobId, name: data.newJob }}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    newJobId: value !== null ? value.id : 0,
-                    newJob: value !== null ? value.name : "",
-                  }));
-                }}
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.id}>
-                      {option.name}
-                    </li>
-                  );
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="job"
-                    required
-                    label={intl.formatMessage(messages.job)}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <TextField
-                id="elemVal"
-                name="elemVal"
-                required
-                value={data.elemVal}
-                onChange={(e) =>
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    elemVal: e.target.value,
-                  }))
-                }
-                label={intl.formatMessage(messages.value)}
-                className={classes.field}
-                variant="outlined"
-                autoComplete='off'
-              />
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <TextField
-                id="reason"
-                name="reason"
-                multiline
-                required
-                rows={2}
-                value={data.reason}
-                onChange={(e) =>
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    reason: e.target.value,
-                  }))
-                }
-                label={intl.formatMessage(messages.reason)}
-                className={classes.field}
-                variant="outlined"
-                autoComplete='off'
-              />
+            <Grid item xs={12} lg={10} xl={6}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+                    <Grid item xs={8} md={6} lg={6} xl={6}>
+                      <Autocomplete
+                        id="job"
+                        options={JobList}
+                        key={{ id: data.newJobId, name: data.newJob }}
+                        value={{ id: data.newJobId, name: data.newJob }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 || value.id === "" || option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option.name ? option.name : "")}
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            newJobId: value !== null ? value.id : 0,
+                            newJob: value !== null ? value.name : "",
+                          }));
+                        }}
+                        renderOption={(props, option) => {
+                          return (
+                            <li {...props} key={option.id}>
+                              {option.name}
+                            </li>
+                          );
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="job"
+                            required
+                            label={intl.formatMessage(messages.job)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={4} md={4} lg={2} xl={3}>
+                      <TextField
+                        id="elemVal"
+                        name="elemVal"
+                        required
+                        value={data.elemVal}
+                        onChange={(e) =>
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            elemVal: e.target.value,
+                          }))
+                        }
+                        label={intl.formatMessage(messages.value)}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={10} lg={8} xl={9}>
+                      <TextField
+                        id="reason"
+                        name="reason"
+                        required
+                        rows={1}
+                        value={data.reason}
+                        onChange={(e) =>
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            reason: e.target.value,
+                          }))
+                        }
+                        label={intl.formatMessage(messages.reason)}
+                        className={classes.field}
+                        variant="outlined"
+                        autoComplete='off'
+                      />
+                    </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
-            <Grid item xs={12} md={4}></Grid>
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={id} />
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item >
+                  <SaveButton Id={id} />
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>

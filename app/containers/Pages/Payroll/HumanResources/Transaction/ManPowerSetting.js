@@ -26,7 +26,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import OrganizationData from "../../MainData/api/OrganizationData";
 import { useReactToPrint } from 'react-to-print';
 import PrintableTable from "../components/ManPowerSetting/PrintableTable";
@@ -206,7 +206,7 @@ function ManPowerSetting(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <Box
         ref={printContainerRef}
         sx={{
@@ -258,7 +258,8 @@ function ManPowerSetting(props) {
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Job" />
         <div>
           <Grid container spacing={3}>
-            <Grid item xs={6} md={3}>
+
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 id="ddlOrganization"
                 options={organizationList}
@@ -287,7 +288,7 @@ function ManPowerSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={4} md={3} lg={2} xl={1}>
               <TextField
                 id="totalIdealManPower"
                 name="totalIdealManPower"
@@ -412,10 +413,11 @@ function ManPowerSetting(props) {
                 </Table>
               </div>
             </Grid>
+
           </Grid>
         </div>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

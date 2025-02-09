@@ -26,7 +26,7 @@ import useStyles from "../../../Style";
 import SaveButton from "../../../Component/SaveButton";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -217,7 +217,7 @@ function NewsCreate(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -244,12 +244,13 @@ function NewsCreate(props) {
             <Grid
               container
               item
-              md={7}
+              xl={6}
               xs={12}
               direction="row"
               style={{ maxHeight: "200vh" }}
+              spacing={3}
             >
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={4} xs={6} lg={2.5} xl={3.5}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                         label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -281,7 +282,7 @@ function NewsCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                  <Grid item md={4} xs={12}>
+                  <Grid item md={4} xs={6} lg={2.5} xl={3.5}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
                          label={intl.formatMessage(Payrollmessages.todate)}
@@ -313,7 +314,7 @@ function NewsCreate(props) {
                     </LocalizationProvider>
                   </Grid>
 
-              <Grid item md={4} xs={12}>
+              <Grid item  xs={12} md={6} lg={3} xl={5}>
                 <Autocomplete
                   id="newsTypeId"
                   options={TypeList}
@@ -340,7 +341,7 @@ function NewsCreate(props) {
                   )}
                 />
               </Grid>
-              <Grid item md={12} xs={12}>
+              <Grid item  xs={12} md={6} lg={4} xl={12}>
                 <TextField
                   id="title"
                   name="title"
@@ -357,7 +358,7 @@ function NewsCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
-              <Grid item md={12} xs={12}>
+              <Grid item  xs={12} >
                 <TextField
                   id="details"
                   name="details"
@@ -378,7 +379,8 @@ function NewsCreate(props) {
                 />
               </Grid>
             </Grid>
-            <Grid container item md={5} xs={12} direction="row">
+
+            <Grid container item  xs={12} xl={6} direction="row">
               <section className={classes.content}>
                 <Grid container item  xs={12} direction="row">
                   <Grid 
@@ -491,10 +493,14 @@ function NewsCreate(props) {
                 </Grid>
               </section>
             </Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+
+            <Grid item >
               <SaveButton Id={id} />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -504,10 +510,14 @@ function NewsCreate(props) {
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
             </Grid>
+
+              </Grid>
+            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 NewsCreate.propTypes = {

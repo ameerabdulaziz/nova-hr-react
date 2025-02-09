@@ -29,7 +29,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import AddIcon from "@mui/icons-material/Add";
 import { NavLink } from "react-router-dom";
 import { ServerURL } from "../../../api/ServerConfig";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -60,7 +60,7 @@ function RewardTransCreate(props) {
     value: "",
     yearId: "",
     yearName: "",
-    superEmployeeId:"",
+    superEmployeeId: "",
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -69,10 +69,10 @@ function RewardTransCreate(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
   const handleEmpChange = useCallback((id, name) => {
@@ -106,7 +106,7 @@ function RewardTransCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -136,7 +136,7 @@ function RewardTransCreate(props) {
   }
   async function fetchData() {
     try {
-      
+
       const years = await GeneralListApis(locale).GetYears(locale);
       setYearList(years);
 
@@ -190,7 +190,7 @@ function RewardTransCreate(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -203,40 +203,37 @@ function RewardTransCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.date)}
-                          value={data.date ? dayjs(data.date) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              date: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.date)}
+                  value={data.date ? dayjs(data.date) : null}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      date: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <Autocomplete
                 id="yearid"
                 options={YearList}
@@ -263,7 +260,8 @@ function RewardTransCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <Autocomplete
                 id="monthId"
                 options={MonthList}
@@ -290,7 +288,8 @@ function RewardTransCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <FormControl variant="standard">
                 <div className={classes.actions}>
                   <Tooltip title="Upload">
@@ -324,6 +323,7 @@ function RewardTransCreate(props) {
                 </div>
               </FormControl>
             </Grid>
+
             <Grid item xs={12} md={2}>
               {data.docName && (
                 <a
@@ -334,7 +334,8 @@ function RewardTransCreate(props) {
                 </a>
               )}
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12}  lg={10} xl={6}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -343,7 +344,7 @@ function RewardTransCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                       <Autocomplete
                         id="rewardsid"
                         options={RewardsList}
@@ -375,7 +376,7 @@ function RewardTransCreate(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={6}>
                       <TextField
                         id="payTemplateName"
                         name="payTemplateName"
@@ -387,7 +388,7 @@ function RewardTransCreate(props) {
                         autoComplete='off'
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={3}>
                       <TextField
                         id="elementName"
                         name="elementName"
@@ -399,7 +400,7 @@ function RewardTransCreate(props) {
                         autoComplete='off'
                       />
                     </Grid>
-                    <Grid item xs={12} md={2}>
+                    <Grid item xs={12} md={3}>
                       <TextField
                         id="value"
                         name="value"
@@ -417,21 +418,25 @@ function RewardTransCreate(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} md={12} lg={10}  xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
               ></EmployeeData>
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} md={12} lg={10} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.superEmployeeId}
-                isSuper={true}                
+                isSuper={true}
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid xs={12} lg={2} xl={6}></Grid>
+
+            <Grid item xs={12} lg={10} xl={6}>
               <TextField
                 id="note"
                 name="note"
@@ -443,11 +448,13 @@ function RewardTransCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={4}></Grid>
-            <Grid item xs={12} md={1}>
+
+          <Grid item xs={12}>
+            <Grid container spacing={3}>
+            <Grid item >
               <SaveButton Id={id} />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -456,11 +463,13 @@ function RewardTransCreate(props) {
               >
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
+            </Grid>              
             </Grid>
           </Grid>
+        </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 RewardTransCreate.propTypes = {

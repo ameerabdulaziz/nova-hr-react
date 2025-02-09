@@ -16,7 +16,7 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -40,10 +40,10 @@ function AttentionCreate(props) {
   });
 
   const [DateError, setDateError] = useState({});
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
   const history = useHistory();
@@ -60,7 +60,7 @@ function AttentionCreate(props) {
     e.preventDefault();
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -104,10 +104,10 @@ function AttentionCreate(props) {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -120,44 +120,44 @@ function AttentionCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-                  <Grid item xs={12} md={4}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                         label={intl.formatMessage(messages.date)}
-                          value={data.attentionDate ? dayjs(data.attentionDate) : data.attentionDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setdata((prevFilters) => ({
-                              ...prevFilters,
-                              attentionDate: date ,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`date`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
 
-            <Grid item xs={12} md={12}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.date)}
+                  value={data.attentionDate ? dayjs(data.attentionDate) : data.attentionDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      attentionDate: date,
+                    }))
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: true
+                      }))
+                    }
+                    else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`date`]: false
+                      }))
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+             <Grid item xs={6} md={9} lg={10} xl={10.5}></Grid>
+
+            <Grid item xs={12} lg={10} xl={8}>
               <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} lg={10} xl={8}>
               <TextField
                 id="reason"
                 name="reason"
@@ -177,24 +177,29 @@ function AttentionCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={4}></Grid>
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={id} />
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item >
+                  <SaveButton Id={id} />
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 AttentionCreate.propTypes = {

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NameList from "../../Component/NameList";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 
 function DirectManager(props) {
   const { intl } = props;
@@ -86,10 +86,10 @@ function DirectManager(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} md={5} lg={4} xl={3}>
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
@@ -119,7 +119,7 @@ function DirectManager(props) {
               <FormattedMessage {...Payrollmessages.save} />
             </Button>
           </Grid>
-          <Grid item xs={6} md={12}>
+          <Grid item xs={12} >
             <NameList
               dataList={dataList}
               setdataList={setdataList}
@@ -128,7 +128,7 @@ function DirectManager(props) {
           </Grid>
         </Grid>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

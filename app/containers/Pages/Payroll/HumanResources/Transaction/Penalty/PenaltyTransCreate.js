@@ -30,7 +30,7 @@ import { ServerURL } from "../../../api/ServerConfig";
 import { NavLink } from "react-router-dom";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
@@ -216,7 +216,7 @@ function PenaltyTransCreate(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -229,7 +229,8 @@ function PenaltyTransCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.date)}
@@ -258,7 +259,7 @@ function PenaltyTransCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <Autocomplete
                 id="yearid"
                 options={YearList}
@@ -285,7 +286,8 @@ function PenaltyTransCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={4} lg={2.2} xl={1.5}>
               <Autocomplete
                 id="monthId"
                 options={MonthList}
@@ -312,7 +314,8 @@ function PenaltyTransCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={4} lg={3} xl={2}>
               <FormControl variant="standard">
                 <div className={classes.actions}>
                   <Tooltip title="Upload">
@@ -346,6 +349,8 @@ function PenaltyTransCreate(props) {
                 </div>
               </FormControl>
             </Grid>
+
+
             <Grid item xs={12} md={2}>
               {data.docName && (
                 <a
@@ -356,14 +361,16 @@ function PenaltyTransCreate(props) {
                 </a>
               )}
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} lg={10} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
                 GetEmployeePenalties={true}
               ></EmployeeData>
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xs={12} lg={10} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 isSuper={true}
@@ -371,98 +378,113 @@ function PenaltyTransCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                id="penaltyId"
-                options={PenaltyList}
-                value={{ id: data.penaltyId, name: data.penaltyName }}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    penaltyId: value !== null ? value.id : 0,
-                    penaltyName: value !== null ? value.name : "",
-                  }));
-                  getPenaltyData(value !== null ? value.id : 0);
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="rewardsid"
-                    required
-                    label={intl.formatMessage(messages.penaltyName)}
-                  />
-                )}
-                disabled={data.employeeId.length === 0 ? true : false}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="elementName"
-                name="elementName"
-                value={data.elementName}
-                label={intl.formatMessage(messages.elementName)}
-                className={classes.field}
-                variant="outlined"
-                disabled
-                autoComplete="off"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Autocomplete
-                id="penaltyTypeId"
-                options={PenaltyTypeList}
-                value={{
-                  penaltyDetailId: data.penaltyDetailId,
-                  id: data.penaltyTypeId,
-                  name: data.penaltyTypeName,
-                }}
-                isOptionEqualToValue={(option, value) =>
-                  value.penaltyDetailId === 0 ||
-                  value.penaltyDetailId === "" ||
-                  option.penaltyDetailId === value.penaltyDetailId
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    penaltyTypeId: value !== null ? value.id : 0,
-                    penaltyTypeName: value !== null ? value.name : "",
-                    penaltyDetailId: value !== null ?  value.penaltyDetailId : "",
-                    value: value !== null ? value.value : "",
-                  }));
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="penaltyTypeId"
-                    required
-                    label={intl.formatMessage(messages.penaltyTypeName)}
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                id="value"
-                name="value"
-                value={data.value}
-                onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.value)}
-                required
-                className={classes.field}
-                variant="outlined"
-                //disabled={data.value ? true : false}
-                autoComplete="off"
-              />
+            <Grid item xs={12} lg={10} xl={6}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+                    <Grid item xs={12} md={6}>
+                      <Autocomplete
+                        id="penaltyId"
+                        options={PenaltyList}
+                        value={{ id: data.penaltyId, name: data.penaltyName }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 || value.id === "" || option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option.name ? option.name : "")}
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            penaltyId: value !== null ? value.id : 0,
+                            penaltyName: value !== null ? value.name : "",
+                          }));
+                          getPenaltyData(value !== null ? value.id : 0);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="rewardsid"
+                            required
+                            label={intl.formatMessage(messages.penaltyName)}
+                          />
+                        )}
+                        disabled={data.employeeId.length === 0 ? true : false}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        id="elementName"
+                        name="elementName"
+                        value={data.elementName}
+                        label={intl.formatMessage(messages.elementName)}
+                        className={classes.field}
+                        variant="outlined"
+                        disabled
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                      <Autocomplete
+                        id="penaltyTypeId"
+                        options={PenaltyTypeList}
+                        value={{
+                          penaltyDetailId: data.penaltyDetailId,
+                          id: data.penaltyTypeId,
+                          name: data.penaltyTypeName,
+                        }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.penaltyDetailId === 0 ||
+                          value.penaltyDetailId === "" ||
+                          option.penaltyDetailId === value.penaltyDetailId
+                        }
+                        getOptionLabel={(option) => (option.name ? option.name : "")}
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            penaltyTypeId: value !== null ? value.id : 0,
+                            penaltyTypeName: value !== null ? value.name : "",
+                            penaltyDetailId: value !== null ? value.penaltyDetailId : "",
+                            value: value !== null ? value.value : "",
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="penaltyTypeId"
+                            required
+                            label={intl.formatMessage(messages.penaltyTypeName)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={6} md={3}>
+                      <TextField
+                        id="value"
+                        name="value"
+                        value={data.value}
+                        onChange={(e) => handleChange(e)}
+                        label={intl.formatMessage(messages.value)}
+                        required
+                        className={classes.field}
+                        variant="outlined"
+                        //disabled={data.value ? true : false}
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12}  lg={2} xl={6} ></Grid>
+
+            <Grid item xs={12} lg={10} xl={6}>
               <TextField
                 id="note"
                 name="note"
@@ -475,10 +497,14 @@ function PenaltyTransCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+
+            <Grid item >
               <SaveButton Id={id} />
             </Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -487,11 +513,15 @@ function PenaltyTransCreate(props) {
               >
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
+            </Grid>  
+
+              </Grid>
             </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 PenaltyTransCreate.propTypes = {

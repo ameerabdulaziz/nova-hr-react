@@ -8,7 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField, Autocomplete } from "@mui/material";
+import { Button, Grid, TextField, Autocomplete, Card, CardContent } from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -19,7 +19,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
@@ -93,7 +93,7 @@ function ResignTrxCreate(props) {
   );
 
   const handleChange = (event) => {
-    
+
     if (event.target.name == "otherDeductionValue")
       setdata((prevFilters) => ({
         ...prevFilters,
@@ -118,12 +118,12 @@ function ResignTrxCreate(props) {
   };
   const handleCalculate = async () => {
     try {
-      if ( !data.employeeId || !data.resignReasonId || !data.lworkingDay) {
+      if (!data.employeeId || !data.resignReasonId || !data.lworkingDay) {
         toast.error("choose Employee ,Resign Reason and Last working Date");
         return;
       }
       setIsLoading(true);
-      const dataApi = await ApiData(locale).CalculateSettlement(data.employeeId,data.resignReasonId,data.lworkingDay);
+      const dataApi = await ApiData(locale).CalculateSettlement(data.employeeId, data.resignReasonId, data.lworkingDay);
       setdata((prevFilters) => ({
         ...prevFilters,
         settlementV: dataApi.settlementV,
@@ -219,7 +219,7 @@ function ResignTrxCreate(props) {
   }
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -232,7 +232,7 @@ function ResignTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3.5} lg={2.5} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.date)}
@@ -261,7 +261,7 @@ function ResignTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3.5} lg={2.5} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.lworkingDay)}
@@ -290,7 +290,7 @@ function ResignTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={5} lg={2}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -308,7 +308,10 @@ function ResignTrxCreate(props) {
                 label={intl.formatMessage(Payrollmessages.isStop)}
               />
             </Grid>
-            <Grid item xs={12} md={12}>
+
+            <Grid item xl={6}></Grid>
+
+            <Grid item xs={12} md={12} lg={10} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 GetworkingYears={true}
@@ -317,85 +320,99 @@ function ResignTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Autocomplete
-                id="resignReasonId"
-                options={ResignList}
-                value={{ id: data.resignReasonId, name: data.resignReasonName }}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(event, value) => {
-                  setdata((prevFilters) => ({
-                    ...prevFilters,
-                    resignReasonId: value !== null ? value.id : 0,
-                    resignReasonName: value !== null ? value.name : "",
-                  }));
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="resignReasonId"
-                    required
-                    label={intl.formatMessage(messages.resignReasonName)}
-                  />
-                )}
-              />
+            <Grid item xs={12} lg={10} xl={6}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={3} alignItems="flex-start" direction="row">
+
+                    <Grid item xs={12} md={8} lg={8} xl={8}>
+                      <Autocomplete
+                        id="resignReasonId"
+                        options={ResignList}
+                        value={{ id: data.resignReasonId, name: data.resignReasonName }}
+                        isOptionEqualToValue={(option, value) =>
+                          value.id === 0 || value.id === "" || option.id === value.id
+                        }
+                        getOptionLabel={(option) => (option.name ? option.name : "")}
+                        onChange={(event, value) => {
+                          setdata((prevFilters) => ({
+                            ...prevFilters,
+                            resignReasonId: value !== null ? value.id : 0,
+                            resignReasonName: value !== null ? value.name : "",
+                          }));
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            variant="outlined"
+                            {...params}
+                            name="resignReasonId"
+                            required
+                            label={intl.formatMessage(messages.resignReasonName)}
+                          />
+                        )}
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4} lg={4} xl={4}>
+                      <TextField
+                        id="settlementV"
+                        name="settlementV"
+                        value={data.settlementV}
+                        onChange={(e) => handleChange(e)}
+                        label={intl.formatMessage(messages.settlementV)}
+                        className={classes.field}
+                        variant="outlined"
+                        // required
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4} lg={4} xl={4}>
+                      <TextField
+                        id="vacSettlValue"
+                        name="vacSettlValue"
+                        value={data.vacSettlValue}
+                        onChange={(e) => handleChange(e)}
+                        label={intl.formatMessage(messages.vacSettlValue)}
+                        className={classes.field}
+                        variant="outlined"
+                        // required
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4} lg={4} xl={4}>
+                      <TextField
+                        id="otherDeductionValue"
+                        name="otherDeductionValue"
+                        value={data.otherDeductionValue}
+                        onChange={(e) => handleChange(e)}
+                        label={intl.formatMessage(messages.otherDeductionValue)}
+                        className={classes.field}
+                        variant="outlined"
+                        // required
+                        autoComplete="off"
+                      />
+                    </Grid>
+
+                    <Grid item xs={12} md={4} lg={4} xl={3}>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="secondary"
+                        onClick={() => handleCalculate()}
+                      >
+                        <FormattedMessage {...messages.calculate} />
+                      </Button>
+                    </Grid>
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
 
-            <Grid item xs={12} md={2}>
-              <TextField
-                id="settlementV"
-                name="settlementV"
-                value={data.settlementV}
-                onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.settlementV)}
-                className={classes.field}
-                variant="outlined"
-                // required
-                autoComplete="off"
-              />
-            </Grid>
 
-            <Grid item xs={12} md={2}>
-              <TextField
-                id="vacSettlValue"
-                name="vacSettlValue"
-                value={data.vacSettlValue}
-                onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.vacSettlValue)}
-                className={classes.field}
-                variant="outlined"
-                // required
-                autoComplete="off"
-              />
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <TextField
-                id="otherDeductionValue"
-                name="otherDeductionValue"
-                value={data.otherDeductionValue}
-                onChange={(e) => handleChange(e)}
-                label={intl.formatMessage(messages.otherDeductionValue)}
-                className={classes.field}
-                variant="outlined"
-                // required
-                autoComplete="off"
-              />
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <Button
-                variant="contained"
-                size="small"
-                color="secondary"
-                onClick={() => handleCalculate()}
-              >
-                <FormattedMessage {...messages.calculate} />
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={10} xl={10.5}>
               <TextField
                 id="note"
                 name="note"
@@ -408,7 +425,7 @@ function ResignTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={3} xl={3}>
               <Autocomplete
                 id="payTemplateId"
                 options={PayTemplateList}
@@ -435,7 +452,8 @@ function ResignTrxCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+
+            <Grid item xs={12} md={6} lg={2.5} xl={2.5}>
               <Autocomplete
                 id="settlElementId"
                 options={SettlElementList}
@@ -461,7 +479,8 @@ function ResignTrxCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+
+            <Grid item xs={12} md={6} lg={2.5} xl={2.5}>
               <Autocomplete
                 id="vacElementId"
                 options={VacElementList}
@@ -487,7 +506,8 @@ function ResignTrxCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+
+            <Grid item xs={12} md={6} lg={2.5} xl={2.5}>
               <Autocomplete
                 id="otherDeductionElementId"
                 options={OtherDeductionElementList}
@@ -518,23 +538,31 @@ function ResignTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={id} />
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+
+                <Grid item >
+                  <SaveButton Id={id} />
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 ResignTrxCreate.propTypes = {
