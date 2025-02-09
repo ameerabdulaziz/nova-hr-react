@@ -193,7 +193,7 @@ function SwapShiftTrxCreate(props) {
           <Grid item container spacing={3} mt={0}>
             <Grid item xs={12} >
               <Grid container spacing={3} >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={6} md={3.2} lg={2.3} xl={1.8}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={intl.formatMessage(messages.attendanceDate)}
@@ -234,7 +234,7 @@ function SwapShiftTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4.5} xl={3}>
               <Autocomplete
                 options={shiftList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -252,7 +252,7 @@ function SwapShiftTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 name='swapStartTime'
                 value={formInfo.swapStartTime}
@@ -266,7 +266,7 @@ function SwapShiftTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 name='swapEndTime'
                 value={formInfo.swapEndTime}
@@ -280,7 +280,7 @@ function SwapShiftTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} lg={4.5} xl={3}>
               <Autocomplete
                 options={shiftList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -304,7 +304,7 @@ function SwapShiftTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 name='swapShiftStartTime'
                 value={formInfo.swapShiftStartTime}
@@ -318,7 +318,7 @@ function SwapShiftTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 name='swapEndTime'
                 value={formInfo.swapShiftEndTime}

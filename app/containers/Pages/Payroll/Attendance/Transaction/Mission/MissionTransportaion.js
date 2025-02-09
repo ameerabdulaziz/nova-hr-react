@@ -19,7 +19,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../../Component/Search";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import { formateDate } from "../../../helpers";
 import { format } from "date-fns";
@@ -125,10 +125,10 @@ function MissionTransportaion(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -262,7 +262,7 @@ function MissionTransportaion(props) {
           </Table>
         </div>
       </Grid>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

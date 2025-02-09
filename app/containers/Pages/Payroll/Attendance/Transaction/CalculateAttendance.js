@@ -22,7 +22,7 @@ import toast from "react-hot-toast";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import style from "../../../../../styles/styles.scss";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import useStyles from "../../Style";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -1072,7 +1072,7 @@ function CalculateAttendance(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <CalculateAttendancePopUp
         handleClose={handleClose}
         open={openParentPopup}
@@ -1088,7 +1088,7 @@ function CalculateAttendance(props) {
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon="border_color" title={title} desc="">
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.companyId)}
@@ -1110,7 +1110,7 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.startDate)}
@@ -1138,7 +1138,7 @@ function CalculateAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.endDate)}
@@ -1166,7 +1166,7 @@ function CalculateAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} xl={3}>
               <Autocomplete
                 options={departmentList}
                 multiple
@@ -1201,7 +1201,7 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} xl={3}>
               <Autocomplete
                 options={employeeList}
                 multiple
@@ -1236,7 +1236,7 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item md={3} xs={12}>
+            <Grid item lg={3} md={6} xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1249,7 +1249,7 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item md={3} xs={12}>
+            <Grid item lg={3} md={6} xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1317,7 +1317,7 @@ function CalculateAttendance(props) {
         columns={columns}
         filterHighlights={filterHighlights}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

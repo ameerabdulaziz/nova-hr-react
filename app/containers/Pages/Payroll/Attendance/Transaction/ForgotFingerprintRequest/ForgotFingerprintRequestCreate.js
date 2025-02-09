@@ -21,7 +21,7 @@ import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -33,7 +33,7 @@ function ForgotFingerprintRequestCreate(props) {
   const { intl } = props;
   const locale = useSelector((state) => state.language.locale);
   const location = useLocation();
-  const  ID  = location.state.id ?? 0;
+  const ID = location.state.id ?? 0;
   const { classes } = useStyles();
   const empid = DecryptUrl();
   const history = useHistory();
@@ -44,13 +44,13 @@ function ForgotFingerprintRequestCreate(props) {
     Date: format(new Date(), "yyyy-MM-dd"),
     employeeId: "",
     notes: "",
-    fingerprint: {id:1, name:"Attendance"},
+    fingerprint: { id: 1, name: "Attendance" },
     FingerprintTime: null,
   });
   const [fingerprintList, setFingerprintList] = useState([
-    {id:1, name:"Attendance"},
-    {id:2, name:"departure"},
-    ]);
+    { id: 1, name: "Attendance" },
+    { id: 2, name: "departure" },
+  ]);
 
 
   const handleEmpChange = useCallback((id, name) => {
@@ -61,26 +61,23 @@ function ForgotFingerprintRequestCreate(props) {
       }));
   }, []);
 
-  const handleChange = (name,value) => {
+  const handleChange = (name, value) => {
 
-    if (name === "fingerprintTime")
-        {
-          setdata((prevFilters) => ({
-            ...prevFilters,
-            FingerprintTime: value,
-          }));
-        }
+    if (name === "fingerprintTime") {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        FingerprintTime: value,
+      }));
+    }
 
-    if (name === "notes")
-    {
+    if (name === "notes") {
       setdata((prevFilters) => ({
         ...prevFilters,
         notes: value,
       }));
     }
-    
-    if (name === "fingerprintType")
-    {
+
+    if (name === "fingerprintType") {
       setdata((prevFilters) => ({
         ...prevFilters,
         fingerprint: value,
@@ -104,7 +101,7 @@ function ForgotFingerprintRequestCreate(props) {
       const apiData = {
         id: data.id,
         trxDate: data.Date,
-        employeeId: data.employeeId,        
+        employeeId: data.employeeId,
         notes: data.notes,
         signDateTime: data.FingerprintTime,
         type: data.fingerprint ? data.fingerprint.id : null
@@ -119,7 +116,7 @@ function ForgotFingerprintRequestCreate(props) {
         toast.error(response.statusText);
       }
     } catch (err) {
-        
+
     } finally {
       setIsLoading(false);
     }
@@ -129,43 +126,42 @@ function ForgotFingerprintRequestCreate(props) {
   }
 
 
-  const getEditdata =  async () => {
+  const getEditdata = async () => {
 
     setIsLoading(true);
-  
+
     try {
-      const data =  await ApiData(locale).GetDataById(ID);
+      const data = await ApiData(locale).GetDataById(ID);
 
       setdata((prevFilters) => ({
         ...prevFilters,
         id: data.id,
         Date: data.trxDate,
-        employeeId : data.employeeId,
+        employeeId: data.employeeId,
         notes: data.notes,
         fingerprint: data.type ? fingerprintList.find(item => item.id == data.type) : null,
         FingerprintTime: data.signDateTime,
       }));
-  
+
     } catch (error) {
       //
     } finally {
       setIsLoading(false);
     }
-  
+
   };
 
 
   useEffect(() => {
 
-    if(ID)
-    {
+    if (ID) {
       getEditdata()
     }
-    },[ID]);
+  }, [ID]);
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -178,7 +174,7 @@ function ForgotFingerprintRequestCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3.2} lg={2.3} xl={1.8}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.date)}
@@ -208,7 +204,9 @@ function ForgotFingerprintRequestCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={6} md={8} lg={9} xl={10}></Grid>
+
+            <Grid item xs={12} md={11} lg={9} xl={7}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -216,45 +214,47 @@ function ForgotFingerprintRequestCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={4} >
-                <TextField
-                 label={intl.formatMessage(messages.signDateTime)}
-                 type="datetime-local"
-                 value={data.FingerprintTime ? data.FingerprintTime : ""}
-                 onChange={(event, value) => {
-                    handleChange("fingerprintTime", event.target.value );
-                  }}
-                 InputLabelProps={{
-                 shrink: true, 
-                 }}
-                 fullWidth
-                />
+            <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+            <Grid item xs={6} md={4.5} lg={3} xl={2}>
+              <TextField
+                label={intl.formatMessage(messages.signDateTime)}
+                type="datetime-local"
+                value={data.FingerprintTime ? data.FingerprintTime : ""}
+                onChange={(event, value) => {
+                  handleChange("fingerprintTime", event.target.value);
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+              />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-                <Autocomplete
+            <Grid item xs={6} md={4.5} lg={3} xl={2}>
+              <Autocomplete
                 id="fingerprintType"
                 options={fingerprintList}
                 value={data.fingerprint}
                 isOptionEqualToValue={(option, value) => {
-                    
-                    return (
+
+                  return (
                     option.id === value.id || value.id === 0 || value.id === ""
-                    );
+                  );
                 }}
                 getOptionLabel={(option) => (option.name ? option.name : "")}
                 onChange={(event, value) => {
-                    handleChange("fingerprintType", value ? value : null);
+                  handleChange("fingerprintType", value ? value : null);
                 }}
                 renderInput={(params) => (
-                    <TextField
+                  <TextField
                     variant="outlined"
                     {...params}
                     name="fingerprintType"
-                      label={intl.formatMessage(messages.type)}
-                    />
+                    label={intl.formatMessage(messages.type)}
+                  />
                 )}
-                />
+              />
             </Grid>
 
             <Grid item xs={12} >
@@ -270,7 +270,7 @@ function ForgotFingerprintRequestCreate(props) {
                     name="notes"
                     value={data.notes}
                     onChange={(e) => {
-                        handleChange("notes", e.target.value);
+                      handleChange("notes", e.target.value);
                     }}
                     label={intl.formatMessage(Payrollmessages.notes)}
                     className={classes.field}
@@ -283,23 +283,29 @@ function ForgotFingerprintRequestCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={1}>
-              <SaveButton Id={ID} />
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item >
+                  <SaveButton Id={ID} />
+                </Grid>
+
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 ForgotFingerprintRequestCreate.propTypes = {

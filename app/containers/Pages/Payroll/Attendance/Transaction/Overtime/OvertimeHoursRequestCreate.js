@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 import { FormattedMessage, injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import SaveButton from "../../../Component/SaveButton";
 import useStyles from "../../../Style";
 import GeneralListApis from "../../../api/GeneralListApis";
@@ -232,11 +232,11 @@ function OvertimeHoursRequestCreate(props) {
   };
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" desc="" title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction="row">
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4.5} xl={3}>
               <Autocomplete
                 options={employeeList}
                 value={
@@ -259,7 +259,7 @@ function OvertimeHoursRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2.3} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(payrollMessages.date)}
@@ -292,7 +292,7 @@ function OvertimeHoursRequestCreate(props) {
           </Grid>
 
           <Grid container spacing={3} mt={0} direction="row">
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2.2} xl={1.5}>
               <TextField
                 value={formInfo.startTime}
                 label={intl.formatMessage(messages.startTime)}
@@ -306,7 +306,7 @@ function OvertimeHoursRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2.2} xl={1.5}>
               <TextField
                 value={formInfo.endTime}
                 label={intl.formatMessage(messages.endTime)}
@@ -320,7 +320,7 @@ function OvertimeHoursRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={3} lg={2.2} xl={1.5}>
               <TextField
                 value={formInfo.minutesCount}
                 label={intl.formatMessage(messages.minutesCount)}
@@ -331,7 +331,9 @@ function OvertimeHoursRequestCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+
+
+            <Grid item xs={12} lg={5} xl={6}>
               <TextField
                 name="notes"
                 value={formInfo.notes}
@@ -339,7 +341,7 @@ function OvertimeHoursRequestCreate(props) {
                 label={intl.formatMessage(payrollMessages.notes)}
                 className={classes.field}
                 variant="outlined"
-                multiline
+
                 rows={1}
                 autoComplete="off"
               />
@@ -347,11 +349,11 @@ function OvertimeHoursRequestCreate(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <SaveButton Id={id} processing={isLoading} />
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <Button
                     variant="contained"
                     size="medium"
@@ -366,7 +368,7 @@ function OvertimeHoursRequestCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

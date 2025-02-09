@@ -26,7 +26,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import EmployeeData from "../../../Component/EmployeeData";
 import SaveButton from "../../../Component/SaveButton";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -78,7 +78,7 @@ function MissionTrxCreate(props) {
 
   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
   useEffect(() => {
-    debugger;
+
     if (empid) {
       let startTime, endTime, total;
       let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
@@ -300,7 +300,7 @@ function MissionTrxCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -313,7 +313,7 @@ function MissionTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -342,7 +342,7 @@ function MissionTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.todate)}
@@ -372,7 +372,7 @@ function MissionTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="startTime"
                 name="startTime"
@@ -387,7 +387,8 @@ function MissionTrxCreate(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="endTime"
                 name="endTime"
@@ -402,7 +403,8 @@ function MissionTrxCreate(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="minutesCount"
                 name="minutesCount"
@@ -417,7 +419,7 @@ function MissionTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={8} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -425,7 +427,7 @@ function MissionTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12}  md={12} lg={8} xl={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -434,7 +436,7 @@ function MissionTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6} >
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -454,7 +456,7 @@ function MissionTrxCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6}  >
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -473,7 +475,7 @@ function MissionTrxCreate(props) {
                         label={intl.formatMessage(messages.isMustAttend)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6}  >
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -491,7 +493,7 @@ function MissionTrxCreate(props) {
                         label={intl.formatMessage(messages.exemptEntryRec)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={6}  >
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -513,14 +515,15 @@ function MissionTrxCreate(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={8}>
+
+            <Grid item xs={12} md={12} lg={8} xl={6}>
               <Grid
                 container
                 spacing={3}
                 alignItems="flex-start"
                 direction="row"
               >
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={8} xl={6}>
                   <Autocomplete
                     id="missionid"
                     options={MissionsList}
@@ -553,7 +556,8 @@ function MissionTrxCreate(props) {
                     )}
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+
+                <Grid item xs={12} md={4} xl={3}>
                   <TextField
                     id="transportationExpenses"
                     name="transportationExpenses"
@@ -566,7 +570,8 @@ function MissionTrxCreate(props) {
                     autoComplete="off"
                   />
                 </Grid>
-                <Grid item xs={12} md={3}>
+
+                <Grid item xs={12} md={4} xl={3}>
                   <TextField
                     id="currencyName"
                     name="currencyName"
@@ -578,7 +583,8 @@ function MissionTrxCreate(props) {
                     disabled={true}
                   />
                 </Grid>
-                <Grid item xs={12} md={12}>
+
+                <Grid item xs={12} md={12} xl={9}>
                   <TextField
                     id="missionDestination"
                     name="missionDestination"
@@ -593,7 +599,8 @@ function MissionTrxCreate(props) {
                     required
                   />
                 </Grid>
-                <Grid item xs={12} md={12}>
+
+                <Grid item xs={12} md={12} xl={9}>
                   <TextField
                     id="notes"
                     name="notes"
@@ -608,13 +615,18 @@ function MissionTrxCreate(props) {
                     required
                   />
                 </Grid>
+
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+
+            <Grid item >
               <SaveButton Id={id} />
             </Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -623,11 +635,14 @@ function MissionTrxCreate(props) {
               >
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
+            </Grid>                
+              </Grid>
             </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 MissionTrxCreate.propTypes = {

@@ -15,7 +15,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import style from "../../../../../styles/styles.scss";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
@@ -170,10 +170,10 @@ function RemoveEmployeeSign(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} lg={10} xl={8}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -182,7 +182,10 @@ function RemoveEmployeeSign(props) {
               setDateError={setDateError}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+
+          <Grid item xs={12} xl={4}></Grid>
+
+          <Grid item xs={12}  lg={5} xl={4}>
             <Autocomplete
               multiple
               className={`${style.AutocompleteMulSty} ${
@@ -221,7 +224,7 @@ function RemoveEmployeeSign(props) {
             />
           </Grid>
           
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={6} lg={3} xl={2}>
             <Autocomplete
               id="DeleteList"
               options={[
@@ -249,7 +252,9 @@ function RemoveEmployeeSign(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={1}>
+         <Grid item xs={12}>
+          <Grid container spacing={3}>
+          <Grid item >
             <Button
               variant="contained"
               size="medium"
@@ -259,7 +264,8 @@ function RemoveEmployeeSign(props) {
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={6} md={2}>
+
+          <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -268,7 +274,12 @@ function RemoveEmployeeSign(props) {
               >
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
-            </Grid>
+            </Grid>            
+          </Grid>
+         </Grid>
+
+
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -386,7 +397,7 @@ function RemoveEmployeeSign(props) {
               </TableBody>
             </Table>
           </div>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

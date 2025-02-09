@@ -63,10 +63,10 @@ function DataFromAllDevices(props) {
 
   const [DateError, setDateError] = useState({});
 
-    // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-      return  date  ? format(new Date(date), "yyyy-MM-dd") : ""
-    }
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
+  }
 
 
   const submitFun = async (e) => {
@@ -132,7 +132,7 @@ function DataFromAllDevices(props) {
           if (sheets.length) {
             const rows = utils.sheet_to_json(wb.Sheets[sheets[0]], {
               raw: false,
-              defval:"",
+              defval: "",
             });
             if (rows.length !== 0) {
               rows.map(
@@ -309,6 +309,7 @@ function DataFromAllDevices(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2} alignItems="flex-start" direction="row">
+
           <Grid item md={12} xs={12}>
             <FormControl>
               <RadioGroup
@@ -328,7 +329,7 @@ function DataFromAllDevices(props) {
                   control={<Radio />}
                   label={intl.formatMessage(messages.access)}
                 />
-               
+
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -342,7 +343,7 @@ function DataFromAllDevices(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={6} lg={3} xl={3}>
                     <Autocomplete
                       id="deviceId"
                       options={DeviceList}
@@ -367,7 +368,8 @@ function DataFromAllDevices(props) {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={12} md={2}>
+
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <TextField
                       id="ip"
                       name="ip"
@@ -379,7 +381,8 @@ function DataFromAllDevices(props) {
                       autoComplete='off'
                     />
                   </Grid>
-                  <Grid item xs={12} md={2}>
+
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <TextField
                       id="port"
                       name="port"
@@ -391,7 +394,8 @@ function DataFromAllDevices(props) {
                       autoComplete='off'
                     />
                   </Grid>
-                  <Grid item xs={12} md={5}>
+
+                  <Grid item xs={12} md={6} lg={5} xl={3}>
                     <FormControl>
                       <RadioGroup
                         row
@@ -413,7 +417,10 @@ function DataFromAllDevices(props) {
                       </RadioGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} md={3}>
+
+                  <Grid item xs={12}></Grid>
+
+                  <Grid item xs={12} md={6} lg={3} xl={3}>
                     <Autocomplete
                       id="employeeId"
                       options={EmployeeList}
@@ -440,70 +447,64 @@ function DataFromAllDevices(props) {
                       )}
                     />
                   </Grid>
- 
-                  <Grid item xs={12} md={2}>
-                  
+
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
+
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
+                      <DatePicker
                         label={intl.formatMessage(Payrollmessages.fromdate)}
-                        value={FromDate  ? dayjs(FromDate) : FromDate}
+                        value={FromDate ? dayjs(FromDate) : FromDate}
                         className={classes.field}
-                          onChange={(date) => {
-                            setFromDate(date)
+                        onChange={(date) => {
+                          setFromDate(date)
                         }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
+                        onError={(error, value) => {
+                          if (error !== null) {
                             setDateError((prevState) => ({
                               ...prevState,
-                                [`FromDate`]: true
+                              [`FromDate`]: true
                             }))
                           }
-                          else
-                          {
+                          else {
                             setDateError((prevState) => ({
                               ...prevState,
-                                [`FromDate`]: false
+                              [`FromDate`]: false
                             }))
                           }
                         }}
-                        />
+                      />
                     </LocalizationProvider>
                   </Grid>
 
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
 
-                <Grid item xs={12} md={2}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                      value={ToDate  ? dayjs(ToDate) : ToDate}
-                      className={classes.field}
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label={intl.formatMessage(Payrollmessages.todate)}
+                        value={ToDate ? dayjs(ToDate) : ToDate}
+                        className={classes.field}
                         onChange={(date) => {
                           setToDate(date)
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
+                        }}
+                        onError={(error, value) => {
+                          if (error !== null) {
+                            setDateError((prevState) => ({
+                              ...prevState,
                               [`ToDate`]: false
-                          }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
+                            }))
+                          }
+                          else {
+                            setDateError((prevState) => ({
+                              ...prevState,
                               [`ToDate`]: false
-                          }))
-                        }
-                      }}
+                            }))
+                          }
+                        }}
                       />
-                  </LocalizationProvider>
-                </Grid>
+                    </LocalizationProvider>
+                  </Grid>
 
-
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                     <TextField
                       id="password"
                       name="password"
@@ -520,8 +521,10 @@ function DataFromAllDevices(props) {
               </CardContent>
             </Card>
           </Grid>
+
+          <Grid item xs={12}></Grid>
           {Type == 1 ? (
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 disabled={Device == "" ? true : false}
@@ -536,7 +539,7 @@ function DataFromAllDevices(props) {
               </Button>
             </Grid>
           ) : (
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 disabled={Device == "" ? true : false}
@@ -561,7 +564,7 @@ function DataFromAllDevices(props) {
             </Grid>
           )}
 
-          <Grid item xs={12} md={1}>
+          <Grid item >
             <Button
               variant="contained"
               size="medium"
@@ -572,6 +575,7 @@ function DataFromAllDevices(props) {
               <FormattedMessage {...Payrollmessages.save} />
             </Button>
           </Grid>
+
         </Grid>
       </PapperBlock>
       <div className={classes.CustomMUIDataTable}>

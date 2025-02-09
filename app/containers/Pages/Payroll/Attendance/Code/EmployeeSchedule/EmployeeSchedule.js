@@ -12,7 +12,7 @@ import {
   import React, { useEffect, useState } from 'react';
   import { injectIntl } from 'react-intl';
   import { useSelector } from 'react-redux';
-  import PayRollLoader from '../../../Component/PayRollLoader';
+  import PayRollLoaderInForms from '../../../Component/PayRollLoaderInForms';
   import payrollMessages from '../../../messages';
   import useStyles from '../../../Style';
   import EmployeeData from "../../../Component/EmployeeData";
@@ -246,7 +246,7 @@ import {
     };
 
     return (
-      <PayRollLoader isLoading={isLoading}>
+      <PayRollLoaderInForms isLoading={isLoading}>
         <PapperBlock
           title={`${
             monthNames[currentDate.getMonth()]
@@ -256,7 +256,7 @@ import {
           noMargin
           desc=''
         >
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
@@ -294,7 +294,7 @@ import {
           GetEmployeeShiftCalendarFun={GetEmployeeShiftCalendarFun}
           />
         </PapperBlock>
-      </PayRollLoader>
+      </PayRollLoaderInForms>
     );
   }
   
