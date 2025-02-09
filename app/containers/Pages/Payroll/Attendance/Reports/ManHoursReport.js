@@ -16,7 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -277,11 +277,11 @@ function ManHoursReport(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -292,7 +292,9 @@ function ManHoursReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>         
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
             <Autocomplete
               id="shift"
               name="shift"
@@ -317,7 +319,7 @@ function ManHoursReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -337,7 +339,7 @@ function ManHoursReport(props) {
           filterHighlights={filterHighlights}
           columns={columns}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

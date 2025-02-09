@@ -12,7 +12,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import {
@@ -189,10 +189,10 @@ function ShiftManPowerReport(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={6} lg={4.5} xl={3.5}>
             <Autocomplete
               id="organizationId"
               options={organizationList}
@@ -221,7 +221,7 @@ function ShiftManPowerReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={6} md={5} lg={3.5} xl={2.5}>
             <Autocomplete
               id="shift"
               name="shift"
@@ -244,7 +244,7 @@ function ShiftManPowerReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={3} lg={2.5} xl={2}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label={intl.formatMessage(Payrollmessages.date)}
@@ -270,7 +270,9 @@ function ShiftManPowerReport(props) {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
+            <Grid container spacing={3}>
+          <Grid item >
             <Button
               variant="contained"
               size="medium"
@@ -280,7 +282,7 @@ function ShiftManPowerReport(props) {
               <FormattedMessage {...messages.detailsSearch} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item >
             <Button
               variant="contained"
               size="medium"
@@ -290,6 +292,10 @@ function ShiftManPowerReport(props) {
               <FormattedMessage {...messages.totalSearch} />
             </Button>
           </Grid>
+            </Grid>
+          </Grid>
+
+
           <Grid item xs={12} md={12}></Grid>
         </Grid>
       </PapperBlock>
@@ -299,7 +305,7 @@ function ShiftManPowerReport(props) {
         data={data}
         columns={search == 1 ? columns : Totalcolumns}
       />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

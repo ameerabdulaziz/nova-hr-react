@@ -13,7 +13,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { format } from "date-fns";
 import style from '../../../../../styles/styles.scss'
 import { toast } from "react-hot-toast";
@@ -136,10 +136,10 @@ function WorkinHoursByTimeReport(props) {
   },[data])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -149,7 +149,9 @@ function WorkinHoursByTimeReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+          <Grid item  xs={6} md={2.8} lg={2.2} xl={1.8}>
               <TextField
                 id="startTime"
                 name="startTime"
@@ -168,7 +170,7 @@ function WorkinHoursByTimeReport(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={2.9} lg={2.3} xl={1.7}>
               <TextField
                 id="ToTime"
                 name="ToTime"
@@ -188,7 +190,7 @@ function WorkinHoursByTimeReport(props) {
               />
             </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -208,7 +210,7 @@ function WorkinHoursByTimeReport(props) {
           columns={columns}
         />
       )}
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

@@ -13,7 +13,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import GeneralListApis from "../../api/GeneralListApis";
@@ -254,11 +254,11 @@ function BreakTimeReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -269,7 +269,9 @@ function BreakTimeReport(props) {
             ></Search>
           </Grid>
 
-            <Grid item md={3} lg={2}>
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>         
+
+            <Grid item md={4} lg={3} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -288,7 +290,7 @@ function BreakTimeReport(props) {
             </Grid>
 
           
-            <Grid item md={2}>
+            <Grid item md={4} lg={3} xl={2}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -306,7 +308,7 @@ function BreakTimeReport(props) {
                   />
             </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -326,7 +328,7 @@ function BreakTimeReport(props) {
           columns={columns}
           filterHighlights={filterHighlights}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

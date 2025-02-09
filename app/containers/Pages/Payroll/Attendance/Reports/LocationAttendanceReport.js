@@ -15,7 +15,7 @@ import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import GeneralListApis from "../../api/GeneralListApis";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -188,11 +188,11 @@ function LocationAttendanceReport(props) {
   ];
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -205,7 +205,9 @@ function LocationAttendanceReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+           <Grid item xs={12} md={1} lg={3} xl={5}></Grid>         
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
                 <Autocomplete
                       multiple  
                       className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
@@ -266,7 +268,7 @@ function LocationAttendanceReport(props) {
           filterHighlights={filterHighlights}
         />
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

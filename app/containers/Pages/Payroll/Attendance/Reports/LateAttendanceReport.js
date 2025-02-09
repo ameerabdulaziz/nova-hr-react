@@ -14,7 +14,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
@@ -123,8 +123,8 @@ function LateAttendanceReport(props) {
 
   const handleSearch = async (e) => {
 
-     // used to stop call api if user select wrong date
-     if (Object.values(DateError).includes(true)) {  
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(payrollMessages.DateNotValid));
       return;
     }
@@ -132,14 +132,12 @@ function LateAttendanceReport(props) {
 
 
     let ShiftData = ""
-    if(Shift !== null)
-    {
-    // used to reformat elements data ( combobox ) before send it to api
-    Shift.map((ele, index)=>{
-        ShiftData+= `${ele.id}`
-        if(index + 1 !== Shift.length)
-        {
-            ShiftData+= ","
+    if (Shift !== null) {
+      // used to reformat elements data ( combobox ) before send it to api
+      Shift.map((ele, index) => {
+        ShiftData += `${ele.id}`
+        if (index + 1 !== Shift.length) {
+          ShiftData += ","
         }
       })
     }
@@ -156,7 +154,7 @@ function LateAttendanceReport(props) {
         EmployeeStatusId: searchData.EmpStatusId,
         Type: searchData.type,
         ShiftCodes: ShiftData
-          };
+      };
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
@@ -202,279 +200,270 @@ function LateAttendanceReport(props) {
 
   let columns = []
 
-  if(searchData.type === 1)
-  {
+  if (searchData.type === 1) {
     columns = [
-        {
-            name: "shiftId",
-            label: intl.formatMessage(messages.shiftCode),
-          },
-        {
-            name: "shiftname",
-            label: intl.formatMessage(messages.shift),
-          },
-        {
-          name: "organizationName",
-          label: intl.formatMessage(messages.orgName),
-        },
-        {
-            name: "jobName",
-            label: intl.formatMessage(messages.job),
-          },
-        {
-          name: "employeeCode",
-          label: intl.formatMessage(messages.EmpCode),
-        },
-        {
-          name: "employeeName",
-          label: intl.formatMessage(messages.employeeName),
-        },
-        {
-          name: "shiftDate",
-          label: intl.formatMessage(messages.attendanceDate),
-          options: getDateColumnOptions(
-            intl.formatMessage(messages.attendanceDate),
-            {
-              minDateLabel: intl.formatMessage(payrollMessages.minDate),
-              maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
-            }
-          ),
-        },
-        {
-          name: "timeIn",
-          label: intl.formatMessage(messages.signIn),
-        },  
-        {
-            name: "startTime",
-            label: intl.formatMessage(messages.shiftStart),
-          }, 
-          {
-            name: "lateMin",
-            label: intl.formatMessage(messages.lateness),
-          }, 
-      ];
-      
-  }
-   
-
-  if(searchData.type === 2)
-  {
-    columns = [
-        {
-          name: "organizationName",
-          label: intl.formatMessage(messages.orgName),
-        },
-        {
-            name: "jobName",
-            label: intl.formatMessage(messages.job),
-          },
-        {
-          name: "employeeCode",
-          label: intl.formatMessage(messages.EmpCode),
-        },
-        {
-          name: "employeeName",
-          label: intl.formatMessage(messages.employeeName),
-        },
-        {
-            name: "lateMin",
-            label: intl.formatMessage(messages.lateness),
-          }, 
-          {
-            name: "lateCount",
-            label: intl.formatMessage(messages.LateCount),
-          }, 
-      ];
-  }
-
-
-  if(searchData.type === 3)
-  {
-    columns = [
-        {
-          name: "organizationName",
-          label: intl.formatMessage(messages.orgName),
-        },
-        {
-            name: "lateMin",
-            label: intl.formatMessage(messages.lateness),
-          },    
-      ];
-  }
-
-
-  const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
-
-    let OpenMonthData 
-
-    try
-    {
-      if(!EmployeeId)
       {
-         OpenMonthData = await GeneralListApis(locale).getOpenMonth( BranchId,0);
+        name: "shiftId",
+        label: intl.formatMessage(messages.shiftCode),
+      },
+      {
+        name: "shiftname",
+        label: intl.formatMessage(messages.shift),
+      },
+      {
+        name: "organizationName",
+        label: intl.formatMessage(messages.orgName),
+      },
+      {
+        name: "jobName",
+        label: intl.formatMessage(messages.job),
+      },
+      {
+        name: "employeeCode",
+        label: intl.formatMessage(messages.EmpCode),
+      },
+      {
+        name: "employeeName",
+        label: intl.formatMessage(messages.employeeName),
+      },
+      {
+        name: "shiftDate",
+        label: intl.formatMessage(messages.attendanceDate),
+        options: getDateColumnOptions(
+          intl.formatMessage(messages.attendanceDate),
+          {
+            minDateLabel: intl.formatMessage(payrollMessages.minDate),
+            maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
+          }
+        ),
+      },
+      {
+        name: "timeIn",
+        label: intl.formatMessage(messages.signIn),
+      },
+      {
+        name: "startTime",
+        label: intl.formatMessage(messages.shiftStart),
+      },
+      {
+        name: "lateMin",
+        label: intl.formatMessage(messages.lateness),
+      },
+    ];
+
+  }
+
+
+  if (searchData.type === 2) {
+    columns = [
+      {
+        name: "organizationName",
+        label: intl.formatMessage(messages.orgName),
+      },
+      {
+        name: "jobName",
+        label: intl.formatMessage(messages.job),
+      },
+      {
+        name: "employeeCode",
+        label: intl.formatMessage(messages.EmpCode),
+      },
+      {
+        name: "employeeName",
+        label: intl.formatMessage(messages.employeeName),
+      },
+      {
+        name: "lateMin",
+        label: intl.formatMessage(messages.lateness),
+      },
+      {
+        name: "lateCount",
+        label: intl.formatMessage(messages.LateCount),
+      },
+    ];
+  }
+
+
+  if (searchData.type === 3) {
+    columns = [
+      {
+        name: "organizationName",
+        label: intl.formatMessage(messages.orgName),
+      },
+      {
+        name: "lateMin",
+        label: intl.formatMessage(messages.lateness),
+      },
+    ];
+  }
+
+
+  const openMonthDateWithCompanyChangeFun = async (BranchId, EmployeeId) => {
+
+    let OpenMonthData
+
+    try {
+      if (!EmployeeId) {
+        OpenMonthData = await GeneralListApis(locale).getOpenMonth(BranchId, 0);
       }
-      else
-      {
-         OpenMonthData = await GeneralListApis(locale).getOpenMonth( 0,EmployeeId);
+      else {
+        OpenMonthData = await GeneralListApis(locale).getOpenMonth(0, EmployeeId);
       }
 
-      
-      setsearchData((prev)=>({
+
+      setsearchData((prev) => ({
         ...prev,
         FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
         ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
       }))
     }
-    catch(err)
-    {}
+    catch (err) { }
 
   }
 
 
-  useEffect(()=>{
-    if(searchData.BranchId !== "" && searchData.EmployeeId === "")
-    {      
+  useEffect(() => {
+    if (searchData.BranchId !== "" && searchData.EmployeeId === "") {
       openMonthDateWithCompanyChangeFun(searchData.BranchId)
     }
 
-    if(searchData.BranchId === "" && searchData.EmployeeId !== "")
-    {
+    if (searchData.BranchId === "" && searchData.EmployeeId !== "") {
       openMonthDateWithCompanyChangeFun(0, searchData.EmployeeId)
     }
 
-    if(searchData.BranchId === "" && searchData.EmployeeId === "")
-    {
-      setsearchData((prev)=>({
+    if (searchData.BranchId === "" && searchData.EmployeeId === "") {
+      setsearchData((prev) => ({
         ...prev,
         FromDate: null,
         ToDate: null,
       }))
     }
 
-  },[searchData.BranchId, searchData.EmployeeId])
+  }, [searchData.BranchId, searchData.EmployeeId])
 
-  
+
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-               setIsLoading={setIsLoading}
-               DateError={DateError}
+              setsearchData={setsearchData}
+              searchData={searchData}
+              setIsLoading={setIsLoading}
+              DateError={DateError}
               setDateError={setDateError}
               company={searchData.BranchId}
             ></Search>
           </Grid>
 
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
 
-                <Grid item xs={12}  md={4}> 
-                    <Autocomplete
-                          multiple  
-                          className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
-                          id="checkboxes-tags-demo"
-                          isOptionEqualToValue={(option, value) => option.id === value.id}
-                          options={ShiftList.length != 0 ? ShiftList: []}
-                          disableCloseOnSelect
-                          getOptionLabel={(option) =>(
-                            option  ? option.name : ""
-                        )
-                        }
-                        onChange={(event, value) => {
-                          if (value !== null) {
-                            setShift(value);
-                          } else {
-                            setShift(null);
-                          }
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
+            <Autocomplete
+              multiple
+              className={`${style.AutocompleteMulSty} ${locale === "ar" ? style.AutocompleteMulStyAR : null}`}
+              id="checkboxes-tags-demo"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={ShiftList.length != 0 ? ShiftList : []}
+              disableCloseOnSelect
+              getOptionLabel={(option) => (
+                option ? option.name : ""
+              )
+              }
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setShift(value);
+                } else {
+                  setShift(null);
+                }
+              }}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.name}
+                </li>
+              )}
+              style={{ width: 500 }}
+              renderInput={(params) => (
+                <TextField {...params}
+                  label={intl.formatMessage(messages.shift)}
+                />
+              )}
+            />
+
+          </Grid>
+
+
+          <Grid item md={12} lg={6} xl={5}>
+            <FormControl>
+              <RadioGroup
+                row
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="Sign In Only"
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="Details"
+                  control={
+                    <Radio
+                      onChange={(evt) => {
+                        setsearchData((prev) => ({
+                          ...prev,
+                          type: 1,
+                        }));
+                        setdata([])
                       }}
-                          renderOption={(props, option, { selected }) => (
-                            <li {...props}>
-                              <Checkbox
-                                icon={icon}
-                                checkedIcon={checkedIcon}
-                                style={{ marginRight: 8 }}
-                                checked={selected}
-                              />
-                              {option.name}
-                            </li>
-                          )}
-                          style={{ width: 500 }}
-                          renderInput={(params) => (
-                            <TextField {...params} 
-                            label={intl.formatMessage(messages.shift)}
-                            />
-                          )}
-                        />
-              
-                  </Grid>
-            
+                    />}
+                  label={intl.formatMessage(messages.details)}
+                  checked={searchData.type === 1 ? true : false}
+                />
 
-            <Grid item md={12} lg={4}>
-                <FormControl>
-                    <RadioGroup
-                        row
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue="Sign In Only"
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel 
-                            value="Details"
-                            control={
-                            <Radio 
-                            onChange={(evt) => {
-                                setsearchData((prev) => ({
-                                  ...prev,
-                                  type: 1,
-                                }));
-                                setdata([])
-                              }}
-                            />} 
-                            label={intl.formatMessage(messages.details)}
-                            checked={searchData.type === 1 ? true : false }
-                        />
+                <FormControlLabel
+                  value="Total Report"
+                  control={
+                    <Radio
+                      onChange={(evt) => {
+                        setsearchData((prev) => ({
+                          ...prev,
+                          type: 2,
+                        }));
+                        setdata([])
+                      }}
+                    />}
+                  label={intl.formatMessage(messages.TotalReport)}
+                  checked={searchData.type === 2 ? true : false}
+                />
 
-                        <FormControlLabel 
-                            value="Total Report"
-                            control={
-                            <Radio 
-                            onChange={(evt) => {
-                                setsearchData((prev) => ({
-                                  ...prev,
-                                  type: 2,
-                                }));
-                                setdata([])
-                              }}
-                            />} 
-                            label={intl.formatMessage(messages.TotalReport)}
-                            checked={searchData.type === 2 ? true : false }
-                        />
+                <FormControlLabel
+                  value="Group By Department / Section"
+                  control={
+                    <Radio
+                      onChange={(evt) => {
+                        setsearchData((prev) => ({
+                          ...prev,
+                          type: 3
+                        }));
+                        setdata([])
+                      }}
+                    />}
+                  label={intl.formatMessage(messages.GroupByDepartmentSection)}
+                  checked={searchData.type === 3 ? true : false}
+                />
+              </RadioGroup>
+            </FormControl>
+          </Grid>
 
-                        <FormControlLabel 
-                        value="Group By Department / Section"
-                        control={
-                        <Radio 
-                        onChange={(evt) => {
-                            setsearchData((prev) => ({
-                              ...prev,
-                              type: 3
-                            }));
-                            setdata([])
-                          }}
-                        />} 
-                        label={intl.formatMessage(messages.GroupByDepartmentSection)}
-                        checked={searchData.type === 3 ? true : false }
-                        />
-                    </RadioGroup>
-                </FormControl>
-            </Grid>
 
-          
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -488,13 +477,13 @@ function LateAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <SimplifiedPayrollTable
-          title=""
-          data={data}
-          columns={columns}
-          filterHighlights={filterHighlights}
-        />
-    </PayRollLoader>
+      <SimplifiedPayrollTable
+        title=""
+        data={data}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
+    </PayRollLoaderInForms>
   );
 }
 

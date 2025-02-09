@@ -14,7 +14,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -344,11 +344,11 @@ function PermissionTrxReport(props) {
   },[searchData.BranchId, searchData.EmployeeId,todayDateKey])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -358,7 +358,10 @@ function PermissionTrxReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
             <Autocomplete
               id="permissionId"
               options={PermissionsList}
@@ -381,7 +384,7 @@ function PermissionTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2.8} lg={2.2} xl={1.8}>
             <Autocomplete
               id="StatusList"
               options={permissionStatusList}
@@ -404,7 +407,7 @@ function PermissionTrxReport(props) {
               )}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2.9} lg={2.3} xl={1.7}>
             <Autocomplete
               id="DeleteList"
               name="DeleteList"
@@ -429,7 +432,7 @@ function PermissionTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -449,7 +452,7 @@ function PermissionTrxReport(props) {
           columns={columns}
           filterHighlights={filterHighlights}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 
