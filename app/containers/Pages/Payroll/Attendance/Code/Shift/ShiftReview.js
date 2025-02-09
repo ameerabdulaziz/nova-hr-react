@@ -360,7 +360,7 @@ function ShiftReview(props) {
                   direction="row"
                 >
                  
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={6} md={3} lg={2} xl={1.5}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -390,8 +390,7 @@ function ShiftReview(props) {
                     </LocalizationProvider>
                   </Grid>
 
-
-                <Grid item xs={12} md={2}>
+                <Grid item xs={6} md={3} lg={2} xl={1.5}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -421,8 +420,7 @@ function ShiftReview(props) {
                   </LocalizationProvider>
                 </Grid>
 
-
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12} md={6} lg={4} xl={3}>
                     <Autocomplete
                       id="OrganizationId"
                       options={OrganizationList}
@@ -449,7 +447,8 @@ function ShiftReview(props) {
                       )}
                     />
                   </Grid>
-                  <Grid item xs={12} md={3}>
+
+                  <Grid item xs={12} md={6} lg={4} xl={3}>
                     <Autocomplete
                       id="employeeId"
                       options={EmployeeList}
@@ -477,7 +476,7 @@ function ShiftReview(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={2}>
+                  <Grid item xs={12} lg={2}>
                     <Button
                       variant="contained"
                       size="medium"

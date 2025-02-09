@@ -18,7 +18,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import style from '../../../../../styles/styles.scss'
 import ApiData from "../api/AttendanceReportsData";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -288,11 +288,11 @@ function EarlyLeavingReport(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -303,7 +303,9 @@ function EarlyLeavingReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12}  md={4}> 
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}> 
                     <Autocomplete
                           multiple  
                           className={`${style.AutocompleteMulSty} ${locale === "ar" ?  style.AutocompleteMulStyAR : null}`}
@@ -344,7 +346,7 @@ function EarlyLeavingReport(props) {
                   </Grid>
 
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -364,7 +366,7 @@ function EarlyLeavingReport(props) {
           columns={columns}
           filterHighlights={filterHighlights}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

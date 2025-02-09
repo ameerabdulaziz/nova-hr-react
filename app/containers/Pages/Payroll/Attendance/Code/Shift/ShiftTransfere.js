@@ -370,7 +370,7 @@ function ShiftTransfere(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3} alignItems="flex-start" direction="row">
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6} lg={4}>
             <Card className={classes.card}>
               <CardContent>
                 <Grid
@@ -379,7 +379,7 @@ function ShiftTransfere(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={8}>
+                  <Grid item xs={12} md={12}>
                     <Autocomplete
                       id="shiftId"
                       options={ShiftsList}
@@ -412,7 +412,7 @@ function ShiftTransfere(props) {
                     />
                   </Grid>
            
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={6} xl={4}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -456,8 +456,7 @@ function ShiftTransfere(props) {
                     </LocalizationProvider>
                   </Grid>
 
-
-                  <Grid item xs={12} md={4}>
+                  <Grid item xs={6} md={6} xl={4}>
                     <TextField
                       id="startTime"
                       name="startTime"
@@ -471,7 +470,8 @@ function ShiftTransfere(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} md={4}>
+
+                  <Grid item xs={6} md={6} xl={4}>
                     <TextField
                       id="endTime"
                       name="endTime"
@@ -485,7 +485,8 @@ function ShiftTransfere(props) {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} md={4}>
+
+                  <Grid item xs={6} md={6} xl={4}>
                     <TextField
                       id="workHours"
                       name="workHours"
@@ -497,11 +498,12 @@ function ShiftTransfere(props) {
                       autoComplete='off'
                     />
                   </Grid>
+
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12}  md={6} lg={8}>
             <Card className={classes.card}>
               <CardContent>
                 <Grid
@@ -510,7 +512,7 @@ function ShiftTransfere(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12}  lg={5} xl={4}>
                     <Autocomplete
                       id="shiftId"
                       options={ShiftsList}
@@ -542,7 +544,7 @@ function ShiftTransfere(props) {
                     />
                   </Grid>
                  
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={6}  lg={3} xl={2}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -576,7 +578,7 @@ function ShiftTransfere(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6}  lg={3} xl={2}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -610,12 +612,11 @@ function ShiftTransfere(props) {
                   </LocalizationProvider>
                 </Grid>
 
-
                   <Grid item xs={12} md={12}>
                     <Card className={classes.card}>
                       <CardContent>
                         <Grid container alignItems="flex-start" direction="row">
-                          <Grid item xs={12} md={4}>
+                          <Grid item xs={12} md={6} xl={4}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -635,7 +636,7 @@ function ShiftTransfere(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={2.5}>
+                          <Grid item xs={12} md={6} xl={2.5}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -653,7 +654,7 @@ function ShiftTransfere(props) {
                               label={intl.formatMessage(Payrollmessages.sunday)}
                             />
                           </Grid>
-                          <Grid item xs={12} md={2.5}>
+                          <Grid item xs={12} md={6} xl={2.5}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -671,7 +672,7 @@ function ShiftTransfere(props) {
                               label={intl.formatMessage(Payrollmessages.monday)}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={12} md={6} xl={3}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -691,7 +692,7 @@ function ShiftTransfere(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={4}>
+                          <Grid item xs={12} md={6} xl={4}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -711,7 +712,7 @@ function ShiftTransfere(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={2.5}>
+                          <Grid item xs={12} md={6} xl={2.5}>
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -731,7 +732,7 @@ function ShiftTransfere(props) {
                               )}
                             />
                           </Grid>
-                          <Grid item xs={12} md={3}>
+                          <Grid item xs={12} md={6} xl={3}>
                             <FormControlLabel
                               control={
                                 <Checkbox

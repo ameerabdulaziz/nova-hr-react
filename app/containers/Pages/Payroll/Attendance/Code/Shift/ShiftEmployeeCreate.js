@@ -40,7 +40,7 @@ function ShiftEmployeeCreate(props) {
   const { classes } = useStyles();
   const companyInfo = useSelector((state) => state.authReducer.companyInfo);
   const user = useSelector((state) => state.authReducer.user);
-debugger;
+
   const [data, setdata] = useState({
     id: 0,
     employeeId: employeeId ? employeeId : "",
@@ -189,7 +189,7 @@ debugger;
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="shiftId"
                 options={ShiftsList}
@@ -222,7 +222,7 @@ debugger;
               />
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="startTime"
                 name="startTime"
@@ -242,7 +242,8 @@ debugger;
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+            
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="endTime"
                 name="endTime"
@@ -262,7 +263,8 @@ debugger;
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={2}>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="workHours"
                 name="workHours"
@@ -281,9 +283,7 @@ debugger;
               />
             </Grid>
 
-            <Grid item xs={12} md={2}></Grid>
-
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.fromdate)}
@@ -312,7 +312,7 @@ debugger;
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(Payrollmessages.todate)}
@@ -341,9 +341,9 @@ debugger;
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={8}></Grid>
 
-            <Grid item xs={12} md={6}>
+
+            <Grid item xs={12} >
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -352,7 +352,7 @@ debugger;
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -375,7 +375,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.saturday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -398,7 +398,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.sunday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -421,7 +421,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.monday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -444,7 +444,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.tuesday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -467,7 +467,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.wednesday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -490,7 +490,7 @@ debugger;
                         label={intl.formatMessage(Payrollmessages.thursday)}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={4} lg={3} xl={2}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -518,9 +518,10 @@ debugger;
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6}></Grid>
+            <Grid item xs={12} ></Grid>
 
-            <Grid item xs={12} md={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -537,7 +538,8 @@ debugger;
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"

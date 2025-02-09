@@ -329,7 +329,8 @@ function PermissionTrxCreate(props) {
         </Backdrop>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+
+            <Grid item xs={12} md={12} xl={6}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -358,7 +359,7 @@ function PermissionTrxCreate(props) {
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(Payrollmessages.date)}
@@ -387,7 +388,7 @@ function PermissionTrxCreate(props) {
                       </LocalizationProvider>
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={5} lg={3.5} xl={6}>
                       <Autocomplete
                         id="permissionid"
                         options={PermissionsList}
@@ -427,6 +428,7 @@ function PermissionTrxCreate(props) {
                         )}
                       />
                     </Grid>
+
                     <Grid item xs={12} md={8}>
                       <Card className={classes.card}>
                         <CardContent>
@@ -436,7 +438,7 @@ function PermissionTrxCreate(props) {
                             alignItems="flex-start"
                             direction="row"
                           >
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12} md={6} lg={6} xl={8}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -458,7 +460,7 @@ function PermissionTrxCreate(props) {
                                 label={intl.formatMessage(messages.calcLate)}
                               />
                             </Grid>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12} md={6} lg={4} xl={4}>
                               <TextField
                                 id="plateMin"
                                 name="plateMin"
@@ -471,7 +473,7 @@ function PermissionTrxCreate(props) {
                                 autoComplete="off"
                               />
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12} md={6} lg={6} xl={8}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -493,7 +495,7 @@ function PermissionTrxCreate(props) {
                                 label={intl.formatMessage(messages.calcMinus)}
                               />
                             </Grid>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12} md={6} lg={4} xl={4}>
                               <TextField
                                 id="pminusMin"
                                 name="pminusMin"
@@ -506,7 +508,7 @@ function PermissionTrxCreate(props) {
                                 autoComplete="off"
                               />
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12} md={6} lg={6} xl={8}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -528,7 +530,7 @@ function PermissionTrxCreate(props) {
                                 label={intl.formatMessage(messages.dedRased)}
                               />
                             </Grid>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12} md={6} lg={4} xl={4}>
                               <TextField
                                 id="prasedMin"
                                 name="prasedMin"
@@ -545,6 +547,7 @@ function PermissionTrxCreate(props) {
                         </CardContent>
                       </Card>
                     </Grid>
+
                     <Grid item xs={12} md={4}>
                       <Grid
                         container
@@ -552,7 +555,7 @@ function PermissionTrxCreate(props) {
                         alignItems="flex-start"
                         direction="row"
                       >
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} lg={6} xl={9} >
                           <TextField
                             id="startTime"
                             name="startTime"
@@ -567,7 +570,7 @@ function PermissionTrxCreate(props) {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} lg={6} xl={9}>
                           <TextField
                             id="endTime"
                             name="endTime"
@@ -582,7 +585,7 @@ function PermissionTrxCreate(props) {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} lg={6} xl={9}>
                           <TextField
                             id="minutesCount"
                             name="minutesCount"
@@ -596,7 +599,7 @@ function PermissionTrxCreate(props) {
                             autoComplete="off"
                           />
                         </Grid>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} lg={12} xl={9}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -614,7 +617,7 @@ function PermissionTrxCreate(props) {
                             label={intl.formatMessage(messages.exemptEntryRec)}
                           />
                         </Grid>
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={12} md={12} lg={12} xl={9}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -634,6 +637,7 @@ function PermissionTrxCreate(props) {
                         </Grid>
                       </Grid>
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                       <TextField
                         id="notes"
@@ -647,11 +651,13 @@ function PermissionTrxCreate(props) {
                         required
                       />
                     </Grid>
+
                   </Grid>
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6}>
+
+            <Grid item xs={12} md={12} xl={6} >
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -665,7 +671,9 @@ function PermissionTrxCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -676,7 +684,7 @@ function PermissionTrxCreate(props) {
                 <FormattedMessage {...Payrollmessages.add} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -687,7 +695,7 @@ function PermissionTrxCreate(props) {
                 <FormattedMessage {...Payrollmessages.preview} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -698,7 +706,7 @@ function PermissionTrxCreate(props) {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -708,7 +716,11 @@ function PermissionTrxCreate(props) {
               >
                 <FormattedMessage {...Payrollmessages.delete} />
               </Button>
+            </Grid>                
+              </Grid>
             </Grid>
+
+
           </Grid>
         </form>
         <AlertPopup

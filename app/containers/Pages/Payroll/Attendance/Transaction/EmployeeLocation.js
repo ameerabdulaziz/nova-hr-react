@@ -23,7 +23,7 @@ import { useSelector } from "react-redux";
 import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NamePopup from "../../Component/NamePopup";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { format, toDate } from "date-fns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import AlertPopup from '../../Component/AlertPopup';
@@ -249,13 +249,13 @@ function EmployeeLocation(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Employee" />
         <div>
           <Grid container spacing={3}>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2} xl={1.5}>
                   
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker 
@@ -285,7 +285,7 @@ function EmployeeLocation(props) {
                     </LocalizationProvider>
                   </Grid>
 
-                <Grid item xs={12} md={3}>
+                <Grid item xs={6} md={3} lg={2} xl={1.5}>
                   
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker 
@@ -315,7 +315,7 @@ function EmployeeLocation(props) {
                   </LocalizationProvider>
                 </Grid>
 
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 id="ddlLocation"
                 options={LocationList}
@@ -344,7 +344,12 @@ function EmployeeLocation(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+
+
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -354,7 +359,7 @@ function EmployeeLocation(props) {
                 <FormattedMessage {...Payrollmessages.search} />
               </Button>
             </Grid>
-            <Grid item xs={6} md={3} lg={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -364,7 +369,8 @@ function EmployeeLocation(props) {
                 <FormattedMessage {...Payrollmessages.chooseEmp} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={1.5} lg={1}>
+
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -375,7 +381,7 @@ function EmployeeLocation(props) {
               </Button>
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -384,7 +390,11 @@ function EmployeeLocation(props) {
               >
                 <FormattedMessage {...Payrollmessages.delete} />
               </Button>
+            </Grid>                
+              </Grid>
             </Grid>
+
+
             <Grid item xs={12} md={12}>
               <div className={classes.rootTable}>
                 <Table
@@ -593,7 +603,7 @@ function EmployeeLocation(props) {
 
 
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

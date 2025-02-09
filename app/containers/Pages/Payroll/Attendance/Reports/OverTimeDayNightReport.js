@@ -13,7 +13,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
@@ -285,11 +285,11 @@ function OverTimeDayNightReport(props) {
   },[searchData.BranchId, searchData.EmployeeId])
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}
@@ -299,6 +299,8 @@ function OverTimeDayNightReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
+
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
 
             <Grid item md={6} lg={3}>
                   <FormControlLabel
@@ -318,7 +320,7 @@ function OverTimeDayNightReport(props) {
             </Grid>
 
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -338,7 +340,7 @@ function OverTimeDayNightReport(props) {
           filterHighlights={filterHighlights}
           columns={columns}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

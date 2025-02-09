@@ -273,7 +273,7 @@ function PermissionCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={5} xl={3}>
               <TextField
                 id="arName"
                 name="arName"
@@ -285,7 +285,8 @@ function PermissionCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={12} md={6} lg={5} xl={3}>
               <TextField
                 id="enName"
                 name="enName"
@@ -297,7 +298,8 @@ function PermissionCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="shortName"
                 name="shortName"
@@ -309,7 +311,8 @@ function PermissionCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={3} lg={3} xl={1.5}>
               <TextField
                 id="minMinuteNo"
                 name="minMinuteNo"
@@ -321,7 +324,8 @@ function PermissionCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="maxMinuteNo"
                 name="maxMinuteNo"
@@ -333,7 +337,8 @@ function PermissionCreate(props) {
                 autoComplete="off"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 id="maxRepeated"
                 name="maxRepeated"
@@ -346,7 +351,7 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4} className={style.totalMinutesContainer}>
+            <Grid item xs={12} md={6} lg={5} xl={3} className={style.totalMinutesContainer}>
               <TextField
                 name="ReqBeforeShiftInMinute"
                 id="ReqBeforeShiftInMinute"
@@ -365,7 +370,7 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 value={data.allowFromTime}
                 label={intl.formatMessage(messages.startTime)}
@@ -379,7 +384,7 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
               <TextField
                 value={data.allowToTime}
                 label={intl.formatMessage(messages.endTime)}
@@ -393,7 +398,7 @@ function PermissionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={5} xl={3}>
               <Autocomplete
                 options={dayList}
                 multiple
@@ -426,6 +431,9 @@ function PermissionCreate(props) {
                 )}
               />
             </Grid>
+
+
+
 
             <Grid item xs={12} md={12}>
               <Card className={classes.card}>

@@ -220,7 +220,7 @@ function ShiftEmployeeList(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={5} xl={4}>
             <Autocomplete
               id='employeeId'
               options={EmployeeList}

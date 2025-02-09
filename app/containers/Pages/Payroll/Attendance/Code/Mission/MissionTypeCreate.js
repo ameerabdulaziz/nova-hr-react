@@ -13,7 +13,7 @@ import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import style from '../../../../../../styles/styles.scss';
@@ -167,7 +167,7 @@ function MissionTypeCreate(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -177,7 +177,7 @@ function MissionTypeCreate(props) {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item container spacing={3} alignItems="flex-start" direction="row">
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6} lg={4} xl={3}>
                 <TextField
                   id="arName"
                   name="arName"
@@ -190,7 +190,7 @@ function MissionTypeCreate(props) {
                   required
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={6} lg={4} xl={3}>
                 <TextField
                   id="enName"
                   name="enName"
@@ -203,7 +203,7 @@ function MissionTypeCreate(props) {
                   required
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid item xs={6} md={3.5} lg={2.5} xl={2}>
                 <TextField
                   id="transportaion"
                   name="transportaion"
@@ -216,10 +216,38 @@ function MissionTypeCreate(props) {
                   required
                 />
               </Grid>
+              <Grid item xs={6} md={3.5} lg={3} xl={2}>
+                <Autocomplete
+                  id="transportationType"
+                  options={transportationTypeList}
+                  value={
+                      data.transportationType
+                  }
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  onChange={(event, value) => {                  
+                    setdata((prevFilters) => ({
+                      ...prevFilters,
+                      transportationType: value !== null ? value : null,
+                    }));
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="transportationType"
+                      label={intl.formatMessage(messages.transportationType)}            
+                      required               
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
 
             <Grid item container spacing={3} alignItems="flex-start" direction="row">
-              <Grid item xs={12} md={3}>
+              <Grid item xs={12} md={7} lg={8} xl={6}>
               <Autocomplete
               id="notificationUsers"
                         options={EmployeeList}
@@ -260,37 +288,11 @@ function MissionTypeCreate(props) {
                         )}
                       />
               </Grid>
-              <Grid item xs={12} md={3}>
-                <Autocomplete
-                  id="transportationType"
-                  options={transportationTypeList}
-                  value={
-                      data.transportationType
-                  }
-                  isOptionEqualToValue={(option, value) =>
-                    value.id === 0 || value.id === "" || option.id === value.id
-                  }
-                  getOptionLabel={(option) => (option.name ? option.name : "")}
-                  onChange={(event, value) => {                  
-                    setdata((prevFilters) => ({
-                      ...prevFilters,
-                      transportationType: value !== null ? value : null,
-                    }));
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      variant="outlined"
-                      {...params}
-                      name="transportationType"
-                      label={intl.formatMessage(messages.transportationType)}            
-                      required               
-                    />
-                  )}
-                />
-              </Grid>
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            
+
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -301,7 +303,7 @@ function MissionTypeCreate(props) {
               </Button>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -314,7 +316,7 @@ function MissionTypeCreate(props) {
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 MissionTypeCreate.propTypes = {

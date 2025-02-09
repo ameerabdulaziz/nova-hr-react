@@ -105,19 +105,17 @@ function ShiftOrgnization(props) {
   );
 
   const handleClickOpenNamePopup = () => {
-    if(!Object.values(DateError).includes(true))
-    {
+    if (!Object.values(DateError).includes(true)) {
 
       setOpenPopup(true);
     }
-    else
-    {
+    else {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
     }
   };
 
 
-;
+  ;
 
   async function deleteRow(id) {
     try {
@@ -129,7 +127,7 @@ function ShiftOrgnization(props) {
       getShiftData(data.shiftId);
 
     } catch (err) {
-      
+
     } finally {
       setIsLoading(false);
     }
@@ -137,8 +135,8 @@ function ShiftOrgnization(props) {
 
   async function handleUpdate(selectedRows) {
 
-// used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) { 
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -180,7 +178,7 @@ function ShiftOrgnization(props) {
       setIsLoading(false);
     }
   }
-  
+
   async function Getookup() {
     setIsLoading(true);
 
@@ -231,7 +229,7 @@ function ShiftOrgnization(props) {
               result.startTime.split(":")[0],
               result.startTime.split(":")[1]
             )) /
-            3600000
+          3600000
       }));
       const dataApi = await ApiData(locale).GetList("", id, "");
       setdataList(dataApi || []);
@@ -375,7 +373,7 @@ function ShiftOrgnization(props) {
     customToolbarSelect: (selectedRows) => (
       <div>
         <Grid container spacing={1} alignItems="flex-start" direction="row">
-         
+
           <Grid item xs={12} md={2}>
             {/* <Button
               variant="contained"
@@ -412,7 +410,7 @@ function ShiftOrgnization(props) {
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
+
         <NamePopup
           handleClose={handleCloseNamePopup}
           open={OpenPopup}
@@ -420,7 +418,7 @@ function ShiftOrgnization(props) {
         />
         <div>
           <Grid container spacing={2} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6} lg={4}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -429,7 +427,7 @@ function ShiftOrgnization(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={8}>
+                    <Grid item xs={12} md={12}>
                       <Autocomplete
                         id="shiftId"
                         options={ShiftsList}
@@ -461,10 +459,7 @@ function ShiftOrgnization(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
-                      {" "}
-                    </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={6} xl={4}>
                       <TextField
                         id="startTime"
                         name="startTime"
@@ -478,7 +473,7 @@ function ShiftOrgnization(props) {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={6} xl={4}>
                       <TextField
                         id="endTime"
                         name="endTime"
@@ -492,7 +487,7 @@ function ShiftOrgnization(props) {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={6} xl={4}>
                       <TextField
                         id="workHours"
                         name="workHours"
@@ -513,7 +508,7 @@ function ShiftOrgnization(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12}  md={6} lg={8}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -522,77 +517,70 @@ function ShiftOrgnization(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
- 
 
-                  <Grid item xs={12} md={3}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.fromdate)}
-                        value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
-                        className={classes.field}
+                    <Grid item xs={6}  lg={3} xl={2}>
+
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.fromdate)}
+                          value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
+                          className={classes.field}
                           onChange={(date) => {
 
                             setdata((prevFilters) => ({
                               ...prevFilters,
-                              fromDate: date ,
+                              fromDate: date,
                             }))
-                        }}
-                        onError={(error,value)=>{
+                          }}
+                          onError={(error, value) => {
 
-                          if(error !== null)
-                          {
-                            setDateError((prevFilters) => ({
-                              ...prevFilters,
+                            if (error !== null) {
+                              setDateError((prevFilters) => ({
+                                ...prevFilters,
                                 [`fromDate`]: true
-                            }))
-                          }
-                          else
-                          {
-                            setDateError((prevFilters) => ({
-                              ...prevFilters,
+                              }))
+                            }
+                            else {
+                              setDateError((prevFilters) => ({
+                                ...prevFilters,
                                 [`fromDate`]: false
-                            }))
-                          }
-                        }}
+                              }))
+                            }
+                          }}
                         />
-                    </LocalizationProvider>
-                  </Grid>
+                      </LocalizationProvider>
+                    </Grid>
 
+                    <Grid item xs={6}  lg={3} xl={2}>
 
-                <Grid item xs={12} md={3}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                      value={data.toDate ? dayjs(data.toDate) : data.toDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            toDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevFilters) => ({
-                            ...prevFilters,
-                              [`toDate`]: true
-                          }))
-                        }
-                        else
-                        {
-                          setDateError((prevFilters) => ({
-                            ...prevFilters,
-                              [`toDate`]: false
-                          }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
-
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.todate)}
+                          value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                          className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              toDate: date,
+                            }))
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevFilters) => ({
+                                ...prevFilters,
+                                [`toDate`]: true
+                              }))
+                            }
+                            else {
+                              setDateError((prevFilters) => ({
+                                ...prevFilters,
+                                [`toDate`]: false
+                              }))
+                            }
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
 
                     <Grid item xs={12} md={12}>
                       <Card className={classes.card}>
@@ -602,7 +590,7 @@ function ShiftOrgnization(props) {
                             alignItems="flex-start"
                             direction="row"
                           >
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12} md={6}  xl={4}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -622,7 +610,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={2.5}>
+                            <Grid item xs={12} md={6}  xl={2.5}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -642,7 +630,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={2.5}>
+                            <Grid item xs={12} md={6}  xl={2.5}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -662,7 +650,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={12} md={6}  xl={3}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -682,7 +670,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={4}>
+                            <Grid item xs={12} md={6}  xl={4}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -702,7 +690,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={2.5}>
+                            <Grid item xs={12} md={6}  xl={2.5}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -722,7 +710,7 @@ function ShiftOrgnization(props) {
                                 )}
                               />
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={12} md={6}  xl={3}>
                               <FormControlLabel
                                 control={
                                   <Checkbox
@@ -746,6 +734,7 @@ function ShiftOrgnization(props) {
                         </CardContent>
                       </Card>
                     </Grid>
+
                   </Grid>
                 </CardContent>
               </Card>

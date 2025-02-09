@@ -14,7 +14,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { toast } from "react-hot-toast";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
@@ -370,10 +370,10 @@ function MissionTrxReport(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
           <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -383,7 +383,10 @@ function MissionTrxReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
             <Autocomplete
               id="MissionId"
               options={MissionsList}
@@ -406,7 +409,7 @@ function MissionTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2.8} lg={2.2} xl={1.8}>
             <Autocomplete
               id="StatusList"
               options={missionStatusList}
@@ -427,7 +430,7 @@ function MissionTrxReport(props) {
               )}
             />
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={6} md={2.9} lg={2.3} xl={1.7}>
             <Autocomplete
               id="DeleteList"
               options={deleteList}
@@ -451,7 +454,7 @@ function MissionTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"
@@ -471,7 +474,7 @@ function MissionTrxReport(props) {
           columns={columns}
           filterHighlights={filterHighlights}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

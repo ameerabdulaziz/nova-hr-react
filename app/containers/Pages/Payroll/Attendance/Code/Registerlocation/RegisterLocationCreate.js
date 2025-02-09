@@ -487,7 +487,7 @@ useEffect(() => {
                     direction="row"
                     className={style.gridSty}
                     >    
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12} md={6} lg={4} xl={3}> 
                         <TextField
                             name="arName"
                             id="arName"
@@ -503,7 +503,7 @@ useEffect(() => {
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={4} xl={3}> 
                         <TextField
                             name="enName"
                             id="enName"
@@ -519,7 +519,7 @@ useEffect(() => {
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={4} xl={3}> 
                         <TextField
                             name="Address"
                             id="Address"
@@ -535,7 +535,7 @@ useEffect(() => {
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={4} xl={3}> 
                         <TextField
                             name="Latitude"
                             id="Latitude"
@@ -551,7 +551,7 @@ useEffect(() => {
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={4} xl={3}> 
                         <TextField
                             name="Longitude"
                             id="Longitude"
@@ -567,7 +567,7 @@ useEffect(() => {
                         />
                       </Grid>
 
-                      <Grid item xs={12}  md={4}> 
+                      <Grid item xs={12}  md={6} lg={4} xl={3}> 
                         <TextField
                             name="Distance"
                             id="Distance"
@@ -582,7 +582,8 @@ useEffect(() => {
                             autoComplete='off'
                         />
                       </Grid>
-                      <Grid item xs={12} md={4}>
+
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <Autocomplete
                           id='employeeId'
                           options={devicesData}

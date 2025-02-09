@@ -3150,6 +3150,18 @@
   "boilerplate.containers.Payroll.projectManagment.ToHours": "الى الساعه",
   "boilerplate.containers.Payroll.projectManagment.NumberOfMinutes": "عدد الدقائق",
   "boilerplate.containers.Payroll.projectManagment.ActivityCode": "كود النشاط",
-  "boilerplate.containers.Payroll.projectManagment.timeSheetDetails": "تفاصيل ساعات العمل"
+  "boilerplate.containers.Payroll.projectManagment.timeSheetDetails": "تفاصيل ساعات العمل",
+
+
+
+  "boilerplate.containers.Payroll.HrNotifications.jobName": "اسم الوظيفة",
+  "boilerplate.containers.Payroll.HrNotifications.txDate": "التاريخ",
+  "boilerplate.containers.Payroll.HrNotifications.trxReason": "السبب",
+  "boilerplate.containers.Payroll.HrNotifications.adminNotes": "ملاحظات المسؤول",
+  "boilerplate.containers.Payroll.HrNotifications.birthDate": "تاريخ الميلاد",
+  "boilerplate.containers.Payroll.HrNotifications.workEmail": "البريد الإلكتروني للعمل",
+  "boilerplate.containers.Payroll.HrNotifications.mobile": "الهاتف",
+  "boilerplate.containers.Payroll.HrNotifications.template": "القالب",
+  "boilerplate.containers.Payroll.HrNotifications.docname": "اسم الوثيقة"
   
 }

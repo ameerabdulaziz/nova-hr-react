@@ -13,7 +13,7 @@ import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { useLocation } from "react-router-dom";
-import PayRollLoader from "../../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import SITEMAP from "../../../../../App/routes/sitemap";
 
 function DeviceCreate(props) {
@@ -153,7 +153,7 @@ function DeviceCreate(props) {
   }, []);
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock
         whiteBg
         icon="border_color"
@@ -166,7 +166,7 @@ function DeviceCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <TextField
                 id="arName"
                 name="arName"
@@ -178,7 +178,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <TextField
                 id="enName"
                 name="enName"
@@ -190,7 +190,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="ip"
                 name="ip"
@@ -202,7 +202,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="port"
                 name="port"
@@ -214,7 +214,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="devicePass"
                 name="devicePass"
@@ -227,7 +227,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="serialNumber"
                 name="serialNumber"
@@ -239,7 +239,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="transportaion"
                 name="transportaion"
@@ -251,7 +251,7 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={3} xl={2.5}>
               <Autocomplete
                 id="shiftId"
                 options={ShiftList}
@@ -273,12 +273,12 @@ function DeviceCreate(props) {
                     variant="outlined"
                     {...params}
                     name="shiftId"
-                    label={intl.formatMessage(messages.shift)}                    
+                    label={intl.formatMessage(messages.shift)}
                   />
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={8} lg={3} xl={2.5}>
               <Autocomplete
                 id="deviceType"
                 options={TypeList}
@@ -306,7 +306,7 @@ function DeviceCreate(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={6} md={4} lg={2} xl={1.5}>
               <TextField
                 id="AreaCode"
                 name="AreaCode"
@@ -319,41 +319,46 @@ function DeviceCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            
-            <Grid item xs={12} md={1}>
-              <Button
-                variant="contained"
-                type="submit"
-                size="medium"
-                color="secondary"
-              >
-                <FormattedMessage {...Payrollmessages.save} />
-              </Button>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    size="medium"
+                    color="secondary"
+                  >
+                    <FormattedMessage {...Payrollmessages.save} />
+                  </Button>
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={ontestConnection}
+                  >
+                    <FormattedMessage {...messages.testConnection} />
+                  </Button>
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={12} md={2}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="secondary"
-                onClick={ontestConnection}
-              >
-                <FormattedMessage {...messages.testConnection} />
-              </Button>
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 DeviceCreate.propTypes = {

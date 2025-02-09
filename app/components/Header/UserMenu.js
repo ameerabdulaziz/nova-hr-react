@@ -53,11 +53,23 @@ function UserMenu(props) {
     setOpenMenu(null);
   };
 
-  const onOpenBtnClick = (url,id) => {
-    if (url) {
+  const onOpenBtnClick = (notifData) => {
+    if (notifData.url) {
       handleClose();
-      notificationsCallFun(id)
-      history.push(url);
+
+      if(notifData.id === 0 && notifData.notificationType)
+      {
+        history.push(`/${notifData.url}`, {NotificationTypeId: notifData.notificationType});
+
+        sessionStorage.setItem('hrNotificationsId',JSON.stringify( 
+           notifData.notificationType
+        ));
+      }
+      else
+      {
+        notificationsCallFun(notifData.id)
+        history.push(notifData.url);
+      }
     }
   };
 
@@ -246,7 +258,7 @@ function UserMenu(props) {
           notifications.map((item, index) => (
             <MenuItem
               divider={index < notifications.length - 1}
-              onClick={() => onOpenBtnClick(item.url,item.id)}
+              onClick={() => onOpenBtnClick(item)}
               key={index}
             >
               <div className={messageStyles.messageInfo}>

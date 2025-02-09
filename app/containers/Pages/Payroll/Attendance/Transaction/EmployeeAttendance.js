@@ -662,7 +662,7 @@ function EmployeeAttendance(props) {
         />
         <div>
           <Grid container spacing={2} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={9} xl={7}>
               <Search
                 setsearchData={setsearchData}
                 searchData={searchData}
@@ -674,7 +674,7 @@ function EmployeeAttendance(props) {
                 minDateData={openMonthDate}
               ></Search>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={11} xl={10}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -683,7 +683,7 @@ function EmployeeAttendance(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item md={6} xs={12}>
+                    <Grid item  xs={12} md={8} lg={6} xl={5}>
                       <Grid
                         container
                         spacing={2}
@@ -722,7 +722,7 @@ function EmployeeAttendance(props) {
                             )}
                           />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={6} md={4}>
                           <TextField
                             id="startTime"
                             name="startTime"
@@ -736,7 +736,7 @@ function EmployeeAttendance(props) {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={6} md={4}>
                           <TextField
                             id="endTime"
                             name="endTime"
@@ -750,7 +750,7 @@ function EmployeeAttendance(props) {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xs={6} md={4}>
                           <TextField
                             id="workHours"
                             name="workHours"
@@ -777,7 +777,7 @@ function EmployeeAttendance(props) {
                       </Grid>
                     </Grid>
 
-                    <Grid item md={3} xs={12}>
+                    <Grid item  xs={12} md={6} lg={6} xl={3}>
                       <FormControl
                         variant="standard"
                         component="fieldset"
@@ -807,7 +807,7 @@ function EmployeeAttendance(props) {
                         </RadioGroup>
                       </FormControl>
                     </Grid>
-                    <Grid item md={3} xs={12}>
+                    <Grid item  xs={12} md={6} lg={6} xl={3}>
                       <Grid item xs={12} md={12}>
                         <FormControlLabel
                           control={

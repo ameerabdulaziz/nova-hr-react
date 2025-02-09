@@ -16,7 +16,7 @@ import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
 import PropTypes from "prop-types";
 import Search from "../../Component/Search";
-import PayRollLoader from "../../Component/PayRollLoader";
+import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { useLocation } from "react-router-dom";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
@@ -235,10 +235,10 @@ function EmployeeAttendanceTemplate(props) {
   
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -247,7 +247,10 @@ function EmployeeAttendanceTemplate(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={12} md={4}>
+
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
+
+          <Grid item xs={6} md={5.5} lg={4.5} xl={3.5}>
             <Autocomplete
               id="MissionId"
               options={TampleteList}
@@ -272,7 +275,7 @@ function EmployeeAttendanceTemplate(props) {
             />
           </Grid>
 
-          <Grid item md={3}>
+          <Grid item md={5} lg={4} xl={3}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -290,7 +293,7 @@ function EmployeeAttendanceTemplate(props) {
             />
           </Grid>
 
-          <Grid item md={2}>
+          <Grid item md={4} lg={3} xl={2}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -308,7 +311,7 @@ function EmployeeAttendanceTemplate(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               size="medium"
@@ -328,7 +331,7 @@ function EmployeeAttendanceTemplate(props) {
           filterHighlights={filterHighlights}
           columns={columns}
         />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

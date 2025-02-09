@@ -400,7 +400,7 @@ function ReviewOvertime(props) {
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12} lg={7} xl={6}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -410,7 +410,7 @@ function ReviewOvertime(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6} lg={2.5} xl={2}>
               <Autocomplete
                 options={shiftList}
                 value={getAutoCompleteValue(shiftList, formInfo.shiftCode)}
@@ -433,7 +433,7 @@ function ReviewOvertime(props) {
               />
             </Grid>
 
-            <Grid item md={3}>
+            <Grid item xs={6} md={4} lg={2.5} xl={2}>
               <FormControlLabel
                 control={<Checkbox />}
                 onChange={(evt) => setFormInfo((prev) => ({

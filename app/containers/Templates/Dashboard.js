@@ -111,6 +111,7 @@ function Dashboard(props) {
     dataMenu &&
     lastPart !== "Review" &&
     lastPart !== "NewsDetails" &&
+    lastPart !== "hrNotifications" &&
     urlData === null
   ) {
 

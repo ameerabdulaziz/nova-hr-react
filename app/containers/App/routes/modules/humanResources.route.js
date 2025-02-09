@@ -594,6 +594,13 @@ const HrResignRuleEdit = loadable(
   }
 );
 
+const HrNotifications = loadable(
+  () => import('../../../Pages/Payroll/HrNotifications/HrNotifications'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const humanResources = {
   Courses,
   CoursesCreate,
@@ -671,6 +678,7 @@ const humanResources = {
   HrResignRuleList,
   HrResignRuleCreate,
   HrResignRuleEdit,
+  HrNotifications,
 };
 
 export default humanResources;

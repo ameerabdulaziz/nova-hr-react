@@ -56,7 +56,7 @@ function MissionTrxCreate(props) {
     isNotUpdate: false,
   });
   const [dataList, setdataList] = useState([]);
-  const [MissionsList, setMissionsList] = useState([]);  
+  const [MissionsList, setMissionsList] = useState([]);
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -64,9 +64,9 @@ function MissionTrxCreate(props) {
   const [DateError, setDateError] = useState({});
 
 
-   // used to reformat date before send it to api
-   const dateFormatFun = (date) => {
-    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
 
@@ -116,7 +116,7 @@ function MissionTrxCreate(props) {
               event.target.value.split(":")[0],
               event.target.value.split(":")[1]
             )) /
-            60000
+          60000
         );
 
         setdata((prevFilters) => ({
@@ -148,7 +148,7 @@ function MissionTrxCreate(props) {
               data.startTime.split(":")[0],
               data.startTime.split(":")[1]
             )) /
-            60000
+          60000
         );
 
         setdata((prevFilters) => ({
@@ -167,31 +167,31 @@ function MissionTrxCreate(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-// used to stop call api if user select wrong date
-if (Object.values(DateError).includes(true)) {  
-  toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
-  return;
-}
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
+      return;
+    }
 
 
-const apiData = {
-  fromDate: dateFormatFun(data.fromDate),
-    toDate: dateFormatFun(data.toDate),
-    missionId: data.missionId,
-    missionName: data.missionName,
-    startTime: data.startTime,
-    endTime: data.endTime,
-    minutesCount: data.minutesCount,
-    exemptEntryRec: data.exemptEntryRec,
-    exemptLeaveRec: data.exemptLeaveRec,
-    missionDestination: data.missionDestination,
-    isOverTime: data.isOverTime,
-    isMustAttend: data.isMustAttend,
-    transportationExpenses: data.transportationExpenses,
-    notes: data.notes,
-    employeesId: data.employeesId,
-    isNotUpdate: data.isNotUpdate,
-}
+    const apiData = {
+      fromDate: dateFormatFun(data.fromDate),
+      toDate: dateFormatFun(data.toDate),
+      missionId: data.missionId,
+      missionName: data.missionName,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      minutesCount: data.minutesCount,
+      exemptEntryRec: data.exemptEntryRec,
+      exemptLeaveRec: data.exemptLeaveRec,
+      missionDestination: data.missionDestination,
+      isOverTime: data.isOverTime,
+      isMustAttend: data.isMustAttend,
+      transportationExpenses: data.transportationExpenses,
+      notes: data.notes,
+      employeesId: data.employeesId,
+      isNotUpdate: data.isNotUpdate,
+    }
 
 
     try {
@@ -201,12 +201,11 @@ const apiData = {
         .map((obj) => {
           return obj.id;
         });
-        if(SelectedIds.length == 0) 
-        {
-          toast.error("Select Employees first");
-          return ;
-        }
-        apiData.employeesId = SelectedIds;
+      if (SelectedIds.length == 0) {
+        toast.error("Select Employees first");
+        return;
+      }
+      apiData.employeesId = SelectedIds;
       // data.employeesId = SelectedIds;
       let response = await ApiData(locale).SaveAll(apiData);
       // let response = await ApiData(locale).SaveAll(data);
@@ -223,7 +222,7 @@ const apiData = {
   const handleDelete = async (e) => {
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -231,21 +230,21 @@ const apiData = {
 
     const apiData = {
       fromDate: dateFormatFun(data.fromDate),
-        toDate: dateFormatFun(data.toDate),
-        missionId: data.missionId,
-        missionName: data.missionName,
-        startTime: data.startTime,
-        endTime: data.endTime,
-        minutesCount: data.minutesCount,
-        exemptEntryRec: data.exemptEntryRec,
-        exemptLeaveRec: data.exemptLeaveRec,
-        missionDestination: data.missionDestination,
-        isOverTime: data.isOverTime,
-        isMustAttend: data.isMustAttend,
-        transportationExpenses: data.transportationExpenses,
-        notes: data.notes,
-        employeesId: data.employeesId,
-        isNotUpdate: data.isNotUpdate,
+      toDate: dateFormatFun(data.toDate),
+      missionId: data.missionId,
+      missionName: data.missionName,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      minutesCount: data.minutesCount,
+      exemptEntryRec: data.exemptEntryRec,
+      exemptLeaveRec: data.exemptLeaveRec,
+      missionDestination: data.missionDestination,
+      isOverTime: data.isOverTime,
+      isMustAttend: data.isMustAttend,
+      transportationExpenses: data.transportationExpenses,
+      notes: data.notes,
+      employeesId: data.employeesId,
+      isNotUpdate: data.isNotUpdate,
     }
 
 
@@ -303,28 +302,28 @@ const apiData = {
   async function getData() {
 
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
 
     const apiData = {
       fromDate: dateFormatFun(data.fromDate),
-        toDate: dateFormatFun(data.toDate),
-        missionId: data.missionId,
-        missionName: data.missionName,
-        startTime: data.startTime,
-        endTime: data.endTime,
-        minutesCount: data.minutesCount,
-        exemptEntryRec: data.exemptEntryRec,
-        exemptLeaveRec: data.exemptLeaveRec,
-        missionDestination: data.missionDestination,
-        isOverTime: data.isOverTime,
-        isMustAttend: data.isMustAttend,
-        transportationExpenses: data.transportationExpenses,
-        notes: data.notes,
-        employeesId: data.employeesId,
-        isNotUpdate: data.isNotUpdate,
+      toDate: dateFormatFun(data.toDate),
+      missionId: data.missionId,
+      missionName: data.missionName,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      minutesCount: data.minutesCount,
+      exemptEntryRec: data.exemptEntryRec,
+      exemptLeaveRec: data.exemptLeaveRec,
+      missionDestination: data.missionDestination,
+      isOverTime: data.isOverTime,
+      isMustAttend: data.isMustAttend,
+      transportationExpenses: data.transportationExpenses,
+      notes: data.notes,
+      employeesId: data.employeesId,
+      isNotUpdate: data.isNotUpdate,
     }
 
 
@@ -332,8 +331,8 @@ const apiData = {
       setIsLoading(true);
       if (apiData.missionId && apiData.startTime && apiData.endTime) {
         const result = await ApiData(locale).getMissions(apiData);
-      // if (data.missionId && data.startTime && data.endTime) {
-      //   const result = await ApiData(locale).getMissions(data);
+        // if (data.missionId && data.startTime && data.endTime) {
+        //   const result = await ApiData(locale).getMissions(data);
 
         setdataList(
           result.employees.map((obj) => {
@@ -352,15 +351,15 @@ const apiData = {
       setIsLoading(false);
     }
   }
-  
+
   return (
-    
+
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
+
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={12} xl={7}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -382,81 +381,76 @@ const apiData = {
                             }}
                             value={data.isNotUpdate}
                             color="primary"
-                            /* labelStyle={{color:"red !important"}} */
+                          /* labelStyle={{color:"red !important"}} */
                           />
                         }
                         label={intl.formatMessage(messages.isNotUpdateMission)}
                       />
                     </Grid>
 
-                    <Grid item xs={12} md={6}>
-                  
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
+
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker 
+                        <DatePicker
                           label={intl.formatMessage(Payrollmessages.fromdate)}
                           value={data.fromDate ? dayjs(data.fromDate) : data.fromDate}
                           className={classes.field}
-                            onChange={(date) => {
-                              setdata((prevFilters) => ({
-                                ...prevFilters,
-                                fromDate: date ,
-                              }))
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              fromDate: date,
+                            }))
                           }}
-                          onError={(error,value)=>{
-                            if(error !== null)
-                            {
+                          onError={(error, value) => {
+                            if (error !== null) {
                               setDateError((prevState) => ({
                                 ...prevState,
-                                  [`fromDate`]: true
+                                [`fromDate`]: true
                               }))
                             }
-                            else
-                            {
+                            else {
                               setDateError((prevState) => ({
                                 ...prevState,
-                                  [`fromDate`]: false
+                                [`fromDate`]: false
                               }))
                             }
                           }}
-                          />
+                        />
                       </LocalizationProvider>
-                  </Grid>
+                    </Grid>
 
-              <Grid item xs={12} md={6}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                      value={data.toDate  ? dayjs(data.toDate) : data.toDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setdata((prevFilters) => ({
-                            ...prevFilters,
-                            toDate: date ,
-                          }))
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`toDate`]: true
-                          }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`toDate`]: false
-                          }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-              </Grid>
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
 
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label={intl.formatMessage(Payrollmessages.todate)}
+                          value={data.toDate ? dayjs(data.toDate) : data.toDate}
+                          className={classes.field}
+                          onChange={(date) => {
+                            setdata((prevFilters) => ({
+                              ...prevFilters,
+                              toDate: date,
+                            }))
+                          }}
+                          onError={(error, value) => {
+                            if (error !== null) {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`toDate`]: true
+                              }))
+                            }
+                            else {
+                              setDateError((prevState) => ({
+                                ...prevState,
+                                [`toDate`]: false
+                              }))
+                            }
+                          }}
+                        />
+                      </LocalizationProvider>
+                    </Grid>
 
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
                       <TextField
                         id="startTime"
                         name="startTime"
@@ -470,7 +464,8 @@ const apiData = {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
                       <TextField
                         id="endTime"
                         name="endTime"
@@ -484,7 +479,8 @@ const apiData = {
                         }}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
                       <TextField
                         id="minutesCount"
                         name="minutesCount"
@@ -498,7 +494,8 @@ const apiData = {
                         autoComplete='off'
                       />
                     </Grid>
-                    <Grid item xs={12} md={8}>
+
+                    <Grid item xs={12} md={6} lg={4} xl={6}>
                       <Autocomplete
                         id="missionid"
                         options={MissionsList}
@@ -531,7 +528,8 @@ const apiData = {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+
+                    <Grid item xs={6} md={3} lg={2} xl={3}>
                       <TextField
                         id="transportationExpenses"
                         name="transportationExpenses"
@@ -546,6 +544,7 @@ const apiData = {
                         autoComplete='off'
                       />
                     </Grid>
+
                     <Grid item xs={12} md={12}>
                       <Card className={classes.card}>
                         <CardContent>
@@ -674,7 +673,8 @@ const apiData = {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={5}>
+
+            <Grid item xs={12} md={12} xl={5}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -688,7 +688,9 @@ const apiData = {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid  item xs ={12} >
+              <Grid container spacing={3}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -699,7 +701,7 @@ const apiData = {
                 <FormattedMessage {...Payrollmessages.add} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -707,11 +709,11 @@ const apiData = {
                 color="primary"
                 onClick={getData}
               >
-               
+
                 <FormattedMessage {...Payrollmessages.preview} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -722,7 +724,7 @@ const apiData = {
                 <FormattedMessage {...Payrollmessages.save} />
               </Button>
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -732,6 +734,8 @@ const apiData = {
               >
                 <FormattedMessage {...Payrollmessages.delete} />
               </Button>
+            </Grid>                
+              </Grid>
             </Grid>
           </Grid>
         </form>

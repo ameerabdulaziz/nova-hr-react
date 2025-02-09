@@ -917,6 +917,11 @@ function Application(props) {
         />
 
         <Route
+          path={SITEMAP.humanResources.hrNotifications.route}
+          component={PAGES.humanResources.HrNotifications}
+        />
+
+        <Route
           path={SITEMAP.humanResources.PenaltyApproval.route}
           component={PAGES.workFlow.RequestsList}
         />
@@ -2837,6 +2842,11 @@ function Application(props) {
           path={SITEMAP.projectManagement.ProjectEdit.route}
           component={PAGES.projectManagement.ProjectEdit}
         />
+        {/* hrNotifications */}
+        {/* <Route
+          path={SITEMAP.hrNotifications.hrNotifications.route}
+          component={PAGES.hrNotifications.HrNotifications}
+        /> */}
 
         {/* Default */}
         <Route component={PAGES.global.NotFound} />
