@@ -36,10 +36,18 @@ function EmployeeList(props) {
     BranchId: branchId,
   });
 
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
+  const [count, setCount] = useState(0);
+  
   async function fetchData() {
+    setIsLoading(true);
+
     try {
       let formData = {
-        BranchId: searchData.BranchId
+        BranchId: searchData.BranchId,
+        pageNumber: page,
+        PageSize: rowsPerPage
       };
 
       // used if i redirect from dashboard page
@@ -69,8 +77,22 @@ function EmployeeList(props) {
       });
 
       const dataApi = await ApiData(locale).GetList(formData);
-      setdata(dataApi);
+      
+      setdata(dataApi.dataList);
+      setCount(dataApi.totalRows)
 
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+
+
+  const getDataFun = async () => {
+    try {
+     
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
 
@@ -81,8 +103,10 @@ function EmployeeList(props) {
       setIsLoading(false);
     }
   }
-  useEffect(() => {
-    fetchData();
+
+
+ useEffect(() => {
+    getDataFun();
   }, []);
 
   async function deleteRow(id) {
@@ -130,9 +154,6 @@ function EmployeeList(props) {
       label: intl.formatMessage(messages.employeeCode),
       options: {
         customBodyRender: (value, tableMeta) => {     
-          
-            console.log("test =", tableMeta?.rowData[0]);
-            
 
           return <EmployeeNavigation
                     employeeId={tableMeta?.rowData[0]}
@@ -310,6 +331,24 @@ function EmployeeList(props) {
   };
 
 
+  const options = {
+    serverSide: true,
+    count: count, // Total number of rows from API
+    page: page - 1, // Current page
+    rowsPerPage: rowsPerPage, // Rows per page
+    // Handle page and rowsPerPage changes
+    onTableChange: (action, tableState) => {
+      if (action === "changePage") {
+        setPage(tableState.page + 1)
+      } 
+      else if (action === "changeRowsPerPage") {
+        setRowsPerPage(tableState.rowsPerPage)
+        setPage(1); // Reset to first page when rowsPerPage changes
+      }
+    },
+  };
+
+
  const ResetDeviceKeyFun = async (employeeId) => {
 
   try
@@ -359,6 +398,13 @@ function EmployeeList(props) {
     }));
   };
 
+  
+// get table data onload and when pagination change
+  useEffect(() => {
+    fetchData();
+}, [page,rowsPerPage]);
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
@@ -407,6 +453,7 @@ function EmployeeList(props) {
       columns={columns}
       actions={actions}
       filterHighlights={filterHighlights}
+      options={options}
     />
     </PayRollLoader>
   );
