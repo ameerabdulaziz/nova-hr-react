@@ -129,7 +129,7 @@ function NewIdea(props) {
                             )}
                         />  
                        </Grid>
-                       <Grid item xs={12}   lg={4}>
+                       <Grid item >
                         <FormControlLabel
                             control={(
                             <Checkbox
@@ -148,7 +148,7 @@ function NewIdea(props) {
                     </Grid>
                   </Grid>
 
-                  <Grid item xs={1} lg={5} xl={7}></Grid>
+                  <Grid item xs={12}  lg={5} xl={7}></Grid>
 
 
                   <Grid item xs={12} md={5.5}  lg={4.5} xl={4}>

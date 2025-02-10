@@ -16,7 +16,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
 import GeneralListApis from '../../api/GeneralListApis';
@@ -323,10 +323,10 @@ function DeviceLogReport(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -336,6 +336,8 @@ function DeviceLogReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
+
+          <Grid item xs={12} md={1} lg={3} xl={5}></Grid>
 
           <Grid item md={5} lg={2}>
             <FormControlLabel
@@ -413,7 +415,7 @@ function DeviceLogReport(props) {
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item xs={6} md={2.8} lg={2.2} xl={1.8}>
             <Autocomplete
               id='StatusList'
               options={fingerprintList}
@@ -435,7 +437,7 @@ function DeviceLogReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={4} lg={3}>
+          <Grid item xs={6} md={2.9} lg={2.3} xl={1.7}>
             <Autocomplete
               id='DeviceType'
               options={DevicesList}
@@ -456,7 +458,7 @@ function DeviceLogReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} lg={3} xl={2}>
             <Button
               variant='contained'
               size='medium'
@@ -470,7 +472,7 @@ function DeviceLogReport(props) {
       </PapperBlock>
 
       <SimplifiedPayrollTable title='' data={data} columns={columns} filterHighlights={filterHighlights} />
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

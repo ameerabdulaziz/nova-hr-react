@@ -336,7 +336,7 @@ function SalarySigningListReport(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={5} xl={5}>
+          <Grid item xs={12} md={9} lg={7} xl={6}>
             <Search
               setsearchData={setsearchData}
               searchData={searchData}
@@ -346,7 +346,7 @@ function SalarySigningListReport(props) {
             ></Search>
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={4.5} lg={2.5} xl={1.7}>
 
             <Autocomplete
               id="ddlMenu"
@@ -385,7 +385,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={4.5} lg={2.5} xl={1.7}>
 
             <Autocomplete
               id="ddlMenu"
@@ -423,7 +423,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={6} md={1.5}>
+          <Grid item xs={6} md={3.1} lg={2} xl={1.3}>
 
             <Autocomplete
               id="ddlMenu"
@@ -461,7 +461,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={6} md={1.5}>
+          <Grid item xs={6} md={3.1} lg={2} xl={1.3}>
 
             <Autocomplete
               id="ddlMenu"
@@ -499,7 +499,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid item xs={12} md={5.8} lg={4} xl={3}>
             <Autocomplete
               multiple
               className={`${style.AutocompleteMulSty} ${locale === "ar" ? style.AutocompleteMulStyAR : null}`}
@@ -541,7 +541,7 @@ function SalarySigningListReport(props) {
 
           <Grid item xs={12}></Grid>
 
-          <Grid item md={2} lg={1.5} >
+          <Grid item xs={12} md={6} lg={2.5} xl={1.5} >
             <FormControlLabel
               control={
                 <Checkbox
@@ -559,7 +559,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item md={2} lg={1.5} >
+          <Grid item xs={12} md={6} lg={2.5} xl={1.5} >
             <FormControlLabel
               control={
                 <Checkbox
@@ -577,7 +577,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item md={2} lg={1.5}>
+          <Grid item xs={12} md={6} lg={2.5} xl={1.5}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -595,7 +595,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item md={2} lg={1.5}>
+          <Grid item xs={12} md={6} lg={2.5} xl={1.5}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -613,7 +613,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item md={4} lg={3} >
+          <Grid item xs={12} md={10} lg={9} xl={6} >
             <FormControl>
               <RadioGroup
                 row
@@ -621,41 +621,44 @@ function SalarySigningListReport(props) {
                 defaultValue="Print Salary"
                 name="radio-buttons-group"
               >
-                <Grid item lg={6}>
-                <FormControlLabel
-                  value="Print Salary"
-                  control={
-                    <Radio
-                      onChange={(evt) => {
-                        setsearchData((prev) => ({
-                          ...prev,
-                          PrintSalary: !prev.PrintSalary,
-                        }));
-                      }}
-                    />}
-                  checked={searchData.PrintSalary}
-                  label={intl.formatMessage(messages.PrintSalary)}
-                />
-                                </Grid>
-                                <Grid item lg={6}>
-                <FormControlLabel
-                
-                  value="Print Names Only"
-                  control={
-                    <Radio
-                      onChange={(evt) => {
-                        setsearchData((prev) => ({
-                          ...prev,
-                          PrintSalary: !prev.PrintSalary,
-                        }));
-                      }}
-                    />}
-                  label={intl.formatMessage(messages.PrintNamesOnly)}
-                /></Grid>
+                <Grid item >
+                  <FormControlLabel
+                    value="Print Salary"
+                    control={
+                      <Radio
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            PrintSalary: !prev.PrintSalary,
+                          }));
+                        }}
+                      />}
+                    checked={searchData.PrintSalary}
+                    label={intl.formatMessage(messages.PrintSalary)}
+                  />
+                </Grid>
+
+                <Grid item >
+                  <FormControlLabel
+
+                    value="Print Names Only"
+                    control={
+                      <Radio
+                        onChange={(evt) => {
+                          setsearchData((prev) => ({
+                            ...prev,
+                            PrintSalary: !prev.PrintSalary,
+                          }));
+                        }}
+                      />}
+                    label={intl.formatMessage(messages.PrintNamesOnly)}
+                  />
+                </Grid>
+
               </RadioGroup>
             </FormControl>
           </Grid>
-          
+
           <Grid item xs={12} md={12}></Grid>
 
           <Grid item xs={12} md={2}>
@@ -668,7 +671,7 @@ function SalarySigningListReport(props) {
               <FormattedMessage {...payrollMessages.search} />
             </Button>
           </Grid>
-          <Grid item xs={12} md={12}></Grid>
+          <Grid item xs={12} ></Grid>
         </Grid>
       </PapperBlock>
 
