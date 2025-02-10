@@ -368,27 +368,9 @@ function EmployeeList(props) {
   
  }
 
-  const handleSearch = async (e) => {
-
-        try {
-          setIsLoading(true);
-
-          let formData = {
-            BranchId: searchData.BranchId
-          };
-          Object.keys(formData).forEach((key) => {
-            formData[key] = formData[key] === null ? "" : formData[key];
-          });
-          
-          const dataApi = await ApiData(locale).GetList(formData);
-          setdata(dataApi);
-
-        } catch (err) {
-          
-        } finally {
-          setIsLoading(false);
-        }
-   
+  const handleSearch = () => {
+    setPage(1)
+    setRowsPerPage(50)   
   };
 
   const onAutoCompleteChange = (value, name) => {
