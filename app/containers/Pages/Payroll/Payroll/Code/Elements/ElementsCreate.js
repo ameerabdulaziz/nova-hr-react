@@ -267,7 +267,7 @@ console.log("data =", data);
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item md={8} xs={12}>
+              <Grid item lg={8}  xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={1}>
@@ -305,7 +305,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={6} lg={5} xl={3}>
                         <TextField
                           id="elementTaxLimit"
                           name="elementTaxLimit"
@@ -324,7 +324,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} sm={6}>
+                      <Grid item xs={12} sm={6} lg={5} xl={3}>
                         <TextField
                           id="minWorkH"
                           name="minWorkH"
@@ -415,7 +415,7 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item md={4} xs={12}>
+              <Grid item lg={4}  xs={12}>
                 <Card  sx={{height:210 , overflow:"auto"}} className={classes.card}>
                   <CardContent>
                     <Grid item xs={12} md={12}>
@@ -548,7 +548,7 @@ console.log("data =", data);
                 </Card>
               </Grid>
               
-              <Grid item md={8} xs={12}>
+              <Grid item lg={8}  xs={12}>
                 <Card sx={{height:"100%"}} className={classes.card}>
                   <CardContent>
                     <Grid container spacing={1}>
@@ -651,7 +651,7 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item md={4} xs={12}>
+              <Grid item lg={4}  xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={2}>
