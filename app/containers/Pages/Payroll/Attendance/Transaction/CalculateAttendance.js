@@ -56,6 +56,10 @@ function CalculateAttendance(props) {
   const [isLoadingPopup, setIsLoadingPopup] = useState(false);
   const [openParentPopup, setOpenParentPopup] = useState(false);
 
+    const [page, setPage] = useState(1);
+    const [rowsPerPage, setRowsPerPage] = useState(50);
+    const [count, setCount] = useState(0);
+
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [openMonth, setOpenMonth] = useState({
     todate: null,
@@ -202,21 +206,6 @@ function CalculateAttendance(props) {
       return;
     }
 
-    // used to check if the user choose more than one day then he must to choose employee 
-    // if he choose one day then get data without choose employee
-    if(formInfo.FromDate && formInfo.ToDate)
-      {
-        const timeDiff = Math.abs(new Date(formInfo.ToDate ) - new Date(formInfo.FromDate));
-        const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
-  
-        if(dayDiff > 0)
-        {          
-          if (formInfo.EmployeeIds.length === 0) {
-            toast.error(intl.formatMessage(messages.employeeErrMess));
-            return;
-          }
-        }
-      }
 
     setIsLoading(true);
 
@@ -227,6 +216,8 @@ function CalculateAttendance(props) {
         ","
       ),
       EmployeeIds: formInfo.EmployeeIds.map((item) => item.id).join(","),
+      pageNumber: page,
+      PageSize: rowsPerPage
     };
 
     const body = {
@@ -235,7 +226,9 @@ function CalculateAttendance(props) {
 
     try {
       const response = await api(locale).GetList(body, formData);
-      setTableData(response);
+
+      setTableData(response.dataList);
+      setCount(response.totalRows)
 
       getFilterHighlights();
     } catch (error) {
@@ -1071,6 +1064,36 @@ function CalculateAttendance(props) {
     },
   ];
 
+
+  const options = {
+    serverSide: true,
+    count: count, // Total number of rows from API
+    page: page - 1, // Current page
+    rowsPerPage: rowsPerPage, // Rows per page
+    // Handle page and rowsPerPage changes
+    onTableChange: (action, tableState) => {
+      if (action === "changePage") {
+        setPage(tableState.page + 1)
+      } 
+      else if (action === "changeRowsPerPage") {
+        if(tableData.length !== 0)
+        {
+          setRowsPerPage(tableState.rowsPerPage)
+          setPage(1); // Reset to first page when rowsPerPage changes
+        }
+      }
+    },
+  };
+
+
+// get table data  when pagination change
+    useEffect(() => {
+      if(tableData.length !== 0)
+      {
+        handleSearch();
+      }
+  }, [page,rowsPerPage]);
+
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
       <CalculateAttendancePopUp
@@ -1324,6 +1347,7 @@ function CalculateAttendance(props) {
         data={tableData}
         columns={columns}
         filterHighlights={filterHighlights}
+        options={options}
       />
     </PayRollLoaderInForms>
   );
