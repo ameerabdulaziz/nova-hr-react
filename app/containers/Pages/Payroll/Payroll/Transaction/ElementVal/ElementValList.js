@@ -862,8 +862,7 @@ function ElementValList(props) {
                     container
                     direction="row"
                     spacing={2}
-                    xs={12}
-                    lg={6}
+                    xs={12} lg={10} xl={6}
                   >
                     <Grid item xs={12} md={4} lg={6}>
                       <Autocomplete
@@ -972,8 +971,7 @@ function ElementValList(props) {
                     container
                     direction="row"
                     spacing={2}
-                    xs={12}
-                    lg={6}
+                    xs={12} lg={10} xl={6}
                   >
                     <Card className={classes.card}>
                       <CardContent>

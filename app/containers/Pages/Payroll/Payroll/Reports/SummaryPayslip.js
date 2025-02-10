@@ -335,7 +335,7 @@ function SummaryPayslip(props) {
             <Grid container mt={0} spacing={3}>
               <Grid item container spacing={2} xl={6} >
 
-              <Grid item xs={12} md={3} xl={8}>
+              <Grid item xs={12} md={6} lg={4} xl={8}>
                 <Autocomplete
                   options={templateList}
                   value={getAutoCompleteValue(
@@ -361,7 +361,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3} xl={4}>
+              <Grid item xs={6} md={3} xl={4}>
                 <Autocomplete
                   options={yearList}
                   value={getAutoCompleteValue(yearList, reportCriteria.year)}
@@ -385,7 +385,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3} xl={2.2}>
+              <Grid item xs={6} md={3} xl={2.2}>
                 <Autocomplete
                   options={monthsList}
                   value={getAutoCompleteValue(monthsList, reportCriteria.month)}
@@ -409,7 +409,7 @@ function SummaryPayslip(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} md={3} xl={4.4}>
+              <Grid item >
                 <Stack direction='row' spacing={2}>
                   <FormControlLabel
                     control={

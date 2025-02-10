@@ -316,7 +316,7 @@ function AnnualTaxReport(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={8} lg={6}>
+            <Grid item xs={12} md={10} lg={8} xl={6}>
             <Card className={classes.card}>
         <CardContent>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
@@ -393,7 +393,7 @@ function AnnualTaxReport(props) {
 
             </Grid>
 
-            <Grid item xs={12} md={8} lg={6}>
+            <Grid item xs={12} md={10} lg={8} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}

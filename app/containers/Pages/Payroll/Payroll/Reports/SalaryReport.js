@@ -349,7 +349,7 @@ function SalaryReport(props) {
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
-            <Grid   item xs={12} md={8} lg={6}>
+            <Grid   item xs={12} md={10} lg={8} xl={6}>
           <Card className={classes.card}>
           <CardContent>
             <Grid item container spacing={3}>
@@ -423,7 +423,7 @@ function SalaryReport(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={6} >
+            <Grid item  >
               <FormControl>
                 <RadioGroup
                   row
@@ -450,7 +450,7 @@ function SalaryReport(props) {
           </Card>
             </Grid>
 
-            <Grid item xs={12} md={8} lg={6}>
+            <Grid item xs={12} md={10} lg={8} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}

@@ -228,8 +228,7 @@ function ElementValCreate(props) {
                       container
                       direction="row"
                       spacing={2}
-                      xs={12}
-                      md={4}
+                      xs={12} md={8} lg={6} xl={4}
                     >
                       <Grid item xs={12} >
                         <Autocomplete
@@ -295,8 +294,7 @@ function ElementValCreate(props) {
                       container
                       direction="row"
                       spacing={2}
-                      xs={12}
-                      md={8}
+                      xs={12}  lg={8} xl={8}
                     >
                       <Card className={classes.card}>
                         <CardContent>
@@ -442,7 +440,7 @@ function ElementValCreate(props) {
                 </CardContent>
               </Card>
             </Grid>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={10} lg={8} xl={6}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
@@ -450,9 +448,9 @@ function ElementValCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item md={4}></Grid>
+            <Grid item xs={12} md={2} lg={4} xl={6}></Grid>
 
-            <Grid item xs={12} md={2}>
+            <Grid item xs={6} md={4} lg={3} xl={2}>
               <TextField
                 id="Val"
                 name="Val"

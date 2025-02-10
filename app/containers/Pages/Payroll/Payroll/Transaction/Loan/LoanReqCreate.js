@@ -265,7 +265,7 @@ function LoanReqCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} lg={6}  xl={6}>
+            <Grid item xs={12} md={10} lg={9} xl={6} >
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>
@@ -369,7 +369,7 @@ function LoanReqCreate(props) {
               </Grid>
             </Grid>
 
-            <Grid item xs={12} lg={6} xl={6}>
+            <Grid item  xs={12} md={10} lg={9} xl={6}>
               <Grid item xs={12} md={12}>
                 <Card className={classes.card}>
                   <CardContent>

@@ -357,7 +357,7 @@ function BranchSalarySetting(props) {
                   alignItems="flex-start"
                   direction="row"
                 >
-                  <Grid item xs={12} sm={6} xl={4}>
+                  <Grid item xs={12} sm={10} md={8} lg={6} xl={4}>
                     <TextField
                       name="PersonalExemption"
                       id="PersonalExemption"
@@ -380,7 +380,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={6} xl={4}>
+                  <Grid item xs={12} sm={10} md={8} lg={6} xl={4}>
                     <TextField
                       name="specialNeedsExemption"
                       id="specialNeedsExemption"
@@ -416,7 +416,7 @@ function BranchSalarySetting(props) {
                         alignItems="flex-start"
                         direction="row"
                       >
-                        <Grid item xs={12}  md={4}>
+                        <Grid item xs={12}  md={8}  xl={4}>
                           <TextField
                             name="FirstBracketLimit"
                             id="FirstBracketLimit"
@@ -441,7 +441,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="FirstBracketTax"
                             id="FirstBracketTax"
@@ -471,7 +471,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="SecondBracketLimit"
                             id="SecondBracketLimit"
@@ -496,7 +496,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={6}   md={2}>
+                        <Grid item  xs={6}   md={4} xl={2}>
                           <TextField
                             name="SecondBracketTax"
                             id="SecondBracketTax"
@@ -528,7 +528,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="ThirdBracketLimit"
                             id="ThirdBracketLimit"
@@ -553,7 +553,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="ThirdBracketTax"
                             id="ThirdBracketTax"
@@ -583,7 +583,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="FourthBracketLimit"
                             id="FourthBracketLimit"
@@ -608,7 +608,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="FourthBracketTax"
                             id="FourthBracketTax"
@@ -640,7 +640,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="FifthBracketLimit"
                             id="FifthBracketLimit"
@@ -665,7 +665,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="FifthBracketTax"
                             id="FifthBracketTax"
@@ -695,7 +695,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="SixthBracketLimit"
                             id="SixthBracketLimit"
@@ -720,7 +720,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="SixthBracketTax"
                             id="SixthBracketTax"
@@ -750,7 +750,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="seventhBracketLimit"
                             id="seventhBracketLimit"
@@ -775,7 +775,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="seventhBracketTax"
                             id="seventhBracketTax"
@@ -807,7 +807,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item  xs={12}  md={4}>
+                        <Grid item  xs={12}  md={8} xl={4}>
                           <TextField
                             name="EighthBracketLimit"
                             id="EighthBracketLimit"
@@ -832,7 +832,7 @@ function BranchSalarySetting(props) {
                           />
                         </Grid>
 
-                        <Grid item xs={6}  md={2}>
+                        <Grid item xs={6}  md={4} xl={2}>
                           <TextField
                             name="EighthBracketTax"
                             id="EighthBracketTax"
@@ -1052,7 +1052,7 @@ function BranchSalarySetting(props) {
                     />
                   </Grid>
 
-                  <Grid item xs={12}  md={4} lg={3} xl={4}>
+                  <Grid item xs={12}  md={8} lg={6} xl={4}>
                     <Autocomplete
                       options={eleOfCalcVacList}
                       multiple
