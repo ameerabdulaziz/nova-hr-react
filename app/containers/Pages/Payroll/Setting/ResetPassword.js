@@ -161,7 +161,7 @@ function ResetPassword(props) {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
 
-                <Grid item xs={12} md={6}  xl={4}>
+                <Grid item xs={12} md={6} lg={5}  xl={4}>
                   <Autocomplete
                     id="ddldepartment"
                     value={
@@ -184,7 +184,9 @@ function ResetPassword(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={6} xl={3}>
+                <Grid item xs={12} md={6} xl={8}></Grid>
+
+                <Grid item xs={12} md={6} lg={5} xl={4}>
                   <Autocomplete
                     id="ddlEmp"
                     options={employeeList}
@@ -207,6 +209,8 @@ function ResetPassword(props) {
                   />
                 </Grid>
 
+                <Grid item xs={12} md={6} xl={8}></Grid>                
+
                 <Grid item xs={8} md={6} lg={3.5} xl={3}>
                   <TextField
                     name="userName"
@@ -220,7 +224,7 @@ function ResetPassword(props) {
                   />
                 </Grid>
 
-                <Grid item xs={4} lg={2.5} xl={2}>
+                <Grid item >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -234,6 +238,8 @@ function ResetPassword(props) {
                     label={intl.formatMessage(messages.changeUsername)}
                   />
                 </Grid>
+
+                <Grid item xs={12} md={2} lg={3.5} xl={5} ></Grid>
 
                 <Grid item xs={8} md={6} lg={3.5} xl={3}>
                   <TextField
@@ -256,7 +262,8 @@ function ResetPassword(props) {
                     autoComplete="off"
                   />
                 </Grid>
-                <Grid item xs={4} lg={2.5} xl={2}>
+
+                <Grid item >
                   <FormControlLabel
                     control={
                       <Checkbox

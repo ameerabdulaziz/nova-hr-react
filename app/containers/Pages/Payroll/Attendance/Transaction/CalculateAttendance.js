@@ -1088,7 +1088,7 @@ function CalculateAttendance(props) {
       <form onSubmit={onFormSubmit}>
         <PapperBlock whiteBg icon="border_color" title={title} desc="">
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6} lg={4} xl={3}>
+            <Grid item xs={12} md={5.9} lg={4} xl={3}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.companyId)}
@@ -1166,6 +1166,8 @@ function CalculateAttendance(props) {
               </LocalizationProvider>
             </Grid>
 
+            <Grid item xs={12} md={0.1} lg={4} xl={6}></Grid>
+
             <Grid item xs={12} md={6} xl={3}>
               <Autocomplete
                 options={departmentList}
@@ -1236,7 +1238,9 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item lg={3} md={6} xs={12}>
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+            <Grid item >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1249,7 +1253,7 @@ function CalculateAttendance(props) {
               />
             </Grid>
 
-            <Grid item lg={3} md={6} xs={12}>
+            <Grid item >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -1260,7 +1264,11 @@ function CalculateAttendance(props) {
                 }
                 label={intl.formatMessage(messages.overnightAllowance)}
               />
+            </Grid>                
+              </Grid>
             </Grid>
+
+
           </Grid>
 
           <Grid container spacing={2} mt={0}>
