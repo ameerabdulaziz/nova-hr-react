@@ -57,8 +57,8 @@ function StaffJobKPI(props) {
     },
 
     {
-      name: 'enKpidesc',
-      label: 'enKpidesc',
+      name: 'arKpidesc',
+      label: 'arKpidesc',
       type: 'text',
       width: 'auto',
       initialValue: '',
@@ -66,8 +66,8 @@ function StaffJobKPI(props) {
     },
 
     {
-      name: 'arKpidesc',
-      label: 'arKpidesc',
+      name: 'enKpidesc',
+      label: 'enKpidesc',
       type: 'text',
       width: 'auto',
       initialValue: '',

@@ -57,6 +57,15 @@ function AllJobKpi(props) {
     },
 
     {
+      name: 'arJobKpi',
+      label: 'arJobKpi',
+      type: 'text',
+      width: 'auto',
+      initialValue: '',
+      hidden: false,
+    },
+
+    {
       name: 'enJobKpi',
       label: 'enJobKpi',
       type: 'text',
@@ -65,14 +74,6 @@ function AllJobKpi(props) {
       hidden: false,
     },
 
-    {
-      name: 'arJobKpi',
-      label: 'arJobKpi',
-      type: 'text',
-      width: 'auto',
-      initialValue: '',
-      hidden: false,
-    },
 
     {
       name: 'edited',

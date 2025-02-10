@@ -651,7 +651,7 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item lg={4}  xs={12}>
+              <Grid item lga={4}  xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={2}>
