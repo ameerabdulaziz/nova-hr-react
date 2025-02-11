@@ -558,7 +558,7 @@ function PaymentSlip(props) {
 
               </Grid>
 
-              <Grid item xs={12} md={12} xl={5.5} mt={1} >
+              <Grid item xs={12} md={12} lg={8} xl={5.5} mt={1} >
                 <EmployeeData
                   handleEmpChange={handleEmpChange}
                   id={formInfo.employeeId}
@@ -568,7 +568,7 @@ function PaymentSlip(props) {
                 />
               </Grid>
               <Grid item sm={0} xl={0.5}></Grid>
-              <Grid item xs={12} xl={6} mt={2}  >
+              <Grid item xs={12} lg={8} xl={6} mt={2}  >
                 <TextField
                   name='notes'
                   value={formInfo.notes}
@@ -582,13 +582,15 @@ function PaymentSlip(props) {
                 />
               </Grid>
 
-              <Grid item mt={2}    >
+              <Grid item xs={12}>
+                <Grid container spacing={3}>
+              <Grid item >
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.Print} />
                 </Button>
               </Grid>
 
-              <Grid item ml={1} mt={2}>
+              <Grid item >
                 <Button variant='contained' color='primary'
                   onClick={() => {
                     reviewDetailsFun()
@@ -597,6 +599,10 @@ function PaymentSlip(props) {
                   <FormattedMessage {...payrollMessages.review} />
                 </Button>
               </Grid>
+                </Grid>
+              </Grid>
+
+
             </Grid>
           </CardContent>
         </Card>

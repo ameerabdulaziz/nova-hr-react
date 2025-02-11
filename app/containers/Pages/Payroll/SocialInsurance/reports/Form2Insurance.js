@@ -9,7 +9,7 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Box,Tooltip,IconButton,CircularProgress,
+  Box, Tooltip, IconButton, CircularProgress,
   Typography,
 } from '@mui/material';
 import { Print } from '@mui/icons-material';
@@ -186,23 +186,23 @@ function Form2Insurance(props) {
   ];
 
 
-    const printJS = useReactToPrint({
-      documentTitle: DOCUMENT_TITLE,
-      content: () => printDivRef?.current,
-      onBeforeGetContent: () => {
-        setIsLoading(true);
-      },
-      onAfterPrint: () => {
-        setIsLoading(false);
-      },
-      onPrintError: () => {
-        setIsLoading(false);
-      },
-    });
-  
-    const onPrintClick = async () => {
-      printJS();
-    };
+  const printJS = useReactToPrint({
+    documentTitle: DOCUMENT_TITLE,
+    content: () => printDivRef?.current,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+    },
+    onAfterPrint: () => {
+      setIsLoading(false);
+    },
+    onPrintError: () => {
+      setIsLoading(false);
+    },
+  });
+
+  const onPrintClick = async () => {
+    printJS();
+  };
 
   const options = {
     print: false,
@@ -250,25 +250,25 @@ function Form2Insurance(props) {
       <Box
         ref={printDivRef}
         sx={{
-          height:"0px",
-          visibility:"hidden",
+          height: "0px",
+          visibility: "hidden",
           direction: 'ltr',
           ...(locale === 'en' ? { textAlign: 'right', direction: 'rtl', } : {}),
           '@media print': {
-            height:"100%",
-            visibility:"visible",
+            height: "100%",
+            visibility: "visible",
           },
           'p.MuiTypography-root, .MuiTableCell-root': {
             fontSize: '10px',
           },
         }}
       >
-        <InsuranceReportForm2 
+        <InsuranceReportForm2
           rows={tableData}
-          organizationName={  organizationList.find((item) => item.id === formInfo.InsuranceOrg)  ?.name ?? ''  }
-          totalSalary={extraData.total ?? 0} 
-          organizationId={formInfo.InsuranceOrg || 0}  
-          />
+          organizationName={organizationList.find((item) => item.id === formInfo.InsuranceOrg)?.name ?? ''}
+          totalSalary={extraData.total ?? 0}
+          organizationId={formInfo.InsuranceOrg || 0}
+        />
       </Box>
 
       <PapperBlock whiteBg icon='border_color' title={Title} desc=''>
@@ -315,12 +315,13 @@ function Form2Insurance(props) {
                 )}
               />
             </Grid>
+            
 
-            <Grid item xs={12}>
+            <Grid item xs={12} xl={8}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item xs={6} sm={4} md={3} lg={2.5} xl={1.5}>
+                    <Grid item xs={6} sm={4} md={3} lg={2.5} xl={2.5}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.toDate)}
@@ -374,6 +375,10 @@ function Form2Insurance(props) {
                 </CardContent>
               </Card>
             </Grid>
+            <Grid item xs={12} xl={8}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={2}>
 
             <Grid item>
               <FormControl>
@@ -403,7 +408,14 @@ function Form2Insurance(props) {
                   />
                 </RadioGroup>
               </FormControl>
+            </Grid>                    
+
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
+
+
 
             <Grid item xs={12} md={12}>
               <Button variant='contained' color='primary' type='submit'>
@@ -416,7 +428,7 @@ function Form2Insurance(props) {
             <CardContent>
               <Grid container justifyContent='space-around' spacing={2}>
                 <Grid item xs={4} textAlign='center'>
-                  <Typography>{ formatNumber(extraData.total) ?? 0}</Typography>
+                  <Typography>{formatNumber(extraData.total) ?? 0}</Typography>
                   <Typography variant='subtitle1'>
                     <FormattedMessage {...messages.totalFixed} />
                   </Typography>
@@ -430,7 +442,7 @@ function Form2Insurance(props) {
                 </Grid> */}
 
                 <Grid item xs={4} textAlign='center'>
-                  <Typography>{ formatNumber(extraData.total) ?? 0}</Typography>
+                  <Typography>{formatNumber(extraData.total) ?? 0}</Typography>
                   <Typography variant='subtitle1'>
                     <FormattedMessage {...payrollMessages.total} />
                   </Typography>

@@ -193,7 +193,7 @@ useEffect(() => {
                         alignItems="flex-start"
                         direction="row">
 
-                        <Grid item xs={12} md={2}  xl={1} > 
+                        <Grid item xs={6} md={3.3} lg={2.5}  xl={1.7} > 
                             <TextField
                                 name="salaryLimit"
                                 id="salaryLimit"
@@ -209,7 +209,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={2}  xl={1}  > 
+                        <Grid item xs={6} md={3.3} lg={2.5}  xl={1.7}  > 
                             <TextField
                                 name="companyShare"
                                 id="companyShare"
@@ -225,7 +225,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={2}  xl={1}  > 
+                        <Grid item xs={6} md={3.3} lg={2.5}  xl={1.7}  > 
                             <TextField
                                 name="employeeShare"
                                 id="employeeShare"
@@ -241,7 +241,7 @@ useEffect(() => {
                             />
                         </Grid>
 
-                        <Grid item xs={12} md={2}  xl={1}  > 
+                        <Grid item xs={6} md={3.3} lg={2.5}  xl={1.7}  > 
                             <TextField
                                 name="newSalaryLimit"
                                 id="newSalaryLimit"
@@ -285,17 +285,17 @@ useEffect(() => {
                 direction="row">
                  
                   <Grid item xs={12} md={12}></Grid>
-                  <Grid item xs={12} md={4}
+                  <Grid item 
                   container
                   spacing={3}
                   alignItems="flex-start"
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
+                <Grid item >                  
                     <SaveButton Id={formData.id} processing={processing} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >

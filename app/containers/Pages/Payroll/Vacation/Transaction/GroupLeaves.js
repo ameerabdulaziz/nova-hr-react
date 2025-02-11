@@ -338,12 +338,12 @@ async function getData() {
                 alignItems="flex-start"
                 direction="row">
                     
-                    <Grid item xs={12}  lg={9}> 
+                    <Grid item xs={12} lg={9}> 
                         <Card className={classes.card} sx={{m:'0!important'}} >
                             <CardContent>
                                 <Grid container spacing={3} alignItems="flex-start" direction="row">  
                               
-                                    <Grid item xs={6}  md={3} lg={2.5} xl={2}>  
+                                    <Grid item xs={6}  md={3} lg={2.8} xl={2}>  
                                     
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker 
@@ -416,7 +416,7 @@ async function getData() {
                                         />  
                                         </Grid> 
                                    
-                                        <Grid item xs={6} md={3} lg={2.5} xl={2}>
+                                        <Grid item xs={6} md={3} lg={2.8} xl={2}>
                                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                 <DatePicker 
                                                 label={intl.formatMessage(messages.startDate)}
@@ -450,7 +450,7 @@ async function getData() {
                                             </LocalizationProvider>
                                         </Grid>
 
-                                        <Grid item xs={6} md={3} lg={2.5} xl={2}>
+                                        <Grid item xs={6} md={3} lg={2.8} xl={2}>
                                             
                                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                                     <DatePicker 
@@ -517,15 +517,15 @@ async function getData() {
                         </Card>
                     </Grid>
 
-                    <Grid item xs={12} lg={3} mt={2}>
+                    <Grid item xs={12} >
                     <Grid container spacing={2}  >
                 
-                    <Grid item xs={4} md={2.5} lg={6} >
+                    <Grid item  >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleReset} >
                             <FormattedMessage {...Payrollmessages.add} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={4} md={2.5}  lg={6}>
+                    <Grid item >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={getData} disabled={previewprocessing} >
                         {previewprocessing && (
                             <CircularProgress
@@ -536,7 +536,7 @@ async function getData() {
                         <FormattedMessage {...Payrollmessages.preview} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={4} md={2.5}  lg={6} >                  
+                    <Grid item  >                  
                         <Button variant="contained" type="submit" size="medium" style={{width:100}} color="secondary" disabled={ processing} >
                             {processing && (
                             <CircularProgress
@@ -547,7 +547,7 @@ async function getData() {
                         <FormattedMessage {...Payrollmessages.save} /> 
                         </Button>
                     </Grid>
-                    <Grid item xs={4} md={2.5} lg={6} >
+                    <Grid item  >
                         <Button variant="contained" size="medium" style={{width:100}} color="primary" onClick={handleDelete} disabled={deleteprocessing}  >
                         {deleteprocessing && (
                             <CircularProgress

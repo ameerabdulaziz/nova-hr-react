@@ -127,7 +127,7 @@ function EmployeeAttendance(props) {
       <PapperBlock whiteBg icon="border_color" desc="" title={pageTitle}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={5} lg={3}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={trainingList}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -150,7 +150,7 @@ function EmployeeAttendance(props) {
               />
             </Grid>
 
-            <Grid item xs={6} md={3.5} lg={2}>
+            <Grid item xs={6} md={3.5} lg={2.7} xl={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label={intl.formatMessage(messages.attendanceDate)}

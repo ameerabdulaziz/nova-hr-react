@@ -182,7 +182,7 @@ function CompetenciesCreate(props) {
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <Button
                     variant='contained'
                     type='submit'
@@ -193,7 +193,7 @@ function CompetenciesCreate(props) {
                   </Button>
                 </Grid>
 
-                <Grid item xs={12} md={1}>
+                <Grid item >
                   <Button
                     variant='contained'
                     size='medium'

@@ -332,7 +332,7 @@ function LoanReport(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12} xl={8}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
                setsearchData={setsearchData}
                searchData={searchData}

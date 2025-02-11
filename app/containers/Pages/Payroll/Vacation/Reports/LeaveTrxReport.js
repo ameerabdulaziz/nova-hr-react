@@ -388,12 +388,9 @@ function LeaveTrxReport(props) {
             />
           </Grid>
 
-          <Grid item xs={6} lg={4.5} xl={3.5}>
-            <Stack
-              direction='row'
-              alignItems='center'
-              justifyContent='space-between'
-            >
+          <Grid item xs={12}>
+            <Grid container spacing={3}>
+              <Grid item >
               <FormControlLabel
                 control={<Checkbox />}
                 onChange={(evt) => setFormInfo((prev) => ({
@@ -405,15 +402,19 @@ function LeaveTrxReport(props) {
                 label={intl.formatMessage(messages.filterOnRegistrationHistory)}
               />
 
+              </Grid>
+
+              <Grid item >
               <Button
                 variant='contained'
                 color='primary'
                 onClick={onSearchBtnClick}
               >
                 {intl.formatMessage(messages.search)}
-              </Button>
-            </Stack>
-          </Grid>
+              </Button>                
+              </Grid>
+            </Grid>
+         </Grid>
         </Grid>
       </PapperBlock>
 

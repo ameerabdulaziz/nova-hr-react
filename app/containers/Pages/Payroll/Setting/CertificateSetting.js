@@ -309,7 +309,7 @@ function CertificateSetting(props) {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={11} lg={8.5} xl={6} >
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -366,7 +366,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={11} lg={8.5} xl={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -417,7 +417,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={11} lg={8.5} xl={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -477,7 +477,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={11} lg={8.5} xl={6}>
                 <Card>
                   <CardContent sx={{ p: '16px!important' }}>
                     <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
@@ -534,7 +534,7 @@ function CertificateSetting(props) {
                 </Card>
               </Grid>
 
-              <Grid item>
+              <Grid item xs={12}>
                 <Button variant='contained' color='primary' type='submit'>
                   {intl.formatMessage(payrollMessages.save)}
                 </Button>
@@ -544,6 +544,8 @@ function CertificateSetting(props) {
         </PapperBlock>
       </PayRollLoaderInForms>
 
+
+      <PayRollLoaderInForms >
       <PapperBlock
         whiteBg
         icon='border_color'
@@ -575,6 +577,7 @@ function CertificateSetting(props) {
           </Box>
         )}
       </PapperBlock>
+      </PayRollLoaderInForms>
     </>
   );
 }

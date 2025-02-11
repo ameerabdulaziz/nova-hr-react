@@ -319,7 +319,7 @@ function LoanSetting(props) {
                 )}
               />
             </Grid>
-            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+            <Grid item xs={6} md={3} lg={2.2} xl={1.5}>
               <TextField
                 id="SmalloanLimit"
                 name="SmalloanLimit"
@@ -354,7 +354,10 @@ function LoanSetting(props) {
                 label={intl.formatMessage(messages.safeLoan)}
               />
             </Grid>
-            <Grid item xs={12} md={2} lg={1}>
+
+            <Grid item xs={12}>
+              <Grid container spacing={3}>
+            <Grid item >
               <Button
                 variant="contained"
                 type="submit"
@@ -365,7 +368,7 @@ function LoanSetting(props) {
               </Button>
             </Grid>
 
-            <Grid item xs={12} md={3} lg={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -375,6 +378,9 @@ function LoanSetting(props) {
                 <FormattedMessage {...messages.copytoAllBr} />
               </Button>
             </Grid>
+              </Grid>
+            </Grid>
+
           </Grid>
         </form>
       </PapperBlock>
