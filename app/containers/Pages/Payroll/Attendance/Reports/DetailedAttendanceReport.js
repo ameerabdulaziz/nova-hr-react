@@ -66,9 +66,6 @@ function DetailedAttendanceReport(props) {
 
   const [headerType, setHeaderType] = useState();
 
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(50);
-  const [count, setCount] = useState(0);
 
   const getFilterHighlights = () => {
     const highlights = [];
@@ -197,25 +194,23 @@ function DetailedAttendanceReport(props) {
         }
         else
         {
+          const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
+          .then(res =>{ 
             // with print
             if((printType === "employee" || printType === "date") && reviewVal !== "review")
             {              
-              const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
 
-              setPrintData(dataApi)
+              setPrintData(res)
             }
 
               // with search
             if(printType !== "employee" && printType !== "date" && reviewVal !== "review")
             {
-                formData.pageNumber = page
-                formData.PageSize = rowsPerPage
 
-              const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
+              setdata(res);
 
-              setdata(dataApi.dataList);
-              setCount(dataApi.totalRows)
             }
+          })
     }
       
 
@@ -547,35 +542,6 @@ function DetailedAttendanceReport(props) {
 
 
 
-  const options = {
-    serverSide: true,
-    count: count, // Total number of rows from API
-    page: page - 1, // Current page
-    rowsPerPage: rowsPerPage, // Rows per page
-    // Handle page and rowsPerPage changes
-    onTableChange: (action, tableState) => {
-      if (action === "changePage") {
-        setPage(tableState.page + 1)
-      } 
-      else if (action === "changeRowsPerPage") {
-        if(data.length !== 0)
-        {
-          setRowsPerPage(tableState.rowsPerPage)
-          setPage(1); // Reset to first page when rowsPerPage changes
-        }
-      }
-    },
-  };
-
-
-
-  // get table data  when pagination change
-      useEffect(() => {
-        if(data.length !== 0)
-        {
-          handleSearch();
-        }
-    }, [page,rowsPerPage]);
 
 
 
@@ -824,7 +790,6 @@ function DetailedAttendanceReport(props) {
           data={data}
           columns={columns}
           filterHighlights={filterHighlights}
-          options={options}
         />
 
       <DetailedAttendanceReportTemplate 

@@ -36,9 +36,6 @@ function EmployeeList(props) {
     BranchId: branchId,
   });
 
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(50);
-  const [count, setCount] = useState(0);
   
   async function fetchData() {
     setIsLoading(true);
@@ -46,8 +43,6 @@ function EmployeeList(props) {
     try {
       let formData = {
         BranchId: searchData.BranchId,
-        pageNumber: page,
-        PageSize: rowsPerPage
       };
 
       // used if i redirect from dashboard page
@@ -78,8 +73,7 @@ function EmployeeList(props) {
 
       const dataApi = await ApiData(locale).GetList(formData);
       
-      setdata(dataApi.dataList);
-      setCount(dataApi.totalRows)
+      setdata(dataApi)
 
     } catch (err) {
       //
@@ -107,6 +101,7 @@ function EmployeeList(props) {
 
  useEffect(() => {
     getDataFun();
+    fetchData()
   }, []);
 
   async function deleteRow(id) {
@@ -331,22 +326,6 @@ function EmployeeList(props) {
   };
 
 
-  const options = {
-    serverSide: true,
-    count: count, // Total number of rows from API
-    page: page - 1, // Current page
-    rowsPerPage: rowsPerPage, // Rows per page
-    // Handle page and rowsPerPage changes
-    onTableChange: (action, tableState) => {
-      if (action === "changePage") {
-        setPage(tableState.page + 1)
-      } 
-      else if (action === "changeRowsPerPage") {
-        setRowsPerPage(tableState.rowsPerPage)
-        setPage(1); // Reset to first page when rowsPerPage changes
-      }
-    },
-  };
 
 
  const ResetDeviceKeyFun = async (employeeId) => {
@@ -369,8 +348,7 @@ function EmployeeList(props) {
  }
 
   const handleSearch = () => {
-    setPage(1)
-    setRowsPerPage(50)   
+    fetchData();
   };
 
   const onAutoCompleteChange = (value, name) => {
@@ -381,10 +359,6 @@ function EmployeeList(props) {
   };
 
   
-// get table data onload and when pagination change
-  useEffect(() => {
-    fetchData();
-}, [page,rowsPerPage]);
 
 
   return (
@@ -435,7 +409,6 @@ function EmployeeList(props) {
       columns={columns}
       actions={actions}
       filterHighlights={filterHighlights}
-      options={options}
     />
     </PayRollLoader>
   );
