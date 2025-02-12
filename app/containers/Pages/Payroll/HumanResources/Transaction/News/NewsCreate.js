@@ -30,7 +30,7 @@ import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import videoIcon from "../../../../../../../public/images/videoIcon.png";
+
 import FileViewerPopup from "../../../../../../components/Popup/fileViewerPopup";
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
@@ -392,12 +392,14 @@ function NewsCreate(props) {
                       <img
                         style={{ width: "150px" }}
                         src={URL.createObjectURL(data.image)}
+                        loading="lazy"
                       />
                     )}
                     {data.photo && (
                       <img
                         style={{ width: "150px" }}
                         src={`data:image/jpeg;base64,${data.photo}`}
+                        loading="lazy"
                       />
                     )}
                   </Grid>
@@ -415,7 +417,8 @@ function NewsCreate(props) {
                     {data.videoFile && (
                       <img
                         style={{ width: "150px"}}
-                        src={videoIcon}
+                        src={`/images/videoIcon.webp`}
+                        loading="lazy"
                       />
                     )}
                   </Grid>

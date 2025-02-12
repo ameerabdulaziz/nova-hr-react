@@ -41,7 +41,7 @@ function ResetForm(props) {
     <section>
       <div className={Type.textCenter}>
         <NavLink to="/" className={cx(classes.brand, classes.centerFlex)}>
-        <img src={logo} alt={brand.name}  style={{ width:200,height:50  }} />
+        <img src={logo} alt={brand.name} loading='lazy'  style={{ width:200,height:50  }} />
         </NavLink>
       </div>
       <Paper className={classes.paperWrap}>

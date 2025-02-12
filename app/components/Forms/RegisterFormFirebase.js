@@ -66,7 +66,7 @@ function RegisterFormFirebase(props) {
       <Hidden mdUp>
         <div className={classes.headLogo}>
           <NavLink to="/" className={classes.brand}>
-            <img src={logo} alt={brand.name} />
+            <img src={logo} alt={brand.name} loading='lazy' />
             {brand.name}
           </NavLink>
         </div>
