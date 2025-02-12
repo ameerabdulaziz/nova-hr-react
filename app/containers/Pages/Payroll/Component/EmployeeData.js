@@ -24,7 +24,8 @@ function EmployeeData(props) {
     id,
     branchId,isdisabled,IsSecuredData,
     required = true,
-    empid
+    empid,
+    LastAttLog
   } = props;
   const { classes, cx } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -91,7 +92,8 @@ function EmployeeData(props) {
     
     const empdata = await GeneralListApis(locale).GetEmployeeData(
       id,
-      GetworkingYears ? true : false
+      GetworkingYears ? true : false,
+      LastAttLog ? true: false ,
     );
     if (isSuper) {
       setdata((prevFilters) => ({
@@ -113,7 +115,7 @@ function EmployeeData(props) {
         hiringDate: empdata.hiringDate === null ? "" : empdata.hiringDate,
         HasAlternativeEmp: empdata.hasAlternativeEmp,
       }));
-      handleEmpChange(id, "employeeId",empdata.name, empdata.hiringDate,empdata.workingYears);
+      handleEmpChange(id, "employeeId",empdata.name, empdata.hiringDate,empdata.workingYears,empdata.lastAttLog);
       // handleEmpChange(empdata.hasAlternativeEmp, "HasAlternativeEmp");
       if (GetEmployeePenalties) {
         const result = await GeneralListApis(locale).GetEmployeePenalties(id);

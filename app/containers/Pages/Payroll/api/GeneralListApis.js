@@ -117,9 +117,9 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
-  Apis.GetEmployeeData = async (id,isWorkingYears,isVacBalance,OpenMonthData) => {
+  Apis.GetEmployeeData = async (id,isWorkingYears,LastAttLog,isVacBalance,OpenMonthData) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${isWorkingYears?true:false}&isVacBalance=${isVacBalance?true:false}&OpenMonthData=${OpenMonthData?true:false}`);
+      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${isWorkingYears?true:false}&isVacBalance=${isVacBalance?true:false}&OpenMonthData=${OpenMonthData?true:false}&LastAttLog=${LastAttLog ? true : false}`);
     return result.data;
   };
   Apis.GetJobsList = async () => {

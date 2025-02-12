@@ -1757,6 +1757,7 @@
   "boilerplate.containers.Payroll.hiringDateNo": "Hiring Date No",
   "boilerplate.containers.Payroll.hrLetterDate": "Letter Date",
   "boilerplate.containers.Payroll.hrLetterLang": "Letter Language",
+  "boilerplate.containers.Payroll.HumanResources.AttendanceLog": "Attendance Log",
   "boilerplate.containers.Payroll.HumanResources.insDate": "Insert Date",
   "boilerplate.containers.Payroll.HumanResources.a": "A",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "Actual ManPower",

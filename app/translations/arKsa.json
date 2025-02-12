@@ -1758,6 +1758,7 @@
   "boilerplate.containers.Payroll.hiringDateNo": "من تاريخ التعيين",
   "boilerplate.containers.Payroll.hrLetterDate": "تاريخ الخطاب",
   "boilerplate.containers.Payroll.hrLetterLang": "لغة الخطاب",
+  "boilerplate.containers.Payroll.HumanResources.AttendanceLog": "اخر بصمة للموظف",
   "boilerplate.containers.Payroll.HumanResources.insDate": "تاريخ الطلب",
   "boilerplate.containers.Payroll.HumanResources.a": "ج",
   "boilerplate.containers.Payroll.HumanResources.actualManPower": "عدد العاملين",
