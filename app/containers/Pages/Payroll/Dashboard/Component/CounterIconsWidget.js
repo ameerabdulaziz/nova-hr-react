@@ -54,7 +54,7 @@ function CounterIconWidget(props) {
   const cardsRedirectFuc = (cardName) => {
     if(cardName === "Employee")
     {
-      history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: null });
+      history.push(SITEMAP.employee.EmployeeList.route, { dashboardCardKey: null, StatusId: 1 });
     }
     else if(cardName === "NewHired")
       {

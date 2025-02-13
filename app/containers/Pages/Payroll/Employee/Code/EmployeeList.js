@@ -45,7 +45,7 @@ function EmployeeList(props) {
   const { intl } = props;
   const history = useHistory();
   const location = useLocation();
-  const { dashboardCardKey } = location.state ?? 0;
+  const { dashboardCardKey, StatusId } = location.state ?? 0;
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   // const { classes } = useStyles();
@@ -55,7 +55,7 @@ function EmployeeList(props) {
   const [companyList, setCompanyList] = useState([]);
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [searchData, setsearchData] = useState({
-    BranchId: branchId,
+    BranchId: StatusId || dashboardCardKey ? "" : branchId,
   });
 
   
@@ -68,10 +68,14 @@ function EmployeeList(props) {
       };
 
       // used if i redirect from dashboard page
-      if(dashboardCardKey === "NewHired")
-      {
-        formData.NewHired = true
-      }
+      if(dashboardCardKey === null && StatusId)
+        {
+          formData.StatusId = StatusId
+        }
+      else if(dashboardCardKey === "NewHired")
+        {
+          formData.NewHired = true
+        }
       else if(dashboardCardKey === "InPorpatiom")
         {
           formData.InPorpatiom = true
