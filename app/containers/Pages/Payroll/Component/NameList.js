@@ -33,13 +33,12 @@ function NameList(props) {
   const handleClose = useCallback(
     (data) => {
       data.map((row) => {
-        if (dataList.filter((x) => x.id == row.id).length == 0) 
-        {
+        if (dataList.filter((x) => x.id == row.id).length == 0) {
           setdataList((prev) => [...prev, row])
         }
       })
       setOpenPopup(false);
-    },[dataList])
+    }, [dataList])
 
 
   const savePopup = (data) => {
@@ -47,13 +46,13 @@ function NameList(props) {
     let array = []
 
     data.map((row) => {
-       
-         array.push(row)
-        
-      });
 
-      setdataList(array);
-      setOpenPopup(false);
+      array.push(row)
+
+    });
+
+    setdataList(array);
+    setOpenPopup(false);
   }
 
 
@@ -70,12 +69,11 @@ function NameList(props) {
   const handleEnableOne = (event, row) => {
 
     // used to delete unselected rows from table
-    if(event.target.checked === false)
-    {
-      let selectedData = dataList.filter((item)=> item.id !== row.id)
+    if (event.target.checked === false) {
+      let selectedData = dataList.filter((item) => item.id !== row.id)
 
       setdataList(selectedData)
-      
+
     }
   };
 
@@ -131,8 +129,8 @@ function NameList(props) {
                         <Checkbox
                           checked={
                             dataList.length > 0 &&
-                            dataList.filter((crow) => crow.isSelected == true)
-                              .length === dataList.length
+                              dataList.filter((crow) => crow.isSelected == true)
+                                .length === dataList.length
                               ? true
                               : false
                           }
@@ -141,8 +139,8 @@ function NameList(props) {
                           indeterminate={
                             dataList.filter((crow) => crow.isSelected == true)
                               .length > 0 &&
-                            dataList.filter((crow) => crow.isSelected == true)
-                              .length < dataList.length
+                              dataList.filter((crow) => crow.isSelected == true)
+                                .length < dataList.length
                               ? true
                               : false
                           }
@@ -153,8 +151,12 @@ function NameList(props) {
                       <FormattedMessage {...Payrollmessages.id} />
                     </TableCell> */}
                       <TableCell style={{ width: "50%", padding: "0px" }}>
+                        <FormattedMessage {...Payrollmessages.employeeCode} />
+                      </TableCell>
+                      <TableCell style={{ width: "50%", padding: "0px" }}>
                         <FormattedMessage {...Payrollmessages.name} />
                       </TableCell>
+
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -181,6 +183,9 @@ function NameList(props) {
                             {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                             {row.id}
                           </TableCell> */}
+                            <TableCell style={{ width: "50%", padding: "0px" }}>
+                              {row.employeeCode}
+                            </TableCell>
                             <TableCell style={{ width: "50%", padding: "0px" }}>
                               {row.name}
                             </TableCell>

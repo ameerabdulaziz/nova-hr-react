@@ -164,30 +164,30 @@ function EmployeeList(props) {
   const columns = [
     {
       name: 'id',
-      options: {
-        filter: false,
-        display: false,
-        print: false,
-      },
+      // options: {
+      //   filter: false,
+      //   display: false,
+      //   print: false,
+      // },
     },
     {
       name: 'employeeCode',
       label: intl.formatMessage(messages.employeeCode),
-      options: {
-        customBodyRender: (value, tableMeta) => {     
+      // options: {
+      //   customBodyRender: (value, tableMeta) => {     
 
-          return <EmployeeNavigation
-                    employeeId={tableMeta?.rowData[0]}
-                    employeeName={locale === "en" ? tableMeta?.rowData[2] : tableMeta?.rowData[3]}
-                    openInNewTap
-                    ResetDeviceKeyFun={ResetDeviceKeyFun}
-                    // used to pass custom button to open menu
-                    anchor={
-                      <Button>{value}</Button>
-                    }
-                  />
-        }
-      }
+      //     return <EmployeeNavigation
+      //               employeeId={tableMeta?.rowData[0]}
+      //               employeeName={locale === "en" ? tableMeta?.rowData[2] : tableMeta?.rowData[3]}
+      //               openInNewTap
+      //               ResetDeviceKeyFun={ResetDeviceKeyFun}
+      //               // used to pass custom button to open menu
+      //               anchor={
+      //                 <Button>{value}</Button>
+      //               }
+      //             />
+      //   }
+      // }
     },
     // used to appear en employee name then ar employee name in en version , in ar version appear ar employee name then en employee name
     ...(locale === "en" ? [
