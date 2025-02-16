@@ -47,7 +47,7 @@ function MainTable(props) {
   const [search, setsearch] = useState('');
   const addEmptyRow = useDispatch();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(50);
 
   const smUp = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   console.log('MainTable');
@@ -214,7 +214,7 @@ function MainTable(props) {
           onPageChange={handleChangePage}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          rowsPerPageOptions={[5, 10, 15, 20]}
+          rowsPerPageOptions={[20, 40, 60, 80]}
           sx={{
             justifyContent: 'center',
             // ml: 10,

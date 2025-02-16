@@ -29,6 +29,7 @@ function OrganizationManager(props) {
       initialValue: '',
       hidden: true,
     },
+
     {
       name: 'name',
       label: 'name',
@@ -47,6 +48,7 @@ function OrganizationManager(props) {
       orignaldata:[],
       width: 'auto',
       hidden: false,
+      disabled: true,
     },
 
     {
