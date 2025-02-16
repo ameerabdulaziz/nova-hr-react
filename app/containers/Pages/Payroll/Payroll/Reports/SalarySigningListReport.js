@@ -499,7 +499,7 @@ function SalarySigningListReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} md={5.8} lg={4} xl={3}>
+          <Grid item xs={12} md={5.8} lg={9} xl={3}>
             <Autocomplete
               multiple
               className={`${style.AutocompleteMulSty} ${locale === "ar" ? style.AutocompleteMulStyAR : null}`}

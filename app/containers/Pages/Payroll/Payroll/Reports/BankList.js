@@ -1171,7 +1171,7 @@ function BankList(props) {
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
           <Grid container mt={0} spacing={3}>
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={bankList}
                 value={getAutoCompleteValue(bankList, formInfo.BankId)}
@@ -1192,7 +1192,7 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={payTemplateList}
                 value={getAutoCompleteValue(
@@ -1218,7 +1218,7 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={companyList}
                 value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -1239,7 +1239,7 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={departmentList}
                 value={getAutoCompleteValue(
@@ -1264,7 +1264,7 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={currencyList}
                 value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
@@ -1286,8 +1286,8 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Grid item xs={7}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
+              <Grid item >
               <Autocomplete
                 options={yearList}
                 value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -1309,8 +1309,8 @@ function BankList(props) {
               /></Grid>
             </Grid>
 
-            <Grid item xs={12} md={3}>
-              <Grid item xs={7}>
+            <Grid item xs={12} md={3} lg={2} xl={1.5}>
+              <Grid item >
               <Autocomplete
                 options={monthList}
                 value={getAutoCompleteValue(monthList, formInfo.MonthId)}
@@ -1355,7 +1355,7 @@ function BankList(props) {
               </FormControl> */}
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
                 options={exportList}
                 value={getAutoCompleteValue(exportList, exportInfo.template)}
@@ -1378,7 +1378,7 @@ function BankList(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={4}>
+            <Grid item >
               <FormGroup>
                 <FormControlLabel 
                   control={

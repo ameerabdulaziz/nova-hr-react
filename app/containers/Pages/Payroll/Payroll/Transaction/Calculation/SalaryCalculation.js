@@ -494,7 +494,7 @@ function SalaryCalculation(props) {
         <Grid container spacing={2} mt={0} alignItems="flex-start" direction="row">
           <Grid item xs={12}>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={6} xl={3} >
+              <Grid item xs={6} md={5} lg={4} xl={3} >
                 <Autocomplete
                   id="PayTemplateId"
                   options={PayTemplateList}
@@ -523,9 +523,9 @@ function SalaryCalculation(props) {
                 />
               </Grid>
 
-              <Grid item sx={6} md={12} xl={6}></Grid> 
+              <Grid item xs={6} md={7} lg={8} xl={9}></Grid> 
 
-              <Grid item xs={12} lg={6} >
+              <Grid item xs={12} lg={8} xl={6} >
                 <Grid container spacing={1}>
 
               <Grid item md={12} >
@@ -704,13 +704,14 @@ function SalaryCalculation(props) {
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} lg={8} xl={6}>
             <EmployeeData
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
               branchId={BranchId}
             ></EmployeeData>
              </Grid>
+
             </Grid>
           </Grid>
 
@@ -726,6 +727,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...Payrollmessages.search} />
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               variant="contained"
@@ -736,6 +738,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.Calculate} />
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               variant="contained"
@@ -746,6 +749,7 @@ function SalaryCalculation(props) {
               <FormattedMessage {...messages.DeleteSalary} />
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               variant="contained"
@@ -760,6 +764,7 @@ function SalaryCalculation(props) {
               )}
             </Button>
           </Grid>
+
           <Grid item>
             <Button
               variant="contained"
@@ -774,6 +779,7 @@ function SalaryCalculation(props) {
               )}
             </Button>
           </Grid>
+
         </Grid>
       </PapperBlock>
 
