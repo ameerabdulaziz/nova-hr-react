@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -80,4 +80,4 @@ PapperBlock.defaultProps = {
   icon: 'flag'
 };
 
-export default PapperBlock;
+export default memo(PapperBlock);
