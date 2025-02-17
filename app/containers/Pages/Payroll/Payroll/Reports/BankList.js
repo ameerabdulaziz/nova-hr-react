@@ -65,7 +65,6 @@ function BankList(props) {
     swift: '',
   });
 
-console.log(exportInfo.template)
   const columns = [
     {
       name: 'id',

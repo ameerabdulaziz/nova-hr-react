@@ -614,7 +614,7 @@ function ElementValList(props) {
             <div className={style.actionsSty}>
               <EditButton
                 //param={{ id: tableMeta.rowData[0] }}
-                url={SITEMAP.payroll.ElementValEdit.route+btoa( encodeURIComponent(tableMeta.rowData[0]))}
+                url={`${SITEMAP.payroll.ElementValEdit.route}/`+btoa( encodeURIComponent(tableMeta.rowData[0]))}
               ></EditButton>
               <DeleteButton
                 clickfnc={() => handleClickOpen(tableMeta.rowData[0])}

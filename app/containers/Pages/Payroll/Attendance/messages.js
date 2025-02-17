@@ -10,6 +10,26 @@ export const scope = 'boilerplate.containers.Payroll.Attendance';
 export default defineMessages({
   //PermissionTrx----------------------------------------------------------------------------
   
+  siteAdministratorName : {
+    id: `${scope}.siteAdministratorName`,
+    defaultMessage: 'Location Administrator Name',
+  },
+
+  websiteAdministratorPhone : {
+    id: `${scope}.websiteAdministratorPhone`,
+    defaultMessage: 'Location Administrator Phone',
+  },
+
+  anotherNumber : {
+    id: `${scope}.anotherNumber`,
+    defaultMessage: 'Another Number',
+  },
+
+  locationType  : {
+    id: `${scope}.locationType`,
+    defaultMessage: 'Location Type',
+  },
+
   insDate: {
     id: `${scope}.insDate`,
     defaultMessage: 'insDate',
