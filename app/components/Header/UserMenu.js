@@ -126,7 +126,7 @@ function UserMenu(props) {
           color="secondary"
         >
           <img 
-            src={`${DOMAIN_NAME}/images/news2.webp`} 
+            src={`${DOMAIN_NAME}/images/news2.png`} 
             alt="speaker" 
             className={style.speakerSty}
             />

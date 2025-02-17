@@ -75,15 +75,12 @@ function RegisterLocationCreate(props) {
     lng: 31.2357,
   }
 
-  console.log(device)
 
   const [center, setCenter] = useState(defaultCenter);
 
   const GetGovernmentList =async ()=> {
      const data = await GeneralListApis(locale).GetGovernmentList()
      setGovernmentList(data)
-     setGovernment(data.map((el)=>el.id))
-
   }
 
   const containerStyle = {
@@ -626,7 +623,7 @@ function RegisterLocationCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={3} xl={2}>
+                {/* <Grid item xs={12} md={6} lg={3} xl={2}>
                   <TextField
                     name="siteAdministratorName"
                     id="siteAdministratorName"
@@ -713,7 +710,7 @@ function RegisterLocationCreate(props) {
                       />
                     )}
                   />
-                </Grid>             
+                </Grid>              */}
 
               </Grid>
 

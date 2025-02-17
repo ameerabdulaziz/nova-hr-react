@@ -299,7 +299,7 @@ function Header(props) {
           <Hidden smDown>
             <NavLink to='/' className={cx(classes.brand, classes.brandBar)}>
               <img
-                src={`${DOMAIN_NAME}/images/logo.webp`}
+                src={`${DOMAIN_NAME}/images/logo.png`}
                 alt={brand.name}
                 style={{ width: 120, height: 25 }}
                 loading="lazy"
@@ -379,7 +379,7 @@ function Header(props) {
           placement="bottom"
         >
           <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
-            <img src={`${DOMAIN_NAME}/images/chat (1).webp`} alt='chat' height={40} loading="lazy" />
+            <img src={`${DOMAIN_NAME}/images/chat (1).png`} alt='chat' height={40} loading="lazy" />
           </Box>
         </Tooltip>
         )
