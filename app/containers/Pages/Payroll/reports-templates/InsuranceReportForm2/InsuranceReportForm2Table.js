@@ -56,7 +56,7 @@ function InsuranceReportForm2Table(props) {
           </StyledTableThRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => {
+          {rows.sort((a, b) => Number( a.socialInsuranceID ) - Number( b.socialInsuranceID)).map((row) => {
             const subscriptionDate = new Date(row.insuranceDate);
 
             return (

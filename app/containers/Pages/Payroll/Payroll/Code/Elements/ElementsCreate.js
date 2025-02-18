@@ -574,7 +574,7 @@ console.log("data =", data);
                           label={intl.formatMessage(messages.elemMaxMin)}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} lg={3}>
+                      <Grid item xs={12} md={6} lg={3} xl={2}>
                         <TextField
                           id="elementMinVal"
                           name="elementMinVal"
@@ -592,7 +592,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} lg={3}>
+                      <Grid item xs={12} md={6} lg={3} xl={2}>
                         <TextField
                           id="elementMaxVal"
                           name="elementMaxVal"
@@ -610,7 +610,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} lg={3}>
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <TextField
                           id="minOnValue"
                           name="minOnValue"
@@ -628,7 +628,7 @@ console.log("data =", data);
                           autoComplete="off"
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} lg={3}>
+                      <Grid item xs={12} md={6} lg={4} xl={3}>
                         <TextField
                           id="maxOnValue"
                           name="maxOnValue"
@@ -651,7 +651,7 @@ console.log("data =", data);
                 </Card>
               </Grid>
 
-              <Grid item lga={4}  xs={12}>
+              <Grid item lg={4}  xs={12}>
                 <Card className={classes.card}>
                   <CardContent>
                     <Grid container spacing={2}>

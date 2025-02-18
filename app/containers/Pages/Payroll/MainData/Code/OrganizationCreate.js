@@ -284,7 +284,7 @@ function CreateAndEditOrg(props) {
                   </p>
                 )}
               </Grid>
-              <Grid item xs={6} md={4} lg={2.5} xl={1.8}>
+              <Grid item xs={6} md={4} lg={3} xl={1.8}>
                 <TextField
                   name="worknatureAllowance"
                   id="worknatureAllowance"
@@ -346,18 +346,16 @@ function CreateAndEditOrg(props) {
             <Grid item xs={12} md={12}></Grid>
             <Grid
               item
-              xs={12}
-              md={4}
               container
               spacing={3}
               alignItems="flex-start"
               direction="row"
               className={style.itemsStyle}
             >
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <SaveButton Id={id} />
               </Grid>
-              <Grid item xs={3} md={5} lg={3}>
+              <Grid item >
                 <Button
                   variant="contained"
                   size="medium"

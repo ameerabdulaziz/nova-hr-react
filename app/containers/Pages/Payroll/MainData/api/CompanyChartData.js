@@ -3,7 +3,7 @@ const CompanyChartData = (locale) => {
   const CompanyChartApis = {};
 
   CompanyChartApis.GetOrganizationChart = async (levelNo) => {
-    debugger;
+
     const data = await axiosInstance.get(`MdOrganization/GetOrganizationChart/${locale}?LevelNo=${levelNo}`);
    
     return data.data;

@@ -357,11 +357,11 @@ function Form6Insurance(props) {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} xl={8}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container spacing={2}>
-                    <Grid item xs={6} sm={4} md={3} lg={2.5} xl={1.5}>
+                    <Grid item xs={6} sm={4} md={3} lg={2.5} xl={2.5}>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label={intl.formatMessage(messages.toDate)}
@@ -416,38 +416,45 @@ function Form6Insurance(props) {
               </Card>
             </Grid>
 
-            <Grid item>
-              <FormControl>
-                <RadioGroup
-                  row
-                  value={formInfo.OrderInsNo}
-                  onChange={(evt) => {
-                    setFormInfo((prev) => ({
-                      ...prev,
-                      OrderInsNo: evt.target.value,
-                    }));
-                  }}
-                >
-                  <FormControlLabel
-                    value='true'
-                    control={<Radio />}
-                    label={`${intl.formatMessage(
-                      messages.orderBy
-                    )} ${intl.formatMessage(messages.insuranceNumber)}`}
-                  />
-                  <FormControlLabel
-                    value='false'
-                    control={<Radio />}
-                    label={`${intl.formatMessage(
-                      messages.orderBy
-                    )} ${intl.formatMessage(messages.insuranceDate)}`}
-                  />
-                </RadioGroup>
-              </FormControl>
+            <Grid item xs={12} xl={8}>
+              <Card className={classes.card}>
+                <CardContent>
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <FormControl>
+                        <RadioGroup
+                          row
+                          value={formInfo.OrderInsNo}
+                          onChange={(evt) => {
+                            setFormInfo((prev) => ({
+                              ...prev,
+                              OrderInsNo: evt.target.value,
+                            }));
+                          }}
+                        >
+                          <FormControlLabel
+                            value='true'
+                            control={<Radio />}
+                            label={`${intl.formatMessage(
+                              messages.orderBy
+                            )} ${intl.formatMessage(messages.insuranceNumber)}`}
+                          />
+                          <FormControlLabel
+                            value='false'
+                            control={<Radio />}
+                            label={`${intl.formatMessage(
+                              messages.orderBy
+                            )} ${intl.formatMessage(messages.insuranceDate)}`}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
-
             <Grid item xs={12} md={12}>
-              <Grid container spacing={2}>
+              <Grid container spacing={3}>
                 <Grid item>
                   <Button variant='contained' color='primary' type='submit'>
                     <FormattedMessage {...payrollMessages.search} />

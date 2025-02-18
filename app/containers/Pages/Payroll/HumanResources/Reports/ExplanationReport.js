@@ -304,7 +304,7 @@ function ExplanationReport(props) {
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={2}>
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
           <Search
               setsearchData={setSearchData}
               searchData={searchData}
@@ -314,7 +314,8 @@ function ExplanationReport(props) {
               company={searchData.BranchId}
             ></Search>
           </Grid>
-          <Grid item xs={6} md={3}>
+
+          <Grid item xs={6} md={4} lg={3} xl={2}>
             <Autocomplete
               id="typeId"
               options={TypeList}
@@ -337,7 +338,7 @@ function ExplanationReport(props) {
             />
           </Grid>
 
-          <Grid item xs={6} md={2}>
+          <Grid item xs={12} >
             <Button
               variant="contained"
               size="medium"

@@ -377,6 +377,7 @@ const SITEMAP = {
     NewIdea: { route: '/EXP/NewIdea' },
   },
   attendance: {
+    LoationType : {route : "/Att/LoationType"},
     PermissionTrx: { route: '/Att/PermissionTrx' },
     PermissionApproval: { route: '/Att/PermissionApproval' },
     OvertimeApproval: { route: '/Att/OvertimeApproval' },

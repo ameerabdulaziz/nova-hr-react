@@ -67,7 +67,7 @@ function ResignTrxCreate(props) {
   const [ResignList, setResignList] = useState([]);
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [lastAttLog ,setLastAttLog] =useState(null)
   const [DateError, setDateError] = useState({});
 
   // used to reformat date before send it to api
@@ -76,7 +76,7 @@ function ResignTrxCreate(props) {
   };
 
   const handleEmpChange = useCallback(
-    (id, name, empname, hiringDate, workingYears) => {
+    (id, name, empname, hiringDate, workingYears ,LastAttLog) => {
       if (name == "employeeId") {
         setdata((prevFilters) => ({
           ...prevFilters,
@@ -87,6 +87,8 @@ function ResignTrxCreate(props) {
         if (!data.id && id ) {
           handleCalculate(id, workingYears);
         } */
+        setLastAttLog(LastAttLog)
+
       }
     },
     []
@@ -232,6 +234,7 @@ function ResignTrxCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
+
             <Grid item xs={6} md={3.5} lg={2.5} xl={1.5}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
@@ -290,7 +293,18 @@ function ResignTrxCreate(props) {
               </LocalizationProvider>
             </Grid>
 
-            <Grid item xs={12} md={5} lg={2}>
+            <Grid item xs={6} md={3.5} lg={2.5} xl={1.7}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(messages.AttendanceLog)}
+                  value={lastAttLog ? dayjs(lastAttLog) : null}
+                  className={classes.field}
+                  disabled={true}
+                />
+              </LocalizationProvider>
+            </Grid>
+
+            <Grid item >
               <FormControlLabel
                 control={
                   <Checkbox
@@ -309,7 +323,7 @@ function ResignTrxCreate(props) {
               />
             </Grid>
 
-            <Grid item xl={6}></Grid>
+            <Grid item xl={5}></Grid>
 
             <Grid item xs={12} md={12} lg={10} xl={6}>
               <EmployeeData
@@ -317,6 +331,7 @@ function ResignTrxCreate(props) {
                 GetworkingYears={true}
                 id={data.employeeId}
                 isdisabled={data.id ? true : false}
+                LastAttLog = {true}
               ></EmployeeData>
             </Grid>
 

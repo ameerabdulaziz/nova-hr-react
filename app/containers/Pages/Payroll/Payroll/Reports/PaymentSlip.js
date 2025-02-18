@@ -23,7 +23,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
 import EmployeeData from '../../Component/EmployeeData';
-import PayRollLoader from '../../Component/PayRollLoader';
+import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
 import api from '../api/PaymentSlipData';
@@ -288,7 +288,7 @@ function PaymentSlip(props) {
 
 
   return (
-    <PayRollLoader isLoading={isLoading}>
+    <PayRollLoaderInForms isLoading={isLoading}>
       <form onSubmit={(e) => onFormSubmit(e, "print")}>
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: '16px!important' }}>
@@ -297,7 +297,7 @@ function PaymentSlip(props) {
             <Grid container mt={2} >
 
               <Grid container spacing={2} md={12} xl={8}>
-                <Grid item xs={12} md={4} lg={3}>
+                <Grid item xs={12} md={4} lg={4} xl={4}>
                   <Autocomplete
                     options={companyList}
                     value={getAutoCompleteValue(companyList, formInfo.branchId)}
@@ -320,7 +320,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={4}>
+                <Grid item xs={12} md={4} lg={3}>
                   <Autocomplete
                     options={payTemplateList}
                     value={getAutoCompleteValue(
@@ -399,7 +399,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={3}>
+                <Grid item xs={12} md={4} lg={3} xl={4}>
                   <Autocomplete
                     options={salaryValuesList}
                     value={getAutoCompleteValue(
@@ -425,7 +425,7 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={3}>
+                <Grid item xs={12} md={4} lg={3} xl={4}>
                   <Autocomplete
                     options={currencyList}
                     value={getAutoCompleteValue(currencyList, formInfo.currenyId)}
@@ -448,8 +448,8 @@ function PaymentSlip(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={3}>
-                  <Grid item sm={8}>
+                <Grid item xs={6} md={3} lg={2} xl={2}>
+                  <Grid item >
                     <Autocomplete
                       options={yearList}
                       value={getAutoCompleteValue(yearList, formInfo.yearId)}
@@ -473,8 +473,8 @@ function PaymentSlip(props) {
                   </Grid>
                 </Grid>
 
-                <Grid item xs={12} md={4} lg={3}>
-                  <Grid item sm={6}>
+                <Grid item xs={6} md={3} lg={2} xl={2}>
+                  <Grid item >
                     <Autocomplete
                       options={monthList}
                       value={getAutoCompleteValue(monthList, formInfo.monthId)}
@@ -502,7 +502,7 @@ function PaymentSlip(props) {
               </Grid>
               <Grid item sm={0} xl={0.5}></Grid>
 
-              <Grid container spacing={2} md={8} xl={3.5}>
+              <Grid container spacing={2} mt={1} xs={12} lg={8} xl={6}>
 
                 <Grid item xs={12} md={6} >
                   <FormControlLabel
@@ -557,8 +557,9 @@ function PaymentSlip(props) {
                 </Grid>
 
               </Grid>
+              <Grid item sm={0} md={4} xl={6}></Grid>
 
-              <Grid item xs={12} md={12} xl={5.5} mt={1} >
+              <Grid item xs={12} md={12} lg={8} xl={5.5} mt={1} >
                 <EmployeeData
                   handleEmpChange={handleEmpChange}
                   id={formInfo.employeeId}
@@ -567,8 +568,8 @@ function PaymentSlip(props) {
                   IsSecuredData={true}
                 />
               </Grid>
-              <Grid item sm={0} xl={0.5}></Grid>
-              <Grid item xs={12} xl={6} mt={2}  >
+              <Grid item sm={0} md={4} xl={6}></Grid>
+              <Grid item xs={12} lg={8} xl={6} mt={2}  >
                 <TextField
                   name='notes'
                   value={formInfo.notes}
@@ -582,13 +583,15 @@ function PaymentSlip(props) {
                 />
               </Grid>
 
-              <Grid item mt={2}    >
+              <Grid item mt={2} xs={12}>
+                <Grid container spacing={3}>
+              <Grid item >
                 <Button variant='contained' color='primary' type='submit'>
                   <FormattedMessage {...payrollMessages.Print} />
                 </Button>
               </Grid>
 
-              <Grid item ml={1} mt={2}>
+              <Grid item >
                 <Button variant='contained' color='primary'
                   onClick={() => {
                     reviewDetailsFun()
@@ -597,6 +600,10 @@ function PaymentSlip(props) {
                   <FormattedMessage {...payrollMessages.review} />
                 </Button>
               </Grid>
+                </Grid>
+              </Grid>
+
+
             </Grid>
           </CardContent>
         </Card>
@@ -638,7 +645,7 @@ function PaymentSlip(props) {
         ))}
       </Box>
 
-    </PayRollLoader>
+    </PayRollLoaderInForms>
   );
 }
 

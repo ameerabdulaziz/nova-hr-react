@@ -3,6 +3,7 @@ import React from 'react';
 import loadable from '../../../../utils/loadable';
 
 const PermissionTrxList = loadable(
+
   () => import(
     '../../../Pages/Payroll/Attendance/Transaction/Permission/PermissionTrxList'
   ),
@@ -10,6 +11,17 @@ const PermissionTrxList = loadable(
     fallback: <Loading />,
   }
 );
+
+const LoationType = loadable(
+
+  () => import(
+    '../../../Pages/Payroll/Attendance/Code/LoationType'
+  ),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const PermissionTrxCreate = loadable(
   () => import(
     '../../../Pages/Payroll/Attendance/Transaction/Permission/PermissionTrxCreate'
@@ -690,6 +702,7 @@ const attendance = {
   ForgotFingerprintRequestCreate,
   ForgotFingerprintRequestEdit,
   EmployeeSchedule,
+  LoationType,
 };
 
 export default attendance;

@@ -23,7 +23,6 @@ import ResetPasswordData from "../../containers/Pages/Payroll/Setting/api/ResetP
 import useStyles from "./header-jss";
 import messages from "./messages";
 import UnderContractionPopup from "../../containers/Pages/Payroll/Component/UnderContractionPopup";
-import speakerImg from "../../../public/images/news2.png";
 import style from "../../styles/styles.scss";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import WorkIcon from '@mui/icons-material/Work';
@@ -31,7 +30,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import ApiData from "../../containers/Pages/Payroll/Dashboard/api";
 import { useSelector } from "react-redux";
-import SITEMAP from "../../containers/App/routes/sitemap";
+import SITEMAP ,{ DOMAIN_NAME } from "../../containers/App/routes/sitemap";
 
 function UserMenu(props) {
   const { classes, cx } = useStyles();
@@ -127,7 +126,7 @@ function UserMenu(props) {
           color="secondary"
         >
           <img 
-            src={speakerImg} 
+            src={`${DOMAIN_NAME}/images/news2.png`} 
             alt="speaker" 
             className={style.speakerSty}
             />

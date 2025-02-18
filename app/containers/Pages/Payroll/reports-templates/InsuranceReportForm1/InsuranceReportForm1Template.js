@@ -116,6 +116,7 @@ import {
                 <Grid item xs={3}>
                   <Box textAlign='center'>
                     <img
+                      loading='lazy'
                       alt='الهيئة القومية للتأمين الاجتماعي'
                       src={nationalInsuranceLogo}
                       width={38}
@@ -378,7 +379,7 @@ import {
                   }
 
                   </div>
-                      <img src={lineImg} alt="lineImg" />
+                      <img loading='lazy' src={lineImg} alt="lineImg" />
                   <div>
 
                     {data.insuJobCode ? 
@@ -425,7 +426,7 @@ import {
                     </>
                   }
                   </div>
-                    <img src={lineImg} alt="lineImg"/>
+                    <img loading='lazy' src={lineImg} alt="lineImg"/>
                   <div>
                   {data.insuranceDate ? 
                       dateFun(data.insuranceDate,"month").map((boxData,index) => (
@@ -438,7 +439,7 @@ import {
                       </>
                   }
                   </div>
-                    <img src={lineImg} alt="lineImg" />
+                    <img loading='lazy' src={lineImg} alt="lineImg" />
                   <div>
 
                     {data.insuranceDate ? 
@@ -721,12 +722,12 @@ import {
                       <div></div>
                       <div></div>
                     </div>
-                      <img src={lineImg} alt="lineImg" />
+                      <img loading='lazy' src={lineImg} alt="lineImg" />
                     <div>
                         <div></div>
                         <div></div>
                     </div>
-                      <img src={lineImg} alt="lineImg"/>
+                      <img loading='lazy' src={lineImg} alt="lineImg"/>
                     <div>
                       <div></div>
                       <div></div>

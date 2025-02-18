@@ -458,7 +458,7 @@ function SummaryPayslip(props) {
 
               </Grid>
 
-              <Grid item xs={12} md={12} xl={6}>
+              <Grid item xs={12}  lg={9} xl={6}>
                 <Search
                   notShowDate
                   setsearchData={setFormInfo}

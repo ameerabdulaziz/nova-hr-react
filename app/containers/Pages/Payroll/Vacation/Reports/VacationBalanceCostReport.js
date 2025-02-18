@@ -159,7 +159,7 @@ function VacationBalanceCostReport(props) {
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <Grid container spacing={3}>
-          <Grid item xs={12} lg={9} xl={7}>
+          <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
               setsearchData={setFormInfo}
               searchData={formInfo}
@@ -169,9 +169,7 @@ function VacationBalanceCostReport(props) {
             />
           </Grid>
 
-          <Grid item xs={12} lg={0.1} ></Grid>
-
-          <Grid item mt={1} >
+          <Grid item  xs={12} >
             <Button
               variant='contained'
               color='primary'

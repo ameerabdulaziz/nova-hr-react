@@ -12,8 +12,6 @@ import { format } from "date-fns";
   
   function DetailedAttendanceTable({header,Data,headerType,review}) {    
 
-    console.log("Data =", Data);
-    
 
     return (
         <TableContainer className={style.tableContainerSty}>

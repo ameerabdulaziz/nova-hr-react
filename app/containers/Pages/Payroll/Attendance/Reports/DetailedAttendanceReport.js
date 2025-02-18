@@ -66,6 +66,7 @@ function DetailedAttendanceReport(props) {
 
   const [headerType, setHeaderType] = useState();
 
+
   const getFilterHighlights = () => {
     const highlights = [];
 
@@ -193,20 +194,21 @@ function DetailedAttendanceReport(props) {
         }
         else
         {
-
           const dataApi = await ApiData(locale).DetailedAttendanceReportApi(formData)
-          .then(res =>{        
-            
+          .then(res =>{ 
             // with print
             if((printType === "employee" || printType === "date") && reviewVal !== "review")
             {              
+
               setPrintData(res)
             }
 
               // with search
             if(printType !== "employee" && printType !== "date" && reviewVal !== "review")
             {
+
               setdata(res);
+
             }
           })
     }
@@ -537,6 +539,9 @@ function DetailedAttendanceReport(props) {
     }
 
   },[searchData.BranchId, searchData.EmployeeId])
+
+
+
 
 
 

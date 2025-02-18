@@ -664,4 +664,10 @@ actualManPower: {
     id: `${scope}.SettlementYears`,
     defaultMessage: 'Settlement Years',
   },
+  AttendanceLog :{
+    id:`${scope}.AttendanceLog`,
+    defaultMessage :'Attendance Log',
+  },
 });
+
+

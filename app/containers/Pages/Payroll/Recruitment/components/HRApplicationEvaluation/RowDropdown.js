@@ -123,7 +123,7 @@ function RowDropdown(props) {
         </MenuItem>
         <MenuItem onClick={() => onAiEvaluationBtnClick(tableMeta.rowIndex)}>
           <ListItemIcon>
-            <img src={`${DOMAIN_NAME}/images/robot.png`} alt='robot' height={20} />
+            <img src={`${DOMAIN_NAME}/images/robot.png`} alt='robot' loading="lazy" height={20} />
           </ListItemIcon>
 
           <ListItemText>

@@ -25,7 +25,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import { NavLink, Link } from "react-router-dom";
 import brand from "enl-api/dummy/brand";
-import logo from "enl-images/logo.png";
 import { injectIntl, FormattedMessage } from "react-intl";
 import menuMessages from "enl-api/ui/menuMessages";
 import link from "enl-api/ui/link";
@@ -300,9 +299,10 @@ function Header(props) {
           <Hidden smDown>
             <NavLink to='/' className={cx(classes.brand, classes.brandBar)}>
               <img
-                src={logo}
+                src={`${DOMAIN_NAME}/images/logo.png`}
                 alt={brand.name}
                 style={{ width: 120, height: 25 }}
+                loading="lazy"
               />
               {/* {brand.name} */}
             </NavLink>
@@ -379,7 +379,7 @@ function Header(props) {
           placement="bottom"
         >
           <Box onClick={handleChat} sx={{ cursor: 'pointer' }}>
-            <img src={`${DOMAIN_NAME}/images/chat.png`} alt='chat' height={40} />
+            <img src={`${DOMAIN_NAME}/images/chat (1).png`} alt='chat' height={40} loading="lazy" />
           </Box>
         </Tooltip>
         )

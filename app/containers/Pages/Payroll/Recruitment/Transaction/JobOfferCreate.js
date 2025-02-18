@@ -366,7 +366,7 @@ function JobOfferCreate(props) {
                   }}
                 />
               </LocalizationProvider>
-            </Grid>
+            </Grid>            
 
             <Grid item xs={12} md={9} lg={4} xl={3.5}>
               <Autocomplete
@@ -592,9 +592,12 @@ function JobOfferCreate(props) {
                     <Box
                       ref={printDivRef}
                       sx={{
-                        display: 'none',
+                        visibility: "hidden",
+                        height: "0px",
                         '@media print': {
-                          display: 'block',
+                          height: "100%",
+                          visibility: "visible",
+                          direction: "rtl",
                         },
                         px: 2,
                         py: 4,

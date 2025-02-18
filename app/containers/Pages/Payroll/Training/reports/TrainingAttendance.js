@@ -171,8 +171,8 @@ function TrainingAttendance(props) {
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon='border_color' title={pageTitle} desc=''>
         <form onSubmit={onFormSubmit}>
-          <Grid container spacing={1} alignItems='center'>
-            <Grid item xs={12} md={12} lg={8}>
+          <Grid container spacing={3} >
+            <Grid item xs={12} md={10} lg={8} xl={6}>
               <Search
                 setsearchData={setFormInfo}
                 searchData={formInfo}
@@ -185,9 +185,9 @@ function TrainingAttendance(props) {
               ></Search>
             </Grid>
             
-            <Grid item xs={12}></Grid>
+  
 
-            <Grid item xs={12} md={3} lg={4}>
+            <Grid item xs={12} md={5} lg={4} xl={3}>
               <Autocomplete
                 options={trainingList}
                 value={getAutoCompleteValue(trainingList, formInfo.trainingId)}
@@ -210,7 +210,7 @@ function TrainingAttendance(props) {
               />
             </Grid>
 
-            <Grid item>
+            <Grid item xs={12}>
               <Button variant='contained' type='submit' color='primary'>
                 {intl.formatMessage(payrollMessages.search)}
               </Button>

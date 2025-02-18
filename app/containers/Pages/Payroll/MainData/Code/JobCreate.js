@@ -561,17 +561,17 @@ function oncancel(){
                 direction="row">
                  
                   <Grid item xs={12} md={12}></Grid>
-                  <Grid item xs={12} md={4}
+                  <Grid item 
                   container
                   spacing={3}
                   alignItems="flex-start"
                   direction="row"
                   className={style.itemsStyle}
                   >
-                <Grid item xs={3}  md={5} lg={3}>                  
+                <Grid item >                  
                     <SaveButton Id={id} processing={isLoading} />
                 </Grid>
-                <Grid item xs={3}  md={5} lg={3}>
+                <Grid item >
                     <Button variant="contained" size="medium" color="primary" 
                     onClick={oncancel}
                      >

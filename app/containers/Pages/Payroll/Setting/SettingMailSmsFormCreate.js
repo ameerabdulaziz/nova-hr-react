@@ -181,7 +181,11 @@ function SettingMailSmsFormCreate(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
+
             <Grid item xs={12} md={5} lg={4} xl={3}>
+              <Grid container spacing={3}>
+
+            <Grid item xs={12} >
               <Autocomplete
                 options={formTypesList}
                 value={
@@ -208,6 +212,24 @@ function SettingMailSmsFormCreate(props) {
               />
             </Grid>
 
+            <Grid item xs={12}>
+              {decoratorList.length > 0 && (
+                <Button
+                  variant='contained'
+                  size='medium'
+                  color='primary'
+                  onClick={onAddDecoratorBtnClick}
+                  sx={{ mb: 2 }}
+                >
+                  {intl.formatMessage(messages.addDecorator)}
+                </Button>
+              )}
+            </Grid>  
+
+              </Grid>
+            </Grid>
+          
+
             <Grid item xs={12} md={5} lg={4} xl={3}>
               <TextField
                 value={formInfo.subject}
@@ -220,19 +242,7 @@ function SettingMailSmsFormCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={2} lg={4} xl={6}>
-              {decoratorList.length > 0 && (
-                <Button
-                  variant='contained'
-                  size='medium'
-                  color='primary'
-                  onClick={onAddDecoratorBtnClick}
-                  sx={{ mb: 2 }}
-                >
-                  {intl.formatMessage(messages.addDecorator)}
-                </Button>
-              )}
-            </Grid>
+            <Grid item xs={12} md={2} lg={4} xl={6}></Grid> 
 
             <Grid item xs={12} md={10} lg={8} xl={6}>
               <TextareaAutosize

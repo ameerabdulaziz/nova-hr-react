@@ -36,21 +36,21 @@ function ContractCreate(props) {
   const { classes } = useStyles();
   const [DateError, setDateError] = useState({});
   const [customerList, setCustomerList] = useState([]);
-  const [formData,setFormData] = useState({
+  const [formData, setFormData] = useState({
     id: 0,
-    contractCode:"",
-    Customer:null,
-    ContractStartDate:"",
-    ContractEndDate:"",
-    contractValue:"",
+    contractCode: "",
+    Customer: null,
+    ContractStartDate: "",
+    ContractEndDate: "",
+    contractValue: "",
     // Description:"",
   })
 
 
-  
+
   // used to reformat date before send it to api
-    const dateFormatFun = (date) => {
-     return  date ? format(new Date(date), "yyyy-MM-dd") : ""
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : ""
   }
 
 
@@ -85,11 +85,11 @@ function ContractCreate(props) {
 
   const getdata = async () => {
     try {
-    
+
       const customers = await CustomerData(locale).GetList();
 
       setCustomerList(customers)
-      
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -104,11 +104,11 @@ function ContractCreate(props) {
       setFormData((prevState) => ({
         ...prevState,
         id: data.id,
-        contractCode:data.contractCode,
+        contractCode: data.contractCode,
         Customer: customerList.find((item) => item.id === data?.customerId) ? customerList.find((item) => item.id === data?.customerId) : null,
-        ContractStartDate:data.fromDate,
-        ContractEndDate:data.toDate,
-        contractValue:data.contractValue,
+        ContractStartDate: data.fromDate,
+        ContractEndDate: data.toDate,
+        contractValue: data.contractValue,
         // Description:data,
       }))
 
@@ -126,7 +126,7 @@ function ContractCreate(props) {
     if (ID && customerList.length !== 0) {
       getEditdata();
     }
-  }, [ID,customerList]);
+  }, [ID, customerList]);
 
   function oncancel() {
     history.push(SITEMAP.projectManagement.Contract.route);
@@ -156,7 +156,8 @@ function ContractCreate(props) {
               alignItems="flex-start"
               direction="row"
             >
-              <Grid item xs={12} md={3} lg={2} xl={2}>
+              
+              <Grid item xs={12} md={3.5} lg={2.5} xl={2}>
                 <TextField
                   name="contractCode"
                   id="contractCode"
@@ -178,124 +179,122 @@ function ContractCreate(props) {
                 />
               </Grid>
 
-            <Grid item xs={12} md={4} lg={4} xl={3}>
-                  <Autocomplete
-                    id="ddlMenu"
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    value={ formData.Customer !== null ? formData.Customer : null}
-                    options={customerList.length != 0 ? customerList : []}
-                    getOptionLabel={(option) => (option ? locale === "en" ? option.enName : option.arName : "")}
-                    renderOption={(props, option) => {
-                      return (
-                        <li {...props} key={option.id}>
-                          {locale === "en" ? option.enName : option.arName}
-                        </li>
-                      );
+              <Grid item xs={12} md={4} lg={4} xl={3}>
+                <Autocomplete
+                  id="ddlMenu"
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  value={formData.Customer !== null ? formData.Customer : null}
+                  options={customerList.length != 0 ? customerList : []}
+                  getOptionLabel={(option) => (option ? locale === "en" ? option.enName : option.arName : "")}
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option.id}>
+                        {locale === "en" ? option.enName : option.arName}
+                      </li>
+                    );
+                  }}
+                  onChange={(event, value) => {
+                    if (value !== null) {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        Customer: value,
+                      }))
+                    } else {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        Customer: null,
+                      }))
+                    }
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      name="customer"
+                      label={intl.formatMessage(messages.customerName)}
+                      margin="normal"
+                      className={style.fieldsSty}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6} md={3} lg={2} xl={1.5}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={intl.formatMessage(messages.startDate)}
+                    value={formData.ContractStartDate ? dayjs(formData.ContractStartDate) : null}
+                    className={classes.field}
+                    onChange={(date) => {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        ContractStartDate: date,
+                      }))
                     }}
-                    onChange={(event, value) => {
-                      if (value !== null) {
-                        setFormData((prevState) => ({
+                    onError={(error, value) => {
+                      if (error !== null) {
+                        setDateError((prevState) => ({
                           ...prevState,
-                          Customer: value,
+                          [`startDate`]: true
                         }))
-                      } else {
-                        setFormData((prevState) => ({
+                      }
+                      else {
+                        setDateError((prevState) => ({
                           ...prevState,
-                          Customer: null,
+                          [`startDate`]: false
                         }))
                       }
                     }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        name="customer"
-                        label={intl.formatMessage(messages.customerName)}
-                        margin="normal"
-                        className={style.fieldsSty}
-                      />
-                    )}
+                    slotProps={{
+                      textField: {
+                        required: true,
+                      },
+                    }}
                   />
-                </Grid>
+                </LocalizationProvider>
+              </Grid>
 
-            <Grid item xs={6}  md={2.5} lg={2} xl={1.5}> 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.startDate)}
-                          value={formData.ContractStartDate ? dayjs(formData.ContractStartDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setFormData((prevState) => ({
-                              ...prevState,
-                              ContractStartDate: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`startDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`startDate`]: false
-                              }))
-                          }
-                        }}
-                        slotProps={{
-                            textField: {
-                                required: true,
-                              },
-                            }}
-                        />
-                    </LocalizationProvider>
-            </Grid>
-            <Grid item xs={6}  md={2.5} lg={2} xl={1.5}> 
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(messages.endDate)}
-                        value={formData.ContractEndDate ? dayjs(formData.ContractEndDate) : null}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setFormData((prevState) => ({
-                              ...prevState,
-                              ContractEndDate: date,
-                            }))
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`endDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`endDate`]: false
-                              }))
-                          }
-                        }}
-                        slotProps={{
-                            textField: {
-                                required: true,
-                              },
-                            }}
-                        />
-                    </LocalizationProvider>
-            </Grid>
-            <Grid item xs={6} md={3} lg={2}  xl={1.5}>
+              <Grid item xs={6} md={3} lg={2} xl={1.5}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label={intl.formatMessage(messages.endDate)}
+                    value={formData.ContractEndDate ? dayjs(formData.ContractEndDate) : null}
+                    className={classes.field}
+                    onChange={(date) => {
+                      setFormData((prevState) => ({
+                        ...prevState,
+                        ContractEndDate: date,
+                      }))
+                    }}
+                    onError={(error, value) => {
+                      if (error !== null) {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          [`endDate`]: true
+                        }))
+                      }
+                      else {
+                        setDateError((prevState) => ({
+                          ...prevState,
+                          [`endDate`]: false
+                        }))
+                      }
+                    }}
+                    slotProps={{
+                      textField: {
+                        required: true,
+                      },
+                    }}
+                  />
+                </LocalizationProvider>
+              </Grid>
+
+              <Grid item xs={6} md={3} lg={2} xl={1.5}>
                 <TextField
                   name="contractValue"
                   id="contractValue"
                   placeholder={intl.formatMessage(messages.contractValue)}
                   label={intl.formatMessage(messages.contractValue)}
-                //   required
+                  //   required
                   type="number"
                   className={`${classes.field} ${style.fieldsSty}`}
                   margin="normal"
@@ -312,15 +311,12 @@ function ContractCreate(props) {
               </Grid>
 
             </Grid>
-        
           </Grid>
 
           <Grid container spacing={3} alignItems="flex-start" direction="row">
             <Grid item xs={12} md={12}></Grid>
             <Grid
               item
-              xs={12}
-              md={4}
               container
               spacing={3}
               alignItems="flex-start"

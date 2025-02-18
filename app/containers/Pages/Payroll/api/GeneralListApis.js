@@ -2,6 +2,13 @@ import axiosInstance from './axios';
 const GeneralListApis = (locale) => {
   const Apis = {};
 
+  Apis.locationTypeList = async () => {
+    
+    const data = await axiosInstance.get(`AttLocationType/GetListModel/${locale}`);
+    const result = data.data;    
+    return result;
+  };
+
   Apis.GetDepartmentList = async (branchId) => {
     const data = await axiosInstance.get(
       `GeneralList/GetDepartmentList/${locale}?branchId=${branchId ? branchId : ""}`
@@ -117,9 +124,9 @@ const GeneralListApis = (locale) => {
     );
     return result.data;
   };
-  Apis.GetEmployeeData = async (id,isWorkingYears,isVacBalance,OpenMonthData) => {
+  Apis.GetEmployeeData = async (id,isWorkingYears,LastAttLog,isVacBalance,OpenMonthData) => {
     const result = await axiosInstance.get(
-      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${isWorkingYears?true:false}&isVacBalance=${isVacBalance?true:false}&OpenMonthData=${OpenMonthData?true:false}`);
+      `GeneralList/GetEmployeeData/${id}/${locale}?isWorkingYears=${isWorkingYears?true:false}&isVacBalance=${isVacBalance?true:false}&OpenMonthData=${OpenMonthData?true:false}&LastAttLog=${LastAttLog ? true : false}`);
     return result.data;
   };
   Apis.GetJobsList = async () => {

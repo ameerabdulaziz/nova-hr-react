@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui';
 import { alpha, lighten } from '@mui/material/styles';
-import flag from 'enl-images/flag-lang.png';
+import  { DOMAIN_NAME } from "../../containers/App/routes/sitemap";
 const drawerWidth = 240;
 
 const flagIcon = {
@@ -11,7 +11,7 @@ const flagIcon = {
   position: 'relative',
   marginRight: 5,
   top: 1,
-  background: `url(${flag}) no-repeat transparent`,
+  background: `url(${DOMAIN_NAME}/images/flag-lang.png) no-repeat transparent`,
   backgroundSize: '16px auto',
   '&[class="arKsa"]': {
     backgroundPosition: '0 3px'
