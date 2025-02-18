@@ -26,7 +26,7 @@ import useStyles from '../Style';
 import { useSelector } from 'react-redux';
 import notif from 'enl-api/ui/notifMessage';
 import Payrollmessages from '../messages';
-import PayRollLoaderInForms from "../Component/PayRollLoaderInForms";
+import PayRollLoader from "../Component/PayRollLoader";
 
 function UserMenu(props) {
   
@@ -227,12 +227,12 @@ async function on_submit() {
   }, []);
 
   return (
-    <PayRollLoaderInForms isLoading={isLoading}>
+    <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
        
         <div>
             <Grid container spacing={3} mb={3}>            
-                <Grid item xs={6} md={4} lg={3}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                         id="ddlEmp"                        
                         options={employeeList}
@@ -259,7 +259,7 @@ async function on_submit() {
                         )}
                     />
                 </Grid>
-                <Grid item xs={6} md={4} lg={3}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                     <Autocomplete
                         id="ddlMenu"                        
                         options={MenuList}
@@ -277,7 +277,7 @@ async function on_submit() {
                         )}
                     />
                 </Grid>
-                <Grid item xs={6} md={4} lg={3}>
+                <Grid item xs={6} md={4} lg={3} xl={2}>
                 
                     <FormControl variant="filled">
                         <Input
@@ -305,7 +305,7 @@ async function on_submit() {
                 </Button>
                 </Grid>   
             </Grid>
-            <div className={classes.rootTable}>
+            <div style={{ overflowX: "auto", width: "100%" }} className={classes.rootTable}>
                 <Table small className={cx(css.tableCrud, classes.table, classes.stripped)}>
                     <TableHead>
                     <TableRow>               
@@ -458,7 +458,7 @@ async function on_submit() {
             </div>
         </div>       
       </PapperBlock>
-      </PayRollLoaderInForms>
+      </PayRollLoader>
   );
 }
   
