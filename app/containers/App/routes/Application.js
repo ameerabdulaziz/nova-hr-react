@@ -954,6 +954,13 @@ function Application(props) {
         />
 
         {/* Attendance */}
+
+        <Route
+          path={SITEMAP.attendance.LoationType.route}
+          component={PAGES.attendance.LoationType}
+        />
+
+
         <Route
           path={SITEMAP.attendance.PermissionTrx.route}
           component={PAGES.attendance.PermissionTrxList}
