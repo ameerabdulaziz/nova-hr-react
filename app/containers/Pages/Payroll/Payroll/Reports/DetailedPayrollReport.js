@@ -441,7 +441,7 @@ function DetailedPayrollReport(props) {
             <Grid item container spacing={2} xl={12}>
 
 
-              <Grid item xs={12} lg={4} xl={3} >
+              <Grid item xs={12} md={6} lg={4} xl={3} >
                 <Autocomplete
                   options={companyList}
                   value={getAutoCompleteValue(companyList, formInfo.BranchId)}
@@ -463,7 +463,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={4} xl={5}  >
+              <Grid item xs={12} lg={5} xl={5}  >
                 <Autocomplete
                   options={payTemplateList}
                   multiple
@@ -500,9 +500,9 @@ function DetailedPayrollReport(props) {
                 />
               </Grid> 
 
-              <Grid item xs={12} lg={4} xl={4}></Grid>
+              <Grid item xs={12}  lg={3} xl={4}></Grid>
 
-              <Grid item xs={6} lg={4} xl={1.5}>
+              <Grid item xs={6} lg={3} xl={1.5}>
                 <Autocomplete
                   options={salaryTypesList}
                   value={getAutoCompleteValue(
@@ -528,7 +528,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={6} lg={4} xl={2}>
+              <Grid item xs={6} lg={3} xl={2}>
                 <Autocomplete
                   options={insuranceList}
                   value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
@@ -551,7 +551,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={6} lg={4} xl={2.5}>
+              <Grid item xs={6} lg={3} xl={2.5}>
 
                 <Autocomplete
                   options={currencyList}
@@ -575,7 +575,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={6} lg={4} xl={2}>
+              <Grid item xs={6} lg={3} xl={2}>
 
                 <Autocomplete
                   id="ddljobLevelId"
@@ -607,9 +607,9 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={0.1} xl={4}></Grid>
+              <Grid item xs={12}  xl={4}></Grid>
 
-              <Grid item xs={3} lg={2} xl={1.5}>
+              <Grid item xs={6} md={3} lg={2} xl={1.5}>
                 <Autocomplete
                   options={yearList}
                   value={getAutoCompleteValue(yearList, formInfo.YearId)}
@@ -631,7 +631,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={3} lg={2} xl={1.5}>
+              <Grid item xs={6} md={3} lg={2} xl={1.5}>
                 <Autocomplete
                   options={monthList}
                   value={getAutoCompleteValue(monthList, formInfo.MonthId)}
