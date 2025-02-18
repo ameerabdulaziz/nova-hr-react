@@ -358,7 +358,7 @@ function HrPermission(props) {
               getOptionLabel={(option) => (option ? `${option.id}-  ${option.name}` : '')}
               renderOption={(propsOption, option) => (
                 <li {...propsOption} key={option.id}>
-                  {option.id}- &nbsp; {option.name}
+                  {option.name}
                 </li>
               )}
               onChange={(_, value) => {
