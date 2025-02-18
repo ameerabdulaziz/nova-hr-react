@@ -45,13 +45,10 @@ function RegisterLocationCreate(props) {
   const [siteAdministratorName , setSiteAdministratorName] = useState('')
   const [websiteAdministratorPhone , setWebsiteAdministratorPhone] = useState('')
   const [anotherNumber , setAnotherNumber] = useState('')
-
   const [governmentList ,setGovernmentList] = useState([])
   const [government ,setGovernment] = useState("")
   const [locationTypeList ,setLocationTypeList] = useState([])
   const [locationType ,setLocationType] = useState("")
-  
-
   const [distance, setDistance] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [processing, setProcessing] = useState(false)
@@ -82,6 +79,11 @@ function RegisterLocationCreate(props) {
      const data = await GeneralListApis(locale).GetGovernmentList()
      setGovernmentList(data)
   }
+
+  const GetLocationTypeList = async ()=> {
+    const data = await GeneralListApis(locale).locationTypeList()
+    setLocationTypeList(data)
+ }
 
   const containerStyle = {
     width: '100%',
@@ -271,11 +273,11 @@ function RegisterLocationCreate(props) {
       distance: distance ? Number(distance) : "",
       polygons: polygons.length === 0 ? [] : polygons[0],
       deviceId: device.length !== 0 ? device.id : "" ,
-      siteAdministratorName : siteAdministratorName ? siteAdministratorName : "",
-      websiteAdministratorPhone : websiteAdministratorPhone ? websiteAdministratorPhone : "",
-      anotherNumber : anotherNumber ? anotherNumber : "",
-      governmentId : government.length !== 0 ? government.id : "" ,
-      locationTypeId : locationType.length  !==0 ? locationType.id : "" ,
+      Responsible : siteAdministratorName ? siteAdministratorName : "",
+      Tel1 : websiteAdministratorPhone ? websiteAdministratorPhone : "",
+      Tel2 : anotherNumber ? anotherNumber : "",
+      GovernmentId : government.length !== 0 ? government.id : "" ,
+      LocationTypeId : locationType.length  !==0 ? locationType.id : "" ,
 
     };
 
@@ -339,6 +341,11 @@ function RegisterLocationCreate(props) {
       setLocation({ lat: Number(data.locLat), lng: Number(data.locLong) })
       setPolygons([data.polygons])
       setDevice(data.deviceId ? devicesData.find((item) => item.id === data.deviceId) : "")
+      setSiteAdministratorName(data.responsible)
+      setWebsiteAdministratorPhone(data.tel1)
+      setAnotherNumber(data.tel2)
+      setGovernment(data.governmentId ? governmentList.find((item) => item.id === data.governmentId) : "")
+      setLocationType(data.locationTypeId ? locationTypeList.find((item) => item.id === data.locationTypeId) : "")
 
     } catch (error) {
       //
@@ -350,7 +357,8 @@ function RegisterLocationCreate(props) {
 
   useEffect(() => {
     getdata();
-    GetGovernmentList()
+    GetGovernmentList();
+    GetLocationTypeList();
   }, []);
 
   useEffect(() => {
@@ -623,7 +631,7 @@ function RegisterLocationCreate(props) {
                   />
                 </Grid>
 
-                {/* <Grid item xs={12} md={6} lg={3} xl={2}>
+                <Grid item xs={12} md={6} lg={3} xl={2}>
                   <TextField
                     name="siteAdministratorName"
                     id="siteAdministratorName"
@@ -710,7 +718,7 @@ function RegisterLocationCreate(props) {
                       />
                     )}
                   />
-                </Grid>              */}
+                </Grid>             
 
               </Grid>
 

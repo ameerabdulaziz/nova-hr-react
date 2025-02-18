@@ -166,7 +166,7 @@ function DetailedPayrollReport(props) {
 
       const payTemplate = await GeneralListApis(locale).GetPayTemplateList();
       setPayTemplateList(payTemplate);
- 
+
       setFormInfo((prev) => ({ ...prev, TemplateId: [payTemplate[0]] }))
 
       const years = await GeneralListApis(locale).GetYears();
@@ -319,7 +319,7 @@ function DetailedPayrollReport(props) {
         MonthId: formInfo.MonthId,
         isInsured:
           formInfo.isInsured === null ? "" : Boolean(formInfo.isInsured),
-        isBankTransfere:formInfo.isBankTransfere === null ? "" : Boolean(formInfo.isBankTransfere),
+        isBankTransfere: formInfo.isBankTransfere === null ? "" : Boolean(formInfo.isBankTransfere),
         //isVal: formInfo.isVal,
         CurrencyId: formInfo.CurrencyId === null ? "" : formInfo.CurrencyId,
         JobLevelId: formInfo.JobLevelId === null ? "" : formInfo.JobLevelId,
@@ -441,221 +441,220 @@ function DetailedPayrollReport(props) {
             <Grid item container spacing={2} xl={12}>
 
 
-                  <Grid item xs={12} lg={4} xl={3} >
-              <Autocomplete
-                options={companyList}
-                value={getAutoCompleteValue(companyList, formInfo.BranchId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onCompanyAutocompleteChange(value)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.company)}
-                  />
-                )}
-              />
-                  </Grid>
-                  <Grid item xs={12} lg={4} xl={3}  >
-              <Autocomplete
-                options={payTemplateList}
-                multiple
-                disableCloseOnSelect
-                className={`${style.AutocompleteMulSty} ${
-                  locale === "ar" ? style.AutocompleteMulStyAR : null
-                }`}
-                value={formInfo.TemplateId}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(optionProps, option, { selected }) => (
-                  <li {...optionProps} key={optionProps.id}>
-                    <Checkbox
-                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                      checkedIcon={<CheckBoxIcon fontSize="small" />}
-                      style={{ marginRight: 8 }}
-                      checked={selected}
-                    />
-                    {option.name}
-                  </li>
-                )}
-                // onChange={(_, value) =>
-                //   onAutoCompleteChange(value, "TemplateId")
-                // }
-                onChange={(_, value) =>
-                  setFormInfo((prev) => ({ ...prev, TemplateId: value }))
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    
-                    label={intl.formatMessage(messages.template)}
-                  />
-                )}
-              />
-                  </Grid>
-
-
-
-              <Grid item xs={6} lg={4} xl={1.5}>
-              <Autocomplete
-                options={salaryTypesList}
-                value={getAutoCompleteValue(
-                  salaryTypesList,
-                  formInfo.isBankTransfere
-                )}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) =>
-                  onAutoCompleteChange(value, "isBankTransfere")
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.salaryType)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={6} lg={4} xl={2}>
-              <Autocomplete
-                options={insuranceList}
-                value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) =>
-                  onAutoCompleteChange(value, "isInsured")
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.insurance)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={6} lg={4} xl={2.5}>
-              
-              <Autocomplete
-                options={currencyList}
-                value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) =>
-                  onAutoCompleteChange(value, "CurrencyId")
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label={intl.formatMessage(messages.currency)}
-                  />
-                )}
-              />
-            </Grid>
-
-            <Grid item xs={6} lg={4} xl={2}>
-
-              <Autocomplete
-                id="ddljobLevelId"
-                options={jobLevelList || []}
-                // value={jobLevelId}
-                value={getAutoCompleteValue(jobLevelList, formInfo.JobLevelId)}
-                isOptionEqualToValue={(option, value) =>
-                  value.id === 0 || value.id === "" || option.id === value.id
-                }
-                renderOption={(props, option) => {
-                  return (
-                    <li {...props} key={option.id}>
+              <Grid item xs={12} lg={4} xl={3} >
+                <Autocomplete
+                  options={companyList}
+                  value={getAutoCompleteValue(companyList, formInfo.BranchId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
                       {option.name}
                     </li>
-                  );
-                }}
-                getOptionLabel={(option) => (option.name ? option.name : "")}
-                onChange={(_, value) =>
-                  onAutoCompleteChange(value, "JobLevelId")
-                }
-                renderInput={(params) => (
-                  <TextField
-                    variant="outlined"
-                    {...params}
-                    name="jobLevelId"
-                    label={intl.formatMessage(messages.joblevel)}
-                  />
-                )}
-              />
-            </Grid>
-            
-            <Grid item xs={3} lg={2} xl={1.5}>
-            <Autocomplete
-                options={yearList}
-                value={getAutoCompleteValue(yearList, formInfo.YearId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, "YearId")}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.year)}
-                  />
-                )}
-              />
+                  )}
+                  onChange={(_, value) => onCompanyAutocompleteChange(value)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      label={intl.formatMessage(messages.company)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} lg={4} xl={5}  >
+                <Autocomplete
+                  options={payTemplateList}
+                  multiple
+                  disableCloseOnSelect
+                  className={`${style.AutocompleteMulSty} ${locale === "ar" ? style.AutocompleteMulStyAR : null
+                    }`}
+                  value={formInfo.TemplateId}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(optionProps, option, { selected }) => (
+                    <li {...optionProps} key={optionProps.id}>
+                      <Checkbox
+                        icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                        checkedIcon={<CheckBoxIcon fontSize="small" />}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option.name}
+                    </li>
+                  )}
+                  // onChange={(_, value) =>
+                  //   onAutoCompleteChange(value, "TemplateId")
+                  // }
+                  onChange={(_, value) =>
+                    setFormInfo((prev) => ({ ...prev, TemplateId: value }))
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+
+                      label={intl.formatMessage(messages.template)}
+                    />
+                  )}
+                />
+              </Grid> 
+
+              <Grid item xs={12} lg={4} xl={4}></Grid>
+
+              <Grid item xs={6} lg={4} xl={1.5}>
+                <Autocomplete
+                  options={salaryTypesList}
+                  value={getAutoCompleteValue(
+                    salaryTypesList,
+                    formInfo.isBankTransfere
+                  )}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) =>
+                    onAutoCompleteChange(value, "isBankTransfere")
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={intl.formatMessage(messages.salaryType)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6} lg={4} xl={2}>
+                <Autocomplete
+                  options={insuranceList}
+                  value={getAutoCompleteValue(insuranceList, formInfo.isInsured)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) =>
+                    onAutoCompleteChange(value, "isInsured")
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={intl.formatMessage(messages.insurance)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6} lg={4} xl={2.5}>
+
+                <Autocomplete
+                  options={currencyList}
+                  value={getAutoCompleteValue(currencyList, formInfo.CurrencyId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) =>
+                    onAutoCompleteChange(value, "CurrencyId")
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={intl.formatMessage(messages.currency)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6} lg={4} xl={2}>
+
+                <Autocomplete
+                  id="ddljobLevelId"
+                  options={jobLevelList || []}
+                  // value={jobLevelId}
+                  value={getAutoCompleteValue(jobLevelList, formInfo.JobLevelId)}
+                  isOptionEqualToValue={(option, value) =>
+                    value.id === 0 || value.id === "" || option.id === value.id
+                  }
+                  renderOption={(props, option) => {
+                    return (
+                      <li {...props} key={option.id}>
+                        {option.name}
+                      </li>
+                    );
+                  }}
+                  getOptionLabel={(option) => (option.name ? option.name : "")}
+                  onChange={(_, value) =>
+                    onAutoCompleteChange(value, "JobLevelId")
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      variant="outlined"
+                      {...params}
+                      name="jobLevelId"
+                      label={intl.formatMessage(messages.joblevel)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12} lg={0.1} xl={4}></Grid>
+
+              <Grid item xs={3} lg={2} xl={1.5}>
+                <Autocomplete
+                  options={yearList}
+                  value={getAutoCompleteValue(yearList, formInfo.YearId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) => onAutoCompleteChange(value, "YearId")}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      label={intl.formatMessage(messages.year)}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={3} lg={2} xl={1.5}>
+                <Autocomplete
+                  options={monthList}
+                  value={getAutoCompleteValue(monthList, formInfo.MonthId)}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
+                  getOptionLabel={(option) => (option ? option.name : "")}
+                  renderOption={(propsOption, option) => (
+                    <li {...propsOption} key={option.id}>
+                      {option.name}
+                    </li>
+                  )}
+                  onChange={(_, value) => onAutoCompleteChange(value, "MonthId")}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      label={intl.formatMessage(messages.month)}
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
 
-            <Grid item xs={3} lg={2} xl={1.5}>
-            <Autocomplete
-                options={monthList}
-                value={getAutoCompleteValue(monthList, formInfo.MonthId)}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                getOptionLabel={(option) => (option ? option.name : "")}
-                renderOption={(propsOption, option) => (
-                  <li {...propsOption} key={option.id}>
-                    {option.name}
-                  </li>
-                )}
-                onChange={(_, value) => onAutoCompleteChange(value, "MonthId")}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    required
-                    label={intl.formatMessage(messages.month)}
-                  />
-                )}
-              />
-            </Grid>
-
-
-        
-            </Grid>
- 
-            <Grid item xs={12} md={8}  xl={6}>
+            <Grid item xs={12} md={12} lg={8} xl={8}>
               <EmployeeData
                 handleEmpChange={handleEmpChange}
                 id={formInfo.EmployeeId}
