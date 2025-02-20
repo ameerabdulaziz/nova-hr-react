@@ -26,11 +26,11 @@ import NamePopup from "../../Component/NamePopup";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { format, toDate } from "date-fns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import AlertPopup from '../../Component/AlertPopup';
+import AlertPopup from "../../Component/AlertPopup";
 
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import dayjs from 'dayjs';
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import dayjs from "dayjs";
 
 function EmployeeLocation(props) {
   const { intl } = props;
@@ -46,16 +46,26 @@ function EmployeeLocation(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [DateError, setDateError] = useState({});
+  const [governmentList, setGovernmentList] = useState([]);
+  const [government, setGovernment] = useState("");
 
+  const GetGovernmentList = async () => {
+    const data = await GeneralListApis(locale).GetGovernmentList();
+    setGovernmentList(data);
+  };
 
-   // used to reformat date before send it to api
-   const dateFormatFun = (date) => {
-    return  date ? format(new Date(date), "yyyy-MM-dd") : ""
-  }
+  const GetLocationList = async (id) => {
+    const data = await GeneralListApis(locale).GetLocationList(id);
+    setLocationList(data);
+  };
+
+  // used to reformat date before send it to api
+  const dateFormatFun = (date) => {
+    return date ? format(new Date(date), "yyyy-MM-dd") : "";
+  };
 
   const handleClose = useCallback(
     (data) => {
-
       data.map((row) => {
         if (dataList.filter((x) => x.jobId == row.id).length == 0) {
           setdataList((prev) => [
@@ -72,22 +82,17 @@ function EmployeeLocation(props) {
           ]);
         }
       });
-      
+
       setOpenPopup(false);
     },
-    [dataList,FromDate,ToDate]
+    [dataList, FromDate, ToDate]
   );
 
-
-
   const handleClickOpen = () => {
-    if(!Object.values(DateError).includes(true))
-    {
+    if (!Object.values(DateError).includes(true)) {
       setOpenPopup(true);
-    }
-    else
-    {
-      toast.error(intl.formatMessage(Payrollmessages.DateNotValid))
+    } else {
+      toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
     }
   };
 
@@ -116,8 +121,7 @@ function EmployeeLocation(props) {
   };
 
   async function on_submit() {
-
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
@@ -146,20 +150,18 @@ function EmployeeLocation(props) {
   }
 
   const handleSearch = async (e) => {
-
     // used to stop call api if user select wrong date
-    if (Object.values(DateError).includes(true)) {  
+    if (Object.values(DateError).includes(true)) {
       toast.error(intl.formatMessage(Payrollmessages.DateNotValid));
       return;
     }
-
 
     try {
       if (!Location || !FromDate || !ToDate) {
         toast.error("Please Enter Location & dates");
         return;
       }
-      
+
       setIsLoading(true);
       var formData = {
         FromDate: dateFormatFun(FromDate),
@@ -197,56 +199,47 @@ function EmployeeLocation(props) {
 
   useEffect(() => {
     Getookup();
+    GetGovernmentList();
   }, []);
 
+  useEffect(() => {
+    GetLocationList(government.id);
+  }, [government]);
 
   const deletePopupFun = () => {
     setIsDeletePopupOpen(true);
-  }
-
+  };
 
   const deleteFun = async () => {
+    let bodyData = [];
 
-    let bodyData = []
-
-    dataList.map((item)=>{
-
-      if(item.isSelected)
-      {
-        bodyData.push(item.id)
+    dataList.map((item) => {
+      if (item.isSelected) {
+        bodyData.push(item.id);
       }
-      
-    })
+    });
 
-    try
-    {
+    try {
       setIsLoading(true);
 
-    const response = await EmployeeLocationData().Delete(bodyData);
+      const response = await EmployeeLocationData().Delete(bodyData);
 
       if (response.status == 200) {
-        if(response.data.includes("Not Deleted because has Sign"))
-        {
+        if (response.data.includes("Not Deleted because has Sign")) {
           toast.error(response.data);
-        }
-        else
-        {
+        } else {
           toast.success(response.data);
         }
-    
       } else {
         toast.error(response.statusText);
       }
 
-      handleSearch()
-    }
-    catch(err)
-    {}
-    finally {
+      handleSearch();
+    } catch (err) {
+    } finally {
       setIsLoading(false);
     }
-  }
-
+  };
 
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
@@ -254,66 +247,80 @@ function EmployeeLocation(props) {
         <NamePopup handleClose={handleClose} open={OpenPopup} Key="Employee" />
         <div>
           <Grid container spacing={3}>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.fromdate)}
+                  value={FromDate ? dayjs(FromDate) : FromDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setFromDate(date);
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`FromDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`FromDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-                <Grid item xs={6} md={3} lg={2} xl={1.5}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(Payrollmessages.fromdate)}
-                        value={FromDate ? dayjs(FromDate) : FromDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setFromDate(date)
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`FromDate`]: true
-                            }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                              ...prevState,
-                                [`FromDate`]: false
-                            }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
-                  </Grid>
+            <Grid item xs={6} md={3} lg={2} xl={1.5}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label={intl.formatMessage(Payrollmessages.todate)}
+                  value={ToDate ? dayjs(ToDate) : ToDate}
+                  className={classes.field}
+                  onChange={(date) => {
+                    setToDate(date);
+                  }}
+                  onError={(error, value) => {
+                    if (error !== null) {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`ToDate`]: true,
+                      }));
+                    } else {
+                      setDateError((prevState) => ({
+                        ...prevState,
+                        [`ToDate`]: false,
+                      }));
+                    }
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
 
-                <Grid item xs={6} md={3} lg={2} xl={1.5}>
-                  
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label={intl.formatMessage(Payrollmessages.todate)}
-                      value={ToDate ? dayjs(ToDate) : ToDate}
-                      className={classes.field}
-                        onChange={(date) => {
-                          setToDate(date)
-                      }}
-                      onError={(error,value)=>{
-                        if(error !== null)
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`ToDate`]: true
-                          }))
-                        }
-                        else
-                        {
-                          setDateError((prevState) => ({
-                            ...prevState,
-                              [`ToDate`]: false
-                          }))
-                        }
-                      }}
-                      />
-                  </LocalizationProvider>
-                </Grid>
+            <Grid item xs={12} md={6} lg={3} xl={3}>
+              <Autocomplete
+                id="government"
+                options={governmentList}
+                value={government}
+                isOptionEqualToValue={(option, value) =>
+                  value.id === 0 || value.id === "" || option.id === value.id
+                }
+                getOptionLabel={(option) => (option.name ? option.name : "")}
+                onChange={(event, value) => {
+                  setGovernment(value == null ? "" : value);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    variant="outlined"
+                    {...params}
+                    name="governorate"
+                    label={intl.formatMessage(Payrollmessages.governorate)}
+                  />
+                )}
+              />
+            </Grid>
 
             <Grid item xs={12} md={6} lg={4} xl={3}>
               <Autocomplete
@@ -345,55 +352,52 @@ function EmployeeLocation(props) {
               />
             </Grid>
 
-
-
             <Grid item xs={12}>
               <Grid container spacing={3}>
-            <Grid item >
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={handleSearch}
-              >
-                <FormattedMessage {...Payrollmessages.search} />
-              </Button>
-            </Grid>
-            <Grid item >
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={handleClickOpen}
-              >
-                <FormattedMessage {...Payrollmessages.chooseEmp} />
-              </Button>
-            </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={handleSearch}
+                  >
+                    <FormattedMessage {...Payrollmessages.search} />
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={handleClickOpen}
+                  >
+                    <FormattedMessage {...Payrollmessages.chooseEmp} />
+                  </Button>
+                </Grid>
 
-            <Grid item >
-              <Button
-                variant="contained"
-                size="medium"
-                color="secondary"
-                onClick={on_submit}
-              >
-                <FormattedMessage {...Payrollmessages.save} />
-              </Button>
-            </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={on_submit}
+                  >
+                    <FormattedMessage {...Payrollmessages.save} />
+                  </Button>
+                </Grid>
 
-            <Grid item >
-              <Button
-                variant="contained"
-                size="medium"
-                color="secondary"
-                onClick={deletePopupFun}
-              >
-                <FormattedMessage {...Payrollmessages.delete} />
-              </Button>
-            </Grid>                
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="secondary"
+                    onClick={deletePopupFun}
+                  >
+                    <FormattedMessage {...Payrollmessages.delete} />
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-
 
             <Grid item xs={12} md={12}>
               <div className={classes.rootTable}>
@@ -547,10 +551,7 @@ function EmployeeLocation(props) {
                                 textAlign: "center",
                               }}
                             >
-                              {format(
-                                new Date(row.fromDate),
-                                "yyyy-MM-dd"
-                              )}
+                              {format(new Date(row.fromDate), "yyyy-MM-dd")}
                             </TableCell>
                             <TableCell
                               style={{
@@ -559,10 +560,7 @@ function EmployeeLocation(props) {
                                 textAlign: "center",
                               }}
                             >
-                              {format(
-                                new Date(row.toDate),
-                                "yyyy-MM-dd"
-                              )}
+                              {format(new Date(row.toDate), "yyyy-MM-dd")}
                             </TableCell>
                             <TableCell
                               style={{
@@ -591,17 +589,14 @@ function EmployeeLocation(props) {
           </Grid>
         </div>
 
-
         <AlertPopup
-        handleClose={() => {
-          setIsDeletePopupOpen(false);
-        }}
-        open={isDeletePopupOpen}
-        messageData={intl.formatMessage(Payrollmessages.deleteMessage)}
-        callFun={() => deleteFun()}
-      />
-
-
+          handleClose={() => {
+            setIsDeletePopupOpen(false);
+          }}
+          open={isDeletePopupOpen}
+          messageData={intl.formatMessage(Payrollmessages.deleteMessage)}
+          callFun={() => deleteFun()}
+        />
       </PapperBlock>
     </PayRollLoaderInForms>
   );

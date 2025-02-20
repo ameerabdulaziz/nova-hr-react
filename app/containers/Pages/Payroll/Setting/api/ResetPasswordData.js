@@ -25,7 +25,6 @@ const ResetPasswordData = () => {
   
 
   Apis.Logout = async (password,isSendEmail) => {
-    debugger;
     const result = await axiosInstance.post(`UserManagement/Logout`);
     return result;
   };

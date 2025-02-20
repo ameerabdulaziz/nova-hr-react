@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ApiData from "../api/AttendanceReportsData";
 import { useSelector } from "react-redux";
-import {
-  Button,
-  Grid,
-  TextField,
-  Autocomplete,
-} from "@mui/material";
+import { Button, Grid, TextField, Autocomplete } from "@mui/material";
 import messages from "../messages";
 import payrollMessages from "../../messages";
 import useStyles from "../../Style";
@@ -19,10 +14,10 @@ import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import GeneralListApis from "../../api/GeneralListApis";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { formateDate, getAutoCompleteValue } from "../../helpers";
-import style from '../../../../../styles/styles.scss'
-import Checkbox from '@mui/material/Checkbox';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import style from "../../../../../styles/styles.scss";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { format } from "date-fns";
 
 function LocationAttendanceReport(props) {
@@ -40,23 +35,33 @@ function LocationAttendanceReport(props) {
     ToDate: null,
   });
 
-
   const [DateError, setDateError] = useState({});
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [employeeList, setEmployeeList] = useState([]);
+  const [governmentList, setGovernmentList] = useState([]);
+  const [government, setGovernment] = useState("");
+
+  const GetGovernmentList = async () => {
+    const data = await GeneralListApis(locale).GetGovernmentList();
+    setGovernmentList(data);
+  };
+
+  const GetLocationList = async (id) => {
+    const data = await GeneralListApis(locale).GetLocationList(id);
+    setLocationList(data);
+  };
 
   const getFilterHighlights = () => {
     const highlights = [];
 
     const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
 
-
     if (location && location.length > 0) {
-        highlights.push({
-          label: intl.formatMessage(payrollMessages.location),
-          value: location.map((item) => item.name).join(' , '),
-        });
-      }
+      highlights.push({
+        label: intl.formatMessage(payrollMessages.location),
+        value: location.map((item) => item.name).join(" , "),
+      });
+    }
 
     if (employee) {
       highlights.push({
@@ -73,33 +78,29 @@ function LocationAttendanceReport(props) {
     }
 
     if (searchData.ToDate) {
-        highlights.push({
-          label: intl.formatMessage(messages.toDate),
-          value: formateDate(searchData.ToDate),
-        });
-      }
+      highlights.push({
+        label: intl.formatMessage(messages.toDate),
+        value: formateDate(searchData.ToDate),
+      });
+    }
 
     setFilterHighlights(highlights);
   };
 
   const handleSearch = async (e) => {
-
-
-    	// used to stop call api if user select wrong date
-      if (Object.values(DateError).includes(true)) {  
-        toast.error(intl.formatMessage(payrollMessages.DateNotValid));
-        return;
-      }
-
-      let locationData = []
-    if(location !== null)
-    {
-    // used to reformat elements data ( combobox ) before send it to api
-    location.map((ele, index)=>{
-        locationData.push(ele.id)
-        })
+    // used to stop call api if user select wrong date
+    if (Object.values(DateError).includes(true)) {
+      toast.error(intl.formatMessage(payrollMessages.DateNotValid));
+      return;
     }
 
+    let locationData = [];
+    if (location !== null) {
+      // used to reformat elements data ( combobox ) before send it to api
+      location.map((ele, index) => {
+        locationData.push(ele.id);
+      });
+    }
 
     try {
       setIsLoading(true);
@@ -107,13 +108,17 @@ function LocationAttendanceReport(props) {
         FromDate: formateDate(searchData.FromDate),
         ToDate: formateDate(searchData.ToDate),
         EmployeeId: searchData.EmployeeId,
+        GovernmentId: government ? government.id : "",
       };
 
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      const dataApi = await ApiData(locale).getLocationAttendenceData(formData,locationData);
+      const dataApi = await ApiData(locale).getLocationAttendenceData(
+        formData,
+        locationData
+      );
       setdata(dataApi);
 
       getFilterHighlights();
@@ -121,7 +126,6 @@ function LocationAttendanceReport(props) {
     } finally {
       setIsLoading(false);
     }
-
   };
 
   async function fetchData() {
@@ -132,7 +136,6 @@ function LocationAttendanceReport(props) {
 
       const employees = await GeneralListApis(locale).GetEmployeeList();
       setEmployeeList(employees);
-
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -140,13 +143,17 @@ function LocationAttendanceReport(props) {
   }
   useEffect(() => {
     fetchData();
+    GetGovernmentList();
   }, []);
 
+  useEffect(() => {
+    GetLocationList(government.id);
+  }, [government]);
 
   const columns = [
     {
       name: "id",
-        label: intl.formatMessage(payrollMessages.id),
+      label: intl.formatMessage(payrollMessages.id),
       options: {
         display: false,
         print: false,
@@ -158,24 +165,35 @@ function LocationAttendanceReport(props) {
       label: intl.formatMessage(messages.orgName),
     },
     {
-        name: "employeeCode",
-        label: intl.formatMessage(messages.EmpCode),
-      },
-      {
-        name: "employeeName",
-        label: intl.formatMessage(messages.employeeName),
-      },
+      name: "employeeCode",
+      label: intl.formatMessage(messages.EmpCode),
+    },
+    {
+      name: "employeeName",
+      label: intl.formatMessage(messages.employeeName),
+    },
     {
       name: "transactionDate",
       label: intl.formatMessage(payrollMessages.date),
       options: {
-        customBodyRender: (value) => (<pre>{value?format(new Date(value), "yyyy-MM-dd hh:mm aa"):""}</pre>),
+        customBodyRender: (value) => (
+          <pre>
+            {value ? format(new Date(value), "yyyy-MM-dd hh:mm aa") : ""}
+          </pre>
+        ),
       },
     },
+
     {
       name: "locationName",
       label: intl.formatMessage(messages.locationName),
     },
+
+    {
+      name: "governmentName",
+      label: intl.formatMessage(payrollMessages.governorate),
+    },
+
     {
       name: "locAddress",
       label: intl.formatMessage(messages.Address),
@@ -184,69 +202,88 @@ function LocationAttendanceReport(props) {
       name: "distance",
       label: intl.formatMessage(messages.Distance),
     },
-
   ];
 
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-
         <Grid container spacing={2}>
           <Grid item xs={12} md={11} lg={9} xl={7}>
             <Search
-               setsearchData={setsearchData}
-               searchData={searchData}
-               setIsLoading={setIsLoading}
-               DateError={DateError}
-               setDateError={setDateError}
-               notShowCompany={true}
-               notShowOrganization={true}
-               notShowStatus={true}
+              setsearchData={setsearchData}
+              searchData={searchData}
+              setIsLoading={setIsLoading}
+              DateError={DateError}
+              setDateError={setDateError}
+              notShowCompany={true}
+              notShowOrganization={true}
+              notShowStatus={true}
             ></Search>
           </Grid>
 
-           <Grid item xs={12} md={1} lg={3} xl={5}></Grid>         
-
-          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
-                <Autocomplete
-                      multiple  
-                      className={`${style.AutocompleteMulSty} ${locale !== "en" ?  style.AutocompleteMulStyAR : null}`}
-                      id="checkboxes-tags-demo"
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
-                      options={LocationList.length != 0 ? LocationList: []}
-                      disableCloseOnSelect
-                      getOptionLabel={(option) =>(
-                        option  ? option.name : ""
-                    )
-                    }
-                    onChange={(event, value) => {
-                      if (value !== null) {
-                        setLocation(value);
-                      } else {
-                        setLocation(null);
-                      }
-                  }}
-                      renderOption={(props, option, { selected }) => (
-                        <li {...props} key={option.id}>
-                          <Checkbox
-                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                            checkedIcon={<CheckBoxIcon fontSize="small" />}
-                            style={{ marginRight: 8 }}
-                            checked={selected}
-                          />
-                          {option.name}
-                        </li>
-                      )}
-                      style={{ width: 500 }}
-                      renderInput={(params) => (
-                        <TextField {...params} 
-                        label={intl.formatMessage(messages.LocationList)}
-                        />
-                      )}
-                    />
+          <Grid item xs={12} md={5.5} lg={3} xl={2}>
+            <Autocomplete
+              id="government"
+              options={governmentList}
+              value={government}
+              isOptionEqualToValue={(option, value) =>
+                value.id === 0 || value.id === "" || option.id === value.id
+              }
+              getOptionLabel={(option) => (option.name ? option.name : "")}
+              onChange={(event, value) => {
+                setGovernment(value == null ? "" : value);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  variant="outlined"
+                  {...params}
+                  name="governorate"
+                  label={intl.formatMessage(payrollMessages.governorate)}
+                />
+              )}
+            />
           </Grid>
 
-          
+
+          <Grid item xs={12} md={5.5} lg={4.5} xl={3.5}>
+            <Autocomplete
+              multiple
+              className={`${style.AutocompleteMulSty} ${
+                locale !== "en" ? style.AutocompleteMulStyAR : null
+              }`}
+              id="checkboxes-tags-demo"
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              options={LocationList.length != 0 ? LocationList : []}
+              disableCloseOnSelect
+              getOptionLabel={(option) => (option ? option.name : "")}
+              onChange={(event, value) => {
+                if (value !== null) {
+                  setLocation(value);
+                } else {
+                  setLocation(null);
+                }
+              }}
+              renderOption={(props, option, { selected }) => (
+                <li {...props} key={option.id}>
+                  <Checkbox
+                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                    checkedIcon={<CheckBoxIcon fontSize="small" />}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.name}
+                </li>
+              )}
+              style={{ width: 500 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label={intl.formatMessage(messages.LocationList)}
+                />
+              )}
+            />
+          </Grid>
+
           <Grid item xs={12} md={2}>
             <Button
               variant="contained"
@@ -261,13 +298,12 @@ function LocationAttendanceReport(props) {
         </Grid>
       </PapperBlock>
 
-        <SimplifiedPayrollTable
-          title=""
-          data={data}
-          columns={columns}
-          filterHighlights={filterHighlights}
-        />
-
+      <SimplifiedPayrollTable
+        title=""
+        data={data}
+        columns={columns}
+        filterHighlights={filterHighlights}
+      />
     </PayRollLoaderInForms>
   );
 }

@@ -18,7 +18,6 @@ import useStyles from '../../../Style';
 import SaveButton from '../../../Component/SaveButton';
 import PayRollLoader from '../../../Component/PayRollLoader';
 import { Tooltip, Autocomplete } from "@mui/material";
-import massageSI from "../../../SocialInsurance/messages"
 
 import {
   Autocomplete as GoogleAutocomplete,
@@ -692,7 +691,7 @@ function RegisterLocationCreate(props) {
                         variant='outlined'
                         {...params}
                         name='government'
-                        label={intl.formatMessage(massageSI.government)}
+                        label={intl.formatMessage(Payrollmessages.governorate)}
                       />
                     )}
                   />
