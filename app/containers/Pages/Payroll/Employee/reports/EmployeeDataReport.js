@@ -64,6 +64,11 @@ function EmployeeDataReport({ intl }) {
     },
 
     {
+      name: 'guarantorName',
+      label: intl.formatMessage(messages.guarantor),
+    },
+
+    {
       name: 'nickName',
       label: intl.formatMessage(messages.nickName),
     },
