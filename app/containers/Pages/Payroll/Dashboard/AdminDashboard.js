@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 import useStyles from "./dashboard-jss";
 import SITEMAP from "../../../App/routes/sitemap";
+import SalaryYearlyWidget from "./Component/SalaryYearlyWidget";
 
 function AdminDashboard() {
   const { classes } = useStyles();
@@ -61,7 +62,7 @@ function AdminDashboard() {
           </Hidden>
           <MonthCalendar />
           <Divider className={classes.divider} />
-          <ServicePeriodWidget />
+        <SalaryYearlyWidget Filter={true} />
 
           <Divider className={classes.divider} />
           <ServicePeriodWidget />

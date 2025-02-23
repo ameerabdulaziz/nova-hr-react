@@ -1,4 +1,4 @@
-import React, { Fragment,useState ,useEffect} from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
 import CardGiftcard from "@mui/icons-material/CardGiftcard";
@@ -26,6 +26,7 @@ import AddCard from "@mui/icons-material/AddCard";
 import CreditCardOffIcon from "@mui/icons-material/CreditCardOff";
 import HomeSharpIcon from "@mui/icons-material/HomeSharp";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
+import img from "../../../../../../public/images/spinner.gif"
 import {
   BarChart,
   Bar,
@@ -54,28 +55,7 @@ function SalaryChartWidget(props) {
   const { intl } = props;
   const { classes, cx } = useStyles();
 
-  const [attendance, setaAttendance] = useState([
-    {
-      name: "Nermen Ahmed" ,
-      percentage: "90",
-    },
-    {
-      name: "Ahmed Awad" ,
-      percentage: "80",
-    },
-    {
-      name: "Wessam Mohamed" ,
-      percentage: "70",
-    },
-    {
-      name: "Noha Abdelbaset" ,
-      percentage: "70",
-    },
-    {
-      name: "Shymaa Abdelhameed" ,
-      percentage: "60",
-    },
-  ]);
+  const [attendance, setaAttendance] = useState([]);
   const [barData, setBarData] = useState({
     vacation: 0,
     overTime: 0,
@@ -260,27 +240,50 @@ function SalaryChartWidget(props) {
             <Divider className={classes.divider} />
 
             <div className={classes.divnotification}>
-              {attendance.length > 0 ? (
+              {attendance === false ? (
+                // الحالة 1: لو الـ API رجع false ➝ "No Data"
+                <Stack
+                  direction="row"
+                  sx={{ minHeight: "376px" }}
+                  alignItems="center"
+                  justifyContent="center"
+                  textAlign="center"
+                >
+                  <Box>
+                    <NotificationsActive sx={{ color: "#a7acb2", fontSize: 30 }} />
+                    <Typography color="#a7acb2" variant="body1">
+                      <FormattedMessage {...messages.noData} />
+                    </Typography>
+                  </Box>
+                </Stack>
+              ) : attendance === undefined || attendance === null ? (
+            
+                <Stack
+                  direction="row"
+                  sx={{ minHeight: "376px" }}
+                  alignItems="center"
+                  justifyContent="center"
+                  textAlign="center"
+                >
+                  <Box>
+                    <img src={img} alt="loading" />
+                  </Box>
+                </Stack>
+              ) : attendance.length > 0 ? (
+           
                 <List>
                   {attendance.map((item, index) => (
-                    <Fragment>
+                    <Fragment key={index}>
                       <ListItem>
                         <ListItemAvatar>
-                          <Avatar
-                            className={cx(classes.avatar, classes.purpleAvatar)}
-                          >
+                          <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
                             <Check />
                           </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={item.name} />
-
                         <ListItemText
                           primary={`${item.percentage}%`}
-                          className={
-                            locale == "en"
-                              ? cx(classes.textRight)
-                              : cx(classes.textLeft)
-                          }
+                          className={locale === "en" ? cx(classes.textRight) : cx(classes.textLeft)}
                         />
                       </ListItem>
                       <li className={cx(classes.paddingProgress)}>
@@ -294,6 +297,7 @@ function SalaryChartWidget(props) {
                   ))}
                 </List>
               ) : (
+           
                 <Stack
                   direction="row"
                   sx={{ minHeight: "376px" }}
@@ -302,12 +306,7 @@ function SalaryChartWidget(props) {
                   textAlign="center"
                 >
                   <Box>
-                    <NotificationsActive
-                      sx={{ color: "#a7acb2", fontSize: 30 }}
-                    />
-                    <Typography color="#a7acb2" variant="body1">
-                      <FormattedMessage {...messages.noData} />
-                    </Typography>
+                    <img src={img} alt="loading" />
                   </Box>
                 </Stack>
               )}

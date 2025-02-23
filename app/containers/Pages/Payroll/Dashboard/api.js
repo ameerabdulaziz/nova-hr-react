@@ -82,9 +82,7 @@ const dashboardData = (locale) => {
 
   api.getEmpWithBestAtt = async (isWorest) => {
     const data = await axiosInstance.get(`Dashboard/GetEmpWithBestAtt?isWorest=${isWorest?isWorest:false}`);
-    "204" 
-    console.log()
-    if(data.status == 200){
+    if(data.status == 200 && data.data.length > 0 ){
       return data.data;
     }else{
       return false;
