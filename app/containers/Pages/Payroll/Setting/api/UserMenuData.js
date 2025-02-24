@@ -14,7 +14,16 @@ const UserMenuData = () => {
   
    return data.data;
  };
+
+ UserMenuApis.GetUserMenuReport = async (lang , MenuId, employeeId) => {
+    
+  const data = await axiosInstance.get(`menu/GetUserMenuReport/${lang}?MenuId=${MenuId ? MenuId : ""}&EmployeeId=${employeeId ? employeeId : ""}`);
+ 
+  return data.data;
+};
   
+
+
   UserMenuApis.SaveUserMenu = async (data) => {
   
     const result = await axiosInstance.post(`Menu/SaveUserMenu/${data.employee}`, data.dataList);

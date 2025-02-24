@@ -204,6 +204,9 @@ const SITEMAP = {
     },
   },
   setting: {
+    UserMenuReport: {
+      route: '/Setting/UserMenuReport',
+    },
     ChangePassword: {
       route: '/Setting/ChangePassword',
     },
