@@ -19,10 +19,10 @@ const OrganizationManagerData = (locale) => {
       edited: false,
     }));
     
-
-    setemployeeList(data.data.employeeList);  
-    const EmpNameList = data.data.employeeList.map((obj) => obj.name);
-    
+    const MaptEmployee= data.data.employeeList.map((employee) => ({ ...employee, name: `${employee.id} - ${employee.name}` }))
+    setemployeeList(MaptEmployee);
+    const EmpNameList = MaptEmployee.map((employee) => employee.name);
+     
     anchorTable[2].options = EmpNameList;
     anchorTable[2].initialValue = '';
 

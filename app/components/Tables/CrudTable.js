@@ -38,6 +38,8 @@ function CrudTable(props) {
     getdata();
   }, [title]);
 
+  console.log(API)
+
   return (
     <MainTable
       title={title}
