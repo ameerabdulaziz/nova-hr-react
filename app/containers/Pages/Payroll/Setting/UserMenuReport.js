@@ -26,6 +26,9 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import { useReactToPrint } from "react-to-print";
 import UserMenuReportPrint from "./Print/UserMenuReportPrint";
+import massagePayroll from "../Payroll/messages"
+import XLSX from 'xlsx-js-style';
+import { formatNumber, formateDate, getAutoCompleteValue } from '../helpers';
 
 
 function UserMenuReport(props) {
@@ -120,10 +123,93 @@ function UserMenuReport(props) {
     printJS();
   };
 
+  const applyFilters = (data, menu) => {
+
+    let datafiltered = data;
+    if (menu)
+      datafiltered = data.filter((item) => item.parentID == menu);
+
+
+    return datafiltered;
+  }
+
+  const filteredData = applyFilters(dataList, menu);
+
+
+
+  const getDefaultTemplate = () => {
+
+    const headers = [
+      'Employee Code',
+      'Employee Name',
+      'Parent Menu',
+      'Menu Names',
+      'Delete',
+      'Update',
+      'Add',
+      'View',
+    ];
+
+
+    const rows = dataList.map((item) => [
+      item.employeeCode,
+      item.employeeName,
+      item.parentName,
+      item.menuName,
+      item.isDelete ? "✅" : "❌",
+      item.isUpdate ? "✅" : "❌",
+      item.isAdd ? "✅" : "❌",
+      item.isView ? "✅" : "❌",
+    ])
+
+
+    return [headers, ...rows];
+  };
+
+  const exportJsonToXLSX = (rows = [], sheetName = 'Payroll', sheetSty) => {
+    const worksheet = XLSX.utils.aoa_to_sheet(rows);
+
+    const workbook = XLSX.utils.book_new();
+    const startRowNumSty = sheetSty === "headerSty" ? 4 : 0
+
+    // Calculate column widths dynamically
+    const colWidths = rows[startRowNumSty].map((_, colIndex) => {
+      const colContent = rows.map(row => (row[colIndex]?.v || row[colIndex] || "").toString());
+      const maxLength = Math.max(...colContent.map(str => str.length), 10); // Minimum width of 10
+      return { wch: maxLength };
+    });
+
+    if (sheetSty === "headerSty") {
+      // Set row height for a specific row (e.g., Row 5)
+      worksheet["!rows"] = [
+        undefined,         // Row 1: No height adjustment
+        undefined,         // Row 2: No height adjustment
+        undefined,         // Row 3: No height adjustment
+        undefined,         // Row 4: No height adjustment
+        { hpt: 25 },       // Row 5: Height in points
+      ];
+    }
+
+
+    // Assign calculated widths to the worksheet
+    worksheet["!cols"] = colWidths;
+
+
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+
+    XLSX.writeFile(workbook, 'UserMenuReport.xlsx');
+
+  };
+
+  const onExportBtnClick = () => {
+    exportJsonToXLSX(getDefaultTemplate(), 'Report');
+  };
+
+
   return (
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-        {dataList &&        <Box
+        {dataList && <Box
           ref={printDivRef}
           sx={{
             height: "0px",
@@ -147,7 +233,7 @@ function UserMenuReport(props) {
             </div>
           </Stack>
           <div>
-            <UserMenuReportPrint data={dataList}/>
+            <UserMenuReportPrint data={dataList} />
           </div>
         </Box>}
 
@@ -199,15 +285,29 @@ function UserMenuReport(props) {
               />
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                disabled={dataList.length >0 ?false : true}
-                onClick={onPrint}
-              >
-                <FormattedMessage {...Payrollmessages.Print} />
-              </Button>
+              <Grid container spacing={3}>
+                <Grid item >
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    disabled={dataList.length > 0 ? false : true}
+                    onClick={onPrint}
+                  >
+                    <FormattedMessage {...Payrollmessages.Print} />
+                  </Button>
+                </Grid>
+                <Grid item >
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={onExportBtnClick}
+                    disabled={dataList.length > 0 ? false : true}
+                  >
+                    {intl.formatMessage(massagePayroll.export)}
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <div
@@ -274,6 +374,7 @@ function UserMenuReport(props) {
             </Table>
             <TablePagination
               component="div"
+              count={filteredData.length}
               onPageChange={handlePageChange}
               onRowsPerPageChange={handleLimitChange}
               page={page}
