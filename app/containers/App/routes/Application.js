@@ -1710,6 +1710,16 @@ function Application(props) {
         />
 
         {/* Employee */}
+
+        <Route
+          path={SITEMAP.employee.followStaffContractsksa.route}
+          component={PAGES.employee.followStaffContractsksa}
+        />
+
+        <Route
+          path={SITEMAP.employee.EmployeeList.route}
+          component={PAGES.employee.EmployeeList}
+        />
         <Route
           path={SITEMAP.employee.EmployeeList.route}
           component={PAGES.employee.EmployeeList}

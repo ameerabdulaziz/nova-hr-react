@@ -141,6 +141,13 @@ const EmployeeDataReport = loadable(
   }
 );
 
+const followStaffContractsksa = loadable(
+  () => import('../../../Pages/Payroll/Employee/reports/followStaffContractsksa'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const followStaffContracts = loadable(
   () => import('../../../Pages/Payroll/Employee/reports/followStaffContracts'),
   {
@@ -203,6 +210,7 @@ const employee = {
   EmploymentDocs,
   ImportEmployeeData,
   LocationLog,
+  followStaffContractsksa,
 };
 
 export default employee;

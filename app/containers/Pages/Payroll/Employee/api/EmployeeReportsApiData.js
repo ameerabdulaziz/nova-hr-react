@@ -11,6 +11,17 @@ const EmployeeReportsApiData = (locale) => {
     return result;
   };
 
+
+  EmployeeReportsApi.GetReportKsa = async (params) => {
+    const queryString = new URLSearchParams(params);
+    const data = await axiosInstance.get(
+      `EmpReport/GetEmployeeContractksa/${locale}?${queryString}`
+    );
+    const result = data.data;
+
+    return result;
+  };
+
   EmployeeReportsApi.GetEmploymentDocsDetailsReport = async (params,bodyData) => {
     const queryString = new URLSearchParams(params);
     const data = await axiosInstance.post(

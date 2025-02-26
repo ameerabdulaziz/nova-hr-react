@@ -8,6 +8,48 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.Employee';
 export const scope2 = 'boilerplate.components.tables';
 export default defineMessages({
+
+  sourceName : {
+    id: `${scope}.sourceName`,
+    defaultMessage: 'Source Name',
+  },
+
+  guarantorName : {
+    id: `${scope}.guarantorName`,
+    defaultMessage: 'Guarantor Name ',
+  },
+
+  startWorkingDate : {
+    id: `${scope}.startWorkingDate`,
+    defaultMessage: 'Start Working Date  ',
+  },
+
+  borderIssuingDate : {
+    id: `${scope}.borderIssuingDate`,
+    defaultMessage: 'Border Issuing Date',
+  },
+
+  borderExpiry : {
+    id: `${scope}.borderExpiry`,
+    defaultMessage: 'Border Expiry',
+  },
+
+  residencyNumber : {
+    id: `${scope}.residencyNumber`,
+    defaultMessage: 'Residency Number',
+  },
+
+  residencyIssuingDate : {
+    id: `${scope}.residencyIssuingDate`,
+    defaultMessage: 'Residency Issuing Date',
+  },
+
+  
+  residencyExpiry : {
+    id: `${scope}.residencyExpiry`,
+    defaultMessage: 'Residency Expiry',
+  },
+
   EmployeeDataTitle: {
     id: `${scope}.personal.EmployeeDataTitle`,
     defaultMessage: 'EmployeeDataTitle',
