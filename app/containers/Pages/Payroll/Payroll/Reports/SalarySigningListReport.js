@@ -212,7 +212,7 @@ function SalarySigningListReport(props) {
     },
     {
       name: "employeeName",
-      label: intl.formatMessage(messages.employeeName),
+      label: intl.formatMessage(payrollMessages.employeeName),
       options: {
         filter: true,
       },
