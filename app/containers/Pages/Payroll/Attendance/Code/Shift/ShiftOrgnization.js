@@ -195,6 +195,32 @@ function ShiftOrgnization(props) {
     Getookup();
   }, []);
 
+
+const getTimeDifference = (startTime, endTime) => {
+  let start = new Date();
+  let end = new Date();
+
+  // Set the start time
+  const [startH, startM, startS] = startTime.split(":").map(Number);
+  start.setHours(startH, startM, startS, 0);
+
+  // Set the end time
+  const [endH, endM, endS] = endTime.split(":").map(Number);
+  end.setHours(endH, endM, endS, 0);
+
+  // If the end time is before the start time, add 1 day to end time
+  if (end < start) {
+      end.setDate(end.getDate() + 1);
+  }
+
+  const diffMs = end - start; // Difference in milliseconds
+  const diffMinutes = diffMs / (1000 * 60); // Convert to minutes
+  const diffHours = diffMinutes / 60; // Convert to hours
+
+  return diffHours;
+}
+
+
   async function getShiftData(id) {
     try {
       if (!id) {
@@ -210,26 +236,14 @@ function ShiftOrgnization(props) {
       setIsLoading(true);
       const result = await shiftApi(locale).Get(id);
 
+       let totalHours = getTimeDifference(result.startTime, result.endTime).toFixed(2)
+      
+
       setdata((prevFilters) => ({
         ...prevFilters,
         startTime: result.startTime,
         endTime: result.endTime,
-        workHours:
-          (new Date(
-            0,
-            0,
-            0,
-            result.endTime.split(":")[0],
-            result.endTime.split(":")[1]
-          ) -
-            new Date(
-              0,
-              0,
-              0,
-              result.startTime.split(":")[0],
-              result.startTime.split(":")[1]
-            )) /
-          3600000
+        workHours: totalHours,
       }));
       const dataApi = await ApiData(locale).GetList("", id, "");
       setdataList(dataApi || []);
