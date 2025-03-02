@@ -2195,6 +2195,7 @@
   "boilerplate.containers.Payroll.oldElemVal": "Prev Value",
   "boilerplate.containers.Payroll.organizationName": "Section",
   "boilerplate.containers.Payroll.organizationTree": "Organization Tree",
+  "boilerplate.containers.Payroll.Payroll.employeeSignature" : "Employee Signature",
   "boilerplate.containers.Payroll.Payroll.account": "Account",
   "boilerplate.containers.Payroll.Payroll.addElement2": "Add Elements",
   "boilerplate.containers.Payroll.Payroll.AddItem": "Add Items",

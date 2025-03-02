@@ -8,6 +8,10 @@ import { defineMessages } from 'react-intl';
 export const scope = 'boilerplate.containers.Payroll.Payroll';
 
 export default defineMessages({
+  employeeSignature:{
+    id: `${scope}.employeeSignature`,
+    defaultMessage: 'Employee Signature',
+  },
 
   insDate: {
     id: `${scope}.insDate`,

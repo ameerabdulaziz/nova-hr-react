@@ -2196,6 +2196,7 @@
   "boilerplate.containers.Payroll.oldElemVal": "القيمة السابقة",
   "boilerplate.containers.Payroll.organizationName": "القسم",
   "boilerplate.containers.Payroll.organizationTree": "الهيكل التنظيمي للمنظمة",
+  "boilerplate.containers.Payroll.Payroll.employeeSignature" : "توقيع الموظف",
   "boilerplate.containers.Payroll.Payroll.account": "الحساب",
   "boilerplate.containers.Payroll.Payroll.addElement2": "الاستحقاقات",
   "boilerplate.containers.Payroll.Payroll.AddItem": "الكمية",
