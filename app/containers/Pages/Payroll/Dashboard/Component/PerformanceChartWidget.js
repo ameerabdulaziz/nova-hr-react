@@ -153,84 +153,102 @@ function PerformanceChartWidget(props) {
     <PayRollLoader isLoading={isLoading}>
       <Grid container spacing={2}>
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
+
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
+
             <ul className={classes.bigResume}>
-              <li onClick={() => { cardsRedirectFuc("Leaves") }} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
-                  <HomeSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.orangeText}>{barData.vacation}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Vacations} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
-                  <HotTubSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.indigoText}>{barData.overTime}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Overtime} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={() => { cardsRedirectFuc("Mission") }} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.blueAvatar)}>
-                  <HikingSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.blueText}>{barData.missions}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Mession} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={() => { cardsRedirectFuc("Permission") }} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
-                  <HistoryToggleOffSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.purpleText}>
-                    {barData.permissions}
-                  </span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Permission} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={() => { cardsRedirectFuc("Rewards") }} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
-                  <AddCard />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.tealText}>{barData.rewards}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.rewards} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={() => { cardsRedirectFuc("Penalty") }} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
-                  <CreditCardOffIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.pinkText}>{barData.penalty}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.penalty} />
-                  </Typography>
-                </Typography>
-              </li>
+              <Grid container ml={6} >
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Leaves") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
+                      <HomeSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.orangeText}>{barData.vacation}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Vacations} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
+                      <HotTubSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.indigoText}>{barData.overTime}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Overtime} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Mission") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.blueAvatar)}>
+                      <HikingSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.blueText}>{barData.missions}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Mession} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Permission") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
+                      <HistoryToggleOffSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.purpleText}>
+                        {barData.permissions}
+                      </span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Permission} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Rewards") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
+                      <AddCard />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.tealText}>{barData.rewards}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.rewards} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Penalty") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
+                      <CreditCardOffIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.pinkText}>{barData.penalty}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.penalty} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+              </Grid>
             </ul>
+
           </PapperBlock>
+
         </Grid>
 
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
             <Grid container spacing={2}>
-              <Grid item md={6} xs={12}>
+              <Grid item lg={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <StackedLineChartIcon className={classes.leftIcon} />
                   <FormattedMessage {...messages.ageChart} />
@@ -266,7 +284,7 @@ function PerformanceChartWidget(props) {
                   </div>
                 </div>
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item lg={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <Check className={classes.leftIcon} />
                   <FormattedMessage {...messages.empwithbestAtt} />
@@ -275,7 +293,7 @@ function PerformanceChartWidget(props) {
 
                 <div >
                   {attendance === false ? (
-                
+
                     <Stack
                       direction="row"
                       sx={{ minHeight: "376px" }}
@@ -291,7 +309,7 @@ function PerformanceChartWidget(props) {
                       </Box>
                     </Stack>
                   ) : attendance === undefined || attendance === null ? (
-                 
+
                     <Stack
                       direction="row"
                       sx={{ minHeight: "376px" }}
@@ -304,7 +322,7 @@ function PerformanceChartWidget(props) {
                       </Box>
                     </Stack>
                   ) : attendance.length > 0 ? (
-                 
+
                     <List>
                       {attendance.map((item, index) => (
                         <Fragment key={index}>

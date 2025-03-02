@@ -113,9 +113,9 @@ function StatisticsWidget(props) {
     <PayRollLoader isLoading={isLoading}>
       <div className={classes.rootCounter}>
         <Grid container spacing={2}>
-          <Grid item md={8} xs={12}>
+          <Grid item lg={8} xs={12}>
             <Grid container spacing={2}>
-              <Grid item sm={6} xs={12}>
+              <Grid item xs={6} sm={12} md={6} >
                 <CounterTrading
                   color={colorfull[4]}
                   start={0}
@@ -138,7 +138,7 @@ function StatisticsWidget(props) {
                   </LineChart>
                 </CounterTrading>
               </Grid>
-              <Grid item sm={6} xs={12}>
+              <Grid item xs={6} sm={12} md={6} >
                 <CounterTrading
                   color={colorfull[1]}
                   start={0}
@@ -162,7 +162,7 @@ function StatisticsWidget(props) {
                   </LineChart>
                 </CounterTrading>
               </Grid>
-              <Grid item sm={6} xs={12}>
+              <Grid item xs={6} sm={12} md={6} >
                 <CounterTrading
                   color={"#12bbd1"}
                   start={0}
@@ -186,7 +186,7 @@ function StatisticsWidget(props) {
                   </LineChart>
                 </CounterTrading>
               </Grid>
-              <Grid item sm={6} xs={12}>
+              <Grid item xs={6} sm={12} md={6} >
                 <CounterTrading
                   color={colorfull[5]}
                   start={0}
@@ -212,7 +212,7 @@ function StatisticsWidget(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid item lg={4} md={6} xs={12}>
             <OrgLevelWidget />
             {/* <Grid container spacing={2}>
             <Grid item sm={12} xs={6}>

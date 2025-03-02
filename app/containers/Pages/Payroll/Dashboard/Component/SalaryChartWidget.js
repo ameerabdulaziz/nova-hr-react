@@ -157,7 +157,7 @@ function SalaryChartWidget(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg noMargin title={""}>
         <Grid container spacing={2}>
-          <Grid item md={8} xs={12}>
+          <Grid item xl={8} lg={12} xs={12}>
             <Typography className={classes.smallTitle} variant="button">
               <StackedLineChartIcon className={classes.leftIcon} />
               <FormattedMessage {...messages.grossSal} />
@@ -165,51 +165,64 @@ function SalaryChartWidget(props) {
             <Divider className={classes.divider} />
 
             <ul className={classes.bigResume}>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
-                  <HotTubSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.indigoText}>{barData.overTime}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Overtime} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
-                  <CreditCardOffIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.pinkText}>{barData.penalty}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.penalty} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
-                  <AddCard />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.tealText}>{barData.rewards}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.rewards} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
-                  <HomeSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.orangeText}>{barData.vacation}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Vacations} />
-                  </Typography>
-                </Typography>
-              </li>
+              <Grid container >
+                <Grid item xs={6} md={4} lg={3} xl={3}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
+                      <HotTubSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.indigoText}>{barData.overTime}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Overtime} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid item xs={6} md={4} lg={3} xl={3}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
+                      <CreditCardOffIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.pinkText}>{barData.penalty}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.penalty} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid item xs={6} md={4} lg={3} xl={3}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
+                      <AddCard />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.tealText}>{barData.rewards}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.rewards} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid item xs={6} md={4} lg={3} xl={3}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
+                      <HomeSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.orangeText}>{barData.vacation}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Vacations} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+
+
+              </Grid>
             </ul>
+
 
             <div className={classes.chartWrap}>
               <div className={classes.chartFluid}>
@@ -232,16 +245,15 @@ function SalaryChartWidget(props) {
               </div>
             </div>
           </Grid>
-          <Grid item md={4} xs={12}>
+          <Grid item xl={4} lg={12} xs={12}>
             <Typography className={classes.smallTitle} variant="button">
               <Check className={classes.leftIcon} />
               <FormattedMessage {...messages.empwithbestAtt} />
             </Typography>
             <Divider className={classes.divider} />
 
-            <div className={classes.divnotification}>
+            <div >
               {attendance === false ? (
-                // الحالة 1: لو الـ API رجع false ➝ "No Data"
                 <Stack
                   direction="row"
                   sx={{ minHeight: "376px" }}
@@ -257,7 +269,7 @@ function SalaryChartWidget(props) {
                   </Box>
                 </Stack>
               ) : attendance === undefined || attendance === null ? (
-            
+
                 <Stack
                   direction="row"
                   sx={{ minHeight: "376px" }}
@@ -270,11 +282,11 @@ function SalaryChartWidget(props) {
                   </Box>
                 </Stack>
               ) : attendance.length > 0 ? (
-           
+
                 <List>
                   {attendance.map((item, index) => (
-                    <Fragment key={index}>
-                      <ListItem>
+                    <Fragment key={index} >
+                      <ListItem >
                         <ListItemAvatar>
                           <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
                             <Check />
@@ -297,7 +309,7 @@ function SalaryChartWidget(props) {
                   ))}
                 </List>
               ) : (
-           
+
                 <Stack
                   direction="row"
                   sx={{ minHeight: "376px" }}

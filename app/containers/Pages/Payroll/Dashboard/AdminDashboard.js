@@ -48,7 +48,7 @@ function AdminDashboard() {
       </Grid>
       {/* 3rd Section */}
       <Grid container spacing={3} className={classes.root}>
-        <Grid item md={6} xs={12}>
+        <Grid item lg={6} xs={12}>
           <Divider className={classes.divider} />
           <NotificationWidget />
           <Divider className={classes.divider} />
@@ -56,7 +56,7 @@ function AdminDashboard() {
           <Divider className={classes.divider} />
           <NationalityWidget />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid item lg={6} xs={12}>
           <Hidden lgDown>
             <Divider className={classes.divider} />
           </Hidden>
@@ -70,13 +70,13 @@ function AdminDashboard() {
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <MaritalStatusWidget />
         </Grid>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <AbscencebichartWidget />
         </Grid>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <OrgLevelWidget></OrgLevelWidget>
         </Grid>
       </Grid>
