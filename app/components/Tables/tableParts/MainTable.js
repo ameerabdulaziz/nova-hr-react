@@ -38,8 +38,6 @@ function MainTable(props) {
   const [openParentPopup, setOpenParentPopup] = useState(false);
   const [deleteItem, setDeleteItem] = useState("");
 
-
-
   const { classes, cx } = useStyles();
   const { items, anchor, downloadExcel, title, setIsLoading, API, intl,IsNotSave ,isNotAdd,addBtnLock} = props;
 
@@ -61,16 +59,16 @@ function MainTable(props) {
   ));
   
   const getData = () => {
-    if (search.length !== 0)
-    {
-      return items.filter((item) =>{
+    if (search.length !== 0) {
+      return items.filter((item) =>
         Object.keys(item).some((key) => {
           const value = item[key];
           return value != null && value.toString().toLowerCase().includes(search.toLowerCase());
         })
-      })
+      );
+    } else {
+      return items;
     }
-    else return items;
   };
   const getHead = (dataArray) =>
     dataArray.map((item, index) => {
