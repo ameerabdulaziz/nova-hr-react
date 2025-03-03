@@ -98,7 +98,7 @@ function EmployeeList(props) {
       const company = await GeneralListApis(locale).GetBranchList();
       setCompanyList(company);
 
-      getFilterHighlights();
+
     } catch (err) {
       //
     } finally {
@@ -111,6 +111,14 @@ function EmployeeList(props) {
     getDataFun();
     fetchData()
   }, []);
+
+
+    useEffect(()=>{
+      if(companyList.length !== 0)
+      {
+        getFilterHighlights();
+      }
+    },[companyList,searchData.BranchId])
 
   async function deleteRow(id) {
     try {
@@ -129,11 +137,11 @@ function EmployeeList(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    const company = getAutoCompleteValue(companyList, searchData.BranchId);
 
     if (company) {
       highlights.push({
-        label: intl.formatMessage(messages.company),
+        label: intl.formatMessage(payrollMessages.company),
         value: company.name,
       });
     }
