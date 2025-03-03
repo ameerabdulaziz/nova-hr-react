@@ -577,14 +577,16 @@ function SalaryCalculation(props) {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={5} md={2}>
-                      {OpenMonth.yearName ? OpenMonth.yearName : intl.formatMessage(messages.year)}
+                    <Grid item > 
+
+                  <pre>
+                      {OpenMonth.yearName ? OpenMonth.yearName : intl.formatMessage(messages.year)}     /     {OpenMonth.monthName ? OpenMonth.monthName : intl.formatMessage(messages.month)}
+                     </pre> </Grid>
+                    <Grid item >
+                     
                     </Grid>
-                    <Grid item xs={2} md={1}>
-                      /
-                    </Grid>
-                    <Grid item xs={5} md={2}>
-                      {OpenMonth.monthName ? OpenMonth.monthName : intl.formatMessage(messages.month)}
+                    <Grid item >
+                      
                     </Grid>
                   </Grid>
 
