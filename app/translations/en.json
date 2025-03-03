@@ -2011,7 +2011,7 @@
   "boilerplate.containers.Payroll.insurance.StopInsuranceCreateTitle": "Stop Social Insurance",
   "boilerplate.containers.Payroll.insurance.StopInsuranceEditTitle": "Edit Social Insurance",
   "boilerplate.containers.Payroll.insurance.toDate": "To Date",
-  "boilerplate.containers.Payroll.insurance.totalFixed": "Total Fixed",
+  "boilerplate.containers.Payroll.insurance.totalInsurance": "Total insurance salary",
   "boilerplate.containers.Payroll.insurance.totalVariable": "Total Variable",
   "boilerplate.containers.Payroll.insurance.updateByPercent": "Update By %",
   "boilerplate.containers.Payroll.insurance.updateByValue": "Update By Value",

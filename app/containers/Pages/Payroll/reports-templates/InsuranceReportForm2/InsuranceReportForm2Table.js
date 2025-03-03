@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { toArabicDigits, formatNumber } from '../../helpers';
+import Paper from '@mui/material/Paper';
 
 const StyledTableThRow = styled(TableRow)(({ theme }) => ({
   backgroundColor: theme.palette.action.selected,
@@ -24,28 +25,30 @@ const StyledTableCell = styled(TableCell)(() => ({
 
 function InsuranceReportForm2Table(props) {
   const { rows } = props;
+  console.log();
+  
 
   return (
-    <TableContainer>
-      <Table size='small' style={{marginBottom:"5px"}}>
+    <TableContainer  elevation={0} sx={{ backgroundColor: "white !important", color: "black !important" }}>
+      <Table size='small' style={{marginBottom:"5px"}} sx={{ color: "black" }}>
         <TableHead>
           <StyledTableThRow>
-            <StyledTableThCell align='center' rowSpan={2}>
+            <StyledTableThCell align='center' rowSpan={2} sx={{ color: "black" }}>
               الرقم التأميني
             </StyledTableThCell>
-            <StyledTableThCell align='center' rowSpan={2}>
+            <StyledTableThCell align='center' rowSpan={2} sx={{ color: "black" }}>
               الموظف
             </StyledTableThCell>
-            <StyledTableThCell align='center' rowSpan={2}>
+            <StyledTableThCell align='center' rowSpan={2} sx={{ color: "black" }}>
               الرقم القومي
             </StyledTableThCell>
-            <StyledTableThCell align='center' colSpan={3}>
+            <StyledTableThCell align='center' colSpan={3} sx={{ color: "black" }}>
               تاريخ الالتحاق
             </StyledTableThCell>
-            <StyledTableThCell align='center' rowSpan={2}>
+            <StyledTableThCell align='center' rowSpan={2} sx={{ color: "black" }}>
               أجر الاشتراك التأميني
             </StyledTableThCell>
-            <StyledTableThCell align='center' rowSpan={2}>
+            <StyledTableThCell align='center' rowSpan={2} sx={{ color: "black" }}>
               الاجر الشامل
             </StyledTableThCell>
           </StyledTableThRow>
@@ -61,28 +64,28 @@ function InsuranceReportForm2Table(props) {
 
             return (
               <TableRow key={row.id}>
-                <StyledTableCell component='th' scope='row' align='center'>
+                <StyledTableCell component='th' scope='row' align='center' sx={{ color: "black" }}>
                   {toArabicDigits(row.socialInsuranceID)}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {row.employeeName}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits(row.identityNumber)}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits(subscriptionDate.getDate())}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits(subscriptionDate.getMonth() + 1)}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits(subscriptionDate.getFullYear())}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits( formatNumber(row.mainSalary)  )}
                 </StyledTableCell>
-                <StyledTableCell align='center'>
+                <StyledTableCell align='center' sx={{ color: "black" }}>
                   {toArabicDigits( formatNumber(row.insGrossSalary) )}
                 </StyledTableCell>
               </TableRow>
