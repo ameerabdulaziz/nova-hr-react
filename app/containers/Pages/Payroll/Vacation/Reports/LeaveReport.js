@@ -21,14 +21,7 @@ function LeaveReport(props) {
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
-
   const Title = localStorage.getItem('MenuName');
-
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
-
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [formInfo, setFormInfo] = useState({
     FromDate: null,
@@ -37,6 +30,15 @@ function LeaveReport(props) {
     EmpStatusId: 1,
     OrganizationId: '',
     BranchId: branchId,
+  });
+
+  const [printFilterData, setPrintFilterData] = useState({
+    FromDate: null,
+    ToDate: null,
+    Employee: '',
+    EmpStatus: "",
+    Organization: '',
+    Branch: "",
   });
 
   const INIT_COLUMN = [
@@ -101,82 +103,50 @@ function LeaveReport(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [columns, setColumns] = useState(INIT_COLUMN);
 
-  const fetchNeededData = async () => {
-    setIsLoading(true);
-
-    try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-    } catch (error) {
-      //
-    } finally {
-      //
-    }
-  };
-
-  useEffect(() => {
-    fetchNeededData();
-  }, []);
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    if (formInfo.FromDate) {
+    if (printFilterData.FromDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.fromdate),
-        value: formateDate(formInfo.FromDate),
+        value: formateDate(printFilterData.FromDate),
       });
     }
 
-    if (formInfo.ToDate) {
+    if (printFilterData.ToDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
-        value: formateDate(formInfo.ToDate),
+        value: formateDate(printFilterData.ToDate),
       });
     }
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.Organization),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -270,6 +240,12 @@ function LeaveReport(props) {
         FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
         ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
     }
     catch(err)
     {}
@@ -295,6 +271,12 @@ function LeaveReport(props) {
         FromDate: null,
         ToDate: null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
     }
 
   },[formInfo.BranchId, formInfo.EmployeeId])
@@ -313,6 +295,7 @@ function LeaveReport(props) {
               DateError={dateError}
               setDateError={setDateError}
               company={formInfo.BranchId}
+              setPrintFilterData={setPrintFilterData}
             />
           </Grid>
 

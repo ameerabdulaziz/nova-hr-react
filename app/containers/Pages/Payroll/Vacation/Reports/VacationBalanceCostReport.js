@@ -17,10 +17,10 @@ function VacationBalanceCostReport(props) {
 
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
+  // const [organizationList, setOrganizationList] = useState([]);
+  // const [employeeList, setEmployeeList] = useState([]);
+  // const [statusList, setStatusList] = useState([]);
+  // const [companyList, setCompanyList] = useState([]);
 
   const [tableData, setTableData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +34,13 @@ function VacationBalanceCostReport(props) {
     EmpStatusId: 1,
     BranchId: branchId,
   });
+
+     const [printFilterData, setPrintFilterData] = useState({
+          Employee: '',
+          EmpStatus: "",
+          Organization: '',
+          Branch: "",
+        });
 
   const columns = [
     {
@@ -64,39 +71,47 @@ function VacationBalanceCostReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
+    // const organization = getAutoCompleteValue(
+    //   organizationList,
+    //   formInfo.OrganizationId
+    // );
+    // const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
+    // const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
+    // const company = getAutoCompleteValue(companyList, formInfo.BranchId);
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
+    // if (organization) {
       highlights.push({
         label: intl.formatMessage(messages.Organization),
-        value: organization.name,
+        value: printFilterData.Organization.name,
+        // value: organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
+    // if (employee) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
+        // value: employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
+    // if (status) {
       highlights.push({
         label: intl.formatMessage(messages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
+        // value: status.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
+    // if (company) {
       highlights.push({
         label: intl.formatMessage(messages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
+        // value: company.name,
       });
     }
 
@@ -124,17 +139,17 @@ function VacationBalanceCostReport(props) {
     try {
       setIsLoading(true);
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
+      // const employees = await GeneralListApis(locale).GetEmployeeList();
+      // setEmployeeList(employees);
 
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
+      // const status = await GeneralListApis(locale).GetEmpStatusList();
+      // setStatusList(status);
 
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
+      // const company = await GeneralListApis(locale).GetBranchList();
+      // setCompanyList(company);
 
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
+      // const organizations = await GeneralListApis(locale).GetDepartmentList();
+      // setOrganizationList(organizations);
 
       await fetchTableData();
 
@@ -166,6 +181,7 @@ function VacationBalanceCostReport(props) {
               notShowDate={true}
               setIsLoading={setIsLoading}
               company={formInfo.BranchId}
+              setPrintFilterData={setPrintFilterData}
             />
           </Grid>
 

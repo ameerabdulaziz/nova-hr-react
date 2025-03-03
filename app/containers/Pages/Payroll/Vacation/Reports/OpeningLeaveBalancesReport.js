@@ -21,10 +21,6 @@ function OpeningLeaveBalancesReport(props) {
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [tableData, setTableData] = useState([]);
   const [yearsList, setYearsList] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const Title = localStorage.getItem('MenuName');
@@ -37,6 +33,14 @@ function OpeningLeaveBalancesReport(props) {
     EmpStatusId: '',
     BranchId: branchId,
   });
+
+    const [printFilterData, setPrintFilterData] = useState({
+      Employee: '',
+      EmpStatus: "",
+      Organization: '',
+      Branch: "",
+      Year: null,
+    });
 
   const columns = [
     {
@@ -76,47 +80,38 @@ function OpeningLeaveBalancesReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
-    const year = getAutoCompleteValue(yearsList, formInfo.yearId);
-
-    if (year) {
+    if (printFilterData.Year && printFilterData.Year.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.year),
-        value: year.name,
+        value: printFilterData.Year.name,
       });
     }
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.Organization),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -146,17 +141,6 @@ function OpeningLeaveBalancesReport(props) {
       const yearResponse = await GeneralListApis(locale).GetYears();
       setYearsList(yearResponse);
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
 
       await fetchTableData();
     } catch (error) {
@@ -200,6 +184,11 @@ function OpeningLeaveBalancesReport(props) {
             yearId: selectedYear ? selectedYear.id : null,
           }));
 
+          setPrintFilterData((prev)=>({
+            ...prev,
+            Year: selectedYear ? selectedYear : null,
+          }))
+
       }
     }
     catch(err)
@@ -226,9 +215,15 @@ function OpeningLeaveBalancesReport(props) {
         ...prev,
         yearId: null,
       }));
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        Year: null,
+      }))
     }
 
   },[formInfo.BranchId, formInfo.EmployeeId,yearsList])
+
 
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
@@ -241,6 +236,7 @@ function OpeningLeaveBalancesReport(props) {
               setIsLoading={setIsLoading}
               notShowDate={true}
               company={formInfo.BranchId}
+              setPrintFilterData={setPrintFilterData}
             />
           </Grid>
 
@@ -255,6 +251,11 @@ function OpeningLeaveBalancesReport(props) {
                   ...prev,
                   yearId: value?.id ? value?.id : null,
                 }));
+
+                setPrintFilterData((prev)=>({
+                  ...prev,
+                  Year: value ? value : null,
+                }))
               }}
               renderInput={(params) => (
                 <TextField

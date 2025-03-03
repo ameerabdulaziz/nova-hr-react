@@ -7,7 +7,7 @@ import GeneralListApis from "../api/GeneralListApis";
 import { useSelector } from "react-redux";
 import { Grid, TextField, Autocomplete } from "@mui/material";
 import { format } from "date-fns";
-
+import { formateDate, getAutoCompleteValue } from '../helpers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
@@ -29,7 +29,8 @@ function Search(props) {
     notShowCompany,
     company,
     minDate,
-    minDateData
+    minDateData,
+    setPrintFilterData,
   } = props;
   const { classes } = useStyles();
   const [EmployeeList, setEmployeeList] = useState([]);
@@ -40,7 +41,7 @@ function Search(props) {
 
 
 
-  const handleChange = useCallback(async (name, value) => {
+  const handleChange = useCallback(async (name, value, valData) => {
     if (name == "fromDate")
     {
  
@@ -48,6 +49,14 @@ function Search(props) {
                 ...prevFilters,
                 FromDate: value ,
               }))
+
+      if(setPrintFilterData)
+      {
+        setPrintFilterData((prevFilters) => ({
+          ...prevFilters,
+          FromDate: value ,
+        }))
+      }
     }
 
     if (name == "toDate")
@@ -57,13 +66,31 @@ function Search(props) {
                 ...prevFilters,
                 ToDate: value 
               }))
+
+      if(setPrintFilterData)
+        {
+          setPrintFilterData((prevFilters) => ({
+            ...prevFilters,
+            ToDate: value ,
+          }))
+        }
     }
 
     if (name == "employeeId")
+    {
       setsearchData((prevFilters) => ({
         ...prevFilters,
         EmployeeId: value,
       }));
+
+      if(setPrintFilterData)
+        {
+          setPrintFilterData((prevFilters) => ({
+            ...prevFilters,
+            Employee: valData ,
+          }))
+        }
+    }
 
     if (name == "organizationId") {
       setIsLoading(true);
@@ -75,14 +102,34 @@ function Search(props) {
         OrganizationId: value,
         EmployeeId: "",
       }));
+
+      if(setPrintFilterData)
+        {
+          setPrintFilterData((prevFilters) => ({
+            ...prevFilters,
+            Organization: valData,
+            Employee: "",
+          }))
+        }
+
       setIsLoading(false);
     }
 
     if (name == "statusId")
+    {
       setsearchData((prevFilters) => ({
         ...prevFilters,
         EmpStatusId: value,
       }));
+
+      if(setPrintFilterData)
+        {
+          setPrintFilterData((prevFilters) => ({
+            ...prevFilters,
+            EmpStatus: valData,
+          }))
+        }
+    }
 
     if (name === 'BranchId') {
       setIsLoading(true);
@@ -99,6 +146,17 @@ function Search(props) {
         OrganizationId: "",
         EmployeeId: ""
       }));
+
+      if(setPrintFilterData)
+        {
+          setPrintFilterData((prevFilters) => ({
+            ...prevFilters,
+            Branch: valData,
+            Organization: "",
+            Employee: ""
+          }))
+        }
+
       setIsLoading(false);
     }
   }, []);
@@ -123,13 +181,36 @@ function Search(props) {
       {
         const status = await GeneralListApis(locale).GetEmpStatusList();
         setStatusList(status);
+
+         // set EmpStatus defualt value
+         if(setPrintFilterData && status && status.length !== 0 && searchData.EmpStatusId)
+          {
+            setPrintFilterData((prevFilters) => ({
+              ...prevFilters,
+              EmpStatus: getAutoCompleteValue(status, searchData.EmpStatusId),
+            }))
+          }
       }
 
       if(!notShowCompany)
       {
         const company = await GeneralListApis(locale).GetBranchList();
         setCompanyList(company);
+
+         // set company defualt value
+         if(setPrintFilterData && company && company.length !== 0 && searchData.BranchId)
+          {
+            setPrintFilterData((prevFilters) => ({
+              ...prevFilters,
+              Branch: getAutoCompleteValue(company, searchData.BranchId),
+            }))
+          }
       }
+
+
+      
+
+
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -157,7 +238,7 @@ function Search(props) {
               </li>
             )}
             onChange={(event, value) => {
-              handleChange("BranchId", value == null ? "" : value.id);
+              handleChange("BranchId", value == null ? "" : value.id, value == null ? "" : value);
             }}
             renderInput={(params) => (
               <TextField
@@ -189,7 +270,7 @@ function Search(props) {
             }
             getOptionLabel={(option) => (option.name ? option.name : "")}
             onChange={(event, value) => {
-              handleChange("organizationId", value == null ? "" : value.id);
+              handleChange("organizationId", value == null ? "" : value.id, value == null ? "" : value);
             }}
             renderOption={(propsOption, option) => (
               <li {...propsOption} key={option.id}>
@@ -227,7 +308,7 @@ function Search(props) {
             }
             getOptionLabel={(option) => (option.name ? option.name : "")}
             onChange={(event, value) => {
-              handleChange("employeeId", value == null ? "" : value.id);
+              handleChange("employeeId", value == null ? "" : value.id, value == null ? "" : value);
             }}
             renderInput={(params) => (
               <TextField
@@ -266,7 +347,7 @@ function Search(props) {
               }}
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                handleChange("statusId", value == null ? "" : value.id);
+                handleChange("statusId", value == null ? "" : value.id, value == null ? "" : value);
               }}
               renderInput={(params) => (
                 <TextField
