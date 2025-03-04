@@ -140,7 +140,7 @@ function DataFromAllDevices(props) {
                 (items) => (
                   (obj = {}),
                   Object.keys(items).map((item, index) => {
-                    if ((item.toLowerCase()?.includes("enno") || item.toLowerCase()?.includes("empId") )&&  items[item].length !== 0) {
+                    if ((item.toLowerCase()?.includes("enno") || item.toLowerCase()?.includes("empid") )&&  items[item].length !== 0) {
                       obj.enrollNumber = Number(items[item]);
                     }
 
