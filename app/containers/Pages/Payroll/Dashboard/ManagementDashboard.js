@@ -55,14 +55,14 @@ function ManagementDashboard() {
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3} className={classes.root}>
-        <Grid item md={4} xs={12}>
+        <Grid item  lg={4} md={6} xs={12}>
           <AbscencebichartWidget />
         </Grid>
 
-        <Grid item md={4} xs={12}>
+        <Grid item  lg={4} md={6} xs={12}>
           <GrossBiChartWidget></GrossBiChartWidget>
         </Grid>
-        <Grid item md={4} xs={12}>
+        <Grid item  lg={4} md={6} xs={12}>
           <GenderSalaryBiChartWidget></GenderSalaryBiChartWidget>
         </Grid>
       </Grid>

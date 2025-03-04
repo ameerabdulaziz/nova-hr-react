@@ -266,7 +266,7 @@ function Form2Insurance(props) {
         <InsuranceReportForm2
           rows={tableData}
           organizationName={organizationList.find((item) => item.id === formInfo.InsuranceOrg)?.name ?? ''}
-          totalSalary={extraData.total ?? 0}
+          totalSalary={extraData.totalMainSalary ?? 0}
           organizationId={formInfo.InsuranceOrg || 0}
         />
       </Box>
@@ -424,27 +424,13 @@ function Form2Insurance(props) {
             </Grid>
           </Grid>
 
-          <Card className={classes.card}>
+          <Card style={{widows:"50%"}} className={classes.card2}>
             <CardContent>
               <Grid container justifyContent='space-around' spacing={2}>
                 <Grid item xs={4} textAlign='center'>
-                  <Typography>{formatNumber(extraData.total) ?? 0}</Typography>
+                  <Typography>{formatNumber(extraData.totalMainSalary) ?? 0}</Typography>
                   <Typography variant='subtitle1'>
-                    <FormattedMessage {...messages.totalFixed} />
-                  </Typography>
-                </Grid>
-
-                {/* <Grid item xs={4} textAlign='center'>
-                  <Typography>{extraData.total ?? 0}</Typography>
-                  <Typography variant='subtitle1'>
-                    <FormattedMessage {...messages.totalVariable} />
-                  </Typography>
-                </Grid> */}
-
-                <Grid item xs={4} textAlign='center'>
-                  <Typography>{formatNumber(extraData.total) ?? 0}</Typography>
-                  <Typography variant='subtitle1'>
-                    <FormattedMessage {...payrollMessages.total} />
+                    <FormattedMessage {...messages.totalInsurance} />
                   </Typography>
                 </Grid>
               </Grid>

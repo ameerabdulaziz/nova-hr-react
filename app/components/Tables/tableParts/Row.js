@@ -12,6 +12,7 @@ import SelectableCell from './SelectableCell';
 import ToggleCell from './ToggleCell';
 import DatePickerCell from './DatePickerCell';
 import TimePickerCell from './TimePickerCell';
+import AutoComblate from "./AutoComblate"
 import {useSelector,  useDispatch } from 'react-redux';
 import {
   removeAction,
@@ -46,11 +47,16 @@ const useStyles = makeStyles()((theme) => ({
     handleClickOpen, setIsLoading
   } = props;
 
+
+  
   const { intl } = props;
   const locale = useSelector(state => state.language.locale);
 
 
   const [DateError, setDateError] = useState({});
+  // const [DateError, setDateError] = useState([]);
+
+
 
   
   // used to reformat date before send it to api
@@ -133,12 +139,31 @@ const useStyles = makeStyles()((theme) => ({
      
   }, [finishEditRow, item, branch,DateError]);
 
+  
+
   const renderCell = dataArray => dataArray.map((itemCell, index) => {
 
-    
     if (itemCell.name !== 'action' && !itemCell.hidden) {
       const inputType = anchor[index].type;
       switch (inputType) {
+        case 'autoComblate':
+          return (
+            <AutoComblate
+              updateRow={(event) => updateRow(updateAction(event,item, branch))}
+              cellData={{
+                disabled: itemCell?.disabled ?? false,
+                type: itemCell.name,
+                value: item[itemCell.name],
+                id: itemCell.name+item.id,
+
+              }}
+              edited={item.edited}
+              key={index.toString()}
+              options={anchor[index].options}
+              branch={branch}
+            />
+          );
+
         case 'selection':
           return (
             <SelectableCell

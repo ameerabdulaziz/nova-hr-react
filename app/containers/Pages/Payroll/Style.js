@@ -104,6 +104,15 @@ rootTable: {
     borderColor: 'rgba(0, 0, 0, 0.20);',
     marginTop: '10px'
   },
+  card2: {
+    borderRadius: '8px',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: 'rgba(0, 0, 0, 0.20);',
+    width : "34%",
+    marginRight : "auto",
+    marginLeft : "auto"
+  },
   content: {
     width: '100%',
     textAlign: 'center',

@@ -1023,6 +1023,43 @@
 
 
 
+//  EmployeeList 
+
+.filterContainerLightSty
+{
+    background-color: #ffffff;
+}
+
+
+.filterContainerDarkSty
+{
+    background-color: #343434;
+}
+
+//  EmployeeList --end
+
+
+//  GeneralTable 
+.generalTableSty
+{
+    th
+    {
+        color: #3e5aca;
+    }
+
+    th,
+    td
+    {
+        padding: 5px 8px;    
+
+        pre
+        {
+            margin: 0;
+        }
+    }
+}
+
+//  GeneralTable --end
 
 
 

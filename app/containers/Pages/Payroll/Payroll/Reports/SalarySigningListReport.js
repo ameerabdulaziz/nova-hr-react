@@ -212,7 +212,7 @@ function SalarySigningListReport(props) {
     },
     {
       name: "employeeName",
-      label: intl.formatMessage(messages.employeeName),
+      label: intl.formatMessage(payrollMessages.employeeName),
       options: {
         filter: true,
       },
@@ -232,13 +232,29 @@ function SalarySigningListReport(props) {
       },
     },
     // show and hide PrintSalary column depend on condition
-    searchData.PrintSalary ? {
-      name: "netSal",
-      label: intl.formatMessage(messages.NetSalary),
-      options: {
-        filter: true,
-      },
-    } : ""
+    ...(searchData.PrintSalary 
+      ? [
+          {
+            name: "netSal",
+            label: intl.formatMessage(messages.NetSalary),
+            options: { filter: true },
+          },
+          {
+            name: "",
+            label: intl.formatMessage(messages.employeeSignature),
+            options: { display: false },
+          }
+        ]
+      : [
+          {
+            name: "",
+            label: intl.formatMessage(messages.employeeSignature),
+            options: { display: false },
+          }
+        ]
+    )
+
+
   ];
 
 

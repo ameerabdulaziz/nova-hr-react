@@ -200,6 +200,7 @@ function AttendanceRatiosStatementsReport(props) {
         name: "hoursPerDay",
         label: intl.formatMessage(messages.shiftHours),
       },
+
       {
         name: "monthHours",
         label: intl.formatMessage(messages.MonthWorkHours),
@@ -247,11 +248,36 @@ function AttendanceRatiosStatementsReport(props) {
       {
         name: "vacHours",
         label: intl.formatMessage(messages.leaveHours),
-      },
+      }, 
       {
         name: "lessTime",
         label: intl.formatMessage(messages.lateHours),
       },
+
+
+      {
+        name: "notWorkingday",
+        label: intl.formatMessage(messages.notWorkingday),
+      },
+      {
+        name: "workingdayRatio",
+        label: intl.formatMessage(messages.workingdayRatio),
+      },
+      {
+        name: "perandLate",
+        label: intl.formatMessage(messages.perandLate),
+      },
+      {
+        name: "perandLateH",
+        label: intl.formatMessage(messages.perandLateH),
+      },
+      {
+        name: "punctualityRate",
+        label: intl.formatMessage(messages.punctualityRate),
+      },
+  
+      
+
       {
         name: "mission",
         label: intl.formatMessage(messages.mission),

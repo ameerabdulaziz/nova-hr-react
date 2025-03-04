@@ -79,7 +79,7 @@ function CounterIconWidget(props) {
     <PayRollLoader isLoading={isLoading}>
       <div className={classes.rootCounterFull}>
         <Grid container spacing={2}>
-          <Grid item xs={6} md={2.4}>
+          <Grid item xs={6} md={4} lg={3} xl={2.4}>
             <div onClick={()=>{cardsRedirectFuc("Employee")}} className={style.dashCardSty}>
               <CounterWidget
                 color="firstCard"
@@ -92,7 +92,7 @@ function CounterIconWidget(props) {
               </CounterWidget>
             </div>
           </Grid>
-          <Grid item xs={6} md={2.4}>
+          <Grid item xs={6} md={4} lg={3} xl={2.4}>
             <div onClick={()=>{cardsRedirectFuc("NewHired")}} className={style.dashCardSty}>
               <CounterWidget
                 color="secondCard"
@@ -105,7 +105,7 @@ function CounterIconWidget(props) {
               </CounterWidget>
             </div>
           </Grid>
-          <Grid item xs={6} md={2.4}>
+          <Grid item xs={6} md={4} lg={3} xl={2.4}>
             <div onClick={()=>{cardsRedirectFuc("InPorpatiom")}} className={style.dashCardSty}>
               <CounterWidget
                 color="thirdCard"
@@ -118,7 +118,7 @@ function CounterIconWidget(props) {
               </CounterWidget>
             </div>
           </Grid>
-          <Grid item xs={6} md={2.4}>
+          <Grid item xs={6} md={4} lg={3} xl={2.4}>
             <div onClick={()=>{cardsRedirectFuc("Resignation")}} className={style.dashCardSty}>
               <CounterWidget
                 color="forthCard"
@@ -131,7 +131,7 @@ function CounterIconWidget(props) {
               </CounterWidget>
             </div>
           </Grid>
-          <Grid item xs={6} md={2.4}>
+          <Grid item xs={6} md={4} lg={3} xl={2.4}>
             <div onClick={()=>{cardsRedirectFuc("Terminated")}} className={style.dashCardSty}>
               <CounterWidget
                 color="fifthCard"

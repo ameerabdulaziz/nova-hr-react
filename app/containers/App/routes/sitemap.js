@@ -204,6 +204,9 @@ const SITEMAP = {
     },
   },
   setting: {
+    UserMenuReport: {
+      route: '/Setting/UserMenuReport',
+    },
     ChangePassword: {
       route: '/Setting/ChangePassword',
     },
@@ -535,6 +538,9 @@ const SITEMAP = {
     RequestsList: { route: '/WF/RequestsList' },
   },
   employee: {
+    followStaffContractsksa: {
+      route: '/Employee/followStaffContractsksa',
+    },
     EmployeeList: { route: '/Employee/EmployeeList' },
     AdEmployeeImport: { route: '/Employee/AdEmployeeImport' },
     EmployeeData: { route: '/Employee/EmployeeData' },

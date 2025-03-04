@@ -375,6 +375,12 @@ function Application(props) {
 
         {/* Setting */}
         <Route
+          path={SITEMAP.setting.UserMenuReport.route}
+          component={PAGES.setting.UserMenuReport}
+        />
+
+
+        <Route
           path={SITEMAP.setting.ChangePassword.route}
           component={PAGES.setting.ChangePassword}
         />
@@ -1704,6 +1710,16 @@ function Application(props) {
         />
 
         {/* Employee */}
+
+        <Route
+          path={SITEMAP.employee.followStaffContractsksa.route}
+          component={PAGES.employee.followStaffContractsksa}
+        />
+
+        <Route
+          path={SITEMAP.employee.EmployeeList.route}
+          component={PAGES.employee.EmployeeList}
+        />
         <Route
           path={SITEMAP.employee.EmployeeList.route}
           component={PAGES.employee.EmployeeList}

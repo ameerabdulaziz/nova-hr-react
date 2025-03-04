@@ -499,8 +499,8 @@ const GeneralListApis = (locale) => {
 
     return result.data;
   };
-  Apis.GetLocationList = async () => {
-    const result = await axiosInstance.get(`GeneralList/GetLocationList/${locale}`);
+  Apis.GetLocationList = async (data) => {
+    const result = await axiosInstance.get(`GeneralList/GetLocationList/${locale}${data ?`?GovernmentId=${data}`: ""}`);
 
     return result.data;
   };

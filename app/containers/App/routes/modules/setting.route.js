@@ -2,12 +2,21 @@ import Loading from 'enl-components/Loading';
 import React from 'react';
 import loadable from '../../../../utils/loadable';
 
+
+const UserMenuReport = loadable(
+  () => import('../../../Pages/Payroll/Setting/UserMenuReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const UserMenu = loadable(
   () => import('../../../Pages/Payroll/Setting/UserMenu'),
   {
     fallback: <Loading />,
   }
 );
+
 const MailSetting = loadable(
   () => import('../../../Pages/Payroll/Setting/MailSetting'),
   {
@@ -91,6 +100,7 @@ const MenuTemplate = loadable(
 );
 
 const setting = {
+  UserMenuReport,
   UserMenu,
   MailSetting,
   SMSSetting,

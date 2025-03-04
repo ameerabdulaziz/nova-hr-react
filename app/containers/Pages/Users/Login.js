@@ -61,7 +61,7 @@ function Login(props) {
             };
 
             const res = await axiosInstance.post("Account/Login", data);
-            debugger;
+
 
             if (res.data.token) {
               Dispatcher(loginSuccess());

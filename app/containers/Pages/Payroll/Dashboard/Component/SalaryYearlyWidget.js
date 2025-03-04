@@ -128,7 +128,7 @@ function SalaryYearlyWidget(props) {
     setChecked(newChecked);
   };
 
-  const { intl } = props;
+  const { intl , Filter } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
   const [isLoading, setIsLoading] = useState(false);
@@ -155,7 +155,89 @@ function SalaryYearlyWidget(props) {
     <PayRollLoader isLoading={isLoading}>
       <PapperBlock whiteBg noMargin title={""} desc="">
         <Grid container spacing={2}>
-          <Grid item md={8} xs={12}>
+          {Filter  ? 
+           <Grid item  xs={12}>
+            <Typography className={classes.smallTitle} variant="button">
+              <StackedLineChartIcon className={classes.leftIcon} />
+              <FormattedMessage {...messages.yearlySal} />
+            </Typography>
+            <Divider className={classes.divider} />
+            <div className={classes.chartWrap}>
+              <div className={classes.chartFluid}>
+                <ResponsiveContainer  height="100%">
+                  <ComposedChart data={dataCrypto}>
+                    <XAxis dataKey="name" tickLine={false} />
+                    <YAxis
+                      axisLine={false}
+                      tickSize={3}
+                      tickLine={false}
+                      tick={{ stroke: "none" }}
+                    />
+                    <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                    <Tooltip />
+                    <Bar
+                      stackId="2"
+                      barSize={10}
+                      fillOpacity="0.8"
+                      dataKey="gross"
+                      fill={color.secondary}
+                    />
+                    <Bar
+                      stackId="5"
+                      barSize={10}
+                      fillOpacity="0.8"
+                      dataKey="net"
+                      fill={color.third}
+                    />
+                    {checked.indexOf("Tax") > -1 && (
+                      <Line
+                        type="monotone"
+                        stackId="4"
+                        dataKey="tax"
+                        strokeWidth={2}
+                        stroke={color.main}
+                      />
+                    )}
+                    {checked.indexOf("MedicalInsurance") > -1 && (
+                      <Line
+                        type="monotone"
+                        stackId="3"
+                        dataKey="medicalInsurance"
+                        strokeWidth={2}
+                        stroke={color.third}
+                      />
+                    )}
+                    {checked.indexOf("OverTime") > -1 && (
+                      <Area
+                        type="monotone"
+                        stackId="1"
+                        dataKey="overTime"
+                        stroke={color.fourth}
+                        fill={color.fourth}
+                      />
+                    )}
+                    {checked.indexOf("SocialInsurance") > -1 && (
+                      <Area
+                        type="monotone"
+                        stackId="6"
+                        dataKey="socialInsurance"
+                        stroke={color.main}
+                        fill={color.secondary}
+                      />
+                    )}
+                    <Legend
+                      iconType="circle"
+                      verticalALign="bottom"
+                      iconSize={10}
+                    />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </Grid>
+           :  
+           (<>
+           <Grid item md={8} xs={12}>
             <Typography className={classes.smallTitle} variant="button">
               <StackedLineChartIcon className={classes.leftIcon} />
               <FormattedMessage {...messages.yearlySal} />
@@ -301,6 +383,7 @@ function SalaryYearlyWidget(props) {
               </List>
             </div>
           </Grid>
+           </>)}
         </Grid>
       </PapperBlock>
     </PayRollLoader>

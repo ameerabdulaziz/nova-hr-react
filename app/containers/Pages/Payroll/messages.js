@@ -9,6 +9,11 @@ export const scope = 'boilerplate.containers.Payroll';
 
 export default defineMessages({
   // penaltyList----------------------------------------------------------------------------
+
+  governorate : {
+    id: `${scope}.governorate`,
+    defaultMessage: 'governorate',
+  },
   insDate: {
         id: `${scope}.insDate`,
         defaultMessage: 'insDate',

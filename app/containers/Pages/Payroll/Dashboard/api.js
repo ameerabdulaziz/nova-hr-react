@@ -82,8 +82,12 @@ const dashboardData = (locale) => {
 
   api.getEmpWithBestAtt = async (isWorest) => {
     const data = await axiosInstance.get(`Dashboard/GetEmpWithBestAtt?isWorest=${isWorest?isWorest:false}`);
+    if(data.status == 200 && data.data.length > 0 ){
+      return data.data;
+    }else{
+      return false;
+    }
 
-    return data.data;
   };
 
   api.getBarData = async (isnotCalcPermission) => {

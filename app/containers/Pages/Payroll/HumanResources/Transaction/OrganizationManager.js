@@ -62,7 +62,7 @@ function OrganizationManager(props) {
     {
         name: 'newEmployeeName',
         label: 'newEmployeeName',
-        type: 'selection',
+        type: 'autoComblate',
         initialValue: '',
         options: [],
         orignaldata:[],

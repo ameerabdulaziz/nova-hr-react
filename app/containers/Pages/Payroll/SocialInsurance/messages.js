@@ -309,9 +309,9 @@ export default defineMessages({
     id: `${scope}.gender`,
     defaultMessage: 'gender',
   },
-  totalFixed: {
-    id: `${scope}.totalFixed`,
-    defaultMessage: 'totalFixed',
+  totalInsurance: {
+    id: `${scope}.totalInsurance`,
+    defaultMessage: 'Total Insurance',
   },
   totalVariable: {
     id: `${scope}.totalVariable`,

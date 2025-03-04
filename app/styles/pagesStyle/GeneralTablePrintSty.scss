@@ -1,0 +1,44 @@
+
+
+.tableSty
+{
+
+    pre
+    {
+        margin: 0px;
+    }
+
+    tr
+    {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    th,
+    td
+    {
+        border: 1px solid #000000;
+        // background-color: #e2e4e6;
+        // padding: 0px 5px;
+    }
+
+    th
+    {
+        background-color: #e2e4e6;
+        padding: 0px 5px;
+    }
+
+    td:nth-child(1)
+    {
+        padding: 0px 5px;
+    }
+
+    td
+    {
+        padding: 2px;
+        font-size: 6px !important;
+        // border: 1px solid #000000;
+    }
+
+    
+}

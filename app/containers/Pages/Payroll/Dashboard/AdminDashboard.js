@@ -15,6 +15,7 @@ import { useHistory } from "react-router-dom";
 import AbscencebichartWidget from "./Component/AbscencebichartWidget";
 import useStyles from "./dashboard-jss";
 import SITEMAP from "../../../App/routes/sitemap";
+import SalaryYearlyWidget from "./Component/SalaryYearlyWidget";
 
 function AdminDashboard() {
   const { classes } = useStyles();
@@ -47,7 +48,7 @@ function AdminDashboard() {
       </Grid>
       {/* 3rd Section */}
       <Grid container spacing={3} className={classes.root}>
-        <Grid item md={6} xs={12}>
+        <Grid item lg={6} xs={12}>
           <Divider className={classes.divider} />
           <NotificationWidget />
           <Divider className={classes.divider} />
@@ -55,13 +56,13 @@ function AdminDashboard() {
           <Divider className={classes.divider} />
           <NationalityWidget />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid item lg={6} xs={12}>
           <Hidden lgDown>
             <Divider className={classes.divider} />
           </Hidden>
           <MonthCalendar />
           <Divider className={classes.divider} />
-          <ServicePeriodWidget />
+        <SalaryYearlyWidget Filter={true} />
 
           <Divider className={classes.divider} />
           <ServicePeriodWidget />
@@ -69,13 +70,13 @@ function AdminDashboard() {
       </Grid>
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <MaritalStatusWidget />
         </Grid>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <AbscencebichartWidget />
         </Grid>
-        <Grid item md={4} sm={12} xs={12}>
+        <Grid item xl={4} md={6} xs={12}>
           <OrgLevelWidget></OrgLevelWidget>
         </Grid>
       </Grid>

@@ -17,6 +17,7 @@ import "enl-styles/vendors/rechart/styles.css";
 import Check from "@mui/icons-material/CheckCircle";
 import StackedLineChartIcon from "@mui/icons-material/StackedLineChart";
 import Box from "@mui/material/Box";
+import img from "../../../../../../public/images/spinner.gif"
 import {
   ComposedChart,
   Line,
@@ -45,30 +46,9 @@ import SITEMAP from "../../../../App/routes/sitemap";
 
 function PerformanceChartWidget(props) {
   const { intl } = props;
-    const history = useHistory();
+  const history = useHistory();
   const { classes, cx } = useStyles();
-  const [attendance, setaAttendance] = useState([
-    {
-      name: "Nermen Ahmed",
-      percentage: "90",
-    },
-    {
-      name: "Ahmed Awad",
-      percentage: "80",
-    },
-    {
-      name: "Wessam Mohamed",
-      percentage: "70",
-    },
-    {
-      name: "Noha Abdelbaset",
-      percentage: "70",
-    },
-    {
-      name: "Shymaa Abdelhameed",
-      percentage: "60",
-    },
-  ]);
+  const [attendance, setaAttendance] = useState([]);
   const [barData, setBarData] = useState({
     vacation: 10,
     overTime: 50,
@@ -151,111 +131,124 @@ function PerformanceChartWidget(props) {
 
 
   const cardsRedirectFuc = (cardName) => {
-    if(cardName === "Leaves")
-    {
+    if (cardName === "Leaves") {
       history.push(SITEMAP.vacation.VacationTrxReport.route, { todayDateKey: true });
     }
-    else if(cardName === "Mission")
-      {
-        history.push(SITEMAP.attendance.MissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
-      }
-    else if(cardName === "Permission")
-      {
-        history.push(SITEMAP.attendance.PermissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
-      }
-    else if(cardName === "Rewards")
-      {
-        history.push(SITEMAP.humanResources.RewardTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
-      }
-    else if(cardName === "Penalty")
-      {
-        history.push(SITEMAP.humanResources.PenaltyTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true  });
-      }
-  } 
+    else if (cardName === "Mission") {
+      history.push(SITEMAP.attendance.MissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true });
+    }
+    else if (cardName === "Permission") {
+      history.push(SITEMAP.attendance.PermissionTrxReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true });
+    }
+    else if (cardName === "Rewards") {
+      history.push(SITEMAP.humanResources.RewardTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true });
+    }
+    else if (cardName === "Penalty") {
+      history.push(SITEMAP.humanResources.PenaltyTransReport.route, { StatusId: 2, IsSubmitted: true, IsDeleted: false, todayDateKey: true });
+    }
+  }
 
 
   return (
     <PayRollLoader isLoading={isLoading}>
       <Grid container spacing={2}>
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
+
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
+
             <ul className={classes.bigResume}>
-              <li onClick={()=>{cardsRedirectFuc("Leaves")}} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
-                  <HomeSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.orangeText}>{barData.vacation}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Vacations} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li>
-                <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
-                  <HotTubSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.indigoText}>{barData.overTime}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Overtime} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={()=>{cardsRedirectFuc("Mission")}} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.blueAvatar)}>
-                  <HikingSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.blueText}>{barData.missions}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Mession} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={()=>{cardsRedirectFuc("Permission")}} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
-                  <HistoryToggleOffSharpIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.purpleText}>
-                    {barData.permissions}
-                  </span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.Permission} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={()=>{cardsRedirectFuc("Rewards")}} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
-                  <AddCard />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.tealText}>{barData.rewards}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.rewards} />
-                  </Typography>
-                </Typography>
-              </li>
-              <li onClick={()=>{cardsRedirectFuc("Penalty")}} className={style.dashCardSty}>
-                <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
-                  <CreditCardOffIcon />
-                </Avatar>
-                <Typography variant="h6">
-                  <span className={classes.pinkText}>{barData.penalty}</span>
-                  <Typography noWrap>
-                    <FormattedMessage {...messages.penalty} />
-                  </Typography>
-                </Typography>
-              </li>
+              <Grid container ml={6} >
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Leaves") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.orangeAvatar)}>
+                      <HomeSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.orangeText}>{barData.vacation}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Vacations} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li>
+                    <Avatar className={cx(classes.avatar, classes.indigoAvatar)}>
+                      <HotTubSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.indigoText}>{barData.overTime}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Overtime} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Mission") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.blueAvatar)}>
+                      <HikingSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.blueText}>{barData.missions}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Mession} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Permission") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
+                      <HistoryToggleOffSharpIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.purpleText}>
+                        {barData.permissions}
+                      </span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.Permission} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Rewards") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.tealAvatar)}>
+                      <AddCard />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.tealText}>{barData.rewards}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.rewards} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+                <Grid itam xs={6} md={4} lg={3} xl={2}>
+                  <li onClick={() => { cardsRedirectFuc("Penalty") }} className={style.dashCardSty}>
+                    <Avatar className={cx(classes.avatar, classes.pinkAvatar)}>
+                      <CreditCardOffIcon />
+                    </Avatar>
+                    <Typography variant="h6">
+                      <span className={classes.pinkText}>{barData.penalty}</span>
+                      <Typography noWrap>
+                        <FormattedMessage {...messages.penalty} />
+                      </Typography>
+                    </Typography>
+                  </li>
+                </Grid>
+              </Grid>
             </ul>
+
           </PapperBlock>
+
         </Grid>
 
         <Grid item md={12} xs={12} style={{ paddingTop: "0px !important" }}>
           <PapperBlock whiteBg noMargin title={""} icon="timeline" desc="">
             <Grid container spacing={2}>
-              <Grid item md={6} xs={12}>
+              <Grid item lg={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <StackedLineChartIcon className={classes.leftIcon} />
                   <FormattedMessage {...messages.ageChart} />
@@ -291,7 +284,7 @@ function PerformanceChartWidget(props) {
                   </div>
                 </div>
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item lg={6} xs={12}>
                 <Typography className={classes.smallTitle} variant="button">
                   <Check className={classes.leftIcon} />
                   <FormattedMessage {...messages.empwithbestAtt} />
@@ -299,43 +292,8 @@ function PerformanceChartWidget(props) {
                 <Divider className={classes.divider} />
 
                 <div >
-                  {attendance.length > 0 ? (
-                    <List >
-                      {attendance.map((item, index) => (
-                        <Fragment>
-                          <ListItem>
-                            <ListItemAvatar>
-                              <Avatar
-                                className={cx(
-                                  classes.avatar,
-                                  classes.purpleAvatar
-                                )}
-                              >
-                                <Check />
-                              </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={item.name.slice(0, 25)} />
+                  {attendance === false ? (
 
-                            <ListItemText
-                              primary={`${item.percentage}%`}
-                              className={
-                                locale == "en"
-                                  ? cx(classes.textRight)
-                                  : cx(classes.textLeft)
-                              }
-                            />
-                          </ListItem>
-                          <li className={cx(classes.paddingProgress)}>
-                            <LinearProgress
-                              variant="determinate"
-                              className={cx(classes.blueProgress)}
-                              value={item.percentage <= 100 ?  item.percentage : 100}
-                            />
-                          </li>
-                        </Fragment>
-                      ))}
-                    </List>
-                  ) : (
                     <Stack
                       direction="row"
                       sx={{ minHeight: "376px" }}
@@ -344,15 +302,64 @@ function PerformanceChartWidget(props) {
                       textAlign="center"
                     >
                       <Box>
-                        <NotificationsActive
-                          sx={{ color: "#a7acb2", fontSize: 30 }}
-                        />
+                        <NotificationsActive sx={{ color: "#a7acb2", fontSize: 30 }} />
                         <Typography color="#a7acb2" variant="body1">
                           <FormattedMessage {...messages.noData} />
                         </Typography>
                       </Box>
                     </Stack>
-                  )}
+                  ) : attendance === undefined || attendance === null ? (
+
+                    <Stack
+                      direction="row"
+                      sx={{ minHeight: "376px" }}
+                      alignItems="center"
+                      justifyContent="center"
+                      textAlign="center"
+                    >
+                      <Box>
+                        <img src={img} alt="loading" />
+                      </Box>
+                    </Stack>
+                  ) : attendance.length > 0 ? (
+
+                    <List>
+                      {attendance.map((item, index) => (
+                        <Fragment key={index}>
+                          <ListItem>
+                            <ListItemAvatar>
+                              <Avatar className={cx(classes.avatar, classes.purpleAvatar)}>
+                                <Check />
+                              </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText primary={item.name.slice(0, 25)} />
+                            <ListItemText
+                              primary={`${item.percentage}%`}
+                              className={locale === "en" ? cx(classes.textRight) : cx(classes.textLeft)}
+                            />
+                          </ListItem>
+                          <li className={cx(classes.paddingProgress)}>
+                            <LinearProgress
+                              variant="determinate"
+                              className={cx(classes.blueProgress)}
+                              value={item.percentage <= 100 ? item.percentage : 100}
+                            />
+                          </li>
+                        </Fragment>
+                      ))}
+                    </List>
+                  ) : (<Stack
+                    direction="row"
+                    sx={{ minHeight: "376px" }}
+                    alignItems="center"
+                    justifyContent="center"
+                    textAlign="center"
+                  >
+                    <Box>
+                      <img src={img} alt="loading" />
+                    </Box>
+                  </Stack>)}
+
                 </div>
               </Grid>
             </Grid>
