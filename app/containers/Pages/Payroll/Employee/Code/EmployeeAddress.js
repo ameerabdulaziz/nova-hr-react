@@ -47,7 +47,6 @@ function EmployeeAddress(props) {
   const title = localStorage.getItem('MenuName');
 
   const [employee, setEmployee] = useState(empid ?? { id: 0, name: '' });
-  const [employeeList, setEmployeeList] = useState([]);
   const [cityList, setCityList] = useState([]);
   const [governmentList, setGovernmentList] = useState([]);
 
@@ -70,8 +69,6 @@ function EmployeeAddress(props) {
     setIsLoading(true);
 
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
 
       const government = await GeneralListApis(locale).GetGovernmentList();
       setGovernmentList(government);
