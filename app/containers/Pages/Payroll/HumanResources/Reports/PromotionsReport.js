@@ -36,10 +36,14 @@ function PromotionsReport(props) {
     BranchId: branchId,
   });
 
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
+   const [printFilterData, setPrintFilterData] = useState({
+      FromDate: null,
+      ToDate: null,
+      Employee: '',
+      EmpStatus: "",
+      Organization: '',
+      Branch: "",
+    });
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [DateError, setDateError] = useState({});
@@ -47,53 +51,45 @@ function PromotionsReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
-
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
-    if (searchData.FromDate) {
+    if (printFilterData.FromDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.fromdate),
-        value: formateDate(searchData.FromDate),
+        value: formateDate(printFilterData.FromDate),
       });
     }
 
-    if (searchData.ToDate) {
+    if (printFilterData.ToDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
-        value: formateDate(searchData.ToDate),
+        value: formateDate(printFilterData.ToDate),
       });
     }
 
@@ -196,33 +192,6 @@ function PromotionsReport(props) {
     },
   ];
 
-  async function fetchNeededData() {
-    setIsLoading(true);
-
-    try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-    } catch (err) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchNeededData();
-  }, []);
-
-
   const openMonthDateWithCompanyChangeFun = async (BranchId,EmployeeId) => {
 
     let OpenMonthData 
@@ -244,6 +213,13 @@ function PromotionsReport(props) {
         FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
         ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+
     }
     catch(err)
     {}
@@ -269,6 +245,13 @@ function PromotionsReport(props) {
         FromDate: null,
         ToDate: null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+
     }
 
   },[searchData.BranchId, searchData.EmployeeId])
@@ -286,6 +269,7 @@ function PromotionsReport(props) {
               DateError={DateError}
               setDateError={setDateError}
               company={searchData.BranchId}
+              setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
           <Grid item xs={12}>
