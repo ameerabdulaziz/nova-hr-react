@@ -1799,7 +1799,7 @@
   "boilerplate.containers.Payroll.HumanResources.courseName": "اسم الدورة",
   "boilerplate.containers.Payroll.HumanResources.courseType": "نوع الدورة",
   "boilerplate.containers.Payroll.HumanResources.createPenaltyTitle": "اضافة جزاء",
-  "boilerplate.containers.Payroll.HumanResources.createRewardTitle": "اضافة جزاءات الموظفين",
+  "boilerplate.containers.Payroll.HumanResources.createRewardTitle": "اضافه مكافات الموظفين",
   "boilerplate.containers.Payroll.HumanResources.custodies": "العهد",
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryCreateTitle": "اضافة تسليم عهدة",
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryEditTitle": "تعديل تسليم عهده",

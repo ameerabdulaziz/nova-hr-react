@@ -1798,7 +1798,7 @@
   "boilerplate.containers.Payroll.HumanResources.courseName": "Course Name",
   "boilerplate.containers.Payroll.HumanResources.courseType": "Course Type",
   "boilerplate.containers.Payroll.HumanResources.createPenaltyTitle": "Create Penalty",
-  "boilerplate.containers.Payroll.HumanResources.createRewardTitle": "Create Employee Reward",
+  "boilerplate.containers.Payroll.HumanResources.createRewardTitle": "Create employee bonuses",
   "boilerplate.containers.Payroll.HumanResources.custodies": "Custodies",
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryCreateTitle": "Create Custody Delivery",
   "boilerplate.containers.Payroll.HumanResources.CustodyDeliveryEditTitle": "Update Custody Delivery",
