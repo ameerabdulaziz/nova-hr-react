@@ -2416,7 +2416,17 @@ function Application(props) {
         {/* Assessment */}
         <Route
           path={SITEMAP.assessment.AsCategory.route}
-          component={GeneralCodePages.AsCategory}
+          component={PAGES.assessment.AsCategory}
+        />
+
+        <Route
+          path={SITEMAP.assessment.AsCategoryCreate.route}
+          component={PAGES.assessment.AsCategoryCreate}
+        />
+
+        <Route
+          path={SITEMAP.assessment.AsCategoryEdit.route}
+          component={PAGES.assessment.AsCategoryCreate}
         />
 
         <Route

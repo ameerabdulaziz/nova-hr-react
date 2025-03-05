@@ -2,12 +2,31 @@ import Loading from 'enl-components/Loading';
 import React from 'react';
 import loadable from '../../../../utils/loadable';
 
+
+
 const EmployeeAssessment = loadable(
   () => import('../../../Pages/Payroll/Assessment/Transactions/EmployeeAssessment'),
   {
     fallback: <Loading />,
   }
 );
+
+const AsCategory = loadable(
+  () => import('../../../Pages/Payroll/Assessment/code/AsCategory'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+const AsCategoryCreate = loadable(
+  () => import('../../../Pages/Payroll/Assessment/code/AsCategoryCreate'),
+  {
+    fallback: <Loading />,
+  }
+);
+
+
+
 
 const AsChoice = loadable(
   () => import('../../../Pages/Payroll/Assessment/code/AsChoice'),
@@ -197,6 +216,8 @@ const assessment = {
   PeerAppraisalSetting,
   StaffJobKPI,
   UploadAssessmentGuidelines,
+  AsCategory,
+  AsCategoryCreate,
 };
 
 export default assessment;
