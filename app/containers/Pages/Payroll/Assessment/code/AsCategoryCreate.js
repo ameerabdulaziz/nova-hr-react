@@ -86,7 +86,7 @@ function AsCategoryCreate(props) {
                 id: id,
                 arName: nameAr,
                 enName: nameEn,
-                jobids: personNameId,
+                jobids:`,${personNameId},` ,
             }
             const data = await api().save(dataInput)
             console.log(data)
