@@ -42,13 +42,16 @@ function MedicalInsuranceReport(props) {
     BranchId: branchId,
   });
 
+  const [printFilterData, setPrintFilterData] = useState({
+      ToDate: null,
+      Employee: '',
+      EmpStatus: "",
+      Organization: '',
+      Branch: "",
+    });
+
   const [DateError, setDateError] = useState({});
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
-
   const [hrNotes, setHrNotes] = useState(false);
   const [rowIndexVal, setRowIndexVal] = useState("");
 
@@ -60,73 +63,42 @@ function MedicalInsuranceReport(props) {
     setHrNotes(false)
    };
 
-  async function fetchNeededData() {
-    try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-    } catch (error) {
-      //
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchNeededData();
-  }, []);
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
-
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
-    if (ToDate) {
+    if (printFilterData.ToDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
-        value: formateDate(ToDate),
+        value: formateDate(printFilterData.ToDate),
       });
     }
 
@@ -294,6 +266,10 @@ function MedicalInsuranceReport(props) {
       }
 
       setToDate(OpenMonthData ? OpenMonthData.todateAtt : null)
+      setPrintFilterData((prev)=>({
+        ...prev,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
     }
     catch(err)
     {}
@@ -315,6 +291,10 @@ function MedicalInsuranceReport(props) {
     if(searchData.BranchId === "" && searchData.EmployeeId === "")
     {
       setToDate(null)
+      setPrintFilterData((prev)=>({
+        ...prev,
+        ToDate: null,
+      }))
     }
 
   },[searchData.BranchId, searchData.EmployeeId])
@@ -326,35 +306,33 @@ function MedicalInsuranceReport(props) {
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
 
         <Grid container spacing={2}>
-
            <Grid item xs={6} md={4} lg={3} xl={2}>
-                  
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker 
-                        label={intl.formatMessage(payrollMessages.todate)}
-                          value={ToDate ? dayjs(ToDate) : ToDate}
-                        className={classes.field}
-                          onChange={(date) => {
-                            setToDate(date)
-                        }}
-                        onError={(error,value)=>{
-                          if(error !== null)
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`ToDate`]: true
-                              }))
-                          }
-                          else
-                          {
-                            setDateError((prevState) => ({
-                                ...prevState,
-                                  [`ToDate`]: false
-                              }))
-                          }
-                        }}
-                        />
-                    </LocalizationProvider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker 
+                  label={intl.formatMessage(payrollMessages.todate)}
+                    value={ToDate ? dayjs(ToDate) : ToDate}
+                  className={classes.field}
+                    onChange={(date) => {
+                      setToDate(date)
+                  }}
+                  onError={(error,value)=>{
+                    if(error !== null)
+                    {
+                      setDateError((prevState) => ({
+                          ...prevState,
+                            [`ToDate`]: true
+                        }))
+                    }
+                    else
+                    {
+                      setDateError((prevState) => ({
+                          ...prevState,
+                            [`ToDate`]: false
+                        }))
+                    }
+                  }}
+                  />
+              </LocalizationProvider>
            </Grid>
 
            <Grid item xs={12}></Grid>
@@ -366,6 +344,7 @@ function MedicalInsuranceReport(props) {
                setIsLoading={setIsLoading}
                notShowDate={true}
                company={searchData.BranchId}
+               setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 

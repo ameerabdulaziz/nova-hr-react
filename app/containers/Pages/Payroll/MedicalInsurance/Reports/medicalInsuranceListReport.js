@@ -29,7 +29,6 @@ function medicalInsuranceListReport(props) {
   const { branchId = null } = useSelector((state) => state.authReducer.user);
   const [MinsuranceCompanyList, setMinsuranceCompanyList] = useState([]);
   const [MinsuranceCategoryList, setMinsuranceCategoryList] = useState([]);
-  const [Deleted, setDeleted] = useState("");
   const [InsuranceCompany, setInsuranceCompany] = useState("");
   const [MedicalInsuranceCategory, setMedicalInsuranceCategory] = useState("");
   const [data, setdata] = useState([]);
@@ -45,50 +44,49 @@ function medicalInsuranceListReport(props) {
     BranchId: branchId,
   });
 
+  const [printFilterData, setPrintFilterData] = useState({
+     FromDate: null,
+     ToDate: null,
+     Employee: '',
+     EmpStatus: "",
+     Organization: '',
+     Branch: "",
+   });
+
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
+
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
     const insuranceCompany = getAutoCompleteValue(MinsuranceCompanyList, InsuranceCompany);
     const medicalInsuranceCategory = getAutoCompleteValue(MinsuranceCategoryList, MedicalInsuranceCategory);
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -144,18 +142,6 @@ function medicalInsuranceListReport(props) {
       setMinsuranceCompanyList(MinsuranceCompany);
       setMinsuranceCategoryList(MinsuranceCategory)
 
-
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -231,6 +217,7 @@ function medicalInsuranceListReport(props) {
                setIsLoading={setIsLoading}
                notShowDate={true}
                company={searchData.BranchId}
+               setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 
