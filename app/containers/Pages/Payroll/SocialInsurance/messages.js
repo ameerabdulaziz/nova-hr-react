@@ -349,4 +349,8 @@ export default defineMessages({
     id: `${scope}.form1Insurance`,
     defaultMessage: 'Insurance Report Form 1',
   },
+  totalFixed: {
+    id: `${scope}.totalFixed`,
+    defaultMessage: 'Total Fixed',
+  },
 });

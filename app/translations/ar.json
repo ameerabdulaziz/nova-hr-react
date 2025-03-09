@@ -2020,6 +2020,7 @@
   "boilerplate.containers.Payroll.insurance.workLetterDate": "تاريخ كعب العمل",
   "boilerplate.containers.Payroll.insurance.workLetterNumber": "رقم كعب العمل",
   "boilerplate.containers.Payroll.insurance.year": "السنة",
+  "boilerplate.containers.Payroll.insurance.totalFixed": "اجمالي المرتب الثابت",
   "boilerplate.containers.Payroll.isStop": "ايقاف التعامل المالى",
   "boilerplate.containers.Payroll.items": "عناصر",
   "boilerplate.containers.Payroll.january": "يناير",

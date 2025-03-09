@@ -2019,6 +2019,7 @@
   "boilerplate.containers.Payroll.insurance.workLetterDate": "work Letter Date",
   "boilerplate.containers.Payroll.insurance.workLetterNumber": "work Letter Number",
   "boilerplate.containers.Payroll.insurance.year": "Year",
+  "boilerplate.containers.Payroll.insurance.totalFixed": "Total Fixed",
   "boilerplate.containers.Payroll.isStop": "Is Stop",
   "boilerplate.containers.Payroll.items": "items",
   "boilerplate.containers.Payroll.january": "January",

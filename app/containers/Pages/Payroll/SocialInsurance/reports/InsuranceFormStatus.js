@@ -4,11 +4,9 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import GeneralListApis from '../../api/GeneralListApis';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import Search from '../../Component/Search';
-import { getAutoCompleteValue } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/InsuranceFormStatusData';
 import messages from '../messages';
@@ -18,10 +16,6 @@ function InsuranceFormStatus(props) {
 
   const locale = useSelector((state) => state.language.locale);
   const { branchId = null } = useSelector((state) => state.authReducer.user);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
 
   const [filterHighlights, setFilterHighlights] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -34,6 +28,13 @@ function InsuranceFormStatus(props) {
     OrganizationId: null,
     EmpStatusId: 1,
     BranchId: branchId,
+  });
+
+  const [printFilterData, setPrintFilterData] = useState({
+    Employee: '',
+    EmpStatus: "",
+    Organization: '',
+    Branch: "",
   });
 
   const columns = [
@@ -66,39 +67,31 @@ function InsuranceFormStatus(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
-
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.Company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -128,17 +121,6 @@ function InsuranceFormStatus(props) {
 
   async function fetchNeededData() {
     try {
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
 
       fetchTableData();
     } catch (error) {
@@ -167,6 +149,7 @@ function InsuranceFormStatus(props) {
               notShowDate={true}
               setIsLoading={setIsLoading}
               company={formInfo.BranchId}
+              setPrintFilterData={setPrintFilterData}
             />
           </Grid>
 

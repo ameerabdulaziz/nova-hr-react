@@ -48,101 +48,56 @@ function followStaffContractsksa(props) {
 
   const [DateError, setDateError] = useState({});
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
-
     if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
-    // if (organization) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
         value: printFilterData.Organization.name,
-        // value: organization.name,
       });
     }
 
     if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
-    // if (employee) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
         value: printFilterData.Employee.name,
-        // value: employee.name,
       });
     }
 
     if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
-    // if (status) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
         value: printFilterData.EmpStatus.name,
-        // value: status.name,
       });
     }
 
     if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
-    // if (company) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
         value: printFilterData.Branch.name,
-        // value: company.name,
       });
     }
 
     if (printFilterData.FromDate) {
-    // if (searchData.FromDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.fromdate),
         value: formateDate(printFilterData.FromDate),
-        // value: formateDate(searchData.FromDate),
       });
     }
 
     if (printFilterData.ToDate) {
-    // if (searchData.ToDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
         value: formateDate(printFilterData.ToDate),
-        // value: formateDate(searchData.ToDate),
       });
     }
 
     setFilterHighlights(highlights);
   };
 
-  // async function fetchNeededData() {
-  //   try {
-  //     const employees = await GeneralListApis(locale).GetEmployeeList();
-  //     setEmployeeList(employees);
 
-  //     const status = await GeneralListApis(locale).GetEmpStatusList();
-  //     setStatusList(status);
-
-  //     const company = await GeneralListApis(locale).GetBranchList();
-  //     setCompanyList(company);
-
-  //     const organizations = await GeneralListApis(locale).GetDepartmentList();
-  //     setOrganizationList(organizations);
-  //   } catch (err) {
-  //     //
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-  // useEffect(() => {
-  //   fetchNeededData();
-  // }, []);
 
   const handleSearch = async (e) => {
     // used to stop call api if user select wrong date
