@@ -40,6 +40,7 @@ function EmployeePeerAppraisal(props) {
   const [textareaEmpTrainingVal, setTextareaEmpTrainingVal] = useState("");
   const [saveBtnLock, setSaveBtnLock] = useState(false);
   const ID = state?.id;
+  const peerAppraisalId = state?.peerAppraisalId;  
 
 
     useEffect(()=>{
@@ -305,11 +306,15 @@ function EmployeePeerAppraisal(props) {
       "templateId":examData.templateId,
       "staffTrainingReq":  textareaEmpTrainingVal,
       "isClosed": buttonType === "save" ? false :  true ,
-      "competencyList": examData.competencyList
+      "competencyList": examData.competencyList,
+    }
+
+    let params = {
+      peerSettingDetailsId: peerAppraisalId,
     }
 
     try {
-      let response = await PeerAppraisalData().SaveAssessmentPeerAppraisalData(data);
+      let response = await PeerAppraisalData().SaveAssessmentPeerAppraisalData(data,params);
 
       if (response.status==200) {
         toast.success(notif.saved);

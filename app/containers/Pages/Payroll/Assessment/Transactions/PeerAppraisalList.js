@@ -37,6 +37,15 @@ function PeerAppraisalList(props) {
 
   const columns = [
     {
+      name: 'id',
+      options: {
+        filter: false,
+        display: false,
+        print: false,
+        download: false,
+      },
+    },
+    {
       name: 'employeeId',
       options: {
         filter: false,
@@ -81,7 +90,8 @@ function PeerAppraisalList(props) {
             size="medium" 
             color="primary" 
             onClick={()=>history.push(SITEMAP.assessment.EmployeePeerAppraisal.route, {
-              id: tableMeta.rowData[0]
+              peerAppraisalId: tableMeta.rowData[0],
+              id: tableMeta.rowData[1],
             })}
             >
             {intl.formatMessage(messages.Appraisal)}
