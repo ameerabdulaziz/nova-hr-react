@@ -42,7 +42,6 @@ function ReviewOvertime(props) {
   const [formInfo, setFormInfo] = useState({
     shiftCode: null,
     VacCheck: false,
-
     FromDate: new Date(),
     ToDate: new Date(),
     EmployeeId: '',
@@ -51,28 +50,25 @@ function ReviewOvertime(props) {
     BranchId: '',
   });
 
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
+  const [printFilterData, setPrintFilterData] = useState({
+       FromDate: new Date(),
+       ToDate: new Date(),
+       Employee: '',
+       EmpStatus: "",
+       Organization: '',
+       Branch: "",
+     });
+
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
-
     const shift = getAutoCompleteValue(shiftList, formInfo.shiftCode);
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
@@ -83,38 +79,38 @@ function ReviewOvertime(props) {
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
-    if (formInfo.FromDate) {
+    if (printFilterData.FromDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.fromdate),
-        value: formateDate(formInfo.FromDate),
+         value: formateDate(printFilterData.FromDate),
       });
     }
 
-    if (formInfo.ToDate) {
+    if (printFilterData.ToDate) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.todate),
-        value: formateDate(formInfo.ToDate),
+        value: formateDate(printFilterData.ToDate),
       });
     }
 
@@ -169,17 +165,6 @@ function ReviewOvertime(props) {
       const response = await api(locale).GetList({});
       setTableData(response);
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
     } catch (error) {
       //
     } finally {
@@ -407,6 +392,7 @@ function ReviewOvertime(props) {
                 setIsLoading={setIsLoading}
                 DateError={DateError}
                 setDateError={setDateError}
+                setPrintFilterData={setPrintFilterData}
               />
             </Grid>
 

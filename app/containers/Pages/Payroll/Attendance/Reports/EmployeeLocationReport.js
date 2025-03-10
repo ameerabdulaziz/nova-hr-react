@@ -37,42 +37,45 @@ function EmployeeLocationReport(props) {
     ToDate: null,
   });
 
+  const [printFilterData, setPrintFilterData] = useState({
+      FromDate: null,
+      ToDate: null,
+      Employee: '',
+    });
+
 
   const [DateError, setDateError] = useState({});
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
 
   const getFilterHighlights = () => {
+    
     const highlights = [];
 
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-
-
-    if (location && location.length > 0) {
+    if (location && Object.keys(location).length > 0) {
         highlights.push({
           label: intl.formatMessage(payrollMessages.location),
-          value: location.map((item) => item.name).join(' , '),
+          value: location.name,
         });
       }
 
-    if (employee) {
+      if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (searchData.FromDate) {
+    if (printFilterData.FromDate) {
       highlights.push({
         label: intl.formatMessage(messages.fromDate),
-        value: formateDate(searchData.FromDate),
+        value: formateDate(printFilterData.FromDate),
       });
     }
 
-    if (searchData.ToDate) {
+    if (printFilterData.ToDate) {
         highlights.push({
           label: intl.formatMessage(messages.toDate),
-          value: formateDate(searchData.ToDate),
+          value: formateDate(printFilterData.ToDate),
         });
       }
 
@@ -117,9 +120,6 @@ function EmployeeLocationReport(props) {
       const locations = await GeneralListApis(locale).GetLocationList();
 
       setLocationList(locations);
-
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
 
     } catch (err) {
     } finally {
@@ -181,6 +181,7 @@ function EmployeeLocationReport(props) {
                notShowCompany={true}
                notShowOrganization={true}
                notShowStatus={true}
+               setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 
