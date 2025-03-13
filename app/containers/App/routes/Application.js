@@ -2545,6 +2545,11 @@ function Application(props) {
         />
 
         <Route
+          path={SITEMAP.assessment.AveragePeerAppraisalReport.route}
+          component={PAGES.assessment.AveragePeerAppraisalReport}
+        />
+
+        <Route
           path={SITEMAP.assessment.PeerAppraisalSetting.route}
           component={PAGES.assessment.PeerAppraisalSetting}
         />

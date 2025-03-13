@@ -162,6 +162,13 @@ const AssessmentReport = loadable(
   }
 );
 
+const AveragePeerAppraisalReport = loadable(
+  () => import('../../../Pages/Payroll/Assessment/Reports/AveragePeerAppraisalReport'),
+  {
+    fallback: <Loading />,
+  }
+);
+
 const PeerAppraisalSetting = loadable(
   () => import('../../../Pages/Payroll/Assessment/code/PeerAppraisalSetting'),
   {
@@ -197,6 +204,7 @@ const assessment = {
   AsChoice,
   AssessmentGuidelines,
   AssessmentReport,
+  AveragePeerAppraisalReport,
   AssessmentReview,
   AssessmentReviewEdit,
   AsTemplate,

@@ -36,9 +36,11 @@ const ExamQuestionsPrint = ({
         <Box
         ref={printDivRef}
         sx={{
-          display: 'none',
+          height:"0px",
+          visibility:"hidden",
           '@media print': {
-            display: 'block',
+            height:"100%",
+            visibility:"visible",
             direction: "ltr"
           },
         }}
