@@ -341,6 +341,7 @@ function NewsCreate(props) {
                   )}
                 />
               </Grid>
+
               <Grid item  xs={12} md={6} lg={4} xl={12}>
                 <TextField
                   id="title"
@@ -358,6 +359,7 @@ function NewsCreate(props) {
                   autoComplete='off'
                 />
               </Grid>
+              
               <Grid item  xs={12} >
                 <TextField
                   id="details"
@@ -487,11 +489,13 @@ function NewsCreate(props) {
                 <Grid item xs={12} md={12}>
                   <hr className={classes.hr} />
                 </Grid>
+
                 <Grid item xs={12} md={12}>
                   <NameList
                     dataList={EmployeeList}
                     setdataList={setEmployeeList}
                     Key={"Employee"}
+                    removeEmpCode ={"hidden"}
                   />
                 </Grid>
               </section>
