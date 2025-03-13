@@ -81,7 +81,6 @@ function PermissionTrxCreate(props) {
 
   // used in if user click on Calculate Attendance table sortcut to navigate to here with row data
   useEffect(() => {
-
     if (empid) {
       let startTime, endTime, total;
       let shiftDate = format(new Date(empid.shiftDate), "yyyy-MM-dd");
@@ -272,7 +271,6 @@ function PermissionTrxCreate(props) {
     targetname,
     targetvalue
   ) => {
-
     var diff = Math.round(
       (new Date(0, 0, 0, endTime.split(":")[0], endTime.split(":")[1]) -
         new Date(0, 0, 0, startTime.split(":")[0], startTime.split(":")[1])) /
@@ -404,7 +402,7 @@ function PermissionTrxCreate(props) {
               ></EmployeeData>
             </Grid>
 
-            <Grid item xs={12} lg={10} xl={6} >
+            <Grid item xs={12} lg={10} xl={6}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -413,7 +411,7 @@ function PermissionTrxCreate(props) {
                     alignItems="flex-start"
                     direction="row"
                   >
-                    <Grid item xs={12} md={6}  lg={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -433,7 +431,7 @@ function PermissionTrxCreate(props) {
                         label={intl.formatMessage(messages.calcLate)}
                       />
                     </Grid>
-                    <Grid item xs={6} md={6}  lg={2}>
+                    <Grid item xs={6} md={6} lg={2}>
                       <TextField
                         id="plateMin"
                         name="plateMin"
@@ -446,7 +444,7 @@ function PermissionTrxCreate(props) {
                         autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}  lg={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -466,7 +464,7 @@ function PermissionTrxCreate(props) {
                         label={intl.formatMessage(messages.calcMinus)}
                       />
                     </Grid>
-                    <Grid item xs={6} md={6}  lg={2}>
+                    <Grid item xs={6} md={6} lg={2}>
                       <TextField
                         id="pminusMin"
                         name="pminusMin"
@@ -479,7 +477,7 @@ function PermissionTrxCreate(props) {
                         autoComplete="off"
                       />
                     </Grid>
-                    <Grid item xs={12} md={6}  lg={4}>
+                    <Grid item xs={12} md={6} lg={4}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -499,7 +497,7 @@ function PermissionTrxCreate(props) {
                         label={intl.formatMessage(messages.dedRased)}
                       />
                     </Grid>
-                    <Grid item xs={6} md={6}  lg={2}>
+                    <Grid item xs={6} md={6} lg={2}>
                       <TextField
                         id="prasedMin"
                         name="prasedMin"
@@ -524,7 +522,7 @@ function PermissionTrxCreate(props) {
                 alignItems="flex-start"
                 direction="row"
               >
-                <Grid item xs={6} md={3} lg={2.5}  xl={3}>
+                <Grid item xs={6} md={3} lg={2.5} xl={3}>
                   <TextField
                     id="startTime"
                     name="startTime"
@@ -537,10 +535,13 @@ function PermissionTrxCreate(props) {
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    onClick={(e) =>
+                      e.target.showPicker && e.target.showPicker()
+                    }  
                   />
                 </Grid>
 
-                <Grid item xs={6} md={3} lg={2.5}  xl={3}>
+                <Grid item xs={6} md={3} lg={2.5} xl={3}>
                   <TextField
                     id="endTime"
                     name="endTime"
@@ -553,10 +554,13 @@ function PermissionTrxCreate(props) {
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    onClick={(e) =>
+                      e.target.showPicker && e.target.showPicker()
+                    }
                   />
                 </Grid>
 
-                <Grid item xs={6} md={3} lg={2.5}  xl={3}>
+                <Grid item xs={6} md={3} lg={2.5} xl={3}>
                   <TextField
                     id="minutesCount"
                     name="minutesCount"
@@ -571,7 +575,7 @@ function PermissionTrxCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={6} md={4} lg={2.5} xl={3}>
+                <Grid item xs={6} md={5} >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -590,7 +594,7 @@ function PermissionTrxCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={6} md={4} lg={2} xl={3}>
+                <Grid item xs={6} md={4} >
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -609,7 +613,7 @@ function PermissionTrxCreate(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12} md={12} >
+                <Grid item xs={12} md={12}>
                   <TextField
                     id="notes"
                     name="notes"
@@ -624,29 +628,26 @@ function PermissionTrxCreate(props) {
                     required
                   />
                 </Grid>
-
               </Grid>
             </Grid>
 
             <Grid item xs={12}>
               <Grid container spacing={3}>
-            <Grid item >
-              <SaveButton Id={id} />
-            </Grid>
-            <Grid item >
-              <Button
-                variant="contained"
-                size="medium"
-                color="primary"
-                onClick={oncancel}
-              >
-                <FormattedMessage {...Payrollmessages.cancel} />
-              </Button>
-            </Grid>                
+                <Grid item>
+                  <SaveButton Id={id} />
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    color="primary"
+                    onClick={oncancel}
+                  >
+                    <FormattedMessage {...Payrollmessages.cancel} />
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
-
-
           </Grid>
         </form>
       </PapperBlock>

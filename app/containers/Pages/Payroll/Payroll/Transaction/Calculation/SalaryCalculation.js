@@ -134,7 +134,6 @@ function SalaryCalculation(props) {
 
   const handleSearch = async () => {
     try {
-      debugger;
       if (!PayTemplateId && !BranchId) {
         toast.error("you must choose Template && Branch");
         return;
@@ -285,14 +284,15 @@ function SalaryCalculation(props) {
         PayTemplateID: PayTemplateId,
         IsShow: !IsShowReport,
       };
+
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
 
-      var response = await ApiData(locale).ShowOrHideReport(formData);
-
+      var response = await ApiData(locale).ShowOrHideReport(formData);      
       if (response.status == 200) {
         toast.success(notif.saved);
+        
         setIsShowReport(!IsShowReport);
       }
     } catch (err) {
@@ -316,17 +316,22 @@ function SalaryCalculation(props) {
         YearId: OpenMonth.yearId,
         PayTemplateID: id,
       };
+    
+      
       Object.keys(formData).forEach((key) => {
         formData[key] = formData[key] === null ? "" : formData[key];
       });
       const result = await ApiData(locale).IsShowReport(formData);
 
-      setIsShowReport(result);
+      setIsShowReport(result.data);
     } catch (err) {
     } finally {
       setIsLoading(false);
     }
   }
+useEffect(()=>{
+  FunctionIsShowReport(1)
+},[OpenMonth])
   const columns = [
     {
       name: "id",
@@ -774,7 +779,7 @@ function SalaryCalculation(props) {
               color="primary"
               onClick={handleShowReport}
             >
-              {IsShowReport ? (
+              {!IsShowReport ? (
                 <FormattedMessage {...messages.NotShow} />
               ) : (
                 <FormattedMessage {...messages.Show} />
