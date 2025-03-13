@@ -42,7 +42,7 @@ function AssessmentReport(props) {
   const [MonthList, setMonthList] = useState([]);
   const [YearList, setYearList] = useState([]);
   const [Employee, setEmployee] = useState([]);
-  console.log(Employee);
+
   
   const [Department, setDepartment] = useState("");
   const [Company, setCompany] = useState(branchId);

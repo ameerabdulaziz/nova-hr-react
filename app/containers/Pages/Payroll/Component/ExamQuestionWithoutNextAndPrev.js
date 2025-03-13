@@ -29,7 +29,8 @@ const ExamQuestionWithoutNextAndPrev = ({
   OverallAppraisalVal,
   textareaNoteForEmployeeVal,
   intl,
-  AssessmentReviewLock
+  AssessmentReviewLock,
+  peerAppraisalId,
 }) => {
 
 
@@ -173,25 +174,29 @@ const ExamQuestionWithoutNextAndPrev = ({
 
                                 <div className={style.lineStye}></div>
 
+                                {/* peerAppraisalId => used with PeerAppraisalList Page */}
 
-                           {examData?.competencyList.length ===  index + 1 ? (<>
-                                <h1>
-                                  <FormattedMessage {...messages.EmployeeTrainingRequest} />
-                                </h1>
-                               
+                              {!peerAppraisalId && (
+                                  examData?.competencyList.length ===  index + 1 ? (<>
+                                        <h1>
+                                          <FormattedMessage {...messages.EmployeeTrainingRequest} />
+                                        </h1>
+                                      
 
-                                <TextareaAutosize
-                                    color="neutral"
-                                    minRows={3}
-                                    placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
-                                    size="lg"
-                                    onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
-                                    defaultValue={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
-                                    // onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
-                                    // value={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
-                                />
+                                        <TextareaAutosize
+                                            color="neutral"
+                                            minRows={3}
+                                            placeholder={intl.formatMessage(messages.TypeHereAdditionalInfo)}
+                                            size="lg"
+                                            onBlur={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                            defaultValue={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
+                                            // onChange={(e) => { saveAllQuestions(e, "textareaEmpTraining")}}
+                                            // value={textareaEmpTrainingVal ? textareaEmpTrainingVal : ""} 
+                                        />
 
-                            </>) : null}
+                                    </>) : null
+
+                            )}
 
                             {(examData?.competencyList.length ===  index + 1 ) && AssessmentReviewLock  && (<>
                                     <h1 className={style.textareaTitle}>

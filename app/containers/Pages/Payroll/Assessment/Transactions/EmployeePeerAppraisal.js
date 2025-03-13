@@ -304,7 +304,6 @@ function EmployeePeerAppraisal(props) {
     let data = {
       "assessmentId": examData.assessmentId,
       "templateId":examData.templateId,
-      "staffTrainingReq":  textareaEmpTrainingVal,
       "isClosed": buttonType === "save" ? false :  true ,
       "competencyList": examData.competencyList,
     }
@@ -454,6 +453,7 @@ function EmployeePeerAppraisal(props) {
                         finishExamFun={finishExamFun}
                         textareaEmpTrainingVal={textareaEmpTrainingVal}
                         intl={intl}
+                        peerAppraisalId={peerAppraisalId}
                         />
                     )}
 
@@ -467,6 +467,7 @@ function EmployeePeerAppraisal(props) {
                         finishExamFun={finishExamFun}
                         textareaEmpTrainingVal={textareaEmpTrainingVal}
                         intl={intl}
+                        peerAppraisalId={peerAppraisalId}
                         />
 
                     )}

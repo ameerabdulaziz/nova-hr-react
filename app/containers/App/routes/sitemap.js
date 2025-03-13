@@ -892,6 +892,7 @@ const SITEMAP = {
       route: '/Assessment/AssessmentReviewEdit',
     },
     AssessmentReport: { route: '/Assessment/AssessmentReport' },
+    AveragePeerAppraisalReport: { route: '/Assessment/AveragePeerAppraisalReport' },
     PeerAppraisalSetting: {
       route: '/Assessment/PeerAppraisalSetting',
     },

@@ -33,7 +33,8 @@ const ExamQuestionNextAndPrev =  ({
   OverallAppraisalVal,
   textareaNoteForEmployeeVal,
   intl,
-  AssessmentReviewLock
+  AssessmentReviewLock,
+  peerAppraisalId,
 }) => {
 
     const { classes } = useStyles();
@@ -202,7 +203,12 @@ const ExamQuestionNextAndPrev =  ({
                                     </Button>
                                   </Grid>
 
-                              {examData?.competencyList.length >= questionNum + 1  && (<>
+
+                                   {/* peerAppraisalId => used with PeerAppraisalList Page */}
+
+                                  {(!peerAppraisalId && examData?.competencyList.length >= questionNum + 1 )
+                                  || (peerAppraisalId && examData?.competencyList.length > questionNum + 1 )
+                                  && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
@@ -215,7 +221,9 @@ const ExamQuestionNextAndPrev =  ({
                                   </Grid>
                                   </>)}
 
-                                  {examData?.competencyList.length < questionNum + 1   && (<>
+                                  {(!peerAppraisalId && examData?.competencyList.length < questionNum + 1 )  
+                                  || (peerAppraisalId && examData?.competencyList.length === questionNum + 1 )
+                                  && (<>
                                   <Grid item xs={6} md={3} lg={2}>
                                     <Button
                                       variant="contained"
