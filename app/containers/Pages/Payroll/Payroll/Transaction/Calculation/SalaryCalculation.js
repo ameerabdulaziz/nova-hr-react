@@ -325,13 +325,18 @@ function SalaryCalculation(props) {
 
       setIsShowReport(result.data);
     } catch (err) {
+      console.log("error")
     } finally {
       setIsLoading(false);
     }
   }
 useEffect(()=>{
+  if(OpenMonth.monthId === "" , OpenMonth.yearId ==="" ){
+   return ;
+  }
   FunctionIsShowReport(1)
-},[OpenMonth])
+},[ OpenMonth ])
+
   const columns = [
     {
       name: "id",
