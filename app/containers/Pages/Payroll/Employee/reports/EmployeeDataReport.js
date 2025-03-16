@@ -108,6 +108,10 @@ function EmployeeDataReport({ intl }) {
       label: intl.formatMessage(messages.Gendar),
     },
     {
+      name: 'businessUnitName',
+      label: intl.formatMessage(messages.businessUnit),
+    },
+    {
       name: 'hiringDate',
       label: intl.formatMessage(messages.hiringDate),
       options: getDateColumnOptions(
