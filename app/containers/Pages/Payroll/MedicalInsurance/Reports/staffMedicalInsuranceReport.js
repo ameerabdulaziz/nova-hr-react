@@ -253,9 +253,9 @@ function staffMedicalInsuranceReport(props) {
       },
     {
       name: "trxDate",
-      label: intl.formatMessage(messages.fromDate),
+      label: intl.formatMessage(payrollMessages.date),
       options: getDateColumnOptions(
-        intl.formatMessage(messages.fromDate),
+        intl.formatMessage(payrollMessages.date),
         {
           minDateLabel: intl.formatMessage(payrollMessages.minDate),
           maxDateLabel: intl.formatMessage(payrollMessages.maxDate),

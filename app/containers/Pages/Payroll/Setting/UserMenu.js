@@ -67,9 +67,9 @@ setdataList(
         else if (event.target.name == "AllPrint") {
         x.isPrint = event.target.checked;
         }
-        else if (event.target.name == "AllFav") {
-        x.isFav = event.target.checked;
-        }
+        // else if (event.target.name == "AllFav") {
+        // x.isFav = event.target.checked;
+        // }
       }
 
     return x;
@@ -126,9 +126,9 @@ const handleEnableOne = (event, row) => {
               else if (event.target.name == "isprint") {
                 x.isPrint = event.target.checked;
               }
-              else if (event.target.name == "isfav") {
-                x.isFav = event.target.checked;
-              }
+              // else if (event.target.name == "isfav") {
+              //   x.isFav = event.target.checked;
+              // }
           }
           return x;
         })
@@ -362,7 +362,7 @@ async function on_submit() {
                             onChange={handlepermcheckboxAll}
                         />
                         </TableCell>
-                        <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
+                        {/* <TableCell  sx={{width: '70px', p: '0 10px !important'}}>
                         <FormattedMessage {...messages.favorites}/> <br/>
                         <Checkbox
                             checked={filteredData.length > 0 && filteredData.filter((crow) => crow.isFav==true).length === filteredData.length?true:false}
@@ -371,7 +371,7 @@ async function on_submit() {
                             indeterminate={filteredData.filter((crow) => crow.isFav==true).length > 0 && filteredData.filter((crow) => crow.isFav==true).length < filteredData.length?true:false}
                             onChange={handlepermcheckboxAll}
                         />
-                        </TableCell>
+                        </TableCell> */}
                     </TableRow>
                     </TableHead>
                     <TableBody>
@@ -432,7 +432,7 @@ async function on_submit() {
                                 value={row.isPrint}
                                 />
                             </TableCell>
-                                <TableCell sx={{p: '0 10px'}} >
+                                {/* <TableCell sx={{p: '0 10px'}} >
                                 <Checkbox
                                 checked={row.isFav}
                                 color="primary"
@@ -440,7 +440,7 @@ async function on_submit() {
                                 onChange={(event) => handleEnableOne(event, row)}
                                 value={row.isFav}
                                 />
-                            </TableCell>
+                            </TableCell> */}
 
                             </TableRow>
                         );
