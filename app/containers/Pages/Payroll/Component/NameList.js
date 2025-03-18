@@ -151,7 +151,7 @@ function NameList(props) {
                       <FormattedMessage {...Payrollmessages.id} />
                     </TableCell> */}
                       <TableCell style={{ width: "50%", padding: "0px" }}>
-                        <FormattedMessage {...Payrollmessages.employeeCode} />
+                        <FormattedMessage {...Payrollmessages.id} />
                       </TableCell>
                       <TableCell style={{ width: "50%", padding: "0px" }}>
                         <FormattedMessage {...Payrollmessages.name} />
