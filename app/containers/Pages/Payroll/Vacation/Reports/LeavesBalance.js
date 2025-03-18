@@ -61,17 +61,7 @@ function LeavesBalance(props) {
         }
       ),
     },
-    {
-      name: 'insuranceDate',
-      label: intl.formatMessage(messages.insuranceDate),
-      options: getDateColumnOptions(
-        intl.formatMessage(messages.insuranceDate),
-        {
-          minDateLabel: intl.formatMessage(payrollMessages.minDate),
-          maxDateLabel: intl.formatMessage(payrollMessages.maxDate),
-        }
-      ),
-    },
+
     // {
     //   name: 'annOpen',
     //   label: intl.formatMessage(messages.annualBalance),

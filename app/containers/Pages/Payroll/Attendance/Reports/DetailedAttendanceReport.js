@@ -56,11 +56,16 @@ function DetailedAttendanceReport(props) {
     printPicture: false,
   });
 
+  const [printFilterData, setPrintFilterData] = useState({
+    FromDate: null,
+    ToDate: null,
+    Employee: '',
+    EmpStatus: "",
+    Organization: '',
+    Branch: "",
+  });
+
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
 
   const [DateError, setDateError] = useState({});
 
@@ -70,53 +75,45 @@ function DetailedAttendanceReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
-
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(Payrollmessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(Payrollmessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(Payrollmessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
-    if (searchData.FromDate) {
+    if (printFilterData.FromDate) {
       highlights.push({
         label: intl.formatMessage(Payrollmessages.fromdate),
-        value: formateDate(searchData.FromDate),
+        value: formateDate(printFilterData.FromDate),
       });
     }
 
-    if (searchData.ToDate) {
+    if (printFilterData.ToDate) {
       highlights.push({
         label: intl.formatMessage(Payrollmessages.todate),
-        value: formateDate(searchData.ToDate),
+        value: formateDate(printFilterData.ToDate),
       });
     }
 
@@ -124,6 +121,51 @@ function DetailedAttendanceReport(props) {
       highlights.push({
         label: intl.formatMessage(messages.shift),
         value: Shift.map((item) => item.name).join(' , '),
+      });
+    }
+
+    if (searchData.withoutEmployeesWithoutAttendanceRules) {
+         highlights.push({
+           label: intl.formatMessage(messages.WithoutEmployeesWhoDoNotMeetTheAttendanceRules),
+           value: searchData.withoutEmployeesWithoutAttendanceRules
+             ? intl.formatMessage(Payrollmessages.yes)
+             : intl.formatMessage(Payrollmessages.no),
+         });
+       }
+
+     if (searchData.insuredEmployeesOnly) {
+      highlights.push({
+        label: intl.formatMessage(messages.insuredEmployeesOnly),
+        value: searchData.insuredEmployeesOnly
+          ? intl.formatMessage(Payrollmessages.yes)
+          : intl.formatMessage(Payrollmessages.no),
+      });
+    }
+
+    if (searchData.showPresentEmployeeOnly) {
+      highlights.push({
+        label: intl.formatMessage(messages.showPresentEmployeeOnly),
+        value: searchData.showPresentEmployeeOnly
+          ? intl.formatMessage(Payrollmessages.yes)
+          : intl.formatMessage(Payrollmessages.no),
+      });
+    }
+
+    if (searchData.ShowViolationsOnly) {
+      highlights.push({
+        label: intl.formatMessage(messages.ShowViolationsOnly),
+        value: searchData.ShowViolationsOnly
+          ? intl.formatMessage(Payrollmessages.yes)
+          : intl.formatMessage(Payrollmessages.no),
+      });
+    }
+
+    if (searchData.showFingerprintDevice) {
+      highlights.push({
+        label: intl.formatMessage(messages.showFingerprintDevice),
+        value: searchData.showFingerprintDevice
+          ? intl.formatMessage(Payrollmessages.yes)
+          : intl.formatMessage(Payrollmessages.no),
       });
     }
 
@@ -228,17 +270,6 @@ function DetailedAttendanceReport(props) {
 
       setShiftList(Shift)
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -511,6 +542,13 @@ function DetailedAttendanceReport(props) {
         FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
         ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: OpenMonthData ? OpenMonthData.fromDateAtt : null,
+        ToDate: OpenMonthData ? OpenMonthData.todateAtt : null,
+      }))
+
     }
     catch(err)
     {}
@@ -536,13 +574,16 @@ function DetailedAttendanceReport(props) {
         FromDate: null,
         ToDate: null,
       }))
+
+      setPrintFilterData((prev)=>({
+        ...prev,
+        FromDate: null,
+        ToDate: null,
+      }))
+
     }
 
   },[searchData.BranchId, searchData.EmployeeId])
-
-
-
-
 
 
   return (
@@ -557,6 +598,7 @@ function DetailedAttendanceReport(props) {
                DateError={DateError}
                setDateError={setDateError}
                company={searchData.BranchId}
+               setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 

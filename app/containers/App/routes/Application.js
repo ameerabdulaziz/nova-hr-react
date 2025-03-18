@@ -2416,7 +2416,17 @@ function Application(props) {
         {/* Assessment */}
         <Route
           path={SITEMAP.assessment.AsCategory.route}
-          component={GeneralCodePages.AsCategory}
+          component={PAGES.assessment.AsCategory}
+        />
+
+        <Route
+          path={SITEMAP.assessment.AsCategoryCreate.route}
+          component={PAGES.assessment.AsCategoryCreate}
+        />
+
+        <Route
+          path={SITEMAP.assessment.AsCategoryEdit.route}
+          component={PAGES.assessment.AsCategoryCreate}
         />
 
         <Route
@@ -2532,6 +2542,11 @@ function Application(props) {
         <Route
           path={SITEMAP.assessment.AssessmentReport.route}
           component={PAGES.assessment.AssessmentReport}
+        />
+
+        <Route
+          path={SITEMAP.assessment.AveragePeerAppraisalReport.route}
+          component={PAGES.assessment.AveragePeerAppraisalReport}
         />
 
         <Route

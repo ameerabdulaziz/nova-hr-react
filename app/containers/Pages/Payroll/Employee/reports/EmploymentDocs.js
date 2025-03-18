@@ -9,7 +9,6 @@ import {
 import messages from "../messages";
 import payrollMessages from "../../messages";
 import useStyles from "../../Style";
-import { format } from "date-fns";
 import GeneralListApis from "../../api/GeneralListApis";
 import { injectIntl, FormattedMessage } from "react-intl";
 import { PapperBlock } from "enl-components";
@@ -22,12 +21,9 @@ import style from '../../../../../styles/styles.scss'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ApiData from "../api/EmployeeReportsApiData";
-import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
-import { formateDate, getAutoCompleteValue, getCheckboxIcon } from "../../helpers";
-import { toast } from "react-hot-toast";
+import { getCheckboxIcon } from "../../helpers";
 import { getDateColumnOptions } from "../../Component/PayrollTable/utils.payroll-table";
 
 
@@ -51,51 +47,49 @@ function EmploymentDocs(props) {
     EmpStatusId: 1,
     BranchId: branchId,
   });
+
+ const [printFilterData, setPrintFilterData] = useState({
+        FromDate: null,
+        ToDate: null,
+        Employee: '',
+        EmpStatus: "",
+        Organization: '',
+        Branch: "",
+      });
+
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
 
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-    const status = getAutoCompleteValue(statusList, searchData.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
-
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -104,6 +98,42 @@ function EmploymentDocs(props) {
         label: intl.formatMessage(messages.documentType),
         value: DocumentType.map((item) => item.name).join(' , '),
       });
+
+      if (Bank) {
+              highlights.push({
+                label: intl.formatMessage(messages.Bank),
+                 value: Bank
+                          ? intl.formatMessage(payrollMessages.yes)
+                          : intl.formatMessage(payrollMessages.no),
+              });
+            }
+      
+      if (Cash) {
+          highlights.push({
+            label: intl.formatMessage(messages.Cash),
+             value: Cash
+                      ? intl.formatMessage(payrollMessages.yes)
+                      : intl.formatMessage(payrollMessages.no),
+          });
+        }
+      
+      if (SoftCopy) {
+          highlights.push({
+            label: intl.formatMessage(messages.SoftCopy),
+             value: SoftCopy
+                      ? intl.formatMessage(payrollMessages.yes)
+                      : intl.formatMessage(payrollMessages.no),
+          });
+        }
+      
+      if (HardCopy) {
+          highlights.push({
+            label: intl.formatMessage(messages.HardCopy),
+             value: HardCopy
+                      ? intl.formatMessage(payrollMessages.yes)
+                      : intl.formatMessage(payrollMessages.no),
+          });
+        }
     }
     setFilterHighlights(highlights);
   };
@@ -173,17 +203,6 @@ function EmploymentDocs(props) {
 
       setDocumentTypesList(Documents)
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
     } catch (err) {
     } finally {
       setIsLoading(false);
@@ -291,6 +310,7 @@ if(data.length !== 0)
               notShowDate={true}
               setIsLoading={setIsLoading}
               company={searchData.BranchId}
+              setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 

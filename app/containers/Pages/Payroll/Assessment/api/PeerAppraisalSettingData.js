@@ -31,8 +31,8 @@ const PeerAppraisalSettingData = (locale) => {
     return data.data;
   };
 
-  Apis.SaveAssessmentPeerAppraisalData = async (data) => {
-    const result = await axiosInstance.post(`PeerAppraisal/Save`, data);
+  Apis.SaveAssessmentPeerAppraisalData = async (data,paramsData) => {
+    const result = await axiosInstance.post(`PeerAppraisal/Save`, data,  { params: paramsData });
     return result;
   };
 

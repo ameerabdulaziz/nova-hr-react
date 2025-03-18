@@ -24,56 +24,48 @@ function NameList(props) {
     IsInsured,
     Key,
     withoutSalaryStructure,
+    removeEmpCode,
   } = props;
   const { classes, cx } = useStyles();
   const [OpenPopup, setOpenPopup] = useState(false);
-
-
 
   const handleClose = useCallback(
     (data) => {
       data.map((row) => {
         if (dataList.filter((x) => x.id == row.id).length == 0) {
-          setdataList((prev) => [...prev, row])
+          setdataList((prev) => [...prev, row]);
         }
-      })
+      });
       setOpenPopup(false);
-    }, [dataList])
-
+    },
+    [dataList]
+  );
 
   const savePopup = (data) => {
-
-    let array = []
+    let array = [];
 
     data.map((row) => {
-
-      array.push(row)
-
+      array.push(row);
     });
 
     setdataList(array);
     setOpenPopup(false);
-  }
-
-
+  };
 
   const handleClickOpen = () => {
     setOpenPopup(true);
   };
 
   const handlepermcheckboxAll = (event) => {
-
-    setdataList([])
+    setdataList([]);
   };
 
   const handleEnableOne = (event, row) => {
-
     // used to delete unselected rows from table
     if (event.target.checked === false) {
-      let selectedData = dataList.filter((item) => item.id !== row.id)
+      let selectedData = dataList.filter((item) => item.id !== row.id);
 
-      setdataList(selectedData)
-
+      setdataList(selectedData);
     }
   };
 
@@ -106,7 +98,7 @@ function NameList(props) {
       />
       <div>
         <Grid container spacing={3}>
-          <Grid item >
+          <Grid item>
             <Button
               variant="contained"
               size="medium"
@@ -129,8 +121,8 @@ function NameList(props) {
                         <Checkbox
                           checked={
                             dataList.length > 0 &&
-                              dataList.filter((crow) => crow.isSelected == true)
-                                .length === dataList.length
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length === dataList.length
                               ? true
                               : false
                           }
@@ -139,8 +131,8 @@ function NameList(props) {
                           indeterminate={
                             dataList.filter((crow) => crow.isSelected == true)
                               .length > 0 &&
-                              dataList.filter((crow) => crow.isSelected == true)
-                                .length < dataList.length
+                            dataList.filter((crow) => crow.isSelected == true)
+                              .length < dataList.length
                               ? true
                               : false
                           }
@@ -150,13 +142,17 @@ function NameList(props) {
                       {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                       <FormattedMessage {...Payrollmessages.id} />
                     </TableCell> */}
-                      <TableCell style={{ width: "50%", padding: "0px" }}>
-                        <FormattedMessage {...Payrollmessages.id} />
-                      </TableCell>
+                      {removeEmpCode === "hidden" ? (
+                        ""
+                      ) : (
+                        <TableCell style={{ width: "50%", padding: "0px" }}>
+                          <FormattedMessage {...Payrollmessages.id} />
+                        </TableCell>
+                      )}
+
                       <TableCell style={{ width: "50%", padding: "0px" }}>
                         <FormattedMessage {...Payrollmessages.name} />
                       </TableCell>
-
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -183,9 +179,18 @@ function NameList(props) {
                             {/* <TableCell style={{ width: "25%", padding: "0px" }}>
                             {row.id}
                           </TableCell> */}
-                            <TableCell style={{ width: "50%", padding: "0px" }}>
+                            {removeEmpCode === "hidden" ? (
+                              ""
+                            ) : (
+                              <TableCell
+                                style={{ width: "50%", padding: "0px" }}
+                              >
+                                {row.employeeCode}
+                              </TableCell>
+                            )}
+                            {/* <TableCell style={{ width: "50%", padding: "0px" }}>
                               {row.employeeCode}
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell style={{ width: "50%", padding: "0px" }}>
                               {row.name}
                             </TableCell>

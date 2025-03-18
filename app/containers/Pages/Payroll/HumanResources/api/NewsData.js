@@ -32,6 +32,7 @@ const NewsData = (locale) => {
   Apis.Save = async (data,EmployeeList) => {
     
     var Emp = EmployeeList.filter((row) => row.isSelected==true).map((obj) => obj.id);
+        // test=`,${Emp.join(",")},` ;
     data.emp=Emp;
     data.employees=[];
     const result = await axiosInstance.post("HrNews/Save",getFormData(data));

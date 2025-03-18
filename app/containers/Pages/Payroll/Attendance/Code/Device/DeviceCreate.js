@@ -34,6 +34,7 @@ function DeviceCreate(props) {
     transportaion: "",
     shiftId: "",
     deviceType: "",
+    areaCode:"",
   });
   const [ShiftList, setShiftList] = useState([]);
   const TypeList = useMemo(() => {
@@ -88,6 +89,13 @@ function DeviceCreate(props) {
       setdata((prevFilters) => ({
         ...prevFilters,
         transportaion: event.target.value,
+      }));
+    }
+
+    if (event.target.name == "AreaCode") {
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        areaCode: event.target.value,
       }));
     }
   };
@@ -218,13 +226,14 @@ function DeviceCreate(props) {
               <TextField
                 id="devicePass"
                 name="devicePass"
+                type="password"
                 value={data.devicePass}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.devicePass)}
                 className={classes.field}
                 variant="outlined"
-                // autoComplete="new-password"
-                autoComplete='off'
+                autoComplete="new-password"
+                // autoComplete='off'
               />
             </Grid>
             <Grid item xs={6} md={4} lg={2} xl={1.5}>
@@ -311,7 +320,7 @@ function DeviceCreate(props) {
                 id="AreaCode"
                 name="AreaCode"
                 type="number"
-                value={data.devicePass}
+                value={data.areaCode}
                 onChange={(e) => handleChange(e)}
                 label={intl.formatMessage(messages.AreaCode)}
                 className={classes.field}

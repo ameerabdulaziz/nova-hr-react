@@ -35,11 +35,6 @@ function SocialInsuranceReport(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [hrNotesRowId, setHrNotesRowId] = useState('');
   const [isHRNotesPopupOpen, setIsHRNotesPopupOpen] = useState(false);
-
-  const [organizationList, setOrganizationList] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
-  const [statusList, setStatusList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
   const [officeList, setOfficeList] = useState([]);
   const [yearList, setYearList] = useState([]);
   const [monthsList, setMonthsList] = useState([]);
@@ -77,16 +72,16 @@ function SocialInsuranceReport(props) {
     IsInsured: false,
   });
 
+   const [printFilterData, setPrintFilterData] = useState({
+        Employee: '',
+        EmpStatus: "",
+        Organization: '',
+        Branch: "",
+      });
+
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      formInfo.OrganizationId
-    );
-    const employee = getAutoCompleteValue(employeeList, formInfo.EmployeeId);
-    const status = getAutoCompleteValue(statusList, formInfo.EmpStatusId);
-    const company = getAutoCompleteValue(companyList, formInfo.BranchId);
     const office = getAutoCompleteValue(officeList, formInfo.InsOffice);
     const age = getAutoCompleteValue(ageList, formInfo.age);
     const year = getAutoCompleteValue(yearList, formInfo.YearId);
@@ -113,10 +108,10 @@ function SocialInsuranceReport(props) {
       });
     }
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
@@ -127,24 +122,24 @@ function SocialInsuranceReport(props) {
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        value: printFilterData.Employee.name,
       });
     }
 
-    if (status) {
+    if (printFilterData.EmpStatus && printFilterData.EmpStatus.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.status),
-        value: status.name,
+        value: printFilterData.EmpStatus.name,
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(messages.Company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -317,18 +312,6 @@ function SocialInsuranceReport(props) {
       const office = await api(locale).GetSInsuranceOffices();
       setOfficeList(office);
 
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-
-      const status = await GeneralListApis(locale).GetEmpStatusList();
-      setStatusList(status);
-
-      const company = await GeneralListApis(locale).GetBranchList();
-      setCompanyList(company);
-
-      const organizations = await GeneralListApis(locale).GetDepartmentList();
-      setOrganizationList(organizations);
-
       if (branchId) {
         const response = await GeneralListApis(locale).getOpenMonth(
           branchId,
@@ -482,6 +465,7 @@ function SocialInsuranceReport(props) {
                 notShowDate={true}
                 setIsLoading={setIsLoading}
                 company={formInfo.BranchId}
+                setPrintFilterData={setPrintFilterData}
               />
             </Grid>
 

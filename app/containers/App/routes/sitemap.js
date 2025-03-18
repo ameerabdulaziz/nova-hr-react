@@ -845,6 +845,8 @@ const SITEMAP = {
   },
   assessment: {
     AsCategory: { route: '/Assessment/AsCategory' },
+    AsCategoryCreate: { route: '/Assessment/AsCategoryCreate' },
+    AsCategoryEdit: { route: '/Assessment/AsCategoryEdit' },
     AsChoice: { route: '/Assessment/AsChoice' },
     AsTemplate: { route: '/Assessment/AsTemplate' },
     AsTemplateCreate: { route: '/Assessment/AsTemplateCreate' },
@@ -890,6 +892,7 @@ const SITEMAP = {
       route: '/Assessment/AssessmentReviewEdit',
     },
     AssessmentReport: { route: '/Assessment/AssessmentReport' },
+    AveragePeerAppraisalReport: { route: '/Assessment/AveragePeerAppraisalReport' },
     PeerAppraisalSetting: {
       route: '/Assessment/PeerAppraisalSetting',
     },

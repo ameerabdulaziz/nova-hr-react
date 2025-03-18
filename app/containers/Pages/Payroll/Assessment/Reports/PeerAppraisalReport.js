@@ -19,7 +19,7 @@ import style from "../../../../../styles/styles.scss";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
 import { getAutoCompleteValue } from "../../helpers";
 
-function AssessmentReport(props) {
+function PeerAppraisalReport(props) {
   const { intl } = props;
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
@@ -342,6 +342,6 @@ function AssessmentReport(props) {
   );
 }
 
-AssessmentReport.propTypes = { intl: PropTypes.object.isRequired };
+PeerAppraisalReport.propTypes = { intl: PropTypes.object.isRequired };
 
-export default injectIntl(AssessmentReport);
+export default injectIntl(PeerAppraisalReport);

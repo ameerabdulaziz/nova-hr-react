@@ -41,6 +41,7 @@ function EmployeeDataReport({ intl }) {
         filter: false,
         display: false,
         print: false,
+        download: false,
       },
     },
     {
@@ -106,6 +107,10 @@ function EmployeeDataReport({ intl }) {
     {
       name: 'gender',
       label: intl.formatMessage(messages.Gendar),
+    },
+    {
+      name: 'businessUnitName',
+      label: intl.formatMessage(messages.businessUnit),
     },
     {
       name: 'hiringDate',
@@ -211,6 +216,44 @@ function EmployeeDataReport({ intl }) {
     },
   ];
 
+  const exportExcelAPI = async () => {
+    try {
+      setIsLoading(true);
+
+      const payload = {
+        lang: locale,
+        headers: columns
+          .filter((item) => item?.options?.download !== false)
+          .map((column) => ({
+            key: column.name,
+            value: column.label,
+          })),
+      };
+
+      const exportedFile = await EmployeeDataReportData(
+        locale
+      ).exportEmployeeList(payload);
+
+      const url = window.URL.createObjectURL(new Blob([exportedFile]));
+      const link = document.createElement('a');
+
+      link.href = url;
+
+      link.setAttribute(
+        'download',
+        `${title}-${formateDate(new Date(), 'yyyy-MM-dd-HH-mm-SS')}.xlsx`
+      );
+      document.body.appendChild(link);
+
+      link.click();
+      link?.parentNode?.removeChild(link);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <SimplifiedPayrollTable
       title={title}
@@ -218,6 +261,7 @@ function EmployeeDataReport({ intl }) {
       showLoader
       data={dataTable}
       columns={columns}
+      exportExcelAPI={exportExcelAPI}
     />
   );
 }

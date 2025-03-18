@@ -19,16 +19,12 @@ const useStyles = makeStyles()(() => ({
 
 function JobDescriptions(props) {
   const { intl } = props;
-
   const { classes } = useStyles();
   const locale = useSelector((state) => state.language.locale);
-
   const title = localStorage.getItem('MenuName');
-
   const [isLoading, setIsLoading] = useState(true);
   const [job, setJob] = useState(null);
   const [jobList, setJobList] = useState([]);
-
   const fetchNeededData = async () => {
     setIsLoading(true);
 

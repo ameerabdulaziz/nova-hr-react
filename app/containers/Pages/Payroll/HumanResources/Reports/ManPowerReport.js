@@ -34,8 +34,11 @@ function ManPowerReport(props) {
     jobId: ""
   });
 
-  const [organizationList, setOrganizationList] = useState([]);
-  const [companyList, setCompanyList] = useState([]);
+  const [printFilterData, setPrintFilterData] = useState({
+     Organization: '',
+     Branch: "",
+   });
+
   const [filterHighlights, setFilterHighlights] = useState([]);
 
   const [JobsData, setJobsData] = useState([]);
@@ -46,17 +49,12 @@ function ManPowerReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const organization = getAutoCompleteValue(
-      organizationList,
-      searchData.OrganizationId
-    );
-    const company = getAutoCompleteValue(companyList, searchData.BranchId);
     const job = getAutoCompleteValue(JobsData, searchData.jobId);
 
-    if (organization) {
+    if (printFilterData.Organization && printFilterData.Organization.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.organizationName),
-        value: organization.name,
+        value: printFilterData.Organization.name,
       });
     }
 
@@ -67,10 +65,10 @@ function ManPowerReport(props) {
       });
     }
 
-    if (company) {
+    if (printFilterData.Branch && printFilterData.Branch.length !== 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.company),
-        value: company.name,
+        value: printFilterData.Branch.name,
       });
     }
 
@@ -109,12 +107,6 @@ function ManPowerReport(props) {
     const Jobs = await GeneralListApis(locale).GetJobsList();
 
     setJobsData(Jobs)
-
-    const company = await GeneralListApis(locale).GetBranchList();
-    setCompanyList(company);
-
-    const organizations = await GeneralListApis(locale).GetDepartmentList();
-    setOrganizationList(organizations);
   }
 
   useEffect(()=>{
@@ -323,6 +315,7 @@ const columns = [
               notShowEmployeeName={true}
               BranchIdRequired={true}
               company={searchData.BranchId}
+              setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
           <Grid item xs={12} md={6} lg={4} xl={3}>

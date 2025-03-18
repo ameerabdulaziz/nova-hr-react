@@ -10,6 +10,7 @@ import useStyles from '../../Style';
 
 function General(props1) {
   const title = localStorage.getItem('MenuName');
+  console.log(props1.table)
 
   const { classes } = useStyles();
   

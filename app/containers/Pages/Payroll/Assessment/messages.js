@@ -625,4 +625,29 @@ export default defineMessages({
     id: `${scope}.notDone`,
     defaultMessage: 'Not Done',
   },
+   // AveragePeerAppraisalReport
+   evaluators: {
+    id: `${scope}.evaluators`,
+    defaultMessage: 'Evaluators',
+  },
+  evaluatorsDone: {
+    id: `${scope}.evaluatorsDone`,
+    defaultMessage: 'Evaluators Done',
+  },
+  totalEvaluation: {
+    id: `${scope}.totalEvaluation`,
+    defaultMessage: 'Total Evaluation',
+  },
+  averagePeerAppraisalReport: {
+    id: `${scope}.averagePeerAppraisalReport`,
+    defaultMessage: 'Average Peer Appraisal Report',
+  },
+  evaluatedEmployeeData: {
+    id: `${scope}.evaluatedEmployeeData`,
+    defaultMessage: 'Evaluated Employee Data',
+  },
+  evaluatorEmployeeData: {
+    id: `${scope}.evaluatorEmployeeData`,
+    defaultMessage: 'Evaluator Employee Data',
+  },
 });

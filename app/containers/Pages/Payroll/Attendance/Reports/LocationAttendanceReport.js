@@ -13,7 +13,7 @@ import Search from "../../Component/Search";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import GeneralListApis from "../../api/GeneralListApis";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
-import { formateDate, getAutoCompleteValue } from "../../helpers";
+import { formateDate } from "../../helpers";
 import style from "../../../../../styles/styles.scss";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
@@ -35,11 +35,16 @@ function LocationAttendanceReport(props) {
     ToDate: null,
   });
 
+  const [printFilterData, setPrintFilterData] = useState({
+    FromDate: null,
+    ToDate: null,
+    Employee: '',
+  });
+
   const [DateError, setDateError] = useState({});
   const [filterHighlights, setFilterHighlights] = useState([]);
-  const [employeeList, setEmployeeList] = useState([]);
   const [governmentList, setGovernmentList] = useState([]);
-  const [government, setGovernment] = useState("");
+  const [government, setGovernment] = useState(null);
 
   const GetGovernmentList = async () => {
     const data = await GeneralListApis(locale).GetGovernmentList();
@@ -54,8 +59,6 @@ function LocationAttendanceReport(props) {
   const getFilterHighlights = () => {
     const highlights = [];
 
-    const employee = getAutoCompleteValue(employeeList, searchData.EmployeeId);
-
     if (location && location.length > 0) {
       highlights.push({
         label: intl.formatMessage(payrollMessages.location),
@@ -63,10 +66,17 @@ function LocationAttendanceReport(props) {
       });
     }
 
-    if (employee) {
+    if (printFilterData.Employee && printFilterData.Employee.length !== 0) {
+        highlights.push({
+          label: intl.formatMessage(messages.employeeName),
+          value: printFilterData.Employee.name,
+        });
+      }
+
+    if (government) {
       highlights.push({
-        label: intl.formatMessage(messages.employeeName),
-        value: employee.name,
+        label: intl.formatMessage(payrollMessages.governorate),
+        value: government.name,
       });
     }
 
@@ -128,26 +138,12 @@ function LocationAttendanceReport(props) {
     }
   };
 
-  async function fetchData() {
-    try {
-      const locations = await GeneralListApis(locale).GetLocationList();
-
-      setLocationList(locations);
-
-      const employees = await GeneralListApis(locale).GetEmployeeList();
-      setEmployeeList(employees);
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
-  }
   useEffect(() => {
-    fetchData();
     GetGovernmentList();
   }, []);
 
   useEffect(() => {
-    GetLocationList(government.id);
+    GetLocationList(government ? government.id : "");
   }, [government]);
 
   const columns = [
@@ -218,6 +214,7 @@ function LocationAttendanceReport(props) {
               notShowCompany={true}
               notShowOrganization={true}
               notShowStatus={true}
+              setPrintFilterData={setPrintFilterData}
             ></Search>
           </Grid>
 
@@ -231,7 +228,7 @@ function LocationAttendanceReport(props) {
               }
               getOptionLabel={(option) => (option.name ? option.name : "")}
               onChange={(event, value) => {
-                setGovernment(value == null ? "" : value);
+                setGovernment(value == null ? null : value);
               }}
               renderInput={(params) => (
                 <TextField
