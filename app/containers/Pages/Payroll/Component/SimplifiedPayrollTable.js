@@ -38,6 +38,7 @@ function SimplifiedPayrollTable(props) {
     actions,
     filterHighlights,
     filterHighlightsColumn,
+    exportExcelAPI,
   } = props;
   const { classes } = useStyles();
 
@@ -153,6 +154,11 @@ function SimplifiedPayrollTable(props) {
   };
 
   const onExcelExportClick = useCallback(() => {
+    if (exportExcelAPI && typeof exportExcelAPI === 'function') {
+      exportExcelAPI();
+      return;
+    }
+
     // Visible columns
     const cols = filterColumns.filter(
       (_, index) => columnsVisibility[index]?.isColumnVisible
