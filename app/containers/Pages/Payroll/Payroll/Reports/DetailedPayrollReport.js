@@ -463,7 +463,9 @@ function DetailedPayrollReport(props) {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={5} xl={5}  >
+              <Grid item xs={12} md={6} lg={8} xl={9} ></Grid>
+
+              <Grid item xs={12} lg={7} xl={5}  >
                 <Autocomplete
                   options={payTemplateList}
                   multiple
@@ -500,7 +502,7 @@ function DetailedPayrollReport(props) {
                 />
               </Grid> 
 
-              <Grid item xs={12}  lg={3} xl={4}></Grid>
+              <Grid item xs={12}  lg={5} xl={7}></Grid>
 
               <Grid item xs={6} lg={3} xl={1.5}>
                 <Autocomplete
