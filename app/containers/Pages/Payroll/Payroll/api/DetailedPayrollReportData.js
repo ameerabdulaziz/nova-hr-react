@@ -14,6 +14,18 @@ const DetailedPayrollReportData = (locale) => {
     return data.data;
   };
 
+  api.exportList = async (payload, params = {}) => {
+    const data = await axiosInstance.post(
+      `PayrollReport/GetDetailedPayrollReport/Export-Excel?EmployeeId=${params.EmployeeId}&BranchId=${params.BranchId}&YearId=${params.YearId}&MonthId=${params.MonthId}&isBankTransfere=${params.isBankTransfere}&isInsured=${params.isInsured}&CurrencyId=${params.CurrencyId}&JobLevelId=${params.JobLevelId}`,
+      payload,
+      {
+        responseType: 'blob',
+      }
+    );
+
+    return data.data;
+  };
+
   return api;
 };
 

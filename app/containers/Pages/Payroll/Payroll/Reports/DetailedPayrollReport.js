@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { PapperBlock } from "enl-components";
-import PropTypes from "prop-types";
+import PropTypes, { number, object } from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 import { injectIntl } from "react-intl";
 import { useSelector } from "react-redux";
@@ -302,6 +302,24 @@ function DetailedPayrollReport(props) {
 
   const [columns, setColumns] = useState(staticColumns);
 
+  const getFilterParams = () => {
+    const params = {
+      EmployeeId: formInfo.EmployeeId,
+      BranchId: formInfo.BranchId,
+      TemplateId: formInfo.TemplateId.map((item) => item.id),
+      YearId: formInfo.YearId,
+      MonthId: formInfo.MonthId,
+      isInsured:
+        formInfo.isInsured === null ? "" : Boolean(formInfo.isInsured),
+      isBankTransfere: formInfo.isBankTransfere === null ? "" : Boolean(formInfo.isBankTransfere),
+      //isVal: formInfo.isVal,
+      CurrencyId: formInfo.CurrencyId === null ? "" : formInfo.CurrencyId,
+      JobLevelId: formInfo.JobLevelId === null ? "" : formInfo.JobLevelId,
+    };
+
+    return params;
+  };
+
   const fetchTableData = async () => {
     setIsLoading(true);
     const isBankTransfere =
@@ -310,23 +328,7 @@ function DetailedPayrollReport(props) {
         : Boolean(formInfo.isBankTransfere);
 
     try {
-
-      const params = {
-        EmployeeId: formInfo.EmployeeId,
-        BranchId: formInfo.BranchId,
-        TemplateId: formInfo.TemplateId.map((item) => item.id),
-        YearId: formInfo.YearId,
-        MonthId: formInfo.MonthId,
-        isInsured:
-          formInfo.isInsured === null ? "" : Boolean(formInfo.isInsured),
-        isBankTransfere: formInfo.isBankTransfere === null ? "" : Boolean(formInfo.isBankTransfere),
-        //isVal: formInfo.isVal,
-        CurrencyId: formInfo.CurrencyId === null ? "" : formInfo.CurrencyId,
-        JobLevelId: formInfo.JobLevelId === null ? "" : formInfo.JobLevelId,
-      };
-
-
-      const response = await api(locale).GetList(params);
+      const response = await api(locale).GetList(getFilterParams());
       setTableData(response);
 
       const excludedProperties = [
@@ -432,6 +434,48 @@ function DetailedPayrollReport(props) {
       setIsLoading(false);
     }
   }
+
+  const exportExcelAPI = async () => {
+    try {
+      setIsLoading(true);
+
+      const payload = {
+        templateId: formInfo.TemplateId.map((item) => item.id),
+        request: {
+          lang: locale,
+          headers: columns
+            .filter((item) => item?.options?.download !== false)
+            .map((column) => ({
+              key: column.name,
+              value: column.label,
+            })),
+        },
+      };
+
+      const exportedFile = await api(locale).exportList(
+        payload,
+        getFilterParams()
+      );
+
+      const url = window.URL.createObjectURL(new Blob([exportedFile]));
+      const link = document.createElement('a');
+
+      link.href = url;
+
+      link.setAttribute(
+        'download',
+        `${pageTitle}-${formateDate(new Date(), 'yyyy-MM-dd-HH-mm-SS')}.xlsx`
+      );
+      document.body.appendChild(link);
+
+      link.click();
+      link?.parentNode?.removeChild(link);
+    } catch (err) {
+      //
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
@@ -680,6 +724,7 @@ function DetailedPayrollReport(props) {
         title=""
         data={tableData}
         columns={columns}
+        exportExcelAPI={exportExcelAPI}
         filterHighlights={filterHighlights}
       />
     </PayRollLoaderInForms>
