@@ -71,7 +71,11 @@ function PenaltyTransCreate(props) {
     lastDate: "",
     uploadedFile: null,
     docName: "",
+    reqSer : "",
   });
+
+  console.log(data);
+  
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
   const [PenaltyList, setPenaltyList] = useState([]);
@@ -112,6 +116,7 @@ function PenaltyTransCreate(props) {
         value: event.target.value,
       }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -125,6 +130,7 @@ function PenaltyTransCreate(props) {
       setIsLoading(true);
 
       data.date = dateFormatFun(data.date);
+      data.reqSer = ""
 
       let response = await ApiData(locale).Save(data);
 
@@ -139,9 +145,11 @@ function PenaltyTransCreate(props) {
       setIsLoading(false);
     }
   };
+
   async function oncancel() {
     history.push(SITEMAP.humanResources.PenaltyTrans.route);
   }
+
   async function fetchData() {
     try {
       const years = await GeneralListApis(locale).GetYears();
@@ -167,6 +175,7 @@ function PenaltyTransCreate(props) {
           yearName: year?.name,
           monthId: month?.id,
           monthName: month?.name,
+          
         }));
       }
     } catch (err) {
@@ -189,6 +198,7 @@ function PenaltyTransCreate(props) {
         penaltyTypeId: 0,
         penaltyTypeName: "",
         value: "",
+        reqSer : "",
       }));
       setPenaltyTypeList([]);
       return;
@@ -207,6 +217,7 @@ function PenaltyTransCreate(props) {
         penaltyTypeId: result.selected.id,
         penaltyTypeName: result.selected.name,
         value: result.selected.value,
+        reqSer : 0 ,
       }));
       setPenaltyTypeList(result.penaltyTypeList);
     } catch (err) {

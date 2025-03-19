@@ -61,6 +61,7 @@ function RewardTransCreate(props) {
     yearId: "",
     yearName: "",
     superEmployeeId: "",
+    reqSer : "",
   });
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
@@ -116,6 +117,7 @@ function RewardTransCreate(props) {
       setIsLoading(true);
 
       data.date = dateFormatFun(data.date)
+      data.reqSer = ""
 
       let response = await ApiData(locale).Save(data);
 
