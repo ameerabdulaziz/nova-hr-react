@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import EmployeeData from "../../../Component/EmployeeData";
+import EmployeeDataSmall from "../../../Component/EmployeeDataSmall";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoader from "../../../Component/PayRollLoader";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -169,14 +169,14 @@ function AttentionCreate(props) {
       >
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} alignItems="flex-start" direction="row">
-            <Grid item xs={12} md={12} lg={10} xl={6}>
-              <EmployeeData
+            <Grid item xs={12} md={12} lg={10.5} xl={7}>
+              <EmployeeDataSmall
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
-              ></EmployeeData>
+              ></EmployeeDataSmall>
             </Grid>
 
-            <Grid item xs={12} md={12} lg={10} xl={6}>
+            <Grid item xs={12} md={12} lg={10.5} xl={7}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid
@@ -333,7 +333,7 @@ function AttentionCreate(props) {
               </Card>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} lg={10.5} xl={7}>
               <TextField
                 id="Notes"
                 name="Notes"
@@ -349,10 +349,12 @@ function AttentionCreate(props) {
               />
             </Grid>
 
-            <Grid item xs={12} md={1}>
+            <Grid container spacing={3} item  xs={12}>
+
+            <Grid item >
               <SaveButton Id={ID} />
             </Grid>
-            <Grid item xs={12} md={1}>
+            <Grid item >
               <Button
                 variant="contained"
                 size="medium"
@@ -361,6 +363,8 @@ function AttentionCreate(props) {
               >
                 <FormattedMessage {...Payrollmessages.cancel} />
               </Button>
+            </Grid>
+
             </Grid>
           </Grid>
         </form>

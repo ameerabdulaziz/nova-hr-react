@@ -15,7 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import GeneralListApis from "../../../api/GeneralListApis";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import EmployeeData from "../../../Component/EmployeeData";
+import EmployeeDataSmall from "../../../Component/EmployeeDataSmall";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -173,14 +173,14 @@ function UniformReceiveCreate(props) {
 
             <Grid item xs={12} md={10}></Grid>
 
-            <Grid item xs={12}  lg={10} xl={6}>
-              <EmployeeData
+            <Grid item xs={12}  lg={10.5} xl={7}>
+              <EmployeeDataSmall
                 handleEmpChange={handleEmpChange}
                 id={data.employeeId}
-              ></EmployeeData>
+              ></EmployeeDataSmall>
             </Grid>
 
-            <Grid item xs={12} lg={10} xl={6}>
+            <Grid item xs={12} lg={10.5} xl={7}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container spacing={3} alignItems="flex-start" direction="row">

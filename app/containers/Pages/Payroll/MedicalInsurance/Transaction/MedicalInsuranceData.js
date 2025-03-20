@@ -24,7 +24,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import PayRollLoader from '../../Component/PayRollLoader';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
@@ -193,12 +193,15 @@ function MedicalInsuranceData(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={2} direction='row'>
-            <Grid item xs={12}  lg={12} xl={5}>
-              <EmployeeData
+            <Grid container spacing={3} item xs={12} >
+            <Grid item xs={12}  lg={10.5} xl={7}>
+              <EmployeeDataSmall
                 handleEmpChange={handleEmpChange}
                 id={formInfo.employeeId}
               />
+            </Grid>              
             </Grid>
+
 
             <Grid item xs={12} md={6} lg={6}  xl={3.5}>
               <Card className={classes.card} >
@@ -385,7 +388,7 @@ function MedicalInsuranceData(props) {
               </Card>
             </Grid>
 
-            <Grid item md={8} lg={12}  xs={8.5}>
+            <Grid item xs={7} lg={7}>
               <TextField
                 name='medInsNotes'
                 value={formInfo.medInsNotes}

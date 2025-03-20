@@ -18,7 +18,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import SaveButton from '../../Component/SaveButton';
 import useStyles from '../../Style';
@@ -270,8 +270,8 @@ function SocialInsuranceData(props) {
       <PapperBlock whiteBg icon='border_color' desc='' title={Title}>
         <form onSubmit={onFormSubmit}>
           <Grid container spacing={3} direction='row'>
-            <Grid item xs={12} md={12} xl={6}>
-              <EmployeeData
+            <Grid item xs={12} lg={10.5} xl={7}>
+              <EmployeeDataSmall
                 handleEmpChange={handleEmpChange}
                 id={formInfo.employeeId}
               />

@@ -35,13 +35,10 @@ import SITEMAP from '../../../../../App/routes/sitemap';
 function ResignReqTrxCreate(props) {
   const { intl } = props;
   const title = localStorage.getItem('MenuName');
-
   const history = useHistory();
   const location = useLocation();
   const id = location.state?.id ?? 0;
-
   const locale = useSelector((state) => state.language.locale);
-
   const { classes } = useStyles();
   const [uploadedFileType, setUploadedFileType] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -63,6 +60,9 @@ function ResignReqTrxCreate(props) {
     jobDescription: []
   });
 
+
+
+
   const [formInfo, setFormInfo] = useState({
     id,
     date: new Date(),
@@ -75,6 +75,8 @@ function ResignReqTrxCreate(props) {
     employeeAddress: '',
     employeeCustodyList: [],
   });
+
+  console.log(userInfo);
 
   const validPDFTypes = ['application/pdf', '.pdf', 'pdf'];
   const validImageTypes = [
@@ -145,6 +147,7 @@ function ResignReqTrxCreate(props) {
         const dataApi = await api(locale).getById(id);
 
         setFormInfo(dataApi);
+        setUserInfo(dataApi)
       } else {
         setFormInfo((prev) => ({
           ...prev,
@@ -358,7 +361,7 @@ function ResignReqTrxCreate(props) {
             <Grid item xs={12} md={4.5} lg={3} xl={2.5}>
               <TextField
                 name='telNumber'
-                value={formInfo.telNumber}
+                value={userInfo.telPhone}
                 onChange={onNumericInputChange}
                 label={intl.formatMessage(messages.homeNumber)}
                 fullWidth
@@ -371,7 +374,7 @@ function ResignReqTrxCreate(props) {
               <TextField
                 name='emailAddress'
                 type='email'
-                value={formInfo.emailAddress}
+                value={userInfo.workEmail}
                 onChange={onInputChange}
                 label={intl.formatMessage(messages.personalEmail)}
                 fullWidth

@@ -27,6 +27,7 @@ import {
     const currentDate = new Date();
     const locale = useSelector((state) => state.language.locale);
     const { branchId = null } = useSelector((state) => state.authReducer.user);
+    const Thema = useSelector((state) => state.ui.type);
     const [isLoading, setIsLoading] = useState(false);
     const [calendarShiftsData, setCalendarShiftsData] = useState({});
     const [EmployeeId, setEmployeeId] = useState("");
@@ -144,7 +145,7 @@ import {
               border: '1px solid #d5d5d5',
               verticalAlign: 'unset',
             }}
-            style={{backgroundColor:calendarShiftsData[day - 1] && calendarShiftsData[day - 1].isWeekEnd ? "#efefef" : ""} }
+            style={{backgroundColor:calendarShiftsData[day - 1] && calendarShiftsData[day - 1].isWeekEnd ? `${Thema == "dark" ? "rgb(73 73 73)" :"#efefef"}`  : ""} }
           >
             <Box
               onClick={(evt) => {
@@ -256,7 +257,7 @@ import {
           noMargin
           desc=''
         >
-          <Grid item xs={12} lg={10.5} xl={7}>
+          <Grid item xs={12} md={11} lg={10.5} xl={7}>
             <EmployeeDataSmall
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
