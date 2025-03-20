@@ -367,7 +367,10 @@ function EmpCourseCreate(props) {
             <Grid item xs={12} md={5} lg={3} xl={2.5}>
               <Autocomplete
                 id="centerId"
-                options={CenterList}
+                options={CenterList.map(item =>({
+                  id: item.id,
+                  name: locale === "ar" ? item.arName : item.enName
+                }))}
                 value={{ id: data.centerId, name: data.centerName }}
                 isOptionEqualToValue={(option, value) =>
                   value.id === 0 || value.id === "" || option.id === value.id
