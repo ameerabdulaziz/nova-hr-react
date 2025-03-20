@@ -73,9 +73,7 @@ function PenaltyTransCreate(props) {
     docName: "",
     reqSer : "",
   });
-
-  console.log(data);
-  
+ 
   const [YearList, setYearList] = useState([]);
   const [MonthList, setMonthList] = useState([]);
   const [PenaltyList, setPenaltyList] = useState([]);

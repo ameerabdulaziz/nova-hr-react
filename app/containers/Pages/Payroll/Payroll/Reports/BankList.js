@@ -405,6 +405,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push({ v: 'Employee Code', s: styles })
       headers.push({ v: 'Section', s: styles })
+      headers.push({ v: 'Administration', s: styles })
     }
 
     const today = new Date();
@@ -464,7 +465,7 @@ function BankList(props) {
             numFmt: '0'
           },
         }, // Credit_Amount
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
 
       ] : [])
     ]).filter(
@@ -496,6 +497,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
     const rows = tableData.map((item) => [
@@ -506,7 +508,7 @@ function BankList(props) {
         { v: item.netSal.toFixed(2), s: numberFormatSty }, // Payment Amount
         // formatNumber(item.netSal), // Payment Amount
         item.employeeCode, // Employee ID
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -535,7 +537,7 @@ function BankList(props) {
         item.employeeName,
         'salary',
         { v: item.netSal.toFixed(2), s: numberFormatSty },
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName , item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -602,6 +604,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push({ v: 'Employee Code', s: styles })
       headers.push({ v: 'Section', s: styles })
+      headers.push({ v: 'Administration', s: styles })
     }
 
     const bank = getAutoCompleteValue(bankList, formInfo.BankId);
@@ -648,7 +651,7 @@ function BankList(props) {
         '', // Charges Code
         'SALA', // Purpose of Payment
         '', // SWIFT BIC / LCC Code Indicator
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined  // used to remove empty arrays from generated array
@@ -685,6 +688,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
     const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 && item.netSal > 0 ? item.netSal : 0), 0)
@@ -698,7 +702,7 @@ function BankList(props) {
         item.bnkBrcode, // Code
         '', // Reason
         { v: item.netSal.toFixed(2), s: numberFormatSty }, // Amount
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName , item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -774,6 +778,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push({ v: 'Employee Code', s: styles })
       headers.push({ v: 'Section', s: styles })
+      headers.push({ v: 'Administration', s: styles })
     }
 
     const rows = tableData.map((item) => [
@@ -785,7 +790,7 @@ function BankList(props) {
         { v: item.bnkBrcode, s: styles2 }, // Code
         { v: '', s: styles2 }, // Reason
         { v: item.netSal.toFixed(2), s: { ...styles2, ...numberFormatSty } },  // Amount
-        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode, s: styles2 }, { v: item.organizationName, s: styles2 }] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode, s: styles2 }, { v: item.organizationName, s: styles2 } , { v: item.parentname, s: styles2 }] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -825,6 +830,8 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
+      
     }
 
     const rows = tableData.map((item) => [
@@ -833,7 +840,7 @@ function BankList(props) {
         item.employeeName ?? '', // ACCOUNT NAME
         company?.name ?? '', // COMPANY NAME
         { v: item.bnkAcc, s: textSty }, // ACCOUNT NO
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -869,6 +876,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
     const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 && item.netSal > 0 ? item.netSal : 0), 0)
@@ -885,7 +893,7 @@ function BankList(props) {
         '', // Hiring Date
         '', // Emp_Position
         '', // SDU
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -918,6 +926,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
     const total = tableData.reduce((summation, item) => summation + (item.netSal !== null && item.netSal !== undefined && item.netSal.length !== 0 && item.netSal > 0 ? item.netSal : 0), 0)
@@ -928,7 +937,7 @@ function BankList(props) {
         item.employeeName, // Employee Name
         { v: item.bnkAcc, s: textSty }, // Account
         { v: item.netSal.toFixed(2), s: numberFormatSty }, // Amount
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName , item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -958,6 +967,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
 
@@ -970,7 +980,7 @@ function BankList(props) {
         item.employeeName, // الاسم
         '', // جيروكود
         item.netSal.toFixed(2), // Amount
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName ,item.parentname] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined // used to remove empty arrays from generated array
@@ -1044,6 +1054,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push({ v: 'Employee Code', s: styles })
       headers.push({ v: 'Section', s: styles })
+      headers.push({ v: 'Administration', s: styles })
     }
 
     const rows = tableData.map((item, index) => [
@@ -1053,7 +1064,7 @@ function BankList(props) {
         { v: "EGP", s: styles2 }, // Currency
         { v: item.employeeName, s: styles2 },  // Staff name
         { v: item.netSal.toFixed(2), s: { ...styles2, ...numberFormatSty } }, // Net salary
-        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode, s: styles2 }, { v: item.organizationName, s: styles2 }] : []) // Employee Code and Section
+        ...(formInfo.exportSectionAndCode ? [{ v: item.employeeCode, s: styles2 }, { v: item.organizationName, s: styles2 } ,{ v: item.parentname, s: styles2 }] : []) // Employee Code and Section
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined  // used to remove empty arrays from generated array
@@ -1090,6 +1101,7 @@ function BankList(props) {
     if (formInfo.exportSectionAndCode) {
       headers.push('Employee Code')
       headers.push('Section')
+      headers.push('Administration')
     }
 
     const rows = tableData.map((item) => [
@@ -1102,7 +1114,7 @@ function BankList(props) {
        { v: item.netSal.toFixed(2), s: numberFormatSty }, 
        "SALA",
        "",
-        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName] : []) 
+        ...(formInfo.exportSectionAndCode ? [item.employeeCode, item.organizationName , item.parentname] : []) 
       ] : [])
     ]).filter(
       arr => arr.length > 0 && arr[0] !== undefined 
