@@ -24,7 +24,7 @@ import dayjs from 'dayjs';
 import DecryptUrl from "../../Component/DecryptUrl";
 import ContractTypeData from '../../MainData/api/ContractTypeData';
 import { useLocation } from "react-router-dom";
-import EmployeeData from "../../Component/EmployeeData";
+import EmployeeDataSmall from "../../Component/EmployeeDataSmall";
 
 function EmployeeContract(props) {
 
@@ -267,11 +267,11 @@ function EmployeeContract(props) {
       <PapperBlock whiteBg icon="border_color" title={title} desc="">
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3} mt={0} >
-            <Grid item xs={12} lg={10} xl={6}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={empid && empid.id !== 0 ? empid.id : null} />
+            <Grid item xs={12} lg={10} xl={7}>
+              <EmployeeDataSmall handleEmpChange={handleEmpChange} id={empid && empid.id !== 0 ? empid.id : null} />
             </Grid>
 
-          <Grid item xs={12} lg={10} xl={6}>
+          <Grid item xs={12} lg={10} xl={7}>
            <Card className={classes.card}>
             <CardContent>
              <Grid container spacing={3} alignItems="flex-start" direction="row">
@@ -429,6 +429,8 @@ function EmployeeContract(props) {
             </Card>
           </Grid>
 
+          <Grid  xs={12} lg={2} xl={5}></Grid>
+
             <Grid item xs={12} md={6} lg={3.5} xl={2} >
               <FormControlLabel
                 control={
@@ -471,7 +473,8 @@ function EmployeeContract(props) {
                     label={intl.formatMessage(messages.isKinship)}
                   />
                 </Grid>
-
+                
+                <Grid  xs={12} md={6} lg={1.5} xl={6}></Grid>
                 <Grid item xs={6} md={4} lg={3} xl={2}>
                   <Autocomplete
                     id="ddkinshipLinkId"

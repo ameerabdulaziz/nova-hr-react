@@ -5,24 +5,16 @@ import EmployeeDocumentsData from "../api/EmployeeDocumentsData";
 import messages from "../messages";
 import useStyles from "../../Style";
 import { useSelector } from "react-redux";
-import style from "../../../../../styles/styles.scss";
-import AlertPopup from "../../Component/AlertPopup";
-import GeneralListApis from "../../api/GeneralListApis";
 import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import { PapperBlock } from "enl-components";
 import { toast } from "react-hot-toast";
 import notif from "enl-api/ui/notifMessage";
-import EditButton from "../../Component/EditButton";
-import DeleteButton from "../../Component/DeleteButton";
 import AddButton from "../../Component/AddButton";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
 import { useLocation } from "react-router-dom";
-import Payrollmessages from "../../messages";
 import SimplifiedPayrollTable from "../../Component/SimplifiedPayrollTable";
-import { formateDate, getCheckboxIcon } from "../../helpers";
-import EmployeeData from '../../Component/EmployeeData';
+import {  getCheckboxIcon } from "../../helpers";
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
@@ -247,8 +239,8 @@ function EmployeeDocuments({ intl }) {
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} lg={10} xl={8}>
-              <EmployeeData  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeData>          
+            <Grid item xs={12} lg={10} xl={7}>
+              <EmployeeDataSmall  handleEmpChange={handleEmpChange}   id={employeeID ? employeeID : null} ></EmployeeDataSmall>          
             </Grid>
           </Grid>
 

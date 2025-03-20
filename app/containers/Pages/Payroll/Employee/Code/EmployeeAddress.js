@@ -28,7 +28,7 @@ import payrollMessages from '../../messages';
 import api from '../api/EmployeeAddressData';
 import EditTableRowPopup from '../component/EmployeeAddress/EditTableRowPopup';
 import messages from '../messages';
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import ApiData from '../api/PersonalData';
 
 function EmployeeAddress(props) {
@@ -293,8 +293,8 @@ function EmployeeAddress(props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={12} md={10} lg={9} xl={7}>
-          <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>            
+        <Grid item xs={12}  lg={10} xl={7}>
+          <EmployeeDataSmall handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeDataSmall>            
         </Grid>
 
         </Grid>

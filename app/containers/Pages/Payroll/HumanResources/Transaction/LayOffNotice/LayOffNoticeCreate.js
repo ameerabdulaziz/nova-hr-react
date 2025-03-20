@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import EmployeeData from "../../../Component/EmployeeData";
+import EmployeeDataSmall from "../../../Component/EmployeeDataSmall";
 import SaveButton from "../../../Component/SaveButton";
 import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -151,11 +151,11 @@ function LayOffNoticeCreate(props) {
 
             <Grid item xs={6} md={9} lg={10} xl={10.5}></Grid>
 
-            <Grid item xs={12} lg={10} xl={8}>
-              <EmployeeData handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeData>
+            <Grid item xs={12} lg={10} xl={7}>
+              <EmployeeDataSmall handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeDataSmall>
             </Grid>
 
-            <Grid item xs={12} lg={10} xl={8}>
+            <Grid item xs={12} lg={10} xl={7}>
               <TextField
                 id="reason"
                 name="reason"

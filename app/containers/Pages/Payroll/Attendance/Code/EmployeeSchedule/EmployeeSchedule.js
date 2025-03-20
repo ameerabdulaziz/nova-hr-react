@@ -15,7 +15,7 @@ import {
   import PayRollLoaderInForms from '../../../Component/PayRollLoaderInForms';
   import payrollMessages from '../../../messages';
   import useStyles from '../../../Style';
-  import EmployeeData from "../../../Component/EmployeeData";
+  import EmployeeDataSmall from "../../../Component/EmployeeDataSmall";
   import api from '../../api/EmployeeScheduleData';
   import EmployeeSchedulePopup from '../../components/EmployeeSchedule/EmployeeSchedulePopup';
   
@@ -256,12 +256,12 @@ import {
           noMargin
           desc=''
         >
-          <Grid item xs={12} md={11} lg={9} xl={7}>
-            <EmployeeData
+          <Grid item xs={12} lg={10.5} xl={7}>
+            <EmployeeDataSmall
               handleEmpChange={handleEmpChange}
               id={EmployeeId}
               branchId={BranchId}
-            ></EmployeeData>
+            ></EmployeeDataSmall>
           </Grid>
 
           <TableContainer>

@@ -15,7 +15,7 @@ import { CrudTable, Notification } from 'enl-components';
 import { Grid, Button, TextField, Autocomplete } from '@mui/material';
 import DecryptUrl from "../../Component/DecryptUrl";
 import { useLocation } from 'react-router';
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
@@ -171,8 +171,8 @@ function EmployeeCourse(props) {
                 />
             </Grid>
           </Grid>
-            <Grid item xs={12} md={10} lg={9} xl={7}>
-              <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
+            <Grid item xs={12}  lg={10} xl={7}>
+              <EmployeeDataSmall handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeDataSmall>
             </Grid>
           </Grid>
           </PapperBlock>

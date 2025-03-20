@@ -31,7 +31,7 @@ import {
 } from "@mui/material";
 import GeneralListApis from "../../api/GeneralListApis";
 import DecryptUrl from "../../Component/DecryptUrl";
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import EmployeeNavigation from '../../Component/EmployeeNavigation';
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import payrollMessages from '../../messages';
@@ -211,8 +211,8 @@ const empid  = DecryptUrl()
               />
             </Grid>
           </Grid>
-          <Grid item xs={12} md={10} lg={9} xl={7}>
-            <EmployeeData handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeData>
+          <Grid item xs={12} lg={10} xl={7}>
+            <EmployeeDataSmall handleEmpChange={handleEmpChange}  id={empid && empid.id !== 0 ? empid.id : null} ></EmployeeDataSmall>
         </Grid>
         </Grid>
       </PapperBlock>

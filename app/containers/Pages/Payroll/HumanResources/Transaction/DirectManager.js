@@ -10,6 +10,8 @@ import notif from "enl-api/ui/notifMessage";
 import GeneralListApis from "../../api/GeneralListApis";
 import NameList from "../../Component/NameList";
 import PayRollLoaderInForms from "../../Component/PayRollLoaderInForms";
+import EmployeeDataSmall from "../../Component/EmployeeDataSmall";
+import { format } from "date-fns";
 
 function DirectManager(props) {
   const { intl } = props;
@@ -19,6 +21,12 @@ function DirectManager(props) {
   const locale = useSelector((state) => state.language.locale);
   const Title = localStorage.getItem("MenuName");
   const [isLoading, setIsLoading] = useState(true);
+  const [data, setdata] = useState({
+    id: 0,
+    noticeDate: format(new Date(), "yyyy-MM-dd"),
+    reason: "",
+    employeeId: "",
+  });
 
   async function on_submit() {
     if (!employee) {
@@ -65,6 +73,15 @@ function DirectManager(props) {
       setIsLoading(false);
     }
   });
+
+
+  const handleEmpChange = useCallback((id, name) => {
+    if (name == "employeeId")
+      setdata((prevFilters) => ({
+        ...prevFilters,
+        employeeId: id,
+      }));
+  }, []);
 
   const GetEmployeeList = useCallback(async () => {
     try {
@@ -118,6 +135,12 @@ function DirectManager(props) {
             >
               <FormattedMessage {...Payrollmessages.save} />
             </Button>
+          </Grid>
+
+          <Grid item xs={1} lg={2} xl={7}></Grid>
+          <Grid item xs={12} lg={10.5} xl={7}>
+
+            <EmployeeDataSmall handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeDataSmall>
           </Grid>
           <Grid item xs={12} >
             <NameList

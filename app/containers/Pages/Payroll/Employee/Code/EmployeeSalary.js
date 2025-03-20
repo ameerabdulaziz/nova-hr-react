@@ -20,14 +20,15 @@ import { PapperBlock } from "enl-components";
 import style from '../../../../../styles/styles.scss'
 import DecryptUrl from "../../Component/DecryptUrl";
 import { useLocation } from "react-router-dom";
-
+import EmployeeDataSmall from "../../Component/EmployeeDataSmall";
+import { format } from "date-fns";
 
 function EmployeeSalary(props) {
 
   const location = useLocation();
 
   // get employee data from url
-  const empid  = DecryptUrl() ?  DecryptUrl()  : location.state ? location.state : { id: 0, name: "" }
+  const empid = DecryptUrl() ? DecryptUrl() : location.state ? location.state : { id: 0, name: "" }
   const { intl, pristine } = props;
   const Title = localStorage.getItem("MenuName");
 
@@ -49,6 +50,12 @@ function EmployeeSalary(props) {
   const [hasMonthlyBouns, sethasMonthlyBouns] = useState(false);
   const [hasTransfereAllowance, sethasTransfereAllowance] = useState(false);
   const [employeeList, setemployeeList] = useState([]);
+    const [data, setdata] = useState({
+      id: 0,
+      noticeDate: format(new Date(), "yyyy-MM-dd"),
+      reason: "",
+      employeeId: "",
+    });
 
   const locale = useSelector((state) => state.language.locale);
   let centiveFromname0 = locale == "en" ? "From first day" : "من أول يوم تعيين";
@@ -70,7 +77,7 @@ function EmployeeSalary(props) {
         id: id,
         employeeId: employee.id,
         taxable: taxable,
-        isNet:isNet,
+        isNet: isNet,
         isConsultant: isConsultant,
         isHours: isHours,
         hourPrice: hourPrice,
@@ -109,7 +116,8 @@ function EmployeeSalary(props) {
     } catch (err) {
     }
     finally {
-    setIsLoading(false);}
+      setIsLoading(false);
+    }
   };
   const clear = (e) => {
     setid(0);
@@ -137,7 +145,7 @@ function EmployeeSalary(props) {
       setsalaryStructurelist(salaryStructuredata || []);
     } catch (err) {
     }
-    finally {setIsLoading(false);}
+    finally { setIsLoading(false); }
   }, []);
   useEffect(() => {
     GetLookup();
@@ -146,41 +154,49 @@ function EmployeeSalary(props) {
   useEffect(() => {
     async function fetchData() {
       try {
-      setIsLoading(true);
-      const dataApi = await EmployeeSalaryData(locale).GetList(employee.id);
+        setIsLoading(true);
+        const dataApi = await EmployeeSalaryData(locale).GetList(employee.id);
 
-      if (dataApi.length > 0) {
-        setid(dataApi[0].id);
-        settaxable(dataApi[0].taxable);
-        setisNet(dataApi[0].isNet);
-        setisConsultant(dataApi[0].isConsultant);
-        setisHours(dataApi[0].isHours);
-        sethourPrice(dataApi[0].hourPrice ? dataApi[0].hourPrice : "");
-        setisNotApplyAttRule(dataApi[0].isNotApplyAttRule);
-        setisMoneyOvertime(dataApi[0].isMoneyOvertime);
-        setisVacationOvertime(dataApi[0].isVacationOvertime);
-        sethasMonthlyBouns(dataApi[0].hasMonthlyBouns);
-        sethasTransfereAllowance(dataApi[0].hasTransfereAllowance);
-        setsalaryStructureId({
-          id: dataApi[0].salaryStructureId,
-          name: dataApi[0].salaryStructureName,
-        });
-        setincentiveFrom({
-          id: dataApi[0].incentiveFrom,
-          name: dataApi[0].incentiveFromName,
-        });
-      } else clear();
-    }catch(err){}
-    finally {setIsLoading(false);}
-      
+        if (dataApi.length > 0) {
+          setid(dataApi[0].id);
+          settaxable(dataApi[0].taxable);
+          setisNet(dataApi[0].isNet);
+          setisConsultant(dataApi[0].isConsultant);
+          setisHours(dataApi[0].isHours);
+          sethourPrice(dataApi[0].hourPrice ? dataApi[0].hourPrice : "");
+          setisNotApplyAttRule(dataApi[0].isNotApplyAttRule);
+          setisMoneyOvertime(dataApi[0].isMoneyOvertime);
+          setisVacationOvertime(dataApi[0].isVacationOvertime);
+          sethasMonthlyBouns(dataApi[0].hasMonthlyBouns);
+          sethasTransfereAllowance(dataApi[0].hasTransfereAllowance);
+          setsalaryStructureId({
+            id: dataApi[0].salaryStructureId,
+            name: dataApi[0].salaryStructureName,
+          });
+          setincentiveFrom({
+            id: dataApi[0].incentiveFrom,
+            name: dataApi[0].incentiveFromName,
+          });
+        } else clear();
+      } catch (err) { }
+      finally { setIsLoading(false); }
+
     }
     fetchData();
   }, [employee]);
 
+      const handleEmpChange = useCallback((id, name) => {
+        if (name == "employeeId")
+          setdata((prevFilters) => ({
+            ...prevFilters,
+            employeeId: id,
+          }));
+      }, []);
+
   return (
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
-       
+
         <Grid
           container
           spacing={3}
@@ -190,7 +206,7 @@ function EmployeeSalary(props) {
         >
           <Grid item xs={12} md={8}>
             <Grid container spacing={2} mb={2}>
-              <Grid item xs={12}  lg={6} xl={5} >
+              <Grid item xs={12} lg={6} xl={5} >
                 <Autocomplete
                   id="ddlEmp"
                   options={employeeList}
@@ -217,14 +233,14 @@ function EmployeeSalary(props) {
                 />
               </Grid>
 
-              <Grid item xs={6}  lg={4.5} xl={3.4} >
+              <Grid item xs={6} lg={4.5} xl={3.4} >
                 <Autocomplete
                   id="ddlsalaryStructureId"
                   options={salaryStructurelist}
-                  value={salaryStructureId.length !== 0 ?{
+                  value={salaryStructureId.length !== 0 ? {
                     id: salaryStructureId.id,
                     name: salaryStructureId.name,
-                  }: null}
+                  } : null}
                   isOptionEqualToValue={(option, value) =>
                     value.id === 0 || value.id === "" || option.id === value.id
                   }
@@ -386,7 +402,7 @@ function EmployeeSalary(props) {
               </div>
 
               <Grid container spacing={2} mb={2} alignItems='center' >
-                <Grid item xs={12}  lg={7} xl={6}>
+                <Grid item xs={12} lg={7} xl={6}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -400,14 +416,14 @@ function EmployeeSalary(props) {
                   />
                 </Grid>
 
-                <Grid item xs={12}  lg={4.5} xl={3.5}>
+                <Grid item xs={12} lg={4.5} xl={3.5}>
                   <Autocomplete
                     id="ddlincentiveFrom"
                     options={incentiveFromlist}
-                    value={incentiveFrom.length !== 0 ?{
+                    value={incentiveFrom.length !== 0 ? {
                       id: incentiveFrom.id,
                       name: incentiveFrom.name,
-                    }: null}
+                    } : null}
                     isOptionEqualToValue={(option, value) =>
                       value.id === 0 || value.id === "" || option.id === value.id
                     }
@@ -434,7 +450,12 @@ function EmployeeSalary(props) {
                 </Grid>
               </Grid>
 
-              <div>
+              <Grid item xs={12} xl={11}>
+
+                <EmployeeDataSmall handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeDataSmall>
+              </Grid>
+
+              <div style={{marginTop:"20px"}}>
                 <div>
                   <Button
                     variant="contained"
@@ -443,7 +464,7 @@ function EmployeeSalary(props) {
                     disabled={employee.id === 0}
                     className={style.generalBtnStys}
                   >
-                    
+
                     <FormattedMessage {...Payrollmessages.save} />
                   </Button>
                   <Button
