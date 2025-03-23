@@ -12,6 +12,7 @@ package-lock.json
 *.tar.xz
 *.tgz
 
+.env
 
 # Cruft
 .DS_Store
