@@ -5,13 +5,13 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import SITEMAP from '../../../../App/routes/sitemap';
+import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 import SimplifiedPayrollTable from '../../Component/SimplifiedPayrollTable';
 import { getCheckboxIcon } from '../../helpers';
 import payrollMessages from '../../messages';
 import api from '../api/TestTemplateData';
 import messages from '../messages';
-import SITEMAP from '../../../../App/routes/sitemap';
-import { getDateColumnOptions } from '../../Component/PayrollTable/utils.payroll-table';
 
 function TestTemplate(props) {
   const { intl } = props;
@@ -105,8 +105,18 @@ function TestTemplate(props) {
     },
   ];
 
-  const onCloseBtnClick = (row) => {
-    console.log(row);
+  const onCloseBtnClick = async (row) => {
+    setIsLoading(true);
+
+    try {
+      await api(locale).toggleTestStatus(row.id, !row.isClosed);
+
+      toast.success(notif.saved);
+
+      fetchTableData();
+    } catch (err) {
+      setIsLoading(false);
+    }
   };
 
   const actions = {
@@ -125,7 +135,9 @@ function TestTemplate(props) {
         size='small'
         variant='outlined'
       >
-        {intl.formatMessage(row.isClosed ? payrollMessages.close : messages.open)}
+        {intl.formatMessage(
+          row.isClosed ? messages.open : payrollMessages.close
+        )}
       </Button>
     ),
   };

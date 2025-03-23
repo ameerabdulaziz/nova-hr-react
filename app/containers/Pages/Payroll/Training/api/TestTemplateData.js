@@ -39,6 +39,12 @@ const API = (locale) => {
     return result;
   };
 
+  api.toggleTestStatus = async (testId, isOpen) => {
+    const result = await axiosInstance.get(`TestTemplate/CloseTest/${testId}/${isOpen}`);
+
+    return result;
+  };
+
   api.delete = async (id) => {
     const data = await axiosInstance.delete(`TestTemplate/delete/${id}`);
 
