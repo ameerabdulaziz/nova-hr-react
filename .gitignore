@@ -5,9 +5,16 @@ node_modules
 stats.json
 yarn.lock
 package-lock.json
+*.rar
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tgz
 
 
 # Cruft
 .DS_Store
 npm-debug.log
 .idea
+.qodo
