@@ -81,6 +81,7 @@ function DirectManager(props) {
         ...prevFilters,
         employeeId: id,
       }));
+      setEmployee(id)
   }, []);
 
   const GetEmployeeList = useCallback(async () => {
@@ -106,7 +107,7 @@ function DirectManager(props) {
     <PayRollLoaderInForms isLoading={isLoading}>
       <PapperBlock whiteBg icon="border_color" title={Title} desc="">
         <Grid container spacing={3}>
-          <Grid item xs={12} md={5} lg={4} xl={3}>
+          {/* <Grid item xs={12} md={5} lg={4} xl={3}>
             <Autocomplete
               id="ddlEmp"
               options={employeeList}
@@ -124,9 +125,14 @@ function DirectManager(props) {
                 />
               )}
             />
+          </Grid> */}
+
+          <Grid item xs={12} lg={10.5} xl={7.5}>
+
+            <EmployeeDataSmall handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeDataSmall>
           </Grid>
 
-          <Grid item xs={6} md={2}>
+          <Grid item  mt={3}>
             <Button
               variant="contained"
               size="medium"
@@ -137,11 +143,7 @@ function DirectManager(props) {
             </Button>
           </Grid>
 
-          <Grid item xs={1} lg={2} xl={7}></Grid>
-          <Grid item xs={12} lg={10.5} xl={7}>
 
-            <EmployeeDataSmall handleEmpChange={handleEmpChange} id={data.employeeId}></EmployeeDataSmall>
-          </Grid>
           <Grid item xs={12} >
             <NameList
               dataList={dataList}

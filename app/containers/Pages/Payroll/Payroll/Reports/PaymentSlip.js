@@ -22,7 +22,7 @@ import React, {
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useReactToPrint } from 'react-to-print';
-import EmployeeData from '../../Component/EmployeeData';
+import EmployeeDataSmall from '../../Component/EmployeeDataSmall';
 import PayRollLoaderInForms from '../../Component/PayRollLoaderInForms';
 import GeneralListApis from '../../api/GeneralListApis';
 import payrollMessages from '../../messages';
@@ -559,8 +559,8 @@ function PaymentSlip(props) {
               </Grid>
               <Grid item sm={0} md={4} xl={6}></Grid>
 
-              <Grid item xs={12} md={12} lg={8} xl={5.5} mt={1} >
-                <EmployeeData
+              <Grid item xs={12} lg={10.5} xl={8} mt={1} >
+                <EmployeeDataSmall
                   handleEmpChange={handleEmpChange}
                   id={formInfo.employeeId}
                   branchId={formInfo.branchId}
@@ -568,8 +568,8 @@ function PaymentSlip(props) {
                   IsSecuredData={true}
                 />
               </Grid>
-              <Grid item sm={0} md={4} xl={6}></Grid>
-              <Grid item xs={12} lg={8} xl={6} mt={2}  >
+            
+              <Grid item xs={12} lg={10.5} xl={8} mt={2}  >
                 <TextField
                   name='notes'
                   value={formInfo.notes}
