@@ -6,6 +6,7 @@ const path = require('path');
 const webpack = require('webpack');
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+require('dotenv').config();
 
 module.exports = options => ({
   mode: options.mode,
@@ -13,7 +14,7 @@ module.exports = options => ({
   output: {
     // Compile into js/build.js
     path: path.resolve(process.cwd(), 'build'),
-    publicPath: '/Novahr/',
+    publicPath: process.env.NODE_ENV === 'production' ? process.env.DOMAIN_NAME : '/',
     ...options.output,
   }, // Merge with env dependent settings
   optimization: options.optimization,
