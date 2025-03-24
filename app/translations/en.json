@@ -2218,6 +2218,7 @@
   "boilerplate.containers.Payroll.Payroll.branch": "Branch",
   "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "Calculated in each template",
   "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "Include Social Insurance",
+  "boilerplate.containers.Payroll.Payroll.isCritical": "Restricted to authorized users",
   "boilerplate.containers.Payroll.Payroll.CalcMethod": "Calc Method",
   "boilerplate.containers.Payroll.Payroll.Calculate": "Calculate Salary",
   "boilerplate.containers.Payroll.Payroll.CalculatedValue": "Calculated Value",

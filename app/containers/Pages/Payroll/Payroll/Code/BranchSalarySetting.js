@@ -63,7 +63,7 @@ function BranchSalarySetting(props) {
     GrossElementId:"",
     MedInsElement:"",
     eleOfCalcVac: [],
-    Smartobjectiveelement: [],
+    smartObjectiveElementId: "",
   });
 
   const handleSubmit = async (e) => {
@@ -100,7 +100,7 @@ function BranchSalarySetting(props) {
       grossElementId:data.GrossElementId,
       medInsElement:data.MedInsElement,
       VacBalCostElementIds: data.eleOfCalcVac.length !== 0 ? `,${data.eleOfCalcVac.map((item) => item.id).join(",")},` : "",
-      Smartobjectiveelement: data.Smartobjectiveelement ? data.Smartobjectiveelement : ""
+      smartObjectiveElementId: data.smartObjectiveElementId ? data.smartObjectiveElementId : ""
     };
 
     try {
@@ -134,7 +134,7 @@ function BranchSalarySetting(props) {
           CompanyShare: "",
           TheEmployeesShareOfSI: "",
           eleOfCalcVac: [],
-          Smartobjectiveelement: [],
+          smartObjectiveElementId: "",
         });
       } else {
         toast.error(response.statusText);
@@ -151,6 +151,7 @@ function BranchSalarySetting(props) {
 
   async function fetchData() {
     try {
+      debugger;
       const list1 = await GeneralListApis(locale).GetBranchList(true);
       setBranchList(list1);
 
@@ -263,6 +264,9 @@ function BranchSalarySetting(props) {
           : "",
           MedInsElement: dataList.medInsElement
           ? dataList.medInsElement
+          : "",
+          smartObjectiveElementId: dataList.smartObjectiveElementId
+          ? dataList.smartObjectiveElementId
           : "",
           
       }));
@@ -982,7 +986,7 @@ function BranchSalarySetting(props) {
                   <Grid item xs={12}  md={4} lg={3} xl={2}>
                     <Autocomplete
                       options={eleOfCalcVacList}
-                      value={eleOfCalcVacList.find((item) => item.id === data.Smartobjectiveelement) || null}
+                      value={ eleOfCalcVacList.find((item) => item.id === data.smartObjectiveElementId) || null}
                       isOptionEqualToValue={(option, value) =>
                         value.id === 0 || value.id === "" || option.id === value.id
                       }
@@ -990,14 +994,14 @@ function BranchSalarySetting(props) {
                       onChange={(event, value) => {
                         setdata((prev) => ({
                           ...prev,
-                          Smartobjectiveelement: value !== null ? value.id : null,
+                          smartObjectiveElementId: value !== null ? value.id : null,
                         }))
                       }}
                       renderInput={(params) => (
                         <TextField
                           variant="outlined"
                           {...params}
-                          name="Smartobjectiveelement"
+                          name="smartObjectiveElementId"
                           label={intl.formatMessage(messages.Smartobjectiveelement)}
                         />
                       )}

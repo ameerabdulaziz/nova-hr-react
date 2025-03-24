@@ -2219,6 +2219,7 @@
   "boilerplate.containers.Payroll.Payroll.branch": "الفرع",
   "boilerplate.containers.Payroll.Payroll.calcIneachTemplate": "يحتسب فى كل قالب على حده",
   "boilerplate.containers.Payroll.Payroll.calcInsuranceWithThisTemplate": "يتضمن حساب التأمينات الاجتماعية",
+  "boilerplate.containers.Payroll.Payroll.isCritical": "مخصص للمستخدمين المصرح لهم ",
   "boilerplate.containers.Payroll.Payroll.CalcMethod": "طريقة الحساب",
   "boilerplate.containers.Payroll.Payroll.Calculate": "اجراء عملية الحساب",
   "boilerplate.containers.Payroll.Payroll.CalculatedValue": "القيمة المحسوبة",

@@ -8,7 +8,7 @@ import notif from "enl-api/ui/notifMessage";
 import { toast } from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import { injectIntl, intlShape, FormattedMessage } from "react-intl";
-import { Button, Grid, TextField, Checkbox ,Card,CardContent} from "@mui/material";
+import { Button, Grid, TextField, Checkbox ,Card,CardContent,Autocomplete} from "@mui/material";
 import useStyles from "../../../Style";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
@@ -17,6 +17,10 @@ import NamePopup from "../../../Component/NamePopup";
 import PayRollLoaderInForms from "../../../Component/PayRollLoaderInForms";
 import ElementTable from "./ElementTable";
 import SITEMAP from "../../../../../App/routes/sitemap";
+import GeneralListApis from '../../../api/GeneralListApis';
+import style from "../../../../../../styles/styles.scss";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
 function PayTemplateCreate(props) {
   const { intl } = props;
@@ -26,11 +30,14 @@ function PayTemplateCreate(props) {
   const { classes, cx } = useStyles();
   const [isLoading, setIsLoading] = useState(true);
   const [OpenPopup, setOpenPopup] = useState(false);
+  const [employeeList, setEmployeeList] = useState([]);
   const [data, setdata] = useState({
     id: 0,
     arName: "",
     enName: "",
     calcInsuranceWithThisTemplate: false,
+    isCritical:false,
+    hrIds:[],
     rptDetails: "",
     smsmsg: "",
     addElement: [],
@@ -128,8 +135,10 @@ function PayTemplateCreate(props) {
         sort: item.sort === 0 || item.sort === '' ? index + 1 : item.sort
       }));
 
+      
+      data.hrIds = data.hrIds.length !== 0 ? `,${data.hrIds.map((item) => item.id).join(",")},`  : null;
       let response = await ApiData(locale).Save(data);
-
+debugger;
       if (response.status == 200) {
         toast.success(notif.saved);
         history.push(SITEMAP.payroll.PayTemplate.route);
@@ -147,9 +156,40 @@ function PayTemplateCreate(props) {
   async function fetchData() {
     try {
       if (id) {
-        const dataApi = await ApiData(locale).Get(id ?? 0);
 
-        setdata(dataApi);
+        const employees = await GeneralListApis(locale).GetHrList();
+        setEmployeeList(employees || []);
+
+        const dataApi = await ApiData(locale).Get(id ?? 0);
+        debugger;
+        // used to convert notificationUsers string into array of objects to use it in autocomplete
+      const hrData = dataApi.hrIds
+      ? dataApi.hrIds.slice(1, -1).split(",").map((user,index) => {
+
+        const userData = employees.find((item) => item.id == user);
+
+          return {
+            id: userData.id,
+            name: userData.name,
+          };
+
+        })
+      : [];
+
+      
+        setdata((prevState) => ({
+          ...prevState,
+            id : dataApi ? dataApi.id : 0,
+            arName: dataApi ? dataApi.arName : "",
+            enName: dataApi ? dataApi.enName : "",
+            calcInsuranceWithThisTemplate: dataApi ? dataApi.calcInsuranceWithThisTemplate : false,
+            isCritical: dataApi ? dataApi.isCritical : false,
+            hrIds: hrData && hrData.length !== 0  ? hrData : [],
+            rptDetails : dataApi ? dataApi.rptDetails : "",
+            smsmsg : dataApi ? dataApi.smsmsg : "",
+            addElement : dataApi ? dataApi.addElement : [],
+            deductElements : dataApi ? dataApi.deductElements :[],
+        }))
       }
     } catch (err) {
     } finally {
@@ -249,7 +289,7 @@ function PayTemplateCreate(props) {
                 autoComplete='off'
               />
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={6} md={3}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -269,6 +309,61 @@ function PayTemplateCreate(props) {
                 )}
               />
             </Grid>
+            <Grid item xs={6} md={3}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={data.isCritical || null}
+                    onChange={(e) =>
+                      setdata((prevFilters) => ({
+                        ...prevFilters,
+                        isCritical: e.target.checked,
+                      }))
+                    }
+                    value={data.isCritical || null}
+                    color="primary"
+                  />
+                }
+                label={intl.formatMessage(
+                  messages.isCritical
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6} lg={5} xl={3}>
+              <Autocomplete
+                options={employeeList}
+                multiple
+                disableCloseOnSelect
+                className={`${style.AutocompleteMulSty} ${
+                  locale === "ar" ? style.AutocompleteMulStyAR : null
+                }`}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
+                value={data.hrIds}
+                renderOption={(optionProps, option, { selected }) => (
+                  <li {...optionProps} key={optionProps.id}>
+                    <Checkbox
+                      icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                      checkedIcon={<CheckBoxIcon fontSize="small" />}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option.name}
+                  </li>
+                )}
+                getOptionLabel={(option) => (option ? option.name : "")}
+                onChange={(_, value) =>
+                  setdata((prev) => ({ ...prev, hrIds: value }))
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={intl.formatMessage(Payrollmessages.chooseEmp)}
+                  />
+                )}
+              />
+            </Grid>
+
 
             <Grid item xs={12} md={6}>
               <Grid item xs={12} md={12}>

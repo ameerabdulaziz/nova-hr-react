@@ -89,6 +89,10 @@ export default defineMessages({
     id: `${scope}.calcInsuranceWithThisTemplate`,
     defaultMessage: 'calcInsuranceWithThisTemplate',
   },
+  isCritical: {
+    id: `${scope}.isCritical`,
+    defaultMessage: 'isCritical',
+  },
   rPT_details: {
     id: `${scope}.rPT_details`,
     defaultMessage: 'rPT_details',
